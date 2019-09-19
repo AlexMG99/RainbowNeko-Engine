@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "imgui/imgui.h"
 
 Application::Application()
 {
@@ -37,6 +38,7 @@ Application::~Application()
 		delete item->data;
 		item = item->prev;
 	}
+
 }
 
 bool Application::Init()
