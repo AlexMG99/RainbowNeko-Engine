@@ -64,6 +64,9 @@
     <ClCompile Include="ModuleTest.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
+      <Filter>Sources\imGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="ModuleTest.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+      <Filter>Sources\imGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
