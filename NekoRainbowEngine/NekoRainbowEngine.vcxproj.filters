@@ -150,6 +150,9 @@
     <ClInclude Include="ImGui\imgui_impl_opengl3.h">
       <Filter>Sources\imGUI</Filter>
     </ClInclude>
+    <ClInclude Include="GL\include\glew.h">
+      <Filter>Sources\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -157,6 +160,9 @@
     </Filter>
     <Filter Include="Sources\imGUI">
       <UniqueIdentifier>{cdbf859c-f186-48dc-bf69-ebfd5a0737c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GL">
+      <UniqueIdentifier>{4aee1448-77cf-49e7-9d32-728b7a0f43d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

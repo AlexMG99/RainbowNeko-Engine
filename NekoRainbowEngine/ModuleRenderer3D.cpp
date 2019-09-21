@@ -1,9 +1,9 @@
 #include "Globals.h"
+#include "GL/include/glew.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
-#include <gl/GLU.h>
 
 #pragma comment (lib, "GL/libx86/glew32.lib")    /* link glew Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -41,12 +41,12 @@ bool ModuleRenderer3D::Init()
 		glLoadIdentity();
 
 		////Check for error
-		//GLenum error = glGetError();
-		//if(error != GL_NO_ERROR)
-		//{
-		//	LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-		//	ret = false;
-		//}
+		GLenum error = glewInit();
+		if (error != GL_NO_ERROR)
+		{
+			LOG("Error initializing GLEW library! %s\n", SDL_GetError());
+			ret = false;
+		}
 
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
