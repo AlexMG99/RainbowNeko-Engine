@@ -9,7 +9,6 @@ enum PrimitiveTypes
 	Primitive_Line,
 	Primitive_Plane,
 	Primitive_Cube,
-	Primitive_Sphere,
 	Primitive_Cylinder
 };
 
@@ -45,17 +44,6 @@ public :
 	void InnerRender() const;
 public:
 	vec3 size;
-};
-
-// ============================================
-class Sphere : public Primitive
-{
-public:
-	Sphere();
-	Sphere(float radius);
-	void InnerRender() const;
-public:
-	float radius;
 };
 
 // ============================================

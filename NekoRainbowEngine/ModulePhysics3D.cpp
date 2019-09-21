@@ -174,33 +174,6 @@ bool ModulePhysics3D::CleanUp()
 	return true;
 }
 
-// ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
-{
-	btCollisionShape* colShape = new btSphereShape(sphere.radius);
-	shapes.add(colShape);
-
-	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&sphere.transform);
-
-	btVector3 localInertia(0, 0, 0);
-	if(mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.add(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-	PhysBody3D* pbody = new PhysBody3D(body);
-
-	body->setUserPointer(pbody);
-	world->addRigidBody(body);
-	bodies.add(pbody);
-
-	return pbody;
-}
-
 
 // ---------------------------------------------------------
 PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
