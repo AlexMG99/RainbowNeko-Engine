@@ -96,6 +96,20 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
+	else if (App->input->GetKey(SDL_SCANCODE_0)) {
+		vec3 newPos(0, 0, 0);
+		float speed = 3.0f * dt;
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+			speed = 8.0f * dt;
+
+		newPos.y += speed;
+		newPos += Z * speed;
+		newPos += X * speed;
+
+		Position += newPos;
+		Reference += newPos;
+	}
+
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 

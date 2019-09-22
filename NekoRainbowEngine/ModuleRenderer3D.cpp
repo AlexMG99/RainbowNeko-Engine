@@ -117,6 +117,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
+	
+	if (App->input->GetKey(SDL_SCANCODE_0)) {
+		App->camera->GetViewMatrix();
+	}
+	
+
+
 	return UPDATE_CONTINUE;
 }
 

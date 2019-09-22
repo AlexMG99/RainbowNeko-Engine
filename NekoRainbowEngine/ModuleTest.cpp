@@ -95,21 +95,34 @@ update_status ModuleTest::Update(float dt)
 		ImGui::BeginMainMenuBar();
 		if (ImGui::BeginMenu("File"))
 		{
-			ImGui::MenuItem("New Scene", "CTRL+N");
-			ImGui::MenuItem("Open Scene", "CTRL+O");
+			if (ImGui::MenuItem("New Scene", "CTRL+N")) {};
+			if (ImGui::MenuItem("Open Scene", "CTRL+O")) {};
 			if (ImGui::BeginMenu("Open Recent...")) {
 				ImGui::MenuItem("Scene1");
 				ImGui::EndMenu();
 			}
 			ImGui::Separator();
 
-			ImGui::MenuItem("Save Scene", "CTRL+S");
-			ImGui::MenuItem("Save As", "CTRL+Shift+S");
+			if (ImGui::MenuItem("Save Scene", "CTRL+S")) {};
+			if (ImGui::MenuItem("Save As", "CTRL+Shift+S")) {};
+			ImGui::Separator();
 
-			ImGui::MenuItem("New Project");
-			ImGui::MenuItem("Open Project");
-			ImGui::MenuItem("Save Project");
+			if (ImGui::MenuItem("New Project")) {};
+			if (ImGui::MenuItem("Open Project")) {};
+			if (ImGui::MenuItem("Save Project")) {};
 
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Edit")) {
+			if (ImGui::MenuItem("Undo", "CTRL+Z")) {};
+			if (ImGui::MenuItem("Redo", "CTRL+Y")) {};
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Copy", "CTRL+C")) {};
+			if (ImGui::MenuItem("Cut", "CTRL+X")) {};
+			if (ImGui::MenuItem("Paste", "CTRL+V")) {};
+			ImGui::Separator();
 
 			ImGui::EndMenu();
 		}
