@@ -96,6 +96,19 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
+	//Movement Middle button ----------
+	else if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
+
+		float Sensitivity = 0.10f;
+
+		newPos.y -= App->input->GetMouseYMotion() * Sensitivity;
+		newPos += App->input->GetMouseXMotion() * Sensitivity * X;
+
+		Position += newPos;
+		Reference += newPos;
+
+	}
+
 	// Wheel Movement ---------------
 
 	vec3 newPos_mouse(0, 0, 0);
