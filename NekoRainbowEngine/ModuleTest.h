@@ -22,5 +22,6 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 public:
+	ImVec2 r = { 80,100 };
 
 };

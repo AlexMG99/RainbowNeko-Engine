@@ -423,6 +423,15 @@
     <ClInclude Include="Module.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="PCG\include\pcg_extras.hpp">
+      <Filter>Sources\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\include\pcg_random.hpp">
+      <Filter>Sources\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\include\pcg_uint128.hpp">
+      <Filter>Sources\PCG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -460,6 +469,9 @@
     </Filter>
     <Filter Include="Sources\Helpers">
       <UniqueIdentifier>{cdd2c0c2-e205-4869-a607-a2f78110c747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PCG">
+      <UniqueIdentifier>{7bc645b4-3993-4a76-be78-0f10032fc8a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

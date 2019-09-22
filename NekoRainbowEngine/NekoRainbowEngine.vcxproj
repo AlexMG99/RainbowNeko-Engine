@@ -158,6 +158,9 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="PCG\include\pcg_extras.hpp" />
+    <ClInclude Include="PCG\include\pcg_random.hpp" />
+    <ClInclude Include="PCG\include\pcg_uint128.hpp" />
     <ClInclude Include="PhysBody3D.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
