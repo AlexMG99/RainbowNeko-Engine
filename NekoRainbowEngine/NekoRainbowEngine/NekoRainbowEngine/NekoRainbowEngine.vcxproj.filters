@@ -163,6 +163,9 @@
     <ClCompile Include="PanelEdit.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="PanelConfig.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -430,6 +433,9 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="PanelEdit.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelConfig.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>

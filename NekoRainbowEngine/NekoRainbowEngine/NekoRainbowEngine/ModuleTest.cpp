@@ -14,6 +14,7 @@
 #include "PanelHelp.h"
 #include "PanelFile.h"
 #include "PanelEdit.h"
+#include "PanelConfig.h"
 
 ModuleTest::ModuleTest(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -39,9 +40,11 @@ bool ModuleTest::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
-	panel_list.push_back(new PanelFile("File"));
-	panel_list.push_back(new PanelEdit("Edit"));
-	panel_list.push_back(new PanelHelp("Help"));
+	topbar_panel_list.push_back(new PanelFile("File"));
+	topbar_panel_list.push_back(new PanelEdit("Edit"));
+	topbar_panel_list.push_back(new PanelHelp("Help"));
+
+	panel_list.push_back(new PanelConfig("Configuration"));
 
 	return ret;
 }
@@ -54,23 +57,43 @@ bool ModuleTest::CleanUp()
 	return true;
 }
 
+bool ModuleTest::Save()
+{
+	JSON_Value *user_data = json_parse_file("win_config.json");
+	char buf[256];
+	if (user_data == NULL) {
+		user_data = json_value_init_object();
+		json_object_set_string(json_object(user_data), "name", buf);
+		json_serialize_to_file(user_data, "win_config.json");
+	}
+
+	return true;
+}
+
 // Update
 update_status ModuleTest::Update(float dt)
 {
-
 	update_status ret = UPDATE_CONTINUE;
+
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
 	// Top bar
-
 	ImGui::BeginMainMenuBar();
-	for (std::list<Panel*>::iterator item = panel_list.begin(); ((item != panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
 		ret = (*item)->Draw();
 	}
 	ImGui::EndMainMenuBar();
+
+	for (std::list<Panel*>::iterator item = panel_list.begin(); ((item != panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+		ret = (*item)->Draw();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+		Save();
+	}
 
 	// Rendering
 	ImGui::Render();

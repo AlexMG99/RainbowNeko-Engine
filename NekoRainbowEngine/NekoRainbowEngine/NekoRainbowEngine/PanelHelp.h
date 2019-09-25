@@ -10,7 +10,9 @@ public:
 	~PanelHelp() {};
 	update_status Draw();
 
+private:
 	void RequestBrowser(const char* link);
+	void AboutWindow();
 };
 
 

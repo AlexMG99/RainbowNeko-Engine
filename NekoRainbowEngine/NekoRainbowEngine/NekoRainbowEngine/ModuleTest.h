@@ -16,8 +16,11 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	bool Save();
 public:
 	ImVec2 r = { 80,100 };
+	std::list<Panel*> topbar_panel_list;
+
 	std::list<Panel*> panel_list;
 
 

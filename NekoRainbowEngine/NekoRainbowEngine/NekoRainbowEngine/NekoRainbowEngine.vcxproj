@@ -79,6 +79,7 @@
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
+    <ClInclude Include="PanelConfig.h" />
     <ClInclude Include="PanelEdit.h" />
     <ClInclude Include="PanelFile.h" />
     <ClInclude Include="PanelHelp.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleTest.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="PanelConfig.cpp" />
     <ClCompile Include="PanelEdit.cpp" />
     <ClCompile Include="PanelFile.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
