@@ -149,7 +149,6 @@
     <ClInclude Include="MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="ModuleCamera3D.h" />
-    <ClInclude Include="ModulePhysics3D.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
@@ -161,8 +160,6 @@
     <ClInclude Include="PCG\pcg_extras.hpp" />
     <ClInclude Include="PCG\pcg_random.hpp" />
     <ClInclude Include="PCG\pcg_uint128.hpp" />
-    <ClInclude Include="PhysBody3D.h" />
-    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -212,12 +209,9 @@
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModulePhysics3D.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleTest.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="PhysBody3D.cpp" />
-    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

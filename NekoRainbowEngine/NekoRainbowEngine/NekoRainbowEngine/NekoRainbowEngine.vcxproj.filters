@@ -31,9 +31,6 @@
     <ClCompile Include="ModuleInput.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModulePhysics3D.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -56,12 +53,6 @@
       <Filter>Sources\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysBody3D.cpp">
-      <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
@@ -201,9 +192,6 @@
     <ClInclude Include="ModuleInput.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModulePhysics3D.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -232,12 +220,6 @@
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysBody3D.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">

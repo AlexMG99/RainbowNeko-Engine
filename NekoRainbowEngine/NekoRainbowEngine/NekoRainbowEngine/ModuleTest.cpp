@@ -1,8 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTest.h"
-#include "Primitive.h"
-#include "PhysBody3D.h"
 
 #include "SDL/include/SDL_opengl.h"
 #include "SDL/include/SDL.h"
@@ -53,10 +51,6 @@ bool ModuleTest::CleanUp()
 // Update
 update_status ModuleTest::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
@@ -157,7 +151,4 @@ update_status ModuleTest::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleTest::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-{
-}
 

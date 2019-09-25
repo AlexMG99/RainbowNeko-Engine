@@ -9,7 +9,6 @@
 #include "ModuleTest.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
 
 class Application
 {
@@ -19,7 +18,6 @@ public:
 	ModuleTest* scene_test;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
 
 private:
 
