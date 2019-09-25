@@ -41,4 +41,6 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+public:
+	void RequestBrowser(const char* link);
 };

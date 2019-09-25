@@ -90,6 +90,17 @@ update_status ModuleTest::Update(float dt)
 		ImGui::End();
 	}
 
+	//Documentation Menu
+
+	if (ImGui::BeginMenu("Documentation"))
+	{
+		if (ImGui::MenuItem("Open Github repository"))
+			App->RequestBrowser("https://github.com/AlexMG99/RainbowNeko-Engine");
+		if (ImGui::MenuItem("Download Latest"))
+			App->RequestBrowser("");
+		ImGui::EndMenu();
+	}
+
 	// Top bar
 	{
 		ImGui::BeginMainMenuBar();
