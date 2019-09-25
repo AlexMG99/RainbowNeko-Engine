@@ -59,13 +59,17 @@ bool ModuleTest::CleanUp()
 
 bool ModuleTest::Save()
 {
-	JSON_Value *user_data = json_parse_file("win_config.json");
-	char buf[256];
-	if (user_data == NULL) {
-		user_data = json_value_init_object();
-		json_object_set_string(json_object(user_data), "name", buf);
-		json_serialize_to_file(user_data, "win_config.json");
+	JSON_Value *win_config = json_parse_file("Settings/win_config.json");
+
+	if (win_config == NULL) {
+		win_config = json_value_init_object();
 	}
+
+	JSON_Object* win_object = json_object(win_config);
+	json_object_set_string(win_object, "Application", "Tortilla");
+	
+	json_serialize_to_file(win_config, "Settings/win_config.json");
+	json_value_free(win_config);
 
 	return true;
 }
