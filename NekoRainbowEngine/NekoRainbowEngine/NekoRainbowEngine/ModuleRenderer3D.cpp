@@ -2,7 +2,7 @@
 #include "GL/include/glew.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
-#include "SDL\include\SDL_opengl.h"
+#include "SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 
 #pragma comment (lib, "GL/libx86/glew32.lib")    /* link glew Utility lib     */

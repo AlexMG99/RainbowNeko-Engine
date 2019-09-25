@@ -70,11 +70,6 @@ void Application::FinishUpdate()
 {
 }
 
-void Application::RequestBrowser(const char* link)
-{
-	ShellExecuteA(0, "open", link, 0,0,0);
-}
-
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {

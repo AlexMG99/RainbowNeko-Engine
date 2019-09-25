@@ -9,6 +9,8 @@ public:
 	PanelHelp(const char* name):Panel(name) {};
 	~PanelHelp() {};
 	update_status Draw();
+
+	void RequestBrowser(const char* link);
 };
 
 

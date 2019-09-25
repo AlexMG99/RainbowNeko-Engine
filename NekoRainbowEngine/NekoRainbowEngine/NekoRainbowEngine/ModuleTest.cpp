@@ -64,25 +64,13 @@ update_status ModuleTest::Update(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
-	//Documentation Menu
-
-	if (ImGui::BeginMenu("Documentation"))
-	{
-		if (ImGui::MenuItem("Open Github repository"))
-			App->RequestBrowser("https://github.com/AlexMG99/RainbowNeko-Engine");
-		if (ImGui::MenuItem("Download Latest"))
-			App->RequestBrowser("");
-		ImGui::EndMenu();
-	}
-
 	// Top bar
-	{
-		ImGui::BeginMainMenuBar();
-		for (std::list<Panel*>::iterator item = panel_list.begin(); ((item != panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
-			ret = (*item)->Draw();
-		}
-		ImGui::EndMainMenuBar();
+
+	ImGui::BeginMainMenuBar();
+	for (std::list<Panel*>::iterator item = panel_list.begin(); ((item != panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+		ret = (*item)->Draw();
 	}
+	ImGui::EndMainMenuBar();
 
 	// Rendering
 	ImGui::Render();
