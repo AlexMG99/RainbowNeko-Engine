@@ -151,6 +151,18 @@
     <ClCompile Include="MathGeoLib\include\Algorithm\Random\LCG.cpp">
       <Filter>Sources\MathGeoLib\Algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="Parson\parson.c">
+      <Filter>Sources\Parson</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelHelp.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelFile.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelEdit.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -208,15 +220,6 @@
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="glmath.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="p2List.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="p2DynArray.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
@@ -414,6 +417,21 @@
     <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h">
       <Filter>Sources\MathGeoLib\Algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="Parson\parson.h">
+      <Filter>Sources\Parson</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelHelp.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelFile.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelEdit.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -454,6 +472,12 @@
     </Filter>
     <Filter Include="Sources\MathGeoLib\Math">
       <UniqueIdentifier>{a78fc10f-e55b-4cb2-9b1e-57730bfdc9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Parson">
+      <UniqueIdentifier>{b3d1a93c-d0bd-4eb2-a9c2-6089ff18f7f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Panel">
+      <UniqueIdentifier>{7e194a24-5b30-4304-a447-6b699b68e631}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

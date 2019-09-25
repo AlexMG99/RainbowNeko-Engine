@@ -1,7 +1,8 @@
 #pragma once
 #include "Module.h"
-#include "p2DynArray.h"
 #include "Globals.h"
+#include "Panel.h"
+#include <list>
 
 struct PhysMotor3D;
 
@@ -17,5 +18,7 @@ public:
 
 public:
 	ImVec2 r = { 80,100 };
+	std::list<Panel*> panel_list;
+
 
 };
