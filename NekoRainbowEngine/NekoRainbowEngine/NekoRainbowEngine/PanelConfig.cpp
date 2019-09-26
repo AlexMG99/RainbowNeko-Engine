@@ -22,8 +22,6 @@ void PanelConfig::ConfigWindow()
 	static char organization_name[56];
 	static int size = 120;
 
-	
-
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
 	if (ImGui::Begin("Configuration Window", &open, window_flags))
 	    if (ImGui::CollapsingHeader("Application")) 
@@ -32,11 +30,32 @@ void PanelConfig::ConfigWindow()
 		ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name));
 		ImGui::SliderInt("Max FPS", &size, 1, 120);
 
-		/*static char title[25];
-		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100)); */
+		static char title[25];
+
+		if (check_time.ReadMs() > 500)
+		{
+			//Avg FPS
+			fps_log[fps_current_log] = current_frames = App->GetAvgFPS();
+			fps_current_log++;
+
+			if (fps_current_log >= MAX_HISTOGRAM_LOG)
+				fps_current_log = 0;
+
+			//Avg Ms
+			ms_log[ms_current_log] = current_ms = App->GetAvgMs();
+			ms_current_log++;
+
+			if (ms_current_log >= MAX_HISTOGRAM_LOG)
+				ms_current_log = 0;
+
+			PERF_START(check_time);
+		}
+
+		sprintf_s(title, 25, "Framerate %.1f", current_frames);
+		ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 100.0f, ImVec2(310, 100));
+
+		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
+		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
 	    }
 	    if (ImGui::CollapsingHeader("Window"))
 	    {

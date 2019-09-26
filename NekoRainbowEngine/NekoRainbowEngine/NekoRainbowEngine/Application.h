@@ -48,6 +48,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float GetAvgFPS();
+	float GetAvgMs();
 private:
 
 	void AddModule(Module* mod);

@@ -70,6 +70,8 @@ void Application::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
+	dt = frame_time.Read();
+
 	frame_time.Start();
 }
 
@@ -142,6 +144,16 @@ bool Application::CleanUp()
 	PERF_PEEK(ptimer);
 
 	return ret;
+}
+
+float Application::GetAvgFPS()
+{
+	return avg_fps;
+}
+
+float Application::GetAvgMs()
+{
+	return dt;
 }
 
 void Application::AddModule(Module* mod)
