@@ -83,7 +83,7 @@ bool ModuleWindow::CleanUp()
 	{
 		SDL_DestroyWindow(window);
 	}
-
+	
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
@@ -92,6 +92,7 @@ bool ModuleWindow::CleanUp()
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+	
 }
 ImVec2  ModuleWindow::GetWinSize() const {
 

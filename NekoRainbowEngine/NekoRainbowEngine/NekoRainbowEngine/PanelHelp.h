@@ -13,6 +13,9 @@ public:
 private:
 	void RequestBrowser(const char* link);
 	void AboutWindow();
+
+private:
+	bool open = false;
 };
 
 

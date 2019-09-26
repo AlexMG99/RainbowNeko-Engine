@@ -3,7 +3,7 @@
 
 #include "imgui/imgui.h"
 
-static bool open = false;
+
 
 update_status PanelHelp::Draw() {
 	//Documentation Links & About

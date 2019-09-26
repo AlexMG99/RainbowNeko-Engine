@@ -44,7 +44,7 @@ bool ModuleTest::Start()
 	topbar_panel_list.push_back(new PanelEdit("Edit"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
 
-	panel_list.push_back(new PanelConfig("Configuration"));
+	topbar_panel_list.push_back(new PanelConfig("Configuration"));
 
 	return ret;
 }
