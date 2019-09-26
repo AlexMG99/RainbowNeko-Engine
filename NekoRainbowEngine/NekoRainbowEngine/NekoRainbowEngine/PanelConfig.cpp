@@ -49,12 +49,15 @@ void PanelConfig::ConfigWindow()
 	    }
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
-			ImGui::Text("SDL Version:");
+			SDL_version compiled;
+
+			ImGui::Text("SDL Version: %d", &compiled);
 			ImGui::Separator();
-			ImGui::Text("CPUs:"); 
-			SDL_Log("Cache Line Size: %d", SDL_GetCPUCacheLineSize());
-			SDL_Log("Number of logical CPU cores: %d",SDL_GetCPUCount());	
-			SDL_Log("RAM: %d", SDL_GetSystemRAM());
+
+			ImGui::Text("CPUs: %i (Cache: %i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+			ImGui::Text("System RAM: %i", SDL_GetSystemRAM());
+			
+			
 			ImGui::Text("Caps:");
 			ImGui::Separator();
 			ImGui::Text("GPU:");
