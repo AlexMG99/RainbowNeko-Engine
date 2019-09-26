@@ -65,6 +65,15 @@ void PanelConfig::ConfigWindow()
 
 	    if (ImGui::CollapsingHeader("Window"))
 	    {
+			if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 1.0f, "%.1f"))
+				App->window->SetBrightness();
+
+			if (ImGui::SliderInt("Width", &App->window->width, 0, 1920, "%i"))
+				App->window->SetWindowSize();
+
+			if (ImGui::SliderInt("Height", &App->window->height, 0, 1080, "%.1f"))
+				App->window->SetWindowSize();
+
 			if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
 				App->window->SetFullscreen();
 			}
@@ -72,6 +81,15 @@ void PanelConfig::ConfigWindow()
 			if (ImGui::Checkbox("Resizable", &App->window->resizable_on)) {
 				App->window->SetResizable();
 			}
+
+			if (ImGui::Checkbox("Borderless", &App->window->borderless_on)) {
+				App->window->SetBorderless();
+			}
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Full Desktop", &App->window->fullscreendesktop_on)) {
+				App->window->SetFullscreenDesktop();
+			}
+
 	    }
 		if (ImGui::CollapsingHeader("Hardware"))
 		{

@@ -28,9 +28,13 @@ public:
 
 	ImVec2 GetWinSize() const;
 
+	//Change Window Properties
 	void SetFullscreen();
-
 	void SetResizable();
+	void SetBorderless();
+	void SetFullscreenDesktop();
+	void SetBrightness();
+	void SetWindowSize();
 	
 
 public:
@@ -42,14 +46,18 @@ public:
 
 private:
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-	int width;
-	int height;
 	char* name = TITLE;
 	char* organization = "UPC CITM";
 
 public:
 	bool fullscreen_on = false;
 	bool resizable_on = false;
+	bool borderless_on = false;
+	bool fullscreendesktop_on = false;
+
+	float brigthness = 5.0f;
+	int width;
+	int height;
 };
 
 #endif // __ModuleWindow_H__

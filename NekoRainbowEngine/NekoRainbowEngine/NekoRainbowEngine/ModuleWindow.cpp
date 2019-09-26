@@ -45,12 +45,12 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(WIN_BORDERLESS == true)
+		if(borderless_on == true)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
-		if(WIN_FULLSCREEN_DESKTOP == true)
+		if(fullscreendesktop_on == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
@@ -97,14 +97,17 @@ void ModuleWindow::SetOrganization(char * organ)
 {
 	organization = organ;
 }
+
 const char * ModuleWindow::GetTitle() const
 {
 	return name;
 }
+
 char * ModuleWindow::GetOrganization() const
 {
 	return organization;
 }
+
 ImVec2  ModuleWindow::GetWinSize() const {
 
 	ImVec2 v(width, height);
@@ -117,7 +120,7 @@ void ModuleWindow::SetFullscreen()
 	if (fullscreen_on == true)
 		flags |= SDL_WINDOW_FULLSCREEN;
 	else 
-		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+		flags = ~SDL_WINDOW_FULLSCREEN;
 
 	SDL_SetWindowFullscreen(window, flags);
 }
@@ -125,4 +128,29 @@ void ModuleWindow::SetFullscreen()
 void ModuleWindow::SetResizable()
 {
 	SDL_SetWindowResizable(window, resizable_on ? SDL_TRUE:SDL_FALSE);
+}
+
+void ModuleWindow::SetBorderless()
+{
+	SDL_SetWindowBordered(window, borderless_on ? SDL_FALSE : SDL_TRUE);
+}
+
+void ModuleWindow::SetFullscreenDesktop()
+{
+	if (fullscreendesktop_on == true)
+		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+	else
+		flags = ~SDL_WINDOW_FULLSCREEN_DESKTOP;
+
+	SDL_SetWindowFullscreen(window, flags);
+}
+
+void ModuleWindow::SetBrightness()
+{
+	SDL_SetWindowBrightness(window, brigthness);
+}
+
+void ModuleWindow::SetWindowSize()
+{
+	SDL_SetWindowSize(window, width, height);
 }
