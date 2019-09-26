@@ -3,6 +3,8 @@
 
 Application::Application()
 {
+	PERF_START(ptimer);
+
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	scene_test = new ModuleTest(this);
@@ -23,6 +25,8 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+
+	PERF_PEEK(ptimer);
 }
 
 Application::~Application()
@@ -39,6 +43,8 @@ Application::~Application()
 
 bool Application::Init()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 
 	// Call Init() in all modules
@@ -54,20 +60,50 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 	
-	ms_timer.Start();
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	dt = (float)ms_timer.Read() / 1000.0f;
-	ms_timer.Start();
+	frame_count++;
+	last_sec_frame_count++;
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+
+	// Framerate calculations --
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	avg_fps = float(frame_count) / startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	if (frame_capped) framecap_string = "ON";
+	else framecap_string = "OFF";
+
+	if (capped_ms > 0 && last_frame_ms < capped_ms && frame_capped)
+	{
+		PerfTimer t;
+		SDL_Delay(capped_ms - last_frame_ms);
+		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		frame_capped = !frame_capped;
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -94,12 +130,16 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 
 	for (std::list<Module*>::reverse_iterator item = list_modules.rbegin(); item != list_modules.rend() && ret; item++)
 	{
 		ret = (*item)->CleanUp();
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }

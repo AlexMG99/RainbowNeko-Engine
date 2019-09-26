@@ -19,6 +19,8 @@ void log(const char file[], int line, const char* format, ...);
 
 
 typedef unsigned int uint;
+typedef unsigned __int64 uint64;
+typedef unsigned __int32 uint32;
 
 enum update_status
 {
@@ -37,3 +39,7 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "NekoRainbow Engine"
+
+// Performance macros
+#define PERF_START(timer) timer.Start()
+#define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())

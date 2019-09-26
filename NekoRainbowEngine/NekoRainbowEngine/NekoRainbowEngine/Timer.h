@@ -1,8 +1,7 @@
-#ifndef __TIMER_H__
-#define __TIMER_H__
+#ifndef __j1TIMER_H__
+#define __j1TIMER_H__
 
 #include "Globals.h"
-#include "SDL\include\SDL.h"
 
 class Timer
 {
@@ -12,15 +11,11 @@ public:
 	Timer();
 
 	void Start();
-	void Stop();
-
-	Uint32 Read();
+	uint32 Read() const;
+	float ReadSec() const;
 
 private:
-
-	bool	running;
-	Uint32	started_at;
-	Uint32	stopped_at;
+	uint32	started_at;
 };
 
-#endif //__TIMER_H__
+#endif //__j1TIMER_H__
