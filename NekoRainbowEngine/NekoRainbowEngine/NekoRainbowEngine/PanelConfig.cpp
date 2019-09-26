@@ -2,6 +2,8 @@
 #include "imgui/imgui.h"
 #include "ModuleWindow.h"
 
+#include "Application.h"
+
 update_status PanelConfig::Draw() {
 	
 	if (ImGui::BeginMenu(name))
