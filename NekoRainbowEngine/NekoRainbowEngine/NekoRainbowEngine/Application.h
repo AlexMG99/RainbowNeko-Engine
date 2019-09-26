@@ -20,6 +20,8 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 
+	int					capped_ms = -1;
+
 private:
 
 	std::list<Module*> list_modules;
@@ -35,9 +37,7 @@ private:
 	uint				frame_rate = 0;
 	float				dt = 0.0f;
 	float				avg_fps = 1.00f;
-	int					capped_ms = -1;
 	bool				frame_capped = true;
-	std::string			framecap_string;
 
 public:
 
@@ -50,6 +50,7 @@ public:
 
 	float GetAvgFPS();
 	float GetAvgMs();
+	void CapFPS(float frame_r);
 private:
 
 	void AddModule(Module* mod);

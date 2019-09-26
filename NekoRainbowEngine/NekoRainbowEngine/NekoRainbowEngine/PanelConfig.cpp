@@ -20,47 +20,57 @@ void PanelConfig::ConfigWindow()
 {
 	static char project_name[56] = TITLE;
 	static char organization_name[56];
-	static int size = 120;
+	static int fps = 60;
 
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
 	if (ImGui::Begin("Configuration Window", &open, window_flags))
-	    if (ImGui::CollapsingHeader("Application")) 
-	    {
-		ImGui::InputText("Project Name", project_name, IM_ARRAYSIZE(project_name));
-		ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name));
-		ImGui::SliderInt("Max FPS", &size, 1, 120);
-
-		static char title[25];
-
-		if (check_time.ReadMs() > 500)
+		if (ImGui::CollapsingHeader("Application"))
 		{
-			//Avg FPS
-			fps_log[fps_current_log] = current_frames = App->GetAvgFPS();
-			fps_current_log++;
+			if (ImGui::InputText("Project Name", project_name, IM_ARRAYSIZE(project_name))) 
+				App->window->SetTitle(project_name);
+			if (ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name)))
+				App->window->SetOrganization(organization_name);
+			if (ImGui::SliderInt("Max FPS", &fps, 1, 120))
+				App->CapFPS(fps);
 
-			if (fps_current_log >= MAX_HISTOGRAM_LOG)
-				fps_current_log = 0;
+			//Histogram
+			static char title[25];
 
-			//Avg Ms
-			ms_log[ms_current_log] = current_ms = App->GetAvgMs();
-			ms_current_log++;
+			if (check_time.ReadMs() > 500)
+			{
+				//Avg FPS
+				fps_log[fps_current_log] = current_frames = App->GetAvgFPS();
+				fps_current_log++;
 
-			if (ms_current_log >= MAX_HISTOGRAM_LOG)
-				ms_current_log = 0;
+				if (fps_current_log >= MAX_HISTOGRAM_LOG)
+					fps_current_log = 0;
 
-			PERF_START(check_time);
+				//Avg Ms
+				ms_log[ms_current_log] = current_ms = App->GetAvgMs();
+				ms_current_log++;
+
+				if (ms_current_log >= MAX_HISTOGRAM_LOG)
+					ms_current_log = 0;
+
+				PERF_START(check_time);
+			}
+
+			sprintf_s(title, 25, "Framerate %.1f", current_frames);
+			ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 100.0f, ImVec2(310, 100));
+
+			sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
+			ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
 		}
 
-		sprintf_s(title, 25, "Framerate %.1f", current_frames);
-		ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 100.0f, ImVec2(310, 100));
 
-		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
-		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
-	    }
 	    if (ImGui::CollapsingHeader("Window"))
 	    {
 			if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
-				App->window->SetFullScreen();
+				App->window->SetFullscreen();
+			}
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Resizable", &App->window->resizable_on)) {
+				App->window->SetResizable();
 			}
 	    }
 		if (ImGui::CollapsingHeader("Hardware"))

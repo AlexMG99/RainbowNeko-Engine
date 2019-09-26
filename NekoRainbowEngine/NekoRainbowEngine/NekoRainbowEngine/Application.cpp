@@ -92,9 +92,6 @@ void Application::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	if (frame_capped) framecap_string = "ON";
-	else framecap_string = "OFF";
-
 	if (capped_ms > 0 && last_frame_ms < capped_ms && frame_capped)
 	{
 		PerfTimer t;
@@ -154,6 +151,11 @@ float Application::GetAvgFPS()
 float Application::GetAvgMs()
 {
 	return dt;
+}
+
+void Application::CapFPS(float frame_r)
+{
+	capped_ms = 1000 / frame_r;
 }
 
 void Application::AddModule(Module* mod)

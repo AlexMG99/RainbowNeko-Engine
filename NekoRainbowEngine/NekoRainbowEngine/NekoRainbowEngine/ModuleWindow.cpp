@@ -40,7 +40,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		if(WIN_RESIZABLE == true)
+		if(resizable_on == true)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
@@ -93,6 +93,18 @@ void ModuleWindow::SetTitle(const char* title)
 	SDL_SetWindowTitle(window, title);
 	
 }
+void ModuleWindow::SetOrganization(char * organ)
+{
+	organization = organ;
+}
+const char * ModuleWindow::GetTitle() const
+{
+	return name;
+}
+char * ModuleWindow::GetOrganization() const
+{
+	return organization;
+}
 ImVec2  ModuleWindow::GetWinSize() const {
 
 	ImVec2 v(width, height);
@@ -100,15 +112,17 @@ ImVec2  ModuleWindow::GetWinSize() const {
 	return v;
 }
 
-void ModuleWindow::SetFullScreen()
+void ModuleWindow::SetFullscreen()
 {
 	if (fullscreen_on == true)
-	{
 		flags |= SDL_WINDOW_FULLSCREEN;
-	}
-	else {
+	else 
 		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-	}
 
 	SDL_SetWindowFullscreen(window, flags);
+}
+
+void ModuleWindow::SetResizable()
+{
+	SDL_SetWindowResizable(window, resizable_on ? SDL_TRUE:SDL_FALSE);
 }

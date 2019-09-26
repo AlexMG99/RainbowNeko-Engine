@@ -21,9 +21,16 @@ public:
 	bool CleanUp();
 
 	void SetTitle(const char* title);
+	void SetOrganization(char* organ);
+
+	const char* GetTitle() const;
+	char* GetOrganization() const;
+
 	ImVec2 GetWinSize() const;
 
-	void SetFullScreen();
+	void SetFullscreen();
+
+	void SetResizable();
 	
 
 public:
@@ -37,10 +44,12 @@ private:
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 	int width;
 	int height;
+	char* name = TITLE;
+	char* organization = "UPC CITM";
 
 public:
-	char* name = TITLE;
 	bool fullscreen_on = false;
+	bool resizable_on = false;
 };
 
 #endif // __ModuleWindow_H__
