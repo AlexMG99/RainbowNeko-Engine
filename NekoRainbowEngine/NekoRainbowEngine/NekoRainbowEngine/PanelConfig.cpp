@@ -6,13 +6,9 @@
 
 update_status PanelConfig::Draw() {
 	
-	if (ImGui::BeginMenu(name))
-	{
+	if (ImGui::Button(name))
 		open = true;
 
-		/*ImGui::InputText("Project Name", project_name, IM_ARRAYSIZE(project_name));*/
-		ImGui::EndMenu();
-	}
 	//Check ConfigWindow
 	if (open) 
 		ConfigWindow();
@@ -30,10 +26,6 @@ void PanelConfig::ConfigWindow()
 
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
 	if (ImGui::Begin("Configuration Window", &open, window_flags))
-		if (ImGui::CollapsingHeader("Configuration"))
-		{
-			
-		} 
 	    if (ImGui::CollapsingHeader("Application")) 
 	    {
 		ImGui::InputText("Project Name", project_name, IM_ARRAYSIZE(project_name));
@@ -48,6 +40,9 @@ void PanelConfig::ConfigWindow()
 	    }
 	    if (ImGui::CollapsingHeader("Window"))
 	    {
+			if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
+				App->window->SetFullScreen();
+			}
 	    }
 		if (ImGui::CollapsingHeader("Hardware"))
 		{

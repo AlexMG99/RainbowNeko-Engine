@@ -30,13 +30,12 @@ bool ModuleWindow::Init()
 		//Create window
 		width = SCREEN_WIDTH * SCREEN_SIZE;
 		height = SCREEN_HEIGHT * SCREEN_SIZE;
-		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(WIN_FULLSCREEN == true)
+		if(fullscreen_on == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
@@ -99,4 +98,17 @@ ImVec2  ModuleWindow::GetWinSize() const {
 	ImVec2 v(width, height);
 
 	return v;
+}
+
+void ModuleWindow::SetFullScreen()
+{
+	if (fullscreen_on == true)
+	{
+		flags |= SDL_WINDOW_FULLSCREEN;
+	}
+	else {
+		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+	}
+
+	SDL_SetWindowFullscreen(window, flags);
 }

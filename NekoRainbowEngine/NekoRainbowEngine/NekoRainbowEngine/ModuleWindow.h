@@ -22,6 +22,8 @@ public:
 
 	void SetTitle(const char* title);
 	ImVec2 GetWinSize() const;
+
+	void SetFullScreen();
 	
 
 public:
@@ -32,8 +34,13 @@ public:
 	SDL_Surface* screen_surface;
 
 private:
+	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 	int width;
 	int height;
+
+public:
+	char* name = TITLE;
+	bool fullscreen_on = false;
 };
 
 #endif // __ModuleWindow_H__
