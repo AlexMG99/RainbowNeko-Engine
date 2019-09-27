@@ -95,15 +95,36 @@ void PanelConfig::ConfigWindow()
 		{
 			SDL_version compiled;
 
+
+
 			ImGui::Text("SDL Version: %d", &compiled);
 			ImGui::Separator();
 
 			ImGui::Text("CPUs: %i (Cache: %i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
 			ImGui::Text("System RAM: %i", SDL_GetSystemRAM());
 			
-			
-			ImGui::Text("Caps:");
+			static std::string caps = "Caps: ";
+			caps += SDL_HasRDTSC() ? "RDTSC, " : "";
+
+			caps += SDL_HasMMX() ? "MMX, " : "";
+
+			caps += SDL_HasAVX() ? "AVX, " : "";
+
+			caps += SDL_HasSSE() ? "SEE, " : "";
+
+			caps += SDL_HasSSE2() ? "SEE2, " : "";
+
+			caps += SDL_HasSSE3() ? "SEE3, " : "";
+
+			caps += SDL_HasSSE41() ? "SEE41, " : "";
+
+			caps += SDL_HasSSE42() ? "SEE42 " : "";
+
+			ImGui::Text(caps.c_str());
+			caps = "Caps: ";
+
 			ImGui::Separator();
+
 			ImGui::Text("GPU:");
 			//SDL_Log("SDL_Version: %d", SDL_GetVersion());
 			ImGui::Text("Brand:");
