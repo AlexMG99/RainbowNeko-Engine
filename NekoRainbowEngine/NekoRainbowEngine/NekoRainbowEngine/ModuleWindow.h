@@ -35,6 +35,7 @@ public:
 	void SetFullscreenDesktop();
 	void SetBrightness();
 	void SetWindowSize();
+	void SetWindowSize(int width_, int height_);
 	
 
 public:
@@ -46,13 +47,14 @@ public:
 
 private:
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-	char* name = "";
-	char* organization = "UPC CITM";
 
 public:
+	char project_name[50] = "NekoRainbow Engine";
+	char* organization = "UPC CITM";
+
 	bool fullscreen_on = false;
 	bool resizable_on = false;
-	bool borderless_on = false;
+	bool border_on = false;
 	bool fullscreendesktop_on = false;
 
 	float brigthness = 5.0f;

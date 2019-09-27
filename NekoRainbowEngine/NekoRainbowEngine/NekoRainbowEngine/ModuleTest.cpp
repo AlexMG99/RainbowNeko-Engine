@@ -46,7 +46,13 @@ bool ModuleTest::Start()
 
 	topbar_panel_list.push_back(new PanelConfig("Configuration"));
 
-	Save();
+	settings_doc = json_parse_file("Settings/win_config.json");
+
+	if (settings_doc == NULL) {
+		settings_doc = json_value_init_object();
+	}
+
+	json_serialize_to_file(settings_doc, "Settings/win_config.json");
 
 	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
 		ret = (*item)->Start();
@@ -67,18 +73,19 @@ bool ModuleTest::CleanUp()
 
 bool ModuleTest::Save()
 {
+	bool ret = false;
+
 	settings_doc = json_parse_file("Settings/win_config.json");
 
 	if (settings_doc == NULL) {
 		settings_doc = json_value_init_object();
 	}
 
-	JSON_Object* win_object = json_object(settings_doc);
-	/*json_object_dotset_string(win_object, "Application.Title", App->window->GetTitle());*/
-	
-	json_serialize_to_file(settings_doc, "Settings/win_config.json");
+	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
+		ret = (*item)->Save();
+	}
 
-	return true;
+	return ret;
 }
 
 // Update

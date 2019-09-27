@@ -28,8 +28,8 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		width = SCREEN_WIDTH * SCREEN_SIZE;
-		height = SCREEN_HEIGHT * SCREEN_SIZE;
+		width = width * SCREEN_SIZE;
+		height = height * SCREEN_SIZE;
 
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -45,7 +45,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(borderless_on == true)
+		if(border_on == true)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
@@ -55,7 +55,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(project_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -100,7 +100,7 @@ void ModuleWindow::SetOrganization(char * organ)
 
 const char * ModuleWindow::GetTitle() const
 {
-	return name;
+	return project_name;
 }
 
 char * ModuleWindow::GetOrganization() const
@@ -117,7 +117,7 @@ ImVec2  ModuleWindow::GetWinSize() const {
 
 void ModuleWindow::SetFullscreen()
 {
-	if (fullscreen_on == true)
+	if (fullscreen_on)
 		flags |= SDL_WINDOW_FULLSCREEN;
 	else 
 		flags = ~SDL_WINDOW_FULLSCREEN;
@@ -132,12 +132,12 @@ void ModuleWindow::SetResizable()
 
 void ModuleWindow::SetBorderless()
 {
-	SDL_SetWindowBordered(window, borderless_on ? SDL_FALSE : SDL_TRUE);
+	SDL_SetWindowBordered(window, border_on ? SDL_TRUE : SDL_FALSE);
 }
 
 void ModuleWindow::SetFullscreenDesktop()
 {
-	if (fullscreendesktop_on == true)
+	if (fullscreendesktop_on)
 		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 	else
 		flags = ~SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -152,5 +152,12 @@ void ModuleWindow::SetBrightness()
 
 void ModuleWindow::SetWindowSize()
 {
+	SDL_SetWindowSize(window, width, height);
+}
+
+void ModuleWindow::SetWindowSize(int width_, int height_)
+{
+	width = width_;
+	height = height_;
 	SDL_SetWindowSize(window, width, height);
 }

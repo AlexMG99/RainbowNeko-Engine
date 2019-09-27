@@ -33,8 +33,6 @@ private:
 	int ms_current_log = 0;
 	float current_ms = 0;
 
-	char* project_name;
-
 	PerfTimer	check_time;
 };
 

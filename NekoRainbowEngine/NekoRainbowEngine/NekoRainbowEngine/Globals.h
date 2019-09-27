@@ -34,7 +34,6 @@ enum update_status
 #define SCREEN_HEIGHT 1024
 #define SCREEN_SIZE 1
 #define VSYNC true
-#define TITLE "NekoRainbow Engine"
 
 // Performance macros
 #define PERF_START(timer) timer.Start()
