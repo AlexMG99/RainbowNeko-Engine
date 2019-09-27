@@ -4,6 +4,14 @@
 
 #include "Application.h"
 
+bool PanelConfig::Start()
+{
+	JSON_Object* obj = json_object(App->scene_test->settings_doc);
+	project_name = (char*)json_object_get_string(json_object_get_object(obj, "Application"), "Title");
+
+	return true;
+}
+
 update_status PanelConfig::Draw() {
 	
 	if (ImGui::Button(name))
@@ -16,9 +24,14 @@ update_status PanelConfig::Draw() {
 	return UPDATE_CONTINUE;
 }
 
+bool PanelConfig::Save()
+{
+
+	return true;
+}
+
 void PanelConfig::ConfigWindow()
 {
-	static char project_name[56] = TITLE;
 	static char organization_name[56];
 	static int fps = 60;
 

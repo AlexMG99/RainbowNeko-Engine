@@ -46,6 +46,13 @@ bool ModuleTest::Start()
 
 	topbar_panel_list.push_back(new PanelConfig("Configuration"));
 
+	Save();
+
+	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+		ret = (*item)->Start();
+	}
+
+
 	return ret;
 }
 
@@ -54,22 +61,22 @@ bool ModuleTest::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
+	json_value_free(settings_doc);
 	return true;
 }
 
 bool ModuleTest::Save()
 {
-	JSON_Value *win_config = json_parse_file("Settings/win_config.json");
+	settings_doc = json_parse_file("Settings/win_config.json");
 
-	if (win_config == NULL) {
-		win_config = json_value_init_object();
+	if (settings_doc == NULL) {
+		settings_doc = json_value_init_object();
 	}
 
-	JSON_Object* win_object = json_object(win_config);
-	json_object_set_string(win_object, "Application", "Tortilla");
+	JSON_Object* win_object = json_object(settings_doc);
+	/*json_object_dotset_string(win_object, "Application.Title", App->window->GetTitle());*/
 	
-	json_serialize_to_file(win_config, "Settings/win_config.json");
-	json_value_free(win_config);
+	json_serialize_to_file(settings_doc, "Settings/win_config.json");
 
 	return true;
 }

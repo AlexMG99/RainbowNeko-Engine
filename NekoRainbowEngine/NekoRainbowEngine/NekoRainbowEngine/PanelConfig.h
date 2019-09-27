@@ -14,7 +14,10 @@ public:
 	PanelConfig(const char* name) :Panel(name) {};
 	~PanelConfig() {};
 
+	bool Start();
+
 	update_status Draw();
+	bool Save();
 
 private:
 	void ConfigWindow();
@@ -29,6 +32,8 @@ private:
 	float ms_log[MAX_HISTOGRAM_LOG];
 	int ms_current_log = 0;
 	float current_ms = 0;
+
+	char* project_name;
 
 	PerfTimer	check_time;
 };

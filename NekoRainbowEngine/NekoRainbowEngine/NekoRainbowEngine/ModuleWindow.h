@@ -46,7 +46,7 @@ public:
 
 private:
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-	char* name = TITLE;
+	char* name = "";
 	char* organization = "UPC CITM";
 
 public:

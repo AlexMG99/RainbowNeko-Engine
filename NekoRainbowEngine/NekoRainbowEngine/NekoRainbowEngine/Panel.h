@@ -9,8 +9,11 @@ public:
 	Panel(const char* n) :name(n) {};
 	~Panel() {};
 
+	virtual bool Start() { return true; };
+
 	virtual update_status Draw() { return UPDATE_CONTINUE; };
 	virtual bool IsEnabled() { return true; };
+	virtual bool Save() { return true; };
 
 protected:
 	bool enabled;
