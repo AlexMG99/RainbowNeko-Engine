@@ -75,11 +75,11 @@ bool ModuleTest::Save()
 {
 	bool ret = false;
 
-	settings_doc = json_parse_file("Settings/win_config.json");
+	//settings_doc = json_parse_file("Settings/win_config.json");
 
-	if (settings_doc == NULL) {
-		settings_doc = json_value_init_object();
-	}
+	//if (settings_doc == NULL) {
+	//	settings_doc = json_value_init_object();
+	//}
 
 	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
 		ret = (*item)->Save();

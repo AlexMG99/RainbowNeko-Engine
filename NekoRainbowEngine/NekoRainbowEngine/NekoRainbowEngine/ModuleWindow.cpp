@@ -150,6 +150,12 @@ void ModuleWindow::SetBrightness()
 	SDL_SetWindowBrightness(window, brigthness);
 }
 
+void ModuleWindow::SetBrightness(float brightness)
+{
+	this->brigthness = brightness;
+	SDL_SetWindowBrightness(window, brigthness);
+}
+
 void ModuleWindow::SetWindowSize()
 {
 	SDL_SetWindowSize(window, width, height);

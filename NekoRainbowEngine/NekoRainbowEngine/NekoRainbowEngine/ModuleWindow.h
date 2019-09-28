@@ -34,6 +34,7 @@ public:
 	void SetBorderless();
 	void SetFullscreenDesktop();
 	void SetBrightness();
+	void SetBrightness(float brightness);
 	void SetWindowSize();
 	void SetWindowSize(int width_, int height_);
 	

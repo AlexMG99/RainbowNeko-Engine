@@ -19,9 +19,14 @@ bool PanelConfig::Start()
 	App->window->SetTitle(App->window->project_name);
 
 	App->window->resizable_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Resizable");
+	App->window->SetResizable();
 	App->window->fullscreen_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen");
+	App->window->SetFullscreen();
 	App->window->fullscreendesktop_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen Desktop");
-	App->window->border_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Boderless");
+	App->window->SetFullscreenDesktop();
+	App->window->border_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Border");
+	App->window->SetBorderless();
+	App->window->SetBrightness(json_object_get_number(json_object_get_object(obj, "Application"), "Brightness"));
 	return true;
 }
 
@@ -49,6 +54,7 @@ bool PanelConfig::Save()
 	json_object_dotset_boolean(win_object, "Application.Fullscreen", App->window->fullscreen_on);
 	json_object_dotset_boolean(win_object, "Application.Fullscreen Desktop", App->window->fullscreendesktop_on);
 	json_object_dotset_boolean(win_object, "Application.Border", App->window->border_on);
+	json_object_dotset_number(win_object, "Application.Brightness", App->window->brigthness);
 
 	json_serialize_to_file(App->scene_test->settings_doc, "Settings/win_config.json");
 
@@ -106,10 +112,14 @@ void PanelConfig::ConfigWindow()
 		if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 1.0f, "%.1f"))
 			App->window->SetBrightness();
 
-		if (ImGui::SliderInt("Width", &App->window->width, 0, 1920, "%i"))
+		if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))
+			App->window->SetWindowSize(); ImGui::SameLine();
+		if(ImGui::InputInt("W", &App->window->width))
 			App->window->SetWindowSize();
 
-		if (ImGui::SliderInt("Height", &App->window->height, 0, 1080, "%.1f"))
+		if (ImGui::SliderInt("Height", &App->window->height, 600, 1080, "%.1f"))
+			App->window->SetWindowSize(); ImGui::SameLine();
+		if (ImGui::InputInt("H", &App->window->height))
 			App->window->SetWindowSize();
 
 		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
