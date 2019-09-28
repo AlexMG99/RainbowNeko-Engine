@@ -115,12 +115,31 @@ void PanelConfig::ConfigWindow()
 		if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))
 			App->window->SetWindowSize(); ImGui::SameLine();
 		if(ImGui::InputInt("W", &App->window->width))
+			if (App->window->width >=1920)
+			{
+				App->window->width = 1920;
+				App->window->SetWindowSize();
+			}
+		if (App->window->width < 800)
+		{
+			App->window->width = 800;
 			App->window->SetWindowSize();
-
+		}
+			
 		if (ImGui::SliderInt("Height", &App->window->height, 600, 1080, "%.1f"))
 			App->window->SetWindowSize(); ImGui::SameLine();
 		if (ImGui::InputInt("H", &App->window->height))
+			
+			if (App->window->height > 1080)
+			{
+				App->window->height = 1080;
+				App->window->SetWindowSize();
+			}
+		if (App->window->height < 600)
+		{
+			App->window->height = 600;
 			App->window->SetWindowSize();
+		}
 
 		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
 			App->window->SetFullscreen();
@@ -171,7 +190,7 @@ void PanelConfig::ConfigWindow()
 
 		ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", glGetString(GL_VERSION));
 		ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", glGetString(GL_VENDOR));
-		ImGui::Text("VRAM Budget:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", glGetString(GL_RENDERER));
+		/*ImGui::Text("VRAM Budget:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i", sizeof (MEMORYSTATUS));*/
 
 		glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalmemory);
 		ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i Mb", totalmemory / 1024);
