@@ -124,48 +124,45 @@ void PanelConfig::ConfigWindow()
 
 		if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))
 			App->window->SetWindowSize(); ImGui::SameLine();
-		if(ImGui::InputInt("W", &App->window->width))
-			if (App->window->width >=1920)
-			{
+
+		if (ImGui::InputInt("W", &App->window->width)) {
+			if (App->window->width >= 1920) {
 				App->window->width = 1920;
 				App->window->SetWindowSize();
 			}
-		if (App->window->width < 800)
-		{
-			App->window->width = 800;
-			App->window->SetWindowSize();
+			if (App->window->width < 800) {
+				App->window->width = 800;
+				App->window->SetWindowSize();
+			}
 		}
 			
 		if (ImGui::SliderInt("Height", &App->window->height, 600, 1080, "%.1f"))
 			App->window->SetWindowSize(); ImGui::SameLine();
-		if (ImGui::InputInt("H", &App->window->height))
-			
+
+		if (ImGui::InputInt("H", &App->window->height)) {
 			if (App->window->height > 1080)
 			{
 				App->window->height = 1080;
 				App->window->SetWindowSize();
 			}
-		if (App->window->height < 600)
-		{
-			App->window->height = 600;
-			App->window->SetWindowSize();
+			if (App->window->height < 600)
+			{
+				App->window->height = 600;
+				App->window->SetWindowSize();
+			}
 		}
 
-		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on)) {
-			App->window->SetFullscreen();
-		}
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Resizable", &App->window->resizable_on)) {
+		if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on))
+			App->window->SetFullscreen(); ImGui::SameLine();
+
+		if (ImGui::Checkbox("Resizable", &App->window->resizable_on))
 			App->window->SetResizable();
-		}
 
-		if (ImGui::Checkbox("Border", &App->window->border_on)) {
-			App->window->SetBorderless();
-		}
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Full Desktop", &App->window->fullscreendesktop_on)) {
+		if (ImGui::Checkbox("Border", &App->window->border_on))
+			App->window->SetBorderless(); ImGui::SameLine();
+
+		if (ImGui::Checkbox("Full Desktop", &App->window->fullscreendesktop_on))
 			App->window->SetFullscreenDesktop();
-		}
 
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
