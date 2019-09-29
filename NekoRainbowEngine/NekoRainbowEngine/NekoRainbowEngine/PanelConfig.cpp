@@ -11,7 +11,7 @@
 bool PanelConfig::Start()
 {
 	JSON_Object* obj = json_object(App->scene_test->settings_doc);
-	JSON_Object* abo = json_object(App->scene_test->credits_doc);
+
 	//Set window attributes
 	strcpy_s(App->window->project_name, json_object_get_string(json_object_get_object(obj, "Application"), "Title"));
 	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"), 
@@ -30,9 +30,9 @@ bool PanelConfig::Start()
 
 	//Set credits attributes
 
-	strcpy_s(App->window->engine_name, json_object_get_string(json_object_get_object(abo, "About"), "Engine Name"));
-	strcpy_s(App->window->authors, json_object_get_string(json_object_get_object(abo, "About"), "Authors"));
-	strcpy_s(App->window->description, json_object_get_string(json_object_get_object(abo, "About"), "Description"));
+	
+	/*strcpy_s(App->window->authors, json_object_get_string(json_object_get_object(abo, "About"), "Authors"));
+	strcpy_s(App->window->description, json_object_get_string(json_object_get_object(abo, "About"), "Description"));*/
 	return true;
 }
 
@@ -215,13 +215,13 @@ void PanelConfig::ConfigWindow()
 
 		ImGui::Text("VRAM Reserved:");
 	}
-	if (ImGui::CollapsingHeader("About")) {
-		ImGui::Text("%s", App->window->engine_name);
+	
+		/*ImGui::Text("%s", App->window->engine_name);
 		ImGui::Text("%s", App->window->description);
-		ImGui::Text("%s", App->window->authors);
+		ImGui::Text("%s", App->window->authors);*/
 		/*App->window->SetTitle(App->window->engine_name);*/
 	
-	}
+	
 	ImGui::End();
 
 

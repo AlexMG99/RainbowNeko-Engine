@@ -8,6 +8,9 @@ public:
 	PanelHelp() {};
 	PanelHelp(const char* name):Panel(name) {};
 	~PanelHelp() {};
+
+	bool Start();
+
 	update_status Draw();
 
 private:
