@@ -47,12 +47,19 @@ bool ModuleTest::Start()
 	topbar_panel_list.push_back(new PanelConfig("Configuration"));
 
 	settings_doc = json_parse_file("Settings/win_config.json");
+	credits_doc = json_parse_file("Settings/win_about.json");
 
 	if (settings_doc == NULL) {
 		settings_doc = json_value_init_object();
 	}
 
 	json_serialize_to_file(settings_doc, "Settings/win_config.json");
+
+	if (credits_doc == NULL) {
+		credits_doc = json_value_init_object();
+	}
+
+	json_serialize_to_file(credits_doc, "Settings/win_about.json");
 
 	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
 		ret = (*item)->Start();
@@ -68,6 +75,7 @@ bool ModuleTest::CleanUp()
 	LOG("Unloading Intro scene");
 
 	json_value_free(settings_doc);
+	json_value_free(credits_doc);
 	return true;
 }
 

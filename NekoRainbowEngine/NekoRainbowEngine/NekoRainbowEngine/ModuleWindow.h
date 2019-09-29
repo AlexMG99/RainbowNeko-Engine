@@ -51,6 +51,9 @@ private:
 
 public:
 	char project_name[50] = "NekoRainbow Engine";
+	char engine_name[50];
+	char authors[50];
+	char description[50];
 	char* organization = "UPC CITM";
 
 	bool fullscreen_on = false;

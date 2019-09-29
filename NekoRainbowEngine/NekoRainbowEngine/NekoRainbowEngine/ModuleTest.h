@@ -25,4 +25,5 @@ public:
 	std::list<Panel*> panel_list;
 
 	JSON_Value* settings_doc;
+	JSON_Value* credits_doc;
 };
