@@ -96,13 +96,15 @@ bool ModuleTest::Save()
 
 void ModuleTest::Log(const char * log_text)
 {
-	if (panel_console != nullptr)
+	if (panel_console != nullptr) {
 		if (!start_console) {
 			panel_console->AddLog(App->GetLog());
 			start_console = true;
 		}
-		else
+		else {
 			panel_console->AddLog(log_text);
+		}
+	}
 
 }
 

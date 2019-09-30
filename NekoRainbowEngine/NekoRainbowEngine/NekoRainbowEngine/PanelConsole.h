@@ -20,6 +20,7 @@ private:
 	bool open = false;
 	std::string console_text;
 
+	char console_input[50] = "";
 	ImGuiTextBuffer buffer_text;
 };
 
