@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Panel.h"
+#include "PanelConsole.h"
+
 #include "Parson/parson.h"
 #include <list>
 
@@ -15,15 +17,18 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
-	bool CleanUp();
-
 	bool Save();
+	void Log(const char* log_text);
+
+	bool CleanUp();
 public:
 	ImVec2 r = { 80,100 };
 	std::list<Panel*> topbar_panel_list;
 
-	std::list<Panel*> panel_list;
+	PanelConsole* panel_console = nullptr;
 
 	JSON_Value* settings_doc;
 	JSON_Value* credits_doc;
+
+	bool start_console = false;
 };

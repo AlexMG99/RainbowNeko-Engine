@@ -33,6 +33,7 @@ bool PanelConfig::Start()
 	
 	/*strcpy_s(App->window->authors, json_object_get_string(json_object_get_object(abo, "About"), "Authors"));
 	strcpy_s(App->window->description, json_object_get_string(json_object_get_object(abo, "About"), "Description"));*/
+
 	return true;
 }
 

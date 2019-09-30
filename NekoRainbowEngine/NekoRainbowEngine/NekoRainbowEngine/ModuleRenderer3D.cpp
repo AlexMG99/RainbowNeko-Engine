@@ -47,6 +47,13 @@ bool ModuleRenderer3D::Init()
 			LOG("Error initializing GLEW library! %s\n", SDL_GetError());
 			ret = false;
 		}
+		else {
+			LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+			LOG("Vendor: %s", glGetString(GL_VENDOR));
+			LOG("Renderer: %s", glGetString(GL_RENDERER));
+			LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+			LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+		}
 
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);

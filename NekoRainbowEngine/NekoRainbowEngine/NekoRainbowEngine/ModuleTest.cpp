@@ -15,6 +15,7 @@
 #include "PanelFile.h"
 #include "PanelEdit.h"
 #include "PanelConfig.h"
+#include "PanelConsole.h"
 
 ModuleTest::ModuleTest(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -43,8 +44,9 @@ bool ModuleTest::Start()
 	topbar_panel_list.push_back(new PanelFile("File"));
 	topbar_panel_list.push_back(new PanelEdit("Edit"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
-
 	topbar_panel_list.push_back(new PanelConfig("Configuration"));
+
+	panel_console = new PanelConsole("Console");
 
 	settings_doc = json_parse_file("Settings/win_config.json");
 	credits_doc = json_parse_file("Settings/win_about.json");
@@ -65,6 +67,8 @@ bool ModuleTest::Start()
 		ret = (*item)->Start();
 	}
 
+	ret = panel_console->Start();
+
 
 	return ret;
 }
@@ -83,17 +87,23 @@ bool ModuleTest::Save()
 {
 	bool ret = false;
 
-	//settings_doc = json_parse_file("Settings/win_config.json");
-
-	//if (settings_doc == NULL) {
-	//	settings_doc = json_value_init_object();
-	//}
-
 	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
 		ret = (*item)->Save();
 	}
 
 	return ret;
+}
+
+void ModuleTest::Log(const char * log_text)
+{
+	if (panel_console != nullptr)
+		if (!start_console) {
+			panel_console->AddLog(App->GetLog());
+			start_console = true;
+		}
+		else
+			panel_console->AddLog(log_text);
+
 }
 
 // Update
@@ -113,9 +123,7 @@ update_status ModuleTest::Update(float dt)
 	}
 	ImGui::EndMainMenuBar();
 
-	for (std::list<Panel*>::iterator item = panel_list.begin(); ((item != panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
-		ret = (*item)->Draw();
-	}
+	ret = panel_console->Draw();
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 		Save();

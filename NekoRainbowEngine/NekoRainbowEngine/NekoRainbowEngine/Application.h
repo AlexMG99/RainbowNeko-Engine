@@ -39,6 +39,8 @@ private:
 	float				avg_fps = 1.00f;
 	bool				frame_capped = true;
 
+	std::string			log;
+
 public:
 
 	Application();
@@ -51,6 +53,10 @@ public:
 	float GetAvgFPS();
 	float GetAvgMs();
 	void CapFPS(float frame_r);
+
+	void Log(const char* log_text);
+	const char* GetLog();
+
 private:
 
 	void AddModule(Module* mod);

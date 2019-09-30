@@ -158,6 +158,18 @@ void Application::CapFPS(float frame_r)
 	capped_ms = 1000 / frame_r;
 }
 
+void Application::Log(const char* log_text)
+{
+	log.append(log_text);
+
+	scene_test->Log(log_text);
+}
+
+const char * Application::GetLog()
+{
+	return log.c_str();
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);

@@ -7,9 +7,13 @@
 #include <windows.h>
 #include <stdio.h>
 
-#define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define LOG(format, ...) _log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);
+
+void _log(const char file[], int line, const char* format, ...);
+
+
 
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
 
@@ -35,4 +39,4 @@ enum update_status
 
 // Performance macros
 #define PERF_START(timer) timer.Start()
-#define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
+#define PERF_PEEK(timer) //LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
