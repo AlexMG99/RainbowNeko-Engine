@@ -19,11 +19,12 @@ public:
 	void Clear();
 
 private:
-	bool open = false;
+	bool open = true;
 	std::string console_text;
 
 	char console_input[50] = "";
 	ImGuiTextBuffer buffer_text;
+	bool scroll_to_bottom = false;
 };
 
 

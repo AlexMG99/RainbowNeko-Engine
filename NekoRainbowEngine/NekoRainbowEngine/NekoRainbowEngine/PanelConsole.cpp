@@ -16,8 +16,8 @@ update_status PanelConsole::Draw() {
 
 	update_status ret = UPDATE_CONTINUE;
 
-	if(ImGui::Begin(name,&open,ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
-		ImGui::SetWindowSize(ImVec2(450, 435));
+	if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
+		ImGui::SetWindowSize(ImVec2(450, 445));
 		if (ImGui::SmallButton("Clear")) 
 			Clear();
 
@@ -54,18 +54,22 @@ update_status PanelConsole::Draw() {
 		if (ImGui::Button("GL_FOG")) {
 			SetGLProperty(GL_FOG);
 			LOG("GL_FOG: %i", glIsEnabled(GL_FOG));
-		}ImGui::SameLine();
+		} ImGui::SameLine();
 
 		if (ImGui::Button("GL_SHADE_MODEL")) {
 			SetGLProperty(GL_SHADE_MODEL);
 			LOG("GL_SHADE_MODEL: %i", glIsEnabled(GL_SHADE_MODEL));
-		}ImGui::SameLine();
+		}
 
 		ImGui::Separator();
 
 		//Console output
-		ImGui::BeginChild("Console Output", ImVec2(600, 295));
+		ImGui::BeginChild("Console Output", ImVec2(0, 295), false, ImGuiWindowFlags_HorizontalScrollbar);
 		ImGui::TextUnformatted(buffer_text.begin());
+		if (scroll_to_bottom) {
+			ImGui::SetScrollHereY(1.0f);
+			scroll_to_bottom = false;
+		}
 		ImGui::EndChild(); ImGui::Separator();
 
 		if (ImGui::InputText("Input", console_input, IM_ARRAYSIZE(console_input), ImGuiInputTextFlags_EnterReturnsTrue) ) {
@@ -81,6 +85,7 @@ update_status PanelConsole::Draw() {
 void PanelConsole::AddLog(const char * text)
 {
 	buffer_text.appendf(text);
+	scroll_to_bottom = true;
 }
 
 void PanelConsole::SetGLProperty(int hex_value)
