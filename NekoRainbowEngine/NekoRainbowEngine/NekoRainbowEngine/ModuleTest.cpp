@@ -116,6 +116,19 @@ update_status ModuleTest::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+
+	/*Cylinder c(1, 3);
+	c.SetPos(0, 0, 0);
+	c.axis = true;
+	c.Render();
+	c.color = Red;*/
+
+	Cube cc(2, 2, 3);
+	cc.SetPos(0, 0, 0);
+	cc.axis = true;
+	cc.Render();
+
+
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);

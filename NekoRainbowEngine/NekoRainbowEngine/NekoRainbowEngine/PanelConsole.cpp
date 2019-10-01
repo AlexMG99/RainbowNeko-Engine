@@ -16,40 +16,50 @@ update_status PanelConsole::Draw() {
 
 	update_status ret = UPDATE_CONTINUE;
 
-	if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
-		ImGui::SetWindowSize(ImVec2(550, 435));
-		if (ImGui::SmallButton("Clear"))
+	if(ImGui::Begin(name,&open,ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
+		ImGui::SetWindowSize(ImVec2(450, 435));
+		if (ImGui::SmallButton("Clear")) 
 			Clear();
 
 		ImGui::Separator();
 
 		// gl enum buttons
 		ImGui::Text("GLEnum buttons:");
-
-		if (ImGui::SmallButton("GL Depth")) {
+		
+		if (ImGui::Button("GL Depth")) {
 			SetGLProperty(GL_DEPTH_TEST);
 			LOG("GL_DEPTH_TEST: %i",glIsEnabled(GL_DEPTH_TEST));
 		} ImGui::SameLine();
 
-		if (ImGui::SmallButton("GL Cullface")) {
+		if (ImGui::Button("GL Cullface")) {
 			SetGLProperty(GL_CULL_FACE);
 			LOG("GL_CULL_FACE: %i", glIsEnabled(GL_CULL_FACE));
 		} ImGui::SameLine();
 
-		if (ImGui::SmallButton("GL Lighting")) {
+		if (ImGui::Button("GL Lighting")) {
 			SetGLProperty(GL_LIGHTING);
 			LOG("GL_LIGHTING: %i", glIsEnabled(GL_LIGHTING));
-		} 
-
-		if (ImGui::SmallButton("GL Color Material")) {
-			SetGLProperty(GL_COLOR_MATERIAL);
-			LOG("GL_COLOR_MATERIAL: %i", glIsEnabled(GL_COLOR_MATERIAL));
 		} ImGui::SameLine();
 
-		if (ImGui::SmallButton("GL Texture 2D")) {
+		if (ImGui::Button("GL Color Material")) {
+			SetGLProperty(GL_COLOR_MATERIAL);
+			LOG("GL_COLOR_MATERIAL: %i", glIsEnabled(GL_COLOR_MATERIAL));
+		}
+
+		if (ImGui::Button("GL Texture 2D")) {
 			SetGLProperty(GL_TEXTURE_2D);
 			LOG("GL_TEXTURE_2D: %i", glIsEnabled(GL_TEXTURE_2D));
-		} 
+		} ImGui::SameLine();
+
+		if (ImGui::Button("GL_FOG")) {
+			SetGLProperty(GL_FOG);
+			LOG("GL_FOG: %i", glIsEnabled(GL_FOG));
+		}ImGui::SameLine();
+
+		if (ImGui::Button("GL_SHADE_MODEL")) {
+			SetGLProperty(GL_SHADE_MODEL);
+			LOG("GL_SHADE_MODEL: %i", glIsEnabled(GL_SHADE_MODEL));
+		}ImGui::SameLine();
 
 		ImGui::Separator();
 
