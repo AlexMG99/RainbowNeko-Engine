@@ -15,7 +15,9 @@ public:
 	update_status Draw();
 
 	void AddLog(const char* text);
+	void SetGLProperty(int hex_value);
 	void Clear();
+
 private:
 	bool open = false;
 	std::string console_text;
