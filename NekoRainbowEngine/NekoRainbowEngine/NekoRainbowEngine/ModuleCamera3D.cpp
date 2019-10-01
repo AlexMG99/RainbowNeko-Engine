@@ -110,13 +110,13 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Wheel Movement ---------------
 
-	/*vec3 newPos_mouse(0, 0, 0);
-	float speed_mouse = 20.0f * dt;
+	vec3 newPos_mouse(0, 0, 0);
+	float speed_mouse = 0.2f * dt;
 
 	newPos_mouse -= App->input->GetMouseZ() * speed_mouse * Z;
 
 	Position += newPos_mouse;
-	Reference += newPos_mouse;*/
+	Reference += newPos_mouse;
 
 
 	// Recalculate matrix -------------
