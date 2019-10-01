@@ -69,7 +69,6 @@ bool ModuleTest::Start()
 
 	ret = panel_console->Start();
 
-
 	return ret;
 }
 
@@ -112,6 +111,10 @@ void ModuleTest::Log(const char * log_text)
 update_status ModuleTest::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
 
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();

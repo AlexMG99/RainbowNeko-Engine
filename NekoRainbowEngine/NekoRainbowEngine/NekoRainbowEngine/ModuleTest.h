@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Panel.h"
 #include "PanelConsole.h"
+#include "Primitive.h"
 
 #include "Parson/parson.h"
 #include <list>
@@ -31,4 +32,5 @@ public:
 	JSON_Value* credits_doc;
 
 	bool start_console = false;
+
 };

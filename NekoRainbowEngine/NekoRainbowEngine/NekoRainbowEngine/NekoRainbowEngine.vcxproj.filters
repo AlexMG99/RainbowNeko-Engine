@@ -175,6 +175,9 @@
     <ClCompile Include="Globals.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -452,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="PanelConsole.h">
       <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

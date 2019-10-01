@@ -165,6 +165,7 @@
     <ClInclude Include="PCG\pcg_random.hpp" />
     <ClInclude Include="PCG\pcg_uint128.hpp" />
     <ClInclude Include="PerfTimer.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +226,7 @@
     <ClCompile Include="PanelHelp.cpp" />
     <ClCompile Include="Parson\parson.c" />
     <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
