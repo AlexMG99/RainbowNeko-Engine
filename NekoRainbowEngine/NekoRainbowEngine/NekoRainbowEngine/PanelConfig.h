@@ -17,7 +17,7 @@ public:
 	bool Start();
 
 	update_status Draw();
-	bool Save();
+	update_status Save();
 
 private:
 	void ConfigWindow();
@@ -32,6 +32,7 @@ private:
 	float ms_log[MAX_HISTOGRAM_LOG];
 	int ms_current_log = 0;
 	float current_ms = 0;
+	int capped_fps = 60;
 
 	PerfTimer	check_time;
 };

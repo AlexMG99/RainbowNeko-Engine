@@ -59,7 +59,7 @@ bool Application::Init()
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++) {
 		ret = (*item)->Start();
 	}
-	
+
 	PERF_PEEK(ptimer);
 	return ret;
 }
@@ -68,17 +68,16 @@ bool Application::Init()
 void Application::PrepareUpdate()
 {
 	frame_count++;
+	frame_new_count++;
 	last_sec_frame_count++;
 
-	dt = frame_time.Read();
-
-	frame_time.Start();
+	dt = (float)ms_timer.Read();
+	ms_timer.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
-
 	// Framerate calculations --
 
 	if (last_sec_frame_time.Read() > 1000)
@@ -86,22 +85,20 @@ void Application::FinishUpdate()
 		last_sec_frame_time.Start();
 		prev_last_sec_frame_count = last_sec_frame_count;
 		last_sec_frame_count = 0;
+
 	}
 
-	avg_fps = float(frame_count) / startup_time.ReadSec();
-	uint32 last_frame_ms = frame_time.Read();
+	uint32 last_frame_ms = ms_timer.Read();
 
-	if (capped_ms > 0 && last_frame_ms < capped_ms && frame_capped)
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
 		PerfTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
 		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
-	{
-		frame_capped = !frame_capped;
-	}
+	avg_fps = float(frame_count) / startup_time.ReadSec();
+	curr_fps = float(frame_new_count) / new_startup_time.ReadSec();
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -152,8 +149,15 @@ float Application::GetAvgMs()
 	return dt;
 }
 
+uint Application::GetCurrFPS()
+{
+	return curr_fps;
+}
+
 void Application::CapFPS(float frame_r)
 {
+	frame_new_count = 0;
+	new_startup_time.Start();
 	capped_ms = 1000 / frame_r;
 }
 

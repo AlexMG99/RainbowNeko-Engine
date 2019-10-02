@@ -28,16 +28,18 @@ private:
 
 	PerfTimer			ptimer;
 	uint64				frame_count = 0;
+	uint64				frame_new_count = 0;
 	Timer				startup_time;
-	Timer				frame_time;
+	Timer				new_startup_time;
+	Timer				ms_timer;
 	Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 
-	uint				frame_rate = 0;
+	uint				frame_rate = 60;
 	float				dt = 0.0f;
 	float				avg_fps = 1.00f;
-	bool				frame_capped = true;
+	float				curr_fps = 60.00f;
 
 	std::string			log;
 
@@ -52,6 +54,7 @@ public:
 
 	float GetAvgFPS();
 	float GetAvgMs();
+	uint GetCurrFPS();
 	void CapFPS(float frame_r);
 
 	void Log(const char* log_text);

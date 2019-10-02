@@ -28,11 +28,7 @@ bool PanelConfig::Start()
 	App->window->SetBorderless();
 	App->window->SetBrightness(json_object_get_number(json_object_get_object(obj, "Application"), "Brightness"));
 
-	//Set credits attributes
-
-	
-	/*strcpy_s(App->window->authors, json_object_get_string(json_object_get_object(abo, "About"), "Authors"));
-	strcpy_s(App->window->description, json_object_get_string(json_object_get_object(abo, "About"), "Description"));*/
+	App->CapFPS(capped_fps);
 
 	return true;
 }
@@ -49,7 +45,7 @@ update_status PanelConfig::Draw() {
 	return UPDATE_CONTINUE;
 }
 
-bool PanelConfig::Save()
+update_status PanelConfig::Save()
 {
 
 	JSON_Object* win_object = json_object(App->scene_test->settings_doc);
@@ -65,17 +61,16 @@ bool PanelConfig::Save()
 
 	json_serialize_to_file(App->scene_test->settings_doc, "Settings/win_config.json");
 
-	JSON_Object* cre_object = json_object(App->scene_test->credits_doc);
+
 	json_serialize_to_file(App->scene_test->credits_doc, "Settings/win_about.json");
 
 
-	return true;
+	return UPDATE_CONTINUE;
 }
 
 void PanelConfig::ConfigWindow()
 {
 	static char organization_name[56];
-	static int fps = 60;
 
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
 	if (ImGui::Begin("Configuration Window", &open, window_flags))
@@ -85,8 +80,8 @@ void PanelConfig::ConfigWindow()
 				App->window->SetTitle(App->window->project_name);
 			if (ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name)))
 				App->window->SetOrganization(organization_name);
-			if (ImGui::SliderInt("Max FPS", &fps, 1, 120))
-				App->CapFPS(fps);
+			if (ImGui::SliderInt("Max FPS", &capped_fps, 10, 150))
+				App->CapFPS(capped_fps);
 
 			//Histogram
 			static char title[25];
@@ -94,7 +89,7 @@ void PanelConfig::ConfigWindow()
 			if (check_time.ReadMs() > 500)
 			{
 				//Avg FPS
-				fps_log[fps_current_log] = current_frames = App->GetAvgFPS();
+				fps_log[fps_current_log] = current_frames = App->GetCurrFPS();
 				fps_current_log++;
 
 				if (fps_current_log >= MAX_HISTOGRAM_LOG)
@@ -111,7 +106,7 @@ void PanelConfig::ConfigWindow()
 			}
 
 			sprintf_s(title, 25, "Framerate %.1f", current_frames);
-			ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 100.0f, ImVec2(310, 100));
+			ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 160.0f, ImVec2(310, 100));
 			LOG("%f", current_frames);
 
 			sprintf_s(title, 25, "Milliseconds %.1f", current_ms);

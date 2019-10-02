@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Application.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Sources\imGUI</Filter>
     </ClCompile>
@@ -175,14 +169,14 @@
     <ClCompile Include="Globals.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Sources</Filter>
+    <ClCompile Include="Main.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Globals.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -456,8 +450,8 @@
     <ClInclude Include="PanelConsole.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Sources</Filter>
+    <ClInclude Include="Application.h">
+      <Filter>Sources\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -505,6 +499,9 @@
     </Filter>
     <Filter Include="Sources\Panel">
       <UniqueIdentifier>{7e194a24-5b30-4304-a447-6b699b68e631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Core">
+      <UniqueIdentifier>{649ce6ab-c20c-4fa1-af2b-aa96924444af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@ public:
 
 	virtual update_status Draw() { return UPDATE_CONTINUE; };
 	virtual bool IsEnabled() { return true; };
-	virtual bool Save() { return true; };
+	virtual update_status Save() { return UPDATE_CONTINUE; };
 
 protected:
 	bool enabled;

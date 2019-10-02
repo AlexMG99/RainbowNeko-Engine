@@ -7,6 +7,11 @@
 #include "GL/include/glew.h"
 
 
+PanelConsole::~PanelConsole()
+{
+	buffer_text.clear();
+}
+
 bool PanelConsole::Start()
 {
 	return true;
@@ -28,37 +33,37 @@ update_status PanelConsole::Draw() {
 		
 		if (ImGui::Button("GL Depth")) {
 			SetGLProperty(GL_DEPTH_TEST);
-			LOG("GL_DEPTH_TEST: %i",glIsEnabled(GL_DEPTH_TEST));
+			LOG("GL DEPTH TEST: %s", glIsEnabled(GL_DEPTH_TEST) ? "true" : "false");
 		} ImGui::SameLine();
 
 		if (ImGui::Button("GL Cullface")) {
 			SetGLProperty(GL_CULL_FACE);
-			LOG("GL_CULL_FACE: %i", glIsEnabled(GL_CULL_FACE));
+			LOG("GL CULL FACE: %s", glIsEnabled(GL_CULL_FACE) ? "true" : "false");
 		} ImGui::SameLine();
 
 		if (ImGui::Button("GL Lighting")) {
 			SetGLProperty(GL_LIGHTING);
-			LOG("GL_LIGHTING: %i", glIsEnabled(GL_LIGHTING));
+			LOG("GL LIGHTING: %s", glIsEnabled(GL_LIGHTING) ? "true" : "false");
 		} ImGui::SameLine();
 
 		if (ImGui::Button("GL Color Material")) {
 			SetGLProperty(GL_COLOR_MATERIAL);
-			LOG("GL_COLOR_MATERIAL: %i", glIsEnabled(GL_COLOR_MATERIAL));
+			LOG("GL COLOR MATERIAL: %s", glIsEnabled(GL_COLOR_MATERIAL) ? "true" : "false");
 		}
 
 		if (ImGui::Button("GL Texture 2D")) {
 			SetGLProperty(GL_TEXTURE_2D);
-			LOG("GL_TEXTURE_2D: %i", glIsEnabled(GL_TEXTURE_2D));
+			LOG("GL TEXTURE 2D: %s", glIsEnabled(GL_TEXTURE_2D) ? "true" : "false");
 		} ImGui::SameLine();
 
-		if (ImGui::Button("GL_FOG")) {
+		if (ImGui::Button("GL Fog")) {
 			SetGLProperty(GL_FOG);
-			LOG("GL_FOG: %i", glIsEnabled(GL_FOG));
+			LOG("GL FOG: %s", glIsEnabled(GL_FOG) ? "true" : "false");
 		} ImGui::SameLine();
 
-		if (ImGui::Button("GL_SHADE_MODEL")) {
+		if (ImGui::Button("GL Shade Model")) {
 			SetGLProperty(GL_SHADE_MODEL);
-			LOG("GL_SHADE_MODEL: %i", glIsEnabled(GL_SHADE_MODEL));
+			LOG("GL SHADE MODEL: %s", glIsEnabled(GL_SHADE_MODEL) ? "true" : "false");
 		}
 
 		ImGui::Separator();

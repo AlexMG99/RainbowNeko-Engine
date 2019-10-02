@@ -72,6 +72,16 @@ bool ModuleTest::Start()
 	return ret;
 }
 
+update_status ModuleTest::PreUpdate(float dt)
+{
+	update_status ret = UPDATE_CONTINUE;
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
+		ret = Save();
+
+	return ret;
+}
+
 // Load assets
 bool ModuleTest::CleanUp()
 {
@@ -79,12 +89,15 @@ bool ModuleTest::CleanUp()
 
 	json_value_free(settings_doc);
 	json_value_free(credits_doc);
+
+	delete panel_console;
+	panel_console = nullptr;
 	return true;
 }
 
-bool ModuleTest::Save()
+update_status ModuleTest::Save()
 {
-	bool ret = false;
+	update_status ret = UPDATE_CONTINUE;
 
 	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
 		ret = (*item)->Save();
@@ -112,23 +125,6 @@ update_status ModuleTest::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-
-
-	/*Cylinder c(1, 3);
-	c.SetPos(0, 0, 0);
-	c.axis = true;
-	c.Render();
-	c.color = Red;*/
-
-	Cube cc(2, 2, 3);
-	cc.SetPos(0, 0, 0);
-	cc.axis = true;
-	cc.Render();
-
-
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
@@ -142,10 +138,6 @@ update_status ModuleTest::Update(float dt)
 	ImGui::EndMainMenuBar();
 
 	ret = panel_console->Draw();
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-		Save();
-	}
 
 	// Rendering
 	ImGui::Render();

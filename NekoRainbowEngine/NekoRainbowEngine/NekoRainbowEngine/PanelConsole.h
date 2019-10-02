@@ -9,7 +9,7 @@ class PanelConsole : public Panel {
 public:
 	PanelConsole() {};
 	PanelConsole(const char* name) :Panel(name) {};
-	~PanelConsole() {};
+	~PanelConsole();
 
 	bool Start();
 	update_status Draw();

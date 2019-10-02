@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "Panel.h"
 #include "PanelConsole.h"
-#include "Primitive.h"
 
 #include "Parson/parson.h"
 #include <list>
@@ -17,8 +16,9 @@ public:
 	~ModuleTest();
 
 	bool Start();
+	update_status PreUpdate(float dt);
 	update_status Update(float dt);
-	bool Save();
+	update_status Save();
 	void Log(const char* log_text);
 
 	bool CleanUp();
