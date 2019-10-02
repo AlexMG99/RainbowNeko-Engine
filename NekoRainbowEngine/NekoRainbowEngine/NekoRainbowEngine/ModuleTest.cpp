@@ -121,7 +121,7 @@ void ModuleTest::Log(const char * log_text)
 }
 
 // Update
-update_status ModuleTest::Update(float dt)
+update_status ModuleTest::PostUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 

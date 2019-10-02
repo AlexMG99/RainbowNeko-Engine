@@ -7,8 +7,6 @@
 #include "Parson/parson.h"
 #include <list>
 
-struct PhysMotor3D;
-
 class ModuleTest : public Module
 {
 public:
@@ -17,7 +15,7 @@ public:
 
 	bool Start();
 	update_status PreUpdate(float dt);
-	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	update_status Save();
 	void Log(const char* log_text);
 

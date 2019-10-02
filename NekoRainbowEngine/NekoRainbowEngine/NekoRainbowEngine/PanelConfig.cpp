@@ -107,11 +107,9 @@ void PanelConfig::ConfigWindow()
 
 			sprintf_s(title, 25, "Framerate %.1f", current_frames);
 			ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 160.0f, ImVec2(310, 100));
-			LOG("%f", current_frames);
 
 			sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
 			ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
-			LOG("%f", current_ms);
 		}
 
 

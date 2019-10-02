@@ -166,20 +166,20 @@
     <ClCompile Include="PanelConsole.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleViewport.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Globals.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Sources\imGUI</Filter>
     </ClInclude>
@@ -452,6 +452,12 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleViewport.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

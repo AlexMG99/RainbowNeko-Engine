@@ -8,6 +8,7 @@ Application::Application()
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	scene_test = new ModuleTest(this);
+	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 
@@ -21,6 +22,7 @@ Application::Application()
 	AddModule(input);
 	
 	// Scenes
+	AddModule(viewport);
 	AddModule(scene_test);
 
 	// Renderer last!
@@ -94,7 +96,7 @@ void Application::FinishUpdate()
 	{
 		PerfTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
-		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
+		//LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
 	}
 
 	avg_fps = float(frame_count) / startup_time.ReadSec();

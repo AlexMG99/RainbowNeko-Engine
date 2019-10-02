@@ -10,6 +10,7 @@
 #include "ModuleTest.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleViewport.h"
 
 class Application
 {
@@ -17,6 +18,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleTest* scene_test;
+	ModuleViewport* viewport;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 
