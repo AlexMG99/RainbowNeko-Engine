@@ -1,4 +1,4 @@
-#include "par/par_shapes.h"
+#include "par_shapes.h"
 
 static void par_shapes__sphere(float const* uv, float* xyz, void*);
 static void par_shapes__hemisphere(float const* uv, float* xyz, void*);

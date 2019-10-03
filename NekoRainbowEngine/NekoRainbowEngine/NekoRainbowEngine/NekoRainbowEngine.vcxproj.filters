@@ -178,7 +178,7 @@
     <ClCompile Include="Globals.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="par_shapes.cpp">
+    <ClCompile Include="par\par_shapes.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
