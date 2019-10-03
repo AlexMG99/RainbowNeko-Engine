@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "par/par_shapes.h"
 
 class ModuleViewport : public Module
 {
@@ -27,4 +28,6 @@ public:
 	float x = 0;
 	float y = 0;
 	float z = 0;
+
+	par_shapes_mesh_s* cube;
 };

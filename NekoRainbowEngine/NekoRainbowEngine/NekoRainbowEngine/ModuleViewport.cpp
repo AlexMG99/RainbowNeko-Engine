@@ -3,6 +3,7 @@
 
 #include "Application.h"
 #include "ModuleViewport.h"
+#include "par/par_shapes.h"
 
 
 
@@ -16,22 +17,19 @@ ModuleViewport::~ModuleViewport()
 
 bool ModuleViewport::Start()
 {
+	cube = par_shapes_create_cube();
 
 	//Cube Vertex
 	my_id = 0;
 	glGenBuffers(1, (GLuint*) &(my_id));
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-							//  0      1      2      3      4      5      6      7
-	float vertices[8 * 3] = { 0,0,0, 1,0,0, 1,1,1, 1,1,0, 0,0,1, 0,1,1, 1,0,1, 0,1,0 };
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*cube->npoints, cube->points, GL_STATIC_DRAW);
 
 	//Cube Vertex definition
 	my_indices = 0;
 	glGenBuffers(1, (GLuint*) &(my_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-							 //    Back			  Right			Up			Left			Front			Down
-	uint indices[12 * 3] = {3,1,0, 7,3,0, 2,6,1, 3,2,1, 2,3,7, 5,2,7, 5,0,4, 5,7,0, 2,5,4, 4,6,2, 0,1,6, 6,4,0 };
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*cube->ntriangles, cube->triangles, GL_STATIC_DRAW);
 
 	return true;
 }
@@ -44,7 +42,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	return UPDATE_CONTINUE;
 }
