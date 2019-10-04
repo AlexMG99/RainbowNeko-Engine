@@ -11,6 +11,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleViewport.h"
+#include "ModuleImporter.h"
 
 class Application
 {
@@ -21,6 +22,7 @@ public:
 	ModuleViewport* viewport;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleImporter* importer;
 
 	int					capped_ms = -1;
 

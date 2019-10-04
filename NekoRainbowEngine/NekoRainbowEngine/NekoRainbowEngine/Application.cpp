@@ -11,6 +11,7 @@ Application::Application()
 	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	importer = new ModuleImporter(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -20,6 +21,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(importer);
 	
 	// Scenes
 	AddModule(viewport);
