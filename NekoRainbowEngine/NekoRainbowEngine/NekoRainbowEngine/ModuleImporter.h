@@ -42,9 +42,11 @@ public:
 	~ModuleImporter();
 
 	bool Init();
+	void Draw();
 	bool CleanUp();
 
 	void LoadFile(const char* path);
+	void GenerateMesh();
 private:
 	FBX fbx_1;
 };

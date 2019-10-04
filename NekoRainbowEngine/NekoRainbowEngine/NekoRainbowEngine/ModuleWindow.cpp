@@ -65,6 +65,7 @@ bool ModuleWindow::Init()
 		else
 		{
 			//Get window surface
+
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
@@ -153,7 +154,7 @@ void ModuleWindow::SetBrightness()
 void ModuleWindow::SetBrightness(float brightness)
 {
 	this->brigthness = brightness;
-	SDL_SetWindowBrightness(window, brigthness);
+	//SDL_SetWindowBrightness(window, brigthness);
 }
 
 void ModuleWindow::SetWindowSize()

@@ -17,7 +17,6 @@ bool PanelConfig::Start()
 	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"), 
 		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
 	App->window->SetTitle(App->window->project_name);
-
 	App->window->resizable_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Resizable");
 	App->window->SetResizable();
 	App->window->fullscreen_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen");
@@ -165,8 +164,6 @@ void PanelConfig::ConfigWindow()
 	{
 		SDL_version compiled;
 
-
-
 		ImGui::Text("SDL Version:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%d", &compiled);
 		ImGui::Separator();
 		ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i (Cache: % i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
@@ -193,7 +190,6 @@ void PanelConfig::ConfigWindow()
 
 		ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", glGetString(GL_VERSION));
 		ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", glGetString(GL_VENDOR));
-		/*ImGui::Text("VRAM Budget:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i", sizeof (MEMORYSTATUS));*/
 
 		glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalmemory);
 		ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i Mb", totalmemory / 1024);
@@ -201,18 +197,8 @@ void PanelConfig::ConfigWindow()
 		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &currentmemoryaviable);
 		ImGui::Text("VRAM Aviable:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%i Mb", currentmemoryaviable / 1024);
 
-
-		/*lGetIntegerv(GL_NVX_gpu_memory_info, &info);
-		ImGui::Text("VRAM Aviable:"); ImGui::SameLine(); ImGui::TextColored({ 255,216,0,100 }, "%s", &info);*/
-
-
 		ImGui::Text("VRAM Reserved:");
 	}
-	
-		/*ImGui::Text("%s", App->window->engine_name);
-		ImGui::Text("%s", App->window->description);
-		ImGui::Text("%s", App->window->authors);*/
-		/*App->window->SetTitle(App->window->engine_name);*/
 	
 	
 	ImGui::End();
