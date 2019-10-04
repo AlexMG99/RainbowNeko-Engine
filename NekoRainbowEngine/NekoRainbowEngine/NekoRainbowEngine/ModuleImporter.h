@@ -10,6 +10,9 @@ public:
 	Mesh() {};
 	~Mesh() {};
 
+	void GenerateMesh();
+	void Render();
+
 public:
 	uint id_index = 0;
 	uint num_index = 0;
@@ -29,7 +32,7 @@ public:
 	~FBX() {};
 
 public:
-	std::list<Mesh> mesh_list;
+	std::list<Mesh*> mesh_list;
 
 };
 
@@ -42,11 +45,12 @@ public:
 	~ModuleImporter();
 
 	bool Init();
-	void Draw();
+	bool Start();
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 	void LoadFile(const char* path);
-	void GenerateMesh();
+
 private:
-	FBX fbx_1;
+	std::list<FBX*> fbx_list;
 };

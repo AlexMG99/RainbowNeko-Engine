@@ -32,7 +32,6 @@ bool ModuleViewport::Start()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*cube->ntriangles * 3, cube->triangles, GL_STATIC_DRAW);
 
-	App->importer->LoadFile("../Game/Assets/warrior.fbx");
 	return true;
 }
 
@@ -40,14 +39,12 @@ update_status ModuleViewport::PostUpdate(float dt)
 {
 	CreateGrid();
 
-	App->importer->Draw();
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glDrawElements(GL_TRIANGLES, cube->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	//glDrawElements(GL_TRIANGLES, cube->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
 	return UPDATE_CONTINUE;
 }
