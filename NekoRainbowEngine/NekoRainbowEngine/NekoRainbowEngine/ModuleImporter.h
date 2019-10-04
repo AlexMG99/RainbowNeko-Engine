@@ -4,6 +4,36 @@
 #include "Globals.h"
 #include <list>
 
+//----------------- Mesh -----------------//
+class Mesh {
+public:
+	Mesh() {};
+	~Mesh() {};
+
+public:
+	uint id_index = 0;
+	uint num_index = 0;
+	uint* index = nullptr;
+
+	uint id_vertex = 0;
+	uint num_vertices = 0;
+	float* vertices = nullptr;
+
+};
+
+//----------------- FBX -----------------//
+
+class FBX {
+public:
+	FBX() {};
+	~FBX() {};
+
+public:
+	std::list<Mesh> mesh_list;
+
+};
+
+
 class ModuleImporter : public Module
 {
 public:
@@ -14,38 +44,7 @@ public:
 	bool Init();
 	bool CleanUp();
 
-
-private:
-
-};
-
-
-//----------------- FBX -----------------//
-
-class FBX {
-public:
-	FBX();
-	~FBX();
-
 	void LoadFile(const char* path);
 private:
-	std::list<Mesh*> mesh_list;
-	
-};
-
-//----------------- Mesh -----------------//
-class Mesh {
-public:
-	Mesh();
-	~Mesh();
-
-public:
-	uint id_index = 0;
-	uint num_index = 0;
-	uint* index = nullptr;
-
-	uint id_vertex = 0;
-	uint num_index = 0;
-	uint* vertex = nullptr;
-
+	FBX fbx_1;
 };

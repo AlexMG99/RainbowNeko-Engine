@@ -3,6 +3,7 @@
 
 #include "Application.h"
 #include "ModuleViewport.h"
+#include "ModuleImporter.h"
 #include "par/par_shapes.h"
 
 
@@ -31,6 +32,7 @@ bool ModuleViewport::Start()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*cube->ntriangles * 3, cube->triangles, GL_STATIC_DRAW);
 
+	App->importer->LoadFile("../Game/Assets/warrior.fbx");
 	return true;
 }
 

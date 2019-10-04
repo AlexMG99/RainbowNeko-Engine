@@ -33,19 +33,22 @@ bool ModuleImporter::CleanUp()
 	return true;
 }
 
-void FBX::LoadFile(const char* path)
+void ModuleImporter::LoadFile(const char* path)
 {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		/*for (std::list<Mesh*>::iterator it = mesh_list.begin(); mesh_list.size <= scene->mNumMeshes; it++)
+		uint i = 0;
+		for (aiMesh* (*it) = scene->mMeshes; i <= scene->mNumMeshes; i++)
 		{
-			Mesh* aux_mesh = new Mesh;
-			aux_mesh->index = scene->mMeshes
+			Mesh m;
+			m.num_vertices = (*it)->mNumVertices;
+			m.vertices = new float[m.num_vertices * 3];
+			memcpy(m.vertices, (*it)->mVertices, sizeof(float) * m.num_vertices * 3);
+			LOG("New mesh with %d vertices", m.num_vertices);
 
-
-			mesh_list.push_back(aux_mesh);
-		}*/
+			fbx_1.mesh_list.push_back(m);
+		}
 
 	}
 }
