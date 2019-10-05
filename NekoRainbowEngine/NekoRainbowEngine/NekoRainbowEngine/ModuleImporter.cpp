@@ -65,31 +65,33 @@ void ModuleImporter::LoadFile(const char* path)
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		uint i = 1;
-		for (aiMesh* (*it) = scene->mMeshes; i <= scene->mNumMeshes; i++)
+		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh* m = new Mesh();
-			m->num_vertices = (*it)->mNumVertices;
+			aiMesh* aimesh = scene->mMeshes[i];
+
+			m->num_vertices = aimesh->mNumVertices;
 			m->vertices = new float[m->num_vertices * 3];
-			memcpy(m->vertices, (*it)->mVertices, sizeof(float) * m->num_vertices * 3);
+			memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
 			LOG("New mesh with %d vertices", m->num_vertices);
 
-			if ((*it)->HasFaces())
+			if (aimesh->HasFaces())
 			{
-				m->num_index = (*it)->mNumFaces * 3;
+				m->num_index = aimesh->mNumFaces * 3;
 				m->index = new uint[m->num_index]; // assume each face is a triangle
-				for (uint j = 0; j < (*it)->mNumFaces; ++j)
+				
+				for (uint j = 0; j < aimesh->mNumFaces; ++j)
 				{
-					if ((*it)->mFaces[j].mNumIndices != 3) {
+					if (aimesh->mFaces[j].mNumIndices != 3) {
 						LOG("WARNING, geometry face with != 3 indices!");
 					}
 					else {
-						memcpy(&m->index[j * 3], (*it)->mFaces[j].mIndices, 3 * sizeof(uint));
+						memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
 					}
 				}
 			}
 			aux_fbx->mesh_list.push_back(m);
-
+			
 		}
 		fbx_list.push_back(aux_fbx);
 	}
@@ -98,16 +100,16 @@ void ModuleImporter::LoadFile(const char* path)
 void Mesh::GenerateMesh()
 {
 	//Cube Vertex
-	id_vertex = 0;
 	glGenBuffers(1, &id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)* num_vertices* 3, vertices, GL_STATIC_DRAW);
 
 	//Cube Vertex definition
-	id_index = 0;
 	glGenBuffers(1, &id_index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_index * 3, index, GL_STATIC_DRAW);
+
+	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
 }
 
 void Mesh::Render()
@@ -115,7 +117,7 @@ void Mesh::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, num_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_SHORT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
