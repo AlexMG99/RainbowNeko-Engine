@@ -83,7 +83,7 @@
     <ClInclude Include="ModuleViewport.h" />
     <ClInclude Include="PanelConfig.h" />
     <ClInclude Include="PanelConsole.h" />
-    <ClInclude Include="PanelEdit.h" />
+    <ClInclude Include="PanelWindow.h" />
     <ClInclude Include="PanelFile.h" />
     <ClInclude Include="PanelHelp.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -225,7 +225,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PanelConfig.cpp" />
     <ClCompile Include="PanelConsole.cpp" />
-    <ClCompile Include="PanelEdit.cpp" />
+    <ClCompile Include="PanelWindow.cpp" />
     <ClCompile Include="PanelFile.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
     <ClCompile Include="Parson\parson.c" />

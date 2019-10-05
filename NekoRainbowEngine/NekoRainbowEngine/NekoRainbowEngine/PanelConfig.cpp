@@ -60,10 +60,6 @@ update_status PanelConfig::Save()
 
 	json_serialize_to_file(App->scene_test->settings_doc, "Settings/win_config.json");
 
-
-	json_serialize_to_file(App->scene_test->credits_doc, "Settings/win_about.json");
-
-
 	return UPDATE_CONTINUE;
 }
 

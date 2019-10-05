@@ -13,7 +13,7 @@
 
 #include "PanelHelp.h"
 #include "PanelFile.h"
-#include "PanelEdit.h"
+#include "PanelWindow.h"
 #include "PanelConfig.h"
 #include "PanelConsole.h"
 
@@ -42,7 +42,7 @@ bool ModuleTest::Start()
 	ImGui_ImplOpenGL3_Init();
 
 	topbar_panel_list.push_back(new PanelFile("File"));
-	topbar_panel_list.push_back(new PanelEdit("Edit"));
+	topbar_panel_list.push_back(new PanelWindow("Window"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
 	topbar_panel_list.push_back(new PanelConfig("Configuration"));
 

@@ -3,11 +3,11 @@
 
 #include "Panel.h"
 
-class PanelEdit : public Panel {
+class PanelWindow : public Panel {
 public:
-	PanelEdit() {};
-	PanelEdit(const char* name) :Panel(name) {};
-	~PanelEdit() {};
+	PanelWindow() {};
+	PanelWindow(const char* name) :Panel(name) {};
+	~PanelWindow() {};
 	update_status Draw();
 };
 
