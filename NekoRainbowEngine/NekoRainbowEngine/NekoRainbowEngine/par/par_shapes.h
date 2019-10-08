@@ -150,6 +150,7 @@ par_shapes_mesh* par_shapes_clone(par_shapes_mesh const* mesh,
 
 void par_shapes_merge(par_shapes_mesh* dst, par_shapes_mesh const* src);
 void par_shapes_translate(par_shapes_mesh*, float x, float y, float z);
+void par_shapes_set_position(par_shapes_mesh*, float x, float y, float z);
 void par_shapes_rotate(par_shapes_mesh*, float radians, float const* axis);
 void par_shapes_scale(par_shapes_mesh*, float x, float y, float z);
 void par_shapes_merge_and_free(par_shapes_mesh* dst, par_shapes_mesh* src);

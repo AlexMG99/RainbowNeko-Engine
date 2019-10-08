@@ -149,6 +149,11 @@ Cube* ModuleImporter::CreateCube(int x, int y, int z)
 	return cube;
 }
 
+std::list<Cube*> ModuleImporter::GetCubeList() const
+{
+	return cube_list;
+}
+
 Mesh::~Mesh()
 {
 	delete index;
