@@ -8,7 +8,7 @@
 class Mesh {
 public:
 	Mesh() {};
-	~Mesh() {};
+	~Mesh();
 
 	void GenerateMesh();
 	void Render();
@@ -29,14 +29,30 @@ public:
 class FBX {
 public:
 	FBX() {};
-	~FBX() {};
+	~FBX();
 
 public:
 	std::list<Mesh*> mesh_list;
 
 };
 
+class Cube {
+public:
+	Cube() {};
+	~Cube() {};
 
+	void GenerateMesh();
+	void Render();
+
+public:
+	par_shapes_mesh_s* cube_mesh = nullptr;
+
+private:
+	uint my_id = 0;
+	uint my_indices = 0;
+};
+
+//----------------- ModuleImporter -----------------//
 class ModuleImporter : public Module
 {
 public:
@@ -50,7 +66,9 @@ public:
 	bool CleanUp();
 
 	void LoadFile(const char* path);
+	Cube* CreateCube(int x, int y, int z);
 
 private:
 	std::list<FBX*> fbx_list;
+	std::list<Cube*> cube_list;
 };
