@@ -44,7 +44,7 @@ bool ModuleTest::Start()
 	topbar_panel_list.push_back(new PanelFile("File"));
 	topbar_panel_list.push_back(new PanelWindow("Window"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
-	topbar_panel_list.push_back(new PanelConfig("Configuration"));
+	/*topbar_panel_list.push_back(new PanelConfig("Configuration"));*/
 
 	panel_console = new PanelConsole("Console");
 
