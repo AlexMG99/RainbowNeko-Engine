@@ -15,7 +15,6 @@ public:
 	update_status Draw();
 
 	void AddLog(const char* text);
-	void SetGLProperty(int hex_value);
 	void ChangeButtonColor(int hex_value);
 	void Clear();
 

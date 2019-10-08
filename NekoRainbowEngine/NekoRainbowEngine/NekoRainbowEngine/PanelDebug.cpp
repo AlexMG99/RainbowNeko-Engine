@@ -29,12 +29,28 @@ update_status PanelDebug::Draw()
 	}
 
 	if (open)
-		Renderer();
+		RendererWindow();
 
 	return UPDATE_CONTINUE;
 
 }
 
-void PanelDebug::Renderer()
+void PanelDebug::RendererWindow()
 {
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+	if (ImGui::Begin("Renderer Window", &open, window_flags)) {
+		ImGui::SetWindowSize(ImVec2(275, 300));
+		ImGui::SetWindowPos(ImGui::GetWindowPos(), ImGuiCond_FirstUseEver);
+
+		/*ImGui::Checkbox("GL DEPTH", SetGLProperty(hex_value));*/
+
+
+
+		ImGui::End();
+	}
+}
+
+void PanelDebug::SetGLProperty(int hex_value)
+{
+	glIsEnabled((GLenum)hex_value) ? glDisable((GLenum)hex_value) : glEnable((GLenum)hex_value);
 }

@@ -15,7 +15,8 @@ public:
 	update_status Draw();
 
 private:
-	void Renderer();
+	void RendererWindow();
+	void SetGLProperty(int hex_value);
 	
 private:
 	bool open = false;

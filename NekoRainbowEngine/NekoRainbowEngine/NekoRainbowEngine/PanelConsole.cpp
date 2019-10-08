@@ -102,10 +102,10 @@ void PanelConsole::AddLog(const char * text)
 	scroll_to_bottom = true;
 }
 
-void PanelConsole::SetGLProperty(int hex_value)
-{
-	glIsEnabled((GLenum)hex_value) ? glDisable((GLenum)hex_value) : glEnable((GLenum)hex_value);
-}
+//void PanelConsole::SetGLProperty(int hex_value)
+//{
+//	glIsEnabled((GLenum)hex_value) ? glDisable((GLenum)hex_value) : glEnable((GLenum)hex_value);
+//}
 
 void PanelConsole::ChangeButtonColor(int hex_value)
 {
