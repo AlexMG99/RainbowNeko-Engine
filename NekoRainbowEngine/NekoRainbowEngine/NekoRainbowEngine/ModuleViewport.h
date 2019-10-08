@@ -23,9 +23,4 @@ public:
 
 	uint separation = 2;
 	uint lines = 20;
-	float x = 0;
-	float y = 0;
-	float z = 0;
-
-	par_shapes_mesh_s* cube;
 };

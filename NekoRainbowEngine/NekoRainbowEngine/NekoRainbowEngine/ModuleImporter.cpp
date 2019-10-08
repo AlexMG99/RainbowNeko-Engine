@@ -11,6 +11,8 @@
 
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
+//----------------- ModuleImporter -----------------//
+
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module (app, start_enabled)
 {
 }
@@ -50,11 +52,22 @@ update_status ModuleImporter::PostUpdate(float dt)
 			(*it_mesh)->Render();
 		}
 	}
+
+	for (std::list<Cube*>::iterator it_cube = cube_list.begin(); it_cube != cube_list.end(); ++it_cube)
+	{
+		(*it_cube)->Render();
+	}
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleImporter::CleanUp()
 {
+	for (std::list<FBX*>::iterator it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
+	{
+		delete (*it_fbx);
+		(*it_fbx) = nullptr;
+	}
+
 	aiDetachAllLogStreams();
 	return true;
 }
@@ -97,6 +110,29 @@ void ModuleImporter::LoadFile(const char* path)
 	}
 }
 
+Cube* ModuleImporter::CreateCube(int x, int y, int z)
+{
+	Cube* cube = new Cube();
+	cube->cube_mesh = par_shapes_create_cube();
+
+	par_shapes_translate(cube->cube_mesh, x, y, z);
+
+	cube->GenerateMesh();
+
+	cube_list.push_back(cube);
+
+	return cube;
+}
+
+Mesh::~Mesh()
+{
+	delete index;
+	index = nullptr;
+
+	delete vertices;
+	vertices = nullptr;
+}
+
 void Mesh::GenerateMesh()
 {
 	//Cube Vertex
@@ -120,4 +156,38 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void Cube::GenerateMesh()
+{
+	//Cube Vertex
+	my_id = 0;
+	glGenBuffers(1, (GLuint*) &(my_id));
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*cube_mesh->npoints * 3, cube_mesh->points, GL_STATIC_DRAW);
+
+	//Cube Vertex definition
+	my_indices = 0;
+	glGenBuffers(1, (GLuint*) &(my_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*cube_mesh->ntriangles * 3, cube_mesh->triangles, GL_STATIC_DRAW);
+}
+
+void Cube::Render()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glDrawElements(GL_TRIANGLES, cube_mesh->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+FBX::~FBX()
+{
+	for (std::list<Mesh*>::iterator it_mesh = mesh_list.begin(); it_mesh != mesh_list.end(); ++it_mesh)
+	{
+		delete (*it_mesh);
+		(*it_mesh) = nullptr;
+	}
 }
