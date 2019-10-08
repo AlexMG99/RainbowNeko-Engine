@@ -69,7 +69,10 @@ public:
 	bool LoadFile(const char* path);
 	Cube* CreateCube(int x, int y, int z);
 
+	std::list<Cube*> GetCubeList() const;
+
 private:
 	std::list<FBX*> fbx_list;
+public:
 	std::list<Cube*> cube_list;
 };

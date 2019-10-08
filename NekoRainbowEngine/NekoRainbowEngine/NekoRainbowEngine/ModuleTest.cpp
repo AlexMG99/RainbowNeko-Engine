@@ -48,6 +48,7 @@ bool ModuleTest::Start()
 	/*topbar_panel_list.push_back(new PanelConfig("Configuration"));*/
 
 	panel_console = new PanelConsole("Console");
+	panel_inspector = new PanelInspector("Inspector");
 
 	settings_doc = json_parse_file("Settings/win_config.json");
 	credits_doc = json_parse_file("Settings/win_about.json");
@@ -139,6 +140,8 @@ update_status ModuleTest::PostUpdate(float dt)
 	ImGui::EndMainMenuBar();
 
 	ret = panel_console->Draw();
+
+	panel_inspector->Draw();
 
 	// Rendering
 	ImGui::Render();

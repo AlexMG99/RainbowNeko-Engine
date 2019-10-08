@@ -530,6 +530,16 @@ void par_shapes_translate(par_shapes_mesh* m, float x, float y, float z)
 	}
 }
 
+void par_shapes_set_position(par_shapes_mesh *m, float x, float y, float z)
+{
+	float* points = m->points;
+	for (int i = 0; i < m->npoints; i++) {
+		*points++ += x;
+		*points++ += y;
+		*points++ += z;
+	}
+}
+
 void par_shapes_rotate(par_shapes_mesh* mesh, float radians, float const* axis)
 {
 	float s = sinf(radians);

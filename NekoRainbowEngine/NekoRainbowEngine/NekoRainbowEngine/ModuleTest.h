@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Panel.h"
 #include "PanelConsole.h"
+#include "PanelInspector.h"
 
 #include "Parson/parson.h"
 #include <list>
@@ -25,6 +26,7 @@ public:
 	std::list<Panel*> topbar_panel_list;
 
 	PanelConsole* panel_console = nullptr;
+	PanelInspector* panel_inspector = nullptr;
 
 	JSON_Value* settings_doc;
 	JSON_Value* credits_doc;
