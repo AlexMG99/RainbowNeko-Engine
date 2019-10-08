@@ -31,29 +31,28 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	App->importer->LoadFile("../Game/Assets/warrior.fbx");
+	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
-	for (std::list<FBX*>::iterator it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
-	{
-		for (std::list<Mesh*>::iterator it_mesh = (*it_fbx)->mesh_list.begin(); it_mesh != (*it_fbx)->mesh_list.end(); ++it_mesh)
-		{
-			(*it_mesh)->GenerateMesh();
-		}
-	}
 	return true;
+}
+
+update_status ModuleImporter::Update(float dt)
+{
+
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)
 {
-	for (std::list<FBX*>::iterator it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
+	for (auto it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
 	{
-		for (std::list<Mesh*>::iterator it_mesh = (*it_fbx)->mesh_list.begin(); it_mesh != (*it_fbx)->mesh_list.end(); ++it_mesh)
+		for (auto it_mesh = (*it_fbx)->mesh_list.begin(); it_mesh != (*it_fbx)->mesh_list.end(); ++it_mesh)
 		{
 			(*it_mesh)->Render();
 		}
 	}
 
-	for (std::list<Cube*>::iterator it_cube = cube_list.begin(); it_cube != cube_list.end(); ++it_cube)
+	for (auto it_cube = cube_list.begin(); it_cube != cube_list.end(); ++it_cube)
 	{
 		(*it_cube)->Render();
 	}
@@ -62,18 +61,25 @@ update_status ModuleImporter::PostUpdate(float dt)
 
 bool ModuleImporter::CleanUp()
 {
-	for (std::list<FBX*>::iterator it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
+	for (auto it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
 	{
 		delete (*it_fbx);
 		(*it_fbx) = nullptr;
+	}
+
+	for (auto it_cube = cube_list.begin(); it_cube != cube_list.end(); ++it_cube)
+	{
+		delete (*it_cube);
+		(*it_cube) = nullptr;
 	}
 
 	aiDetachAllLogStreams();
 	return true;
 }
 
-void ModuleImporter::LoadFile(const char* path)
+bool ModuleImporter::LoadFile(const char* path)
 {
+	bool ret = true;
 	FBX* aux_fbx = new FBX();
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
@@ -107,7 +113,26 @@ void ModuleImporter::LoadFile(const char* path)
 			
 		}
 		fbx_list.push_back(aux_fbx);
+
+		for (auto it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
+		{
+			if ((*it_fbx) == aux_fbx)
+			{
+				for (auto it_mesh = (*it_fbx)->mesh_list.begin(); it_mesh != (*it_fbx)->mesh_list.end(); ++it_mesh)
+				{
+
+					(*it_mesh)->GenerateMesh();
+				}
+			}
+		}
+		LOG("Loaded file succesfully!");
 	}
+	else {
+		ret = false;
+		LOG("The file with path: %s can not be load", path);
+	}
+
+	return ret;
 }
 
 Cube* ModuleImporter::CreateCube(int x, int y, int z)
@@ -185,7 +210,7 @@ void Cube::Render()
 
 FBX::~FBX()
 {
-	for (std::list<Mesh*>::iterator it_mesh = mesh_list.begin(); it_mesh != mesh_list.end(); ++it_mesh)
+	for (auto it_mesh = mesh_list.begin(); it_mesh != mesh_list.end(); ++it_mesh)
 	{
 		delete (*it_mesh);
 		(*it_mesh) = nullptr;
