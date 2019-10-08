@@ -109,7 +109,7 @@ void PanelWindow::ConfigWindow()
 
 	if (ImGui::CollapsingHeader("Window Settings"))
 	{
-		if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 1.0f, "%.1f"))
+		if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 1.0f, "%.05f"))
 			App->window->SetBrightness();
 
 		if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))
