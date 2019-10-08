@@ -19,6 +19,7 @@ ModuleViewport::~ModuleViewport()
 bool ModuleViewport::Start()
 {
 	App->importer->CreateCube(0, 0, 0);
+	App->importer->CreateCube(20, 0, 20);
 	return true;
 }
 
