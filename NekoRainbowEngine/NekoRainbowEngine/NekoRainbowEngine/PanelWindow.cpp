@@ -159,9 +159,9 @@ void PanelWindow::ConfigWindow()
 	{
 		int x, y;
 		
-		ImGui::Text("Mouse Position:"); /*ImGui::SameLine();*/ ImGui::TextColored({ 255,216,0,100 }, "X axis : %i, Y axis : %i", App->input->GetMouseX(), App->input->GetMouseY());
-		ImGui::Text("Mouse Motion:  "); /*ImGui::SameLine();*/ ImGui::TextColored({ 255,216,0,100 }, "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
-		ImGui::Text("Mouse Wheel:   "); /*ImGui::SameLine();*/ ImGui::TextColored({ 255,216,0,100 }, "Z axis : %i", App->input->GetMouseZ());
+		ImGui::Text("Mouse Position:"); ImGui::TextColored({ 255,216,0,100 }, "X axis : %i, Y axis : %i", App->input->GetMouseX(), App->input->GetMouseY());
+		ImGui::Text("Mouse Motion:  "); ImGui::TextColored({ 255,216,0,100 }, "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		ImGui::Text("Mouse Wheel:   "); ImGui::TextColored({ 255,216,0,100 }, "Z axis : %i", App->input->GetMouseZ());
 	
 	
 	}

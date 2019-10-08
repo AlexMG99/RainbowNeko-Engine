@@ -151,9 +151,6 @@
     <ClCompile Include="PanelFile.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="PanelConfig.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="PerfTimer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -182,6 +179,9 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="PanelWindow.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelDebug.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
@@ -441,9 +441,6 @@
     <ClInclude Include="PanelFile.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="PanelConfig.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="PerfTimer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -469,6 +466,9 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="PanelWindow.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelDebug.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>

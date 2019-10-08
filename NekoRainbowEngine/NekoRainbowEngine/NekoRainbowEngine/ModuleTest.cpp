@@ -13,8 +13,8 @@
 
 #include "PanelHelp.h"
 #include "PanelFile.h"
+#include "PanelDebug.h"
 #include "PanelWindow.h"
-#include "PanelConfig.h"
 #include "PanelConsole.h"
 
 ModuleTest::ModuleTest(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -43,6 +43,7 @@ bool ModuleTest::Start()
 
 	topbar_panel_list.push_back(new PanelFile("File"));
 	topbar_panel_list.push_back(new PanelWindow("Window"));
+	topbar_panel_list.push_back(new PanelDebug("Debug"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
 	/*topbar_panel_list.push_back(new PanelConfig("Configuration"));*/
 
