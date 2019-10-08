@@ -62,10 +62,11 @@ public:
 
 	bool Init();
 	bool Start();
+	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void LoadFile(const char* path);
+	bool LoadFile(const char* path);
 	Cube* CreateCube(int x, int y, int z);
 
 private:
