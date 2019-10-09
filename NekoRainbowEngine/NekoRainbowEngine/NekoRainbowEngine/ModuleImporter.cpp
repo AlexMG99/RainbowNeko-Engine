@@ -31,7 +31,7 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
+	App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
 	return true;
 }
@@ -56,6 +56,7 @@ update_status ModuleImporter::PostUpdate(float dt)
 	{
 		(*it_cube)->Render();
 	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -98,6 +99,12 @@ bool ModuleImporter::LoadFile(const char* path)
 			{
 				m->num_index = aimesh->mNumFaces * 3;
 				m->index = new uint[m->num_index]; // assume each face is a triangle
+
+				if (aimesh->HasNormals()) 
+				{
+					m->normals = new aiVector3D[aimesh->mNumVertices];
+					memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
+				}
 				
 				for (uint j = 0; j < aimesh->mNumFaces; ++j)
 				{
@@ -186,6 +193,19 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+	uint j = 0;
+	for (uint i = 0; i < num_vertices; i++)
+	{
+		glBegin(GL_LINES);
+		glColor3f(255, 0, 0);
+		glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+		glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
+		glEnd();
+		j += 3;
+	}
+	glColor3f(1, 1, 1);
+
 }
 
 void Cube::GenerateMesh()

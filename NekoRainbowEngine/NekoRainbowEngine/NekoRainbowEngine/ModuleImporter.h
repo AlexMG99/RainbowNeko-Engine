@@ -4,6 +4,8 @@
 #include "Globals.h"
 #include <list>
 
+#include "Assimp/include/vector3.h"
+
 //----------------- Mesh -----------------//
 class Mesh {
 public:
@@ -21,6 +23,8 @@ public:
 	uint id_vertex = 0;
 	uint num_vertices = 0;
 	float* vertices = nullptr;
+
+	aiVector3D* normals;
 
 };
 
