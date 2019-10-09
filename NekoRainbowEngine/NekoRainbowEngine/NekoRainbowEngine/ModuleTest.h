@@ -25,12 +25,10 @@ public:
 	ImVec2 r = { 80,100 };
 	std::list<Panel*> topbar_panel_list;
 
-	PanelConsole* panel_console = nullptr;
 	PanelInspector* panel_inspector = nullptr;
+	PanelConsole*	panel_console = nullptr;
 
 	JSON_Value* settings_doc;
 	JSON_Value* credits_doc;
-
-	bool start_console = false;
 
 };

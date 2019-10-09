@@ -2,6 +2,7 @@
 #define PANEL_DEBUG_H_
 
 #include "Panel.h"
+#include "PanelConsole.h"
 
 
 class PanelDebug : public Panel {
@@ -16,11 +17,10 @@ public:
 	
 private:
 	void RendererWindow();
-	bool SetGLProperty(int hex_value, int hexx_value);
 	
 private:
-	bool open_console = false;
 	bool open_renderer = false;
+
 	bool gl_depth;
 	bool gl_cull_face;
 	bool gl_lighting;
@@ -28,8 +28,10 @@ private:
 	bool gl_texture_2d;
 	bool gl_fog = false;
 	bool gl_shade_model;
-	bool gl_front_and_back=false;
-
+	bool gl_front_and_back = false;
+	bool gl_points = false;
+	bool gl_lines = false;
+	bool gl_fill = true;
 
 };
 

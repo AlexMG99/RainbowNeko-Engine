@@ -42,13 +42,13 @@ bool ModuleTest::Start()
 	ImGui_ImplOpenGL3_Init();
 
 	topbar_panel_list.push_back(new PanelFile("File"));
-	topbar_panel_list.push_back(new PanelWindow("Window"));
-	topbar_panel_list.push_back(new PanelDebug("Debug"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
-	/*topbar_panel_list.push_back(new PanelConfig("Configuration"));*/
+	topbar_panel_list.push_back(new PanelDebug("Debug"));
+	topbar_panel_list.push_back(new PanelWindow("Window"));
 
-	panel_console = new PanelConsole("Console");
 	panel_inspector = new PanelInspector("Inspector");
+	panel_console = new PanelConsole("Console");
+	panel_console->Start();
 
 	settings_doc = json_parse_file("Settings/win_config.json");
 	credits_doc = json_parse_file("Settings/win_about.json");
@@ -65,11 +65,9 @@ bool ModuleTest::Start()
 
 	json_serialize_to_file(credits_doc, "Settings/win_about.json");
 
-	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
 		ret = (*item)->Start();
 	}
-
-	ret = panel_console->Start();
 
 	return ret;
 }
@@ -92,8 +90,6 @@ bool ModuleTest::CleanUp()
 	json_value_free(settings_doc);
 	json_value_free(credits_doc);
 
-	delete panel_console;
-	panel_console = nullptr;
 	return true;
 }
 
@@ -101,7 +97,7 @@ update_status ModuleTest::Save()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
+	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
 		ret = (*item)->Save();
 	}
 
@@ -111,9 +107,9 @@ update_status ModuleTest::Save()
 void ModuleTest::Log(const char * log_text)
 {
 	if (panel_console != nullptr) {
-		if (!start_console) {
+		if (!panel_console->start_console) {
 			panel_console->AddLog(App->GetLog());
-			start_console = true;
+			panel_console->start_console = true;
 		}
 		else {
 			panel_console->AddLog(log_text);
@@ -134,14 +130,13 @@ update_status ModuleTest::PostUpdate(float dt)
 
 	// Top bar
 	ImGui::BeginMainMenuBar();
-	for (std::list<Panel*>::iterator item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
+	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
 		ret = (*item)->Draw();
 	}
 	ImGui::EndMainMenuBar();
 
-	ret = panel_console->Draw();
-
 	panel_inspector->Draw();
+	panel_console->Draw();
 
 	// Rendering
 	ImGui::Render();

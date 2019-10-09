@@ -77,10 +77,13 @@ void PanelWindow::ConfigWindow()
 			if (ImGui::SliderInt("Max FPS", &capped_fps, 10, 150))
 				App->CapFPS(capped_fps);
 
+			ImGui::Text("Limit Framerate: "); ImGui::SameLine();
+			ImGui::TextColored({ 255,216,0,100 }, "%i", App->GetCurrFPS());
+
 			//Histogram
 			static char title[25];
 
-			if (check_time.ReadMs() > 500)
+			if (check_time.ReadMs() > 100)
 			{
 				//Avg FPS
 				fps_log[fps_current_log] = current_frames = App->GetCurrFPS();
@@ -109,7 +112,7 @@ void PanelWindow::ConfigWindow()
 
 	if (ImGui::CollapsingHeader("Window Settings"))
 	{
-		if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 1.0f, "%.05f"))
+		if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 2.0f, "%.02f"))
 			App->window->SetBrightness();
 
 		if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))

@@ -11,11 +11,9 @@ public:
 	PanelConsole(const char* name) :Panel(name) {};
 	~PanelConsole();
 
-	bool Start();
 	update_status Draw();
 
 	void AddLog(const char* text);
-	void ChangeButtonColor(int hex_value);
 	void Clear();
 
 private:
@@ -25,6 +23,8 @@ private:
 	char console_input[50] = "";
 	ImGuiTextBuffer buffer_text;
 	bool scroll_to_bottom = false;
+public:
+	bool start_console = false;
 };
 
 

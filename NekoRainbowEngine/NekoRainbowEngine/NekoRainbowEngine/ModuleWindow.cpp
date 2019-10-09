@@ -34,6 +34,9 @@ bool ModuleWindow::Init()
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 		if(fullscreen_on == true)
 		{
@@ -55,7 +58,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(project_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(project_name, 0, 35, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -65,7 +68,6 @@ bool ModuleWindow::Init()
 		else
 		{
 			//Get window surface
-
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}

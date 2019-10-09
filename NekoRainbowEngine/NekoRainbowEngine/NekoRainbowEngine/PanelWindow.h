@@ -5,7 +5,7 @@
 #include "PerfTimer.h"
 #include <array>
 
-#define MAX_HISTOGRAM_LOG 25
+#define MAX_HISTOGRAM_LOG 50
 
 
 class PanelWindow : public Panel {
