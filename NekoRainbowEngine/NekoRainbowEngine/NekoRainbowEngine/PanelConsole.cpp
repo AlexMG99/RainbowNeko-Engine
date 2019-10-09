@@ -67,7 +67,7 @@ update_status PanelConsole::Draw() {
 
 		if (ImGui::Button("GL Fog")) {
 			SetGLProperty(GL_FOG);
-			LOG("GL FOG: %s", glIsEnabled(GL_FOG) ? "true" : "false");
+			
 		} ImGui::SameLine();
 
 		if (ImGui::Button("GL Shade Model")) {
@@ -104,7 +104,7 @@ void PanelConsole::AddLog(const char * text)
 
 //void PanelConsole::SetGLProperty(int hex_value)
 //{
-//	glIsEnabled((GLenum)hex_value) ? glDisable((GLenum)hex_value) : glEnable((GLenum)hex_value);
+//	glIsEnabled((GLenum)hex_value) ? G((GLenum)hex_value) : glEnable((GLenum)hex_value);
 //}
 
 void PanelConsole::ChangeButtonColor(int hex_value)
