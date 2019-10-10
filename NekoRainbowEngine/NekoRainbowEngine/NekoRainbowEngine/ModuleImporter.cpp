@@ -9,7 +9,10 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 
+#include "Devil/include/il.h"
+
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
+#pragma comment(lib, "Devil/libx86/DevIL.lib")
 
 //----------------- ModuleImporter -----------------//
 
@@ -140,6 +143,12 @@ bool ModuleImporter::LoadFile(const char* path)
 	}
 
 	return ret;
+}
+
+bool ModuleImporter::LoadTextures(const char * path)
+{
+
+	return true;
 }
 
 Cube* ModuleImporter::CreateCube(int x, int y, int z)

@@ -95,7 +95,7 @@ void ModuleViewport::CreateGrid()
 	glBindTexture(GL_TEXTURE_2D, texName);
 	glBegin(GL_TRIANGLES);
 
-	float lenght = 7;
+	float lenght = 1;
 	//Down
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0, 0, 0);
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(1* lenght, 0, 1 * lenght);

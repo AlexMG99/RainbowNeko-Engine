@@ -71,6 +71,7 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* path);
+	bool LoadTextures(const char* path);
 	Cube* CreateCube(int x, int y, int z);
 
 	std::list<Cube*> GetCubeList() const;
