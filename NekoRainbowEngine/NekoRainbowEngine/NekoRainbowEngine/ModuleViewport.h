@@ -24,3 +24,5 @@ public:
 	uint separation = 2;
 	uint lines = 20;
 };
+
+void makeCheckImage(void);

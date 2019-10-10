@@ -31,7 +31,7 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	App->importer->LoadFile("../Game/Assets/warrior.fbx");
+	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
 	return true;
 }

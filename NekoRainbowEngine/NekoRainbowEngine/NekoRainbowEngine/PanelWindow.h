@@ -7,7 +7,6 @@
 
 #define MAX_HISTOGRAM_LOG 50
 
-
 class PanelWindow : public Panel {
 public:
 	PanelWindow() {};
