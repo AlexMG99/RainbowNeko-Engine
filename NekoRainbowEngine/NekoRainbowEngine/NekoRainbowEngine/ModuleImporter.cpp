@@ -9,10 +9,17 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 
-#include "Devil/include/il.h"
-
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
+
+//-------------- Devil --------------
+#include "Devil/include/il.h"
+#include "DevIL/include/ilu.h"
+#include "DevIL/include/ilut.h"
+
 #pragma comment(lib, "Devil/libx86/DevIL.lib")
+#pragma comment(lib, "Devil/libx86/ILU.lib")
+#pragma comment(lib, "Devil/libx86/ILUT.lib")
+
 
 //----------------- ModuleImporter -----------------//
 
@@ -34,7 +41,7 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
+	App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
 	return true;
 }
@@ -53,6 +60,8 @@ update_status ModuleImporter::PostUpdate(float dt)
 		{
 			(*it_mesh)->Render();
 		}
+
+		(*it_fbx)->texture->Render();
 	}
 
 	for (auto it_cube = cube_list.begin(); it_cube != cube_list.end(); ++it_cube)
@@ -133,8 +142,10 @@ bool ModuleImporter::LoadFile(const char* path)
 
 					(*it_mesh)->GenerateMesh();
 				}
+				(*it_fbx)->LoadTextures("si");
 			}
 		}
+		
 		LOG("Loaded file succesfully!");
 	}
 	else {
@@ -145,10 +156,48 @@ bool ModuleImporter::LoadFile(const char* path)
 	return ret;
 }
 
-bool ModuleImporter::LoadTextures(const char * path)
+bool FBX::LoadTextures(const char * path)
 {
+	bool ret = true;
 
-	return true;
+	ILuint devil_id = 0;
+
+	ilGenImages(1, &devil_id);
+	ilBindImage(devil_id);
+	ilutRenderer(ILUT_OPENGL); 
+
+	ILuint Size;
+	FILE *File;
+	ILubyte *Lump;
+
+	File = fopen("../Game/Assets/lenna.png", "rb");
+	fseek(File, 0, SEEK_END);
+	Size = ftell(File);
+
+	texture = new Texture();
+
+	Lump = (ILubyte*)malloc(Size);
+	fseek(File, 0, SEEK_SET);
+	fread(Lump, 1, Size, File);
+	fclose(File);
+
+	if (!ilLoadL(IL_PNG, Lump, Size)) {
+		auto error = ilGetError();
+		LOG("Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
+		ret = false;
+	}
+	else {
+		texture->image_id = ilutGLBindTexImage();
+		texture->height = ilGetInteger(IL_IMAGE_HEIGHT)/2;
+		texture->width = ilGetInteger(IL_IMAGE_WIDTH)/2;
+
+		texture->GenerateTexture();
+	}
+
+	free(Lump);
+	ilDeleteImages(1, &devil_id);
+
+	return ret;
 }
 
 Cube* ModuleImporter::CreateCube(int x, int y, int z)
@@ -196,6 +245,7 @@ void Mesh::GenerateMesh()
 
 void Mesh::Render()
 {
+	//Render FBX Mesh
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -203,6 +253,7 @@ void Mesh::Render()
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
+	//Render Vertex Normals
 	uint j = 0;
 	for (uint i = 0; i < num_vertices; i++)
 	{
@@ -249,4 +300,44 @@ FBX::~FBX()
 		delete (*it_mesh);
 		(*it_mesh) = nullptr;
 	}
+
+	ilDeleteImages(1, &texture->image_id);
+
+	delete texture;
+	texture = nullptr;
+}
+
+void Texture::GenerateTexture()
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, image_id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::Render()
+{
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, image_id);
+
+	glBegin(GL_QUADS);
+	glTexCoord2i(0, 0); glVertex2i(0, 0);
+	glTexCoord2i(0, 1); glVertex2i(0, height);
+	glTexCoord2i(1, 1); glVertex2i(width, height);
+	glTexCoord2i(1, 0); glVertex2i(width, 0);
+	glEnd();
+
+	glEnd();
+	glFlush();
+	glDisable(GL_TEXTURE_2D);
 }

@@ -21,8 +21,8 @@
 #define __ilut_h_
 #define __ILUT_H__
 
-#include <IL/il.h>
-#include <IL/ilu.h>
+#include "il.h"
+#include "ilu.h"
 
 
 //-----------------------------------------------------------------------------
@@ -97,7 +97,7 @@
 		#endif
 	#endif
 
-	#include <IL/ilut_config.h>
+	#include "ilut_config.h"
 #endif
 
 
@@ -208,7 +208,6 @@ ILAPI ILboolean     ILAPIENTRY ilutRenderer(ILenum Renderer);
 
 
 // ImageLib Utility Toolkit's OpenGL Functions
-#ifdef ILUT_USE_OPENGL
 	ILAPI GLuint	ILAPIENTRY ilutGLBindTexImage();
 	ILAPI GLuint	ILAPIENTRY ilutGLBindMipmaps(void);
 	ILAPI ILboolean	ILAPIENTRY ilutGLBuildMipmaps(void);
@@ -225,7 +224,6 @@ ILAPI ILboolean     ILAPIENTRY ilutRenderer(ILenum Renderer);
 
 	ILAPI ILboolean	ILAPIENTRY ilutGLSetTex(GLuint TexID);  // Deprecated - use ilutGLSetTex2D.
 	ILAPI ILboolean ILAPIENTRY ilutGLSubTex(GLuint TexID, ILuint XOff, ILuint YOff);  // Use ilutGLSubTex2D.
-#endif//ILUT_USE_OPENGL
 
 
 // ImageLib Utility Toolkit's Allegro Functions

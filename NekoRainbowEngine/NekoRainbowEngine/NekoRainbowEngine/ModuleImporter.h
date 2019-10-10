@@ -5,6 +5,7 @@
 #include <list>
 
 #include "Assimp/include/vector3.h"
+#include "Devil/include/il.h"
 
 //----------------- Mesh -----------------//
 class Mesh {
@@ -28,6 +29,22 @@ public:
 
 };
 
+//----------------- Texture -----------------//
+class Texture {
+public:
+	Texture() {};
+	~Texture() {};
+
+	void GenerateTexture();
+	void Render();
+
+public:
+	uint image_id;
+	uint width, height;
+
+
+};
+
 //----------------- FBX -----------------//
 
 class FBX {
@@ -35,9 +52,11 @@ public:
 	FBX() {};
 	~FBX();
 
+	bool LoadTextures(const char* path);
+
 public:
 	std::list<Mesh*> mesh_list;
-
+	Texture* texture = nullptr;
 };
 
 class Cube {
@@ -71,7 +90,6 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* path);
-	bool LoadTextures(const char* path);
 	Cube* CreateCube(int x, int y, int z);
 
 	std::list<Cube*> GetCubeList() const;

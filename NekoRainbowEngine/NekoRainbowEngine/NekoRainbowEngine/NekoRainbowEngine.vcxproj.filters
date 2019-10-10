@@ -477,6 +477,30 @@
     <ClInclude Include="PanelInspector.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\devil_internal_exports.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\il.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\ilu.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\ilu_region.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\ilut.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\ilut_config.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil\include\il_wrap.h">
+      <Filter>Sources\Devil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -526,6 +550,9 @@
     </Filter>
     <Filter Include="Sources\Core">
       <UniqueIdentifier>{649ce6ab-c20c-4fa1-af2b-aa96924444af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Devil">
+      <UniqueIdentifier>{5cda62dd-0ad1-4ed8-8571-244e2ea97916}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

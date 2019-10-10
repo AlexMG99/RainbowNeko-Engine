@@ -10,15 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define lua_c
-
-#include "lua.h"
-
-#include "lauxlib.h"
-#include "lualib.h"
-
-
-
 static lua_State *globalL = NULL;
 
 static const char *progname = LUA_PROGNAME;
