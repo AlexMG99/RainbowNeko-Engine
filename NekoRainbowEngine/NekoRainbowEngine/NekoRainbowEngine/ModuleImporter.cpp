@@ -20,7 +20,6 @@
 #pragma comment(lib, "Devil/libx86/ILU.lib")
 #pragma comment(lib, "Devil/libx86/ILUT.lib")
 
-
 //----------------- ModuleImporter -----------------//
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module (app, start_enabled)
@@ -44,12 +43,6 @@ bool ModuleImporter::Start()
 	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
 	return true;
-}
-
-update_status ModuleImporter::Update(float dt)
-{
-
-	return UPDATE_CONTINUE;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)
@@ -95,6 +88,16 @@ bool ModuleImporter::LoadFile(const char* path)
 	bool ret = true;
 	FBX* aux_fbx = new FBX();
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+
+	ret = LoadMesh(scene, aux_fbx, path);
+
+	return ret;
+}
+
+bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& path)
+{
+	bool ret = true;
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		for (uint i = 0; i < scene->mNumMeshes; i++)
@@ -112,12 +115,12 @@ bool ModuleImporter::LoadFile(const char* path)
 				m->num_index = aimesh->mNumFaces * 3;
 				m->index = new uint[m->num_index]; // assume each face is a triangle
 
-				if (aimesh->HasNormals()) 
+				if (aimesh->HasNormals())
 				{
-					m->normals = new aiVector3D[aimesh->mNumVertices];
+					m->normals = new float3[aimesh->mNumVertices];
 					memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
 				}
-				
+
 				for (uint j = 0; j < aimesh->mNumFaces; ++j)
 				{
 					if (aimesh->mFaces[j].mNumIndices != 3) {
@@ -128,8 +131,16 @@ bool ModuleImporter::LoadFile(const char* path)
 					}
 				}
 			}
+
+			if (scene->HasTextures()) 
+			{
+				if (aimesh->HasTextureCoords(0))
+				{
+					m->UV_coord = new float3[m->num_vertices];
+					memcpy(m->UV_coord, aimesh->mTextureCoords[0], sizeof(float3) * m->num_vertices);
+				}
+			}
 			aux_fbx->mesh_list.push_back(m);
-			
 		}
 		fbx_list.push_back(aux_fbx);
 
@@ -145,8 +156,8 @@ bool ModuleImporter::LoadFile(const char* path)
 				(*it_fbx)->LoadTextures("si");
 			}
 		}
-		
-		LOG("Loaded file succesfully!");
+
+		LOG("Loaded mesh file succesfully!");
 	}
 	else {
 		ret = false;
@@ -170,7 +181,7 @@ bool FBX::LoadTextures(const char * path)
 	FILE *File;
 	ILubyte *Lump;
 
-	File = fopen("../Game/Assets/lenna.png", "rb");
+	File = fopen(path, "rb");
 	fseek(File, 0, SEEK_END);
 	Size = ftell(File);
 
@@ -249,9 +260,14 @@ void Mesh::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	/*glTexCoordPointer(GL_ARRAY_BUFFER,);*/
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	//Render Vertex Normals
 	uint j = 0;
@@ -259,7 +275,9 @@ void Mesh::Render()
 	{
 		glBegin(GL_LINES);
 		glColor3f(255, 0, 0);
+
 		glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+
 		glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
 		glEnd();
 		j += 3;
