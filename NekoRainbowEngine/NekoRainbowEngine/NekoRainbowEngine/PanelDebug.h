@@ -25,7 +25,7 @@ private:
 	bool gl_cull_face;
 	bool gl_lighting;
 	bool gl_color_material;
-	bool gl_texture_2d;
+	bool gl_texture_2d = false;
 	bool gl_fog = false;
 	bool gl_shade_model;
 	bool gl_front_and_back = false;

@@ -27,7 +27,6 @@ bool ModuleViewport::Start()
 {
 	//App->importer->CreateCube(0, 0, 0);
 	//App->importer->CreateCube(20, 0, 20);
-	makeCheckImage();
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
@@ -52,7 +51,7 @@ bool ModuleViewport::Start()
 
 
 
-void makeCheckImage(void)
+void ModuleViewport::makeCheckImage(void)
 {
 	int i, j, c;
 
@@ -69,7 +68,7 @@ void makeCheckImage(void)
 
 update_status ModuleViewport::PostUpdate(float dt)
 {
-	CreateGrid();
+	CreateGrid(2,100);
 
 	return UPDATE_CONTINUE;
 }
@@ -79,15 +78,52 @@ bool ModuleViewport::CleanUp()
 	return true;
 }
 
-void ModuleViewport::CreateGrid()
+void ModuleViewport::CreateGrid(uint separation, uint lines)
 {
+
+	//Vertex Point
+
+	glPointSize(10.0f);
+
+	glEnable(GL_POINT_SMOOTH);
+
+	glBegin(GL_POINTS);
+	glVertex3f(0, 0, 0);
+	glEnd();
+	glDisable(GL_POINT_SMOOTH);
+
+	glPointSize(1.0f);
+
+	//Axis X,Y,Z
+	glLineWidth(7.0);
+
+	glBegin(GL_LINES);
+
+	glColor3f(255, 0, 0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(1.5, 0, 0);
+
+	glColor3f(0, 255, 0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 1.5, 0);
+
+	glColor3f(0, 0, 255);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 0, 1.5);
+
+	glColor3f(255, 255, 255);
+	glEnd();
+
+	glLineWidth(1.0f);
+
 	glBegin(GL_LINES);
 	for (int i = 0; i <= lines; i++) {
-		glVertex3f(i*separation, 0, 0);
-		glVertex3f(i*separation, 0, lines*separation);
-		glVertex3f(0, 0, i*separation);
-		glVertex3f(lines*separation, 0, i*separation);
+		glVertex3f(-((separation*lines)*0.5) + i*separation, 0, -((separation*lines)*0.5));
+		glVertex3f(-((separation*lines)*0.5) +i*separation, 0, (separation*lines)*0.5);
+		glVertex3f(-((separation*lines)*0.5), 0, -((separation*lines)*0.5) + i*separation);
+		glVertex3f((separation*lines)*0.5, 0, -((separation*lines)*0.5) + i*separation);
 	}
+
 	glEnd();
 
 	glEnable(GL_TEXTURE_2D);

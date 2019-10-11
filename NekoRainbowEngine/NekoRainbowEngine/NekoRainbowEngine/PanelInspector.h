@@ -9,8 +9,6 @@ public:
 	PanelInspector(const char* name) :Panel(name) {};
 	~PanelInspector() {};
 
-	//<bool Start();
-
 	update_status Draw();
 };
 

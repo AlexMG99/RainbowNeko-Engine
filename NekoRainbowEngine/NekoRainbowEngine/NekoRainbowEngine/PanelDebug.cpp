@@ -71,11 +71,11 @@ void PanelDebug::RendererWindow()
 
 		ImGui::Separator();
 
-		ImGui::Checkbox("GL Fill", &gl_fill);
+		ImGui::Checkbox("GL FILL", &gl_fill);
 
-		ImGui::Checkbox("GL Wireframe", &gl_lines);
+		ImGui::Checkbox("GL WIREFRAME", &gl_lines);
 
-		ImGui::Checkbox("GL Vertex", &gl_points);
+		ImGui::Checkbox("GL VERTEX", &gl_points);
 
 		if (gl_fill) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -84,7 +84,7 @@ void PanelDebug::RendererWindow()
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 		if (gl_points) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_POINTS);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 		}
 
 		ImGui::End();
