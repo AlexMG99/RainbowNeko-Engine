@@ -87,7 +87,7 @@ void Mesh::GenerateMesh()
 	if (UV_coord)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float3)*UV_num, UV_coord, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * num_vertices, &UV_coord[0], GL_STATIC_DRAW);
 	}
 
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
@@ -103,6 +103,7 @@ void Mesh::Render()
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	//UVs
+	glEnable(GL_TEXTURE_2D);
 	if (UV_coord)
 	{
 		glBindTexture(GL_TEXTURE_2D, image_id);
@@ -116,6 +117,7 @@ void Mesh::Render()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 
 	//Render Vertex Normals
 	uint j = 0;

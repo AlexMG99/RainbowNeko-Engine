@@ -26,7 +26,7 @@ public:
 	float* vertices = nullptr;
 
 	//UVs
-	float3* UV_coord = nullptr;
+	float* UV_coord = nullptr;
 	uint image_id = -1;
 	uint uv_id = 0;
 	uint UV_num = 0;

@@ -95,10 +95,12 @@ bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& 
 			if (aimesh->HasTextureCoords(0))
 			{
 				m->UV_num = aimesh->mNumUVComponents[0];
-				m->UV_coord = new float3[m->num_vertices];
+				m->UV_coord = new float[m->num_vertices * m->UV_num];
+
 				for (uint i = 0; i < m->num_vertices; i++)
 				{
-					memcpy(m->UV_coord, &aimesh->mTextureCoords[0][i], sizeof(float3) * m->num_vertices);
+					memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
+					//LOG("Vertex: %f, %f, %f", m->UV_coord->x, m->UV_coord->y, m->UV_coord->z);
 				}
 				
 			}
