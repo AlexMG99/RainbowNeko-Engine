@@ -4,85 +4,8 @@
 #include "Globals.h"
 #include <list>
 
-#include "MathGeoLib/include/Math/float3.h"
-#include "Devil/include/il.h"
-
-
-
-//----------------- Mesh -----------------//
-class Mesh {
-public:
-	Mesh() {};
-	~Mesh();
-
-	void GenerateMesh();
-	void Render();
-
-public:
-	//Mesh Properties
-	uint id_index = 0;
-	uint num_index = 0;
-	uint* index = nullptr;
-
-	uint id_vertex = 0;
-	uint num_vertices = 0;
-	float* vertices = nullptr;
-
-	//UVs
-	float3* UV_coord = nullptr;
-	uint image_id = 0;
-	uint uv_id = 0;
-	uint UV_num = 0;
-
-	//Normals
-	float3* normals;
-
-};
-
-//----------------- Texture -----------------//
-class Texture {
-public:
-	Texture() {};
-	~Texture() {};
-
-	void GenerateTexture(uint& id);
-	void Render();
-
-public:
-	uint image_id;
-	uint width, height;
-
-};
-
-//----------------- FBX -----------------//
-
-class FBX {
-public:
-	FBX() {};
-	~FBX();
-
-	bool LoadTextures(Mesh* mesh, const char* path);
-
-public:
-	std::list<Mesh*> mesh_list;
-	Texture* texture = nullptr;
-};
-
-class Cube {
-public:
-	Cube() {};
-	~Cube() {};
-
-	void GenerateMesh();
-	void Render();
-
-public:
-	par_shapes_mesh_s* cube_mesh = nullptr;
-
-private:
-	uint my_id = 0;
-	uint my_indices = 0;
-};
+#include "FBX.h"
+#include "Primitive.h"
 
 struct aiScene;
 
@@ -99,14 +22,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	bool LoadFile(const char* path);
-	bool LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& path);
-	Cube* CreateCube(int x, int y, int z);
-
-	std::list<Cube*> GetCubeList() const;
+	bool ImportFBX(const char* path_fbx, char* path_texture = "");
+	bool LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& path, const char* path_tex);
 
 private:
 	std::list<FBX*> fbx_list;
-public:
-	std::list<Cube*> cube_list;
+
 };

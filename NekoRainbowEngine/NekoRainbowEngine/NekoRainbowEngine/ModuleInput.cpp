@@ -105,7 +105,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				App->importer->LoadFile(e.drop.file);
+				App->importer->ImportFBX(e.drop.file);
 			break;
 
 			case SDL_QUIT:

@@ -193,6 +193,9 @@
     <ClCompile Include="Component.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="FBX.cpp">
+      <Filter>Sources\Importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -513,6 +516,12 @@
     <ClInclude Include="Component.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="FBX.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -568,6 +577,9 @@
     </Filter>
     <Filter Include="Sources\GameObject">
       <UniqueIdentifier>{f3d858d8-ce79-4fcf-9a69-0e1cef45f891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Importer">
+      <UniqueIdentifier>{35723bb6-d76f-4f68-822f-2c57164715fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
