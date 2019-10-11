@@ -58,14 +58,6 @@ bool ModuleRenderer3D::Init()
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-
-		////Check for error
-		//error = glGetError();
-		//if(error != GL_NO_ERROR)
-		//{
-		//	LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-		//	ret = false;
-		//}
 		
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
@@ -73,14 +65,6 @@ bool ModuleRenderer3D::Init()
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 
-		////Check for error
-		//error = glGetError();
-		//if(error != GL_NO_ERROR)
-		//{
-		//	LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-		//	ret = false;
-		//}
-		
 		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		

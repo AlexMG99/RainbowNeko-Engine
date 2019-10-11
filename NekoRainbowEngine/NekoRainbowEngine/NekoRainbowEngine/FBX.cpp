@@ -83,9 +83,9 @@ void Mesh::GenerateMesh()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_index, index, GL_STATIC_DRAW);
 
 	//UVs definition
-	glGenBuffers(1, &uv_id);
 	if (UV_coord)
 	{
+		glGenBuffers(1, &uv_id);
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * num_vertices, &UV_coord[0], GL_STATIC_DRAW);
 	}
@@ -104,7 +104,7 @@ void Mesh::Render()
 
 	//UVs
 	glEnable(GL_TEXTURE_2D);
-	if (UV_coord)
+ 	if (UV_coord)
 	{
 		glBindTexture(GL_TEXTURE_2D, image_id);
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
