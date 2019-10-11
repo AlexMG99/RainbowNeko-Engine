@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "par/par_shapes.h"
 
+class GameObject;
+
 class ModuleViewport : public Module
 {
 public:
@@ -16,4 +18,8 @@ public:
 private:
 	void CreateGrid(uint separation, uint lines);
 	void makeCheckImage(void);
+	void CreateGameObject() {};
+
+public:
+	GameObject* root_object = nullptr;
 };

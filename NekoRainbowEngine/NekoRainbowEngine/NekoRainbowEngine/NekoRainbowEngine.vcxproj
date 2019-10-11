@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp" />
     <ClInclude Include="Devil\include\devil_internal_exports.h" />
     <ClInclude Include="Devil\include\il.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
     <ClInclude Include="PanelConsole.h" />
@@ -182,6 +184,8 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />

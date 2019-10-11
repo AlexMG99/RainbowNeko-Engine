@@ -187,6 +187,12 @@
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -501,6 +507,12 @@
     <ClInclude Include="Devil\include\il_wrap.h">
       <Filter>Sources\Devil</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -553,6 +565,9 @@
     </Filter>
     <Filter Include="Sources\Devil">
       <UniqueIdentifier>{5cda62dd-0ad1-4ed8-8571-244e2ea97916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject">
+      <UniqueIdentifier>{f3d858d8-ce79-4fcf-9a69-0e1cef45f891}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

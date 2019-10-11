@@ -14,7 +14,10 @@ ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(ap
 
 // Destructor
 ModuleViewport::~ModuleViewport()
-{}
+{
+	delete root_object;
+	root_object = nullptr;
+}
 
 /*  Create checkerboard texture  */
 #define checkImageWidth 64
@@ -75,6 +78,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 
 bool ModuleViewport::CleanUp()
 {
+
 	return true;
 }
 
