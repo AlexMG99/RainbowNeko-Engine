@@ -31,6 +31,8 @@ public:
 	//UVs
 	float3* UV_coord = nullptr;
 	uint image_id = 0;
+	uint uv_id = 0;
+	uint UV_num = 0;
 
 	//Normals
 	float3* normals;
@@ -43,11 +45,11 @@ public:
 	Texture() {};
 	~Texture() {};
 
-	void GenerateTexture();
+	void GenerateTexture(uint& id);
 	void Render();
 
 public:
-	uint image_id = 0;
+	uint image_id;
 	uint width, height;
 
 };
@@ -59,7 +61,7 @@ public:
 	FBX() {};
 	~FBX();
 
-	bool LoadTextures(const char* path);
+	bool LoadTextures(Mesh* mesh, const char* path);
 
 public:
 	std::list<Mesh*> mesh_list;

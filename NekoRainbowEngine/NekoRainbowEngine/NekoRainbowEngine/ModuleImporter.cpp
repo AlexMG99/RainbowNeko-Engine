@@ -40,7 +40,7 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	//App->importer->LoadFile("../Game/Assets/warrior.fbx");
+	App->importer->LoadFile("../Game/Assets/warrior.fbx");
 
 	return true;
 }
@@ -132,14 +132,15 @@ bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& 
 				}
 			}
 
-			if (scene->HasTextures()) 
-			{
+			
 				if (aimesh->HasTextureCoords(0))
 				{
+					m->UV_num = aimesh->mNumUVComponents[0];
 					m->UV_coord = new float3[m->num_vertices];
 					memcpy(m->UV_coord, aimesh->mTextureCoords[0], sizeof(float3) * m->num_vertices);
 				}
-			}
+			
+			aux_fbx->LoadTextures(m, "d");
 			aux_fbx->mesh_list.push_back(m);
 		}
 		fbx_list.push_back(aux_fbx);
@@ -153,7 +154,6 @@ bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& 
 
 					(*it_mesh)->GenerateMesh();
 				}
-				(*it_fbx)->LoadTextures("si");
 			}
 		}
 
@@ -167,7 +167,7 @@ bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& 
 	return ret;
 }
 
-bool FBX::LoadTextures(const char * path)
+bool FBX::LoadTextures(Mesh* mesh, const char * path)
 {
 	bool ret = true;
 
@@ -181,7 +181,7 @@ bool FBX::LoadTextures(const char * path)
 	FILE *File;
 	ILubyte *Lump;
 
-	File = fopen(path, "rb");
+	File = fopen("../Game/Assets/lenna.png", "rb");
 	fseek(File, 0, SEEK_END);
 	Size = ftell(File);
 
@@ -198,11 +198,11 @@ bool FBX::LoadTextures(const char * path)
 		ret = false;
 	}
 	else {
-		texture->image_id = ilutGLBindTexImage();
+		mesh->image_id = ilutGLBindTexImage();
 		texture->height = ilGetInteger(IL_IMAGE_HEIGHT)/2;
 		texture->width = ilGetInteger(IL_IMAGE_WIDTH)/2;
 
-		texture->GenerateTexture();
+		texture->GenerateTexture(mesh->image_id);
 	}
 
 	free(Lump);
@@ -251,6 +251,14 @@ void Mesh::GenerateMesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_index, index, GL_STATIC_DRAW);
 
+	//UVs definition
+	glGenBuffers(1, &uv_id);
+	if (UV_coord)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uv_id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float3)*UV_num, UV_coord, GL_STATIC_DRAW);
+	}
+
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
 }
 
@@ -258,16 +266,25 @@ void Mesh::Render()
 {
 	//Render FBX Mesh
 	glEnableClientState(GL_VERTEX_ARRAY);
+	if (UV_num > 0)
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	/*glTexCoordPointer(GL_ARRAY_BUFFER,);*/
+	//UVs
+	if(UV_coord)
+	{
+		glBindTexture(GL_TEXTURE_2D, image_id);
+		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
+		glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
+	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//Render Vertex Normals
 	uint j = 0;
@@ -315,18 +332,18 @@ FBX::~FBX()
 {
 	for (auto it_mesh = mesh_list.begin(); it_mesh != mesh_list.end(); ++it_mesh)
 	{
+		ilDeleteImages(1, &(*it_mesh)->image_id);
 		delete (*it_mesh);
 		(*it_mesh) = nullptr;
 	}
-
-	ilDeleteImages(1, &texture->image_id);
 
 	delete texture;
 	texture = nullptr;
 }
 
-void Texture::GenerateTexture()
+void Texture::GenerateTexture(uint& id)
 {
+	image_id = id;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glBindTexture(GL_TEXTURE_2D, image_id);
 
