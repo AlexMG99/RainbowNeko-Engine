@@ -196,6 +196,9 @@
     <ClCompile Include="PanelTopbar.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="imgui\imgui_docking.cpp">
+      <Filter>Sources\imGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -521,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="PanelTopbar.h">
       <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_docking.h">
+      <Filter>Sources\imGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
