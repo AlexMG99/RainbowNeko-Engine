@@ -148,9 +148,6 @@
     <ClCompile Include="PanelHelp.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="PanelFile.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="PerfTimer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -184,9 +181,6 @@
     <ClCompile Include="PanelDebug.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="PanelInspector.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
@@ -197,6 +191,9 @@
       <Filter>Sources\Importer</Filter>
     </ClCompile>
     <ClCompile Include="PanelConfiguration.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelTopbar.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
@@ -453,9 +450,6 @@
     <ClInclude Include="PanelHelp.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="PanelFile.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="PerfTimer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -484,9 +478,6 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="PanelDebug.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
-    <ClInclude Include="PanelInspector.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
@@ -526,6 +517,9 @@
       <Filter>Sources\Importer</Filter>
     </ClInclude>
     <ClInclude Include="PanelConfiguration.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelTopbar.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>

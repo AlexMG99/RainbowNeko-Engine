@@ -10,9 +10,10 @@
 bool PanelWindow::Start()
 {
 	JSON_Object* obj = json_object(App->scene_test->settings_doc);
+	JSON_Object* app_obj = json_object_get_object(obj, "Application");
 
 	//Set window attributes
-	strcpy_s(App->window->project_name, json_object_get_string(json_object_get_object(obj, "Application"), "Title"));
+	strcpy_s(App->window->project_name, json_object_get_string(app_obj, "Title"));
 	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"),
 		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
 	App->window->SetTitle(App->window->project_name);

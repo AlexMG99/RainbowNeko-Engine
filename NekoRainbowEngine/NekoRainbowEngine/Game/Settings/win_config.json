@@ -1,1 +1,12 @@
-{"Application":{"Title":"NekoRainbow Engine","Width":1280,"Height":1024,"Resizable":false,"Fullscreen":false,"Fullscreen Desktop":false,"Border":true,"Brightness":1}}
+{
+  "Application": {
+    "Title": "NekoRainbow Engine",
+    "Width": 1280,
+    "Height": 1024,
+    "Resizable": false,
+    "Fullscreen": false,
+    "Fullscreen Desktop": false,
+    "Border": true,
+    "Brightness": 1
+  }
+}

@@ -95,9 +95,8 @@
     <ClInclude Include="PanelConfiguration.h" />
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelDebug.h" />
-    <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelTopbar.h" />
     <ClInclude Include="PanelWindow.h" />
-    <ClInclude Include="PanelFile.h" />
     <ClInclude Include="PanelHelp.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -243,9 +242,8 @@
     <ClCompile Include="PanelConfiguration.cpp" />
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelDebug.cpp" />
-    <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelWindow.cpp" />
-    <ClCompile Include="PanelFile.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
     <ClCompile Include="Parson\parson.c" />
     <ClCompile Include="par\par_shapes.cpp" />

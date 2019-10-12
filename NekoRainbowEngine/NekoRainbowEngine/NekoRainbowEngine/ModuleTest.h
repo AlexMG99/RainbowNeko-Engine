@@ -2,9 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Panel.h"
-#include "PanelConsole.h"
-#include "PanelInspector.h"
-#include "PanelConfiguration.h"
+#include "PanelTopbar.h"
 
 #include "Parson/parson.h"
 #include <list>
@@ -23,14 +21,9 @@ public:
 
 	bool CleanUp();
 public:
-	ImVec2 r = { 80,100 };
-	std::list<Panel*> topbar_panel_list;
+	PanelTopbar* panel_topbar = nullptr;
 
-	PanelInspector* panel_inspector = nullptr;
-	PanelConsole*	panel_console = nullptr;
-	PanelConfiguration* panel_configuration = nullptr;
-
-	JSON_Value* settings_doc;
-	JSON_Value* credits_doc;
+	JSON_Value* settings_doc = nullptr;
+	JSON_Value* credits_doc = nullptr;
 
 };

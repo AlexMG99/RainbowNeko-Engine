@@ -12,7 +12,6 @@
 #include "Parson/parson.h"
 
 #include "PanelHelp.h"
-#include "PanelFile.h"
 #include "PanelDebug.h"
 #include "PanelWindow.h"
 #include "PanelConsole.h"
@@ -41,35 +40,34 @@ bool ModuleTest::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
-	topbar_panel_list.push_back(new PanelFile("File"));
+	/*topbar_panel_list.push_back(new PanelFile("File"));
 	topbar_panel_list.push_back(new PanelHelp("Help"));
 	topbar_panel_list.push_back(new PanelDebug("Debug"));
 	topbar_panel_list.push_back(new PanelWindow("Window"));
 
-	panel_inspector = new PanelInspector("Inspector");
 	panel_console = new PanelConsole("Console");
 	panel_configuration = new PanelConfiguration("Configuration");
 	panel_console->Start();
 	panel_configuration->Start();
 
+	*/
+
 	settings_doc = json_parse_file("Settings/win_config.json");
 	credits_doc = json_parse_file("Settings/win_about.json");
 
-	if (settings_doc == NULL) {
+	if (!settings_doc) {
 		settings_doc = json_value_init_object();
+		json_serialize_to_file(settings_doc, "Settings/win_config.json");
 	}
 
-	json_serialize_to_file(settings_doc, "Settings/win_config.json");
-
-	if (credits_doc == NULL) {
+	if (!credits_doc) {
 		credits_doc = json_value_init_object();
+		json_serialize_to_file(credits_doc, "Settings/win_about.json");
 	}
 
-	json_serialize_to_file(credits_doc, "Settings/win_about.json");
+	panel_topbar = new PanelTopbar();
 
-	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
-		ret = (*item)->Start();
-	}
+	panel_topbar->Start();
 
 	return ret;
 }
@@ -99,22 +97,20 @@ update_status ModuleTest::Save()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end())); item++) {
-		ret = (*item)->Save();
-	}
+	panel_topbar->Save();
 
 	return ret;
 }
 
 void ModuleTest::Log(const char * log_text)
 {
-	if (panel_console != nullptr) {
-		if (!panel_console->start_console) {
-			panel_console->AddLog(App->GetLog());
-			panel_console->start_console = true;
+	if (panel_topbar && panel_topbar->panel_console) {
+		if (!panel_topbar->panel_console->start_console) {
+			panel_topbar->panel_console->AddLog(App->GetLog());
+			panel_topbar->panel_console->start_console = true;
 		}
 		else {
-			panel_console->AddLog(log_text);
+			panel_topbar->panel_console->AddLog(log_text);
 		}
 	}
 
@@ -130,16 +126,7 @@ update_status ModuleTest::PostUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
-	// Top bar
-	ImGui::BeginMainMenuBar();
-	for (auto item = topbar_panel_list.begin(); ((item != topbar_panel_list.end()) && (ret == UPDATE_CONTINUE)); item++) {
-		ret = (*item)->Draw();
-	}
-	ImGui::EndMainMenuBar();
-
-	panel_inspector->Draw();
-	panel_console->Draw();
-	panel_configuration->Draw();
+	panel_topbar->Draw();
 
 	// Rendering
 	ImGui::Render();
