@@ -19,6 +19,7 @@ public:
 
 private:
 	bool open = true;
+	bool visible = true;
 
 	float fps_log[MAX_HISTOGRAM_LOG];
 	int fps_current_log = 0;
@@ -28,6 +29,7 @@ private:
 	int ms_current_log = 0;
 	float current_ms = 0;
 	int capped_fps = 60;
+	
 
 	PerfTimer	check_time;
 };

@@ -4,7 +4,7 @@
 #include "imgui/imgui.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
-
+#include "imgui/imgui_docking.h"
 PanelConfiguration::~PanelConfiguration()
 {
 }
@@ -38,9 +38,15 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar)) {
-		ImGui::SetWindowSize(ImVec2(300, 700));
+	/*if (ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar)) {
+		ImGui::SetWindowSize(ImVec2(300, 700));*/
 
+	ImVec2 v = App->window->GetWinSize();
+	
+	/*ImGui::SetNextWindowPos(ImVec2(v.x-v.x/4,10),2);
+	ImGui::SetNextWindowSize(ImVec2(v.x/4,-v.y-100),2);*/
+	ImGui::BeginDock("Configuration", false, &visible, false, 10000);
+	
 		AppWindow();
 
 		if (ImGui::CollapsingHeader("Window Settings"))
@@ -142,9 +148,9 @@ update_status PanelConfiguration::Draw()
 
 
 		}
-		ImGui::End();
-
-	}
+		/*ImGui::End();*/
+	ImGui::EndDock();
+	
 	return ret;
 }
 
