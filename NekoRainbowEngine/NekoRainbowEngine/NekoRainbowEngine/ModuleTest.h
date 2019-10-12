@@ -4,6 +4,7 @@
 #include "Panel.h"
 #include "PanelConsole.h"
 #include "PanelInspector.h"
+#include "PanelConfiguration.h"
 
 #include "Parson/parson.h"
 #include <list>
@@ -27,6 +28,7 @@ public:
 
 	PanelInspector* panel_inspector = nullptr;
 	PanelConsole*	panel_console = nullptr;
+	PanelConfiguration* panel_configuration = nullptr;
 
 	JSON_Value* settings_doc;
 	JSON_Value* credits_doc;

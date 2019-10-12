@@ -35,7 +35,7 @@ bool ModuleTest::Start()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	ImGui::StyleColorsClassic();
+	ImGui::StyleColorsDark();
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
@@ -48,7 +48,9 @@ bool ModuleTest::Start()
 
 	panel_inspector = new PanelInspector("Inspector");
 	panel_console = new PanelConsole("Console");
+	panel_configuration = new PanelConfiguration("Configuration");
 	panel_console->Start();
+	panel_configuration->Start();
 
 	settings_doc = json_parse_file("Settings/win_config.json");
 	credits_doc = json_parse_file("Settings/win_about.json");
@@ -137,6 +139,7 @@ update_status ModuleTest::PostUpdate(float dt)
 
 	panel_inspector->Draw();
 	panel_console->Draw();
+	panel_configuration->Draw();
 
 	// Rendering
 	ImGui::Render();

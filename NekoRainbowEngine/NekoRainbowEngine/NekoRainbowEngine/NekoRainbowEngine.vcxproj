@@ -92,6 +92,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
+    <ClInclude Include="PanelConfiguration.h" />
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelDebug.h" />
     <ClInclude Include="PanelInspector.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="ModuleTest.cpp" />
     <ClCompile Include="ModuleViewport.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="PanelConfiguration.cpp" />
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelDebug.cpp" />
     <ClCompile Include="PanelInspector.cpp" />

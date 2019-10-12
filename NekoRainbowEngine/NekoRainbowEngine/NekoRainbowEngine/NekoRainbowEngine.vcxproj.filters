@@ -196,6 +196,9 @@
     <ClCompile Include="FBX.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
+    <ClCompile Include="PanelConfiguration.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -521,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelConfiguration.h">
+      <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
