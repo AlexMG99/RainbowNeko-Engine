@@ -4,6 +4,7 @@
 #include "Panel.h"
 #include "PerfTimer.h"
 
+
 #define MAX_HISTOGRAM_LOG 50
 
 class PanelConfiguration : public Panel {
@@ -15,7 +16,10 @@ public:
 	bool Start();
 	update_status Draw();
 
-	void AppWindow();
+	void AppSettings();
+	void WindowSettings();
+	void InputSettings();
+	void HardwareSettings();
 
 private:
 	bool open = true;
@@ -29,6 +33,7 @@ private:
 	int ms_current_log = 0;
 	float current_ms = 0;
 	int capped_fps = 60;
+	int   win_w = 0;
 	
 
 	PerfTimer	check_time;

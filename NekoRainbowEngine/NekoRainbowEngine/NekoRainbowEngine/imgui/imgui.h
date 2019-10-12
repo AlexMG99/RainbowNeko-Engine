@@ -1058,6 +1058,7 @@ enum ImGuiCol_
     ImGuiCol_ResizeGripHovered,
     ImGuiCol_ResizeGripActive,
     ImGuiCol_Tab,
+	ImGuiCol_ComboBg,
     ImGuiCol_TabHovered,
     ImGuiCol_TabActive,
     ImGuiCol_TabUnfocused,

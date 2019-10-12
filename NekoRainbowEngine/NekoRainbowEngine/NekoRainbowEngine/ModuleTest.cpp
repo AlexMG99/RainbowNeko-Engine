@@ -34,7 +34,7 @@ bool ModuleTest::Start()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	ImGui::StyleColorsDark();
+	/*ImGui::StyleColorsDark();*/
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);

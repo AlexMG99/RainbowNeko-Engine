@@ -38,18 +38,76 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	/*if (ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar)) {
-		ImGui::SetWindowSize(ImVec2(300, 700));*/
-
-	ImVec2 v = App->window->GetWinSize();
+	ImGui::BeginDock("Configuration", false, &visible, false);
 	
-	/*ImGui::SetNextWindowPos(ImVec2(v.x-v.x/4,10),2);
-	ImGui::SetNextWindowSize(ImVec2(v.x/4,-v.y-100),2);*/
-	ImGui::BeginDock("Configuration", false, &visible, false, 10000);
-	
-		AppWindow();
+		AppSettings();
 
-		if (ImGui::CollapsingHeader("Window Settings"))
+		WindowSettings();
+
+		InputSettings();
+
+		HardwareSettings();
+
+
+		
+		/*ImGui::End();*/
+	ImGui::EndDock();
+	
+	return ret;
+}
+
+
+void PanelConfiguration::AppSettings()
+{
+	static char organization_name[56];
+
+	if (ImGui::CollapsingHeader("Application", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::InputText("Project Name", App->window->project_name, IM_ARRAYSIZE(App->window->project_name)))
+			App->window->SetTitle(App->window->project_name);
+		if (ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name)))
+			App->window->SetOrganization(organization_name);
+		if (ImGui::SliderInt("Max FPS", &capped_fps, 10, 150))
+			App->CapFPS(capped_fps);
+
+		ImGui::Text("Limit Framerate: "); ImGui::SameLine();
+		ImGui::TextColored({ 255,216,0,100 }, "%i", App->GetCurrFPS());
+
+		//Histogram
+		static char title[25];
+
+		if (check_time.ReadMs() > 100)
+		{
+			//Avg FPS
+			fps_log[fps_current_log] = current_frames = App->GetCurrFPS();
+			fps_current_log++;
+
+			if (fps_current_log >= MAX_HISTOGRAM_LOG)
+				fps_current_log = 0;
+
+			//Avg Ms
+			ms_log[ms_current_log] = current_ms = App->GetAvgMs();
+			ms_current_log++;
+
+			if (ms_current_log >= MAX_HISTOGRAM_LOG)
+				ms_current_log = 0;
+
+			PERF_START(check_time);
+		}
+
+		sprintf_s(title, 25, "Framerate %.1f", current_frames);
+		ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 160.0f, ImVec2(310, 100));
+
+		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
+		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
+	}
+}
+
+
+
+	void PanelConfiguration::WindowSettings()
+	{
+		if (ImGui::CollapsingHeader("Window Settings", ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			if (ImGui::SliderFloat("Brightness", &App->window->brigthness, 0.0f, 2.0f, "%.02f"))
 				App->window->SetBrightness();
@@ -97,7 +155,11 @@ update_status PanelConfiguration::Draw()
 				App->window->SetFullscreenDesktop();
 
 		}
-		if (ImGui::CollapsingHeader("Input", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
+	}
+
+	void PanelConfiguration::InputSettings()
+	{
+		if (ImGui::CollapsingHeader("Input", ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			int x, y;
 
@@ -106,6 +168,11 @@ update_status PanelConfiguration::Draw()
 			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored({ 255,216,0,100 }, "Z axis : %i", App->input->GetMouseZ());
 
 		}
+	}
+
+	void PanelConfiguration::HardwareSettings()
+	{
+
 		if (ImGui::CollapsingHeader("Hardware", ImGuiTreeNodeFlags_DefaultOpen))
 		{
 
@@ -148,54 +215,6 @@ update_status PanelConfiguration::Draw()
 
 
 		}
-		/*ImGui::End();*/
-	ImGui::EndDock();
-	
-	return ret;
-}
-
-void PanelConfiguration::AppWindow()
-{
-	static char organization_name[56];
-
-	if (ImGui::CollapsingHeader("Application"))
-	{
-		if (ImGui::InputText("Project Name", App->window->project_name, IM_ARRAYSIZE(App->window->project_name)))
-			App->window->SetTitle(App->window->project_name);
-		if (ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name)))
-			App->window->SetOrganization(organization_name);
-		if (ImGui::SliderInt("Max FPS", &capped_fps, 10, 150))
-			App->CapFPS(capped_fps);
-
-		ImGui::Text("Limit Framerate: "); ImGui::SameLine();
-		ImGui::TextColored({ 255,216,0,100 }, "%i", App->GetCurrFPS());
-
-		//Histogram
-		static char title[25];
-
-		if (check_time.ReadMs() > 100)
-		{
-			//Avg FPS
-			fps_log[fps_current_log] = current_frames = App->GetCurrFPS();
-			fps_current_log++;
-
-			if (fps_current_log >= MAX_HISTOGRAM_LOG)
-				fps_current_log = 0;
-
-			//Avg Ms
-			ms_log[ms_current_log] = current_ms = App->GetAvgMs();
-			ms_current_log++;
-
-			if (ms_current_log >= MAX_HISTOGRAM_LOG)
-				ms_current_log = 0;
-
-			PERF_START(check_time);
-		}
-
-		sprintf_s(title, 25, "Framerate %.1f", current_frames);
-		ImGui::PlotHistogram("##framerate", fps_log, MAX_HISTOGRAM_LOG, fps_current_log, title, 0.0f, 160.0f, ImVec2(310, 100));
-
-		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
-		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
 	}
-}
+
+
