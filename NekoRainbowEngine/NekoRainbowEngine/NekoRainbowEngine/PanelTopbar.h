@@ -15,6 +15,7 @@ public:
 
 	bool Start();
 	update_status Draw();
+	void CreateStyle();
 
 public:
 	std::map< std::string, Panel*> panel_topbar_map;

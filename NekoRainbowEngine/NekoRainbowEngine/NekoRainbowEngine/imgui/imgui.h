@@ -1051,6 +1051,12 @@ enum ImGuiCol_
     ImGuiCol_Header,                // Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
     ImGuiCol_HeaderHovered,
     ImGuiCol_HeaderActive,
+	ImGuiCol_Column,
+	ImGuiCol_ColumnHovered,
+	ImGuiCol_ColumnActive,
+	ImGuiCol_CloseButton,
+	ImGuiCol_CloseButtonHovered,
+	ImGuiCol_CloseButtonActive,
     ImGuiCol_Separator,
     ImGuiCol_SeparatorHovered,
     ImGuiCol_SeparatorActive,
@@ -1068,6 +1074,7 @@ enum ImGuiCol_
     ImGuiCol_PlotHistogram,
     ImGuiCol_PlotHistogramHovered,
     ImGuiCol_TextSelectedBg,
+	ImGuiCol_TooltipBg,
     ImGuiCol_DragDropTarget,
     ImGuiCol_NavHighlight,          // Gamepad/keyboard: current highlighted item
     ImGuiCol_NavWindowingHighlight, // Highlight window when using CTRL+TAB
@@ -1293,7 +1300,8 @@ struct ImVector
 struct ImGuiStyle
 {
     float       Alpha;                      // Global alpha applies to everything in Dear ImGui.
-    ImVec2      WindowPadding;              // Padding within a window.
+	float       WindowFillAlphaDefault;
+	ImVec2      WindowPadding;              // Padding within a window.
     float       WindowRounding;             // Radius of window corners rounding. Set to 0.0f to have rectangular windows.
     float       WindowBorderSize;           // Thickness of border around windows. Generally set to 0.0f or 1.0f. (Other values are not well tested and more CPU/GPU costly).
     ImVec2      WindowMinSize;              // Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
