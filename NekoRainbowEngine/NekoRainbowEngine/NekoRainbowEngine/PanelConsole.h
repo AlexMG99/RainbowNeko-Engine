@@ -17,6 +17,7 @@ public:
 	void Clear();
 
 private:
+	bool visible = true;
 	bool open = true;
 	std::string console_text;
 

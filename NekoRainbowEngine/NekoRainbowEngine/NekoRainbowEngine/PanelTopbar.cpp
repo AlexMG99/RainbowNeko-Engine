@@ -55,7 +55,7 @@ update_status PanelTopbar::Draw()
 
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
 	display_size.x -= 900;
-	display_size.y -= 40;
+	display_size.y -= 300;
 	ImGui::SetNextWindowSize(display_size);
 	ImGui::SetNextWindowPos(ImVec2(0, 19));
 
@@ -63,7 +63,7 @@ update_status PanelTopbar::Draw()
 		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
 
-CreateStyle();
+	CreateStyle();
 
 	ImGui::BeginDockspace();
 
@@ -73,7 +73,25 @@ CreateStyle();
 	ImGui::EndDockspace();
 	ImGui::End();
 
+	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
+	display_size2.y -= 765;
+	ImGui::SetNextWindowSize(display_size2);
+	ImGui::SetNextWindowPos(ImVec2(0, 745));
+
+	ImGui::Begin("PanelC", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+
+
+
+	ImGui::BeginDockspace();
+
 	panel_console->Draw();
+
+
+
+	ImGui::EndDockspace();
+	ImGui::End();
 
 	return ret;
 }

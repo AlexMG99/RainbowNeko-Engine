@@ -5,6 +5,7 @@
 #include "ModuleInput.h"
 
 #include "GL/include/glew.h"
+#include "imgui/imgui_docking.h"
 
 
 PanelConsole::~PanelConsole()
@@ -16,8 +17,10 @@ update_status PanelConsole::Draw() {
 
 	update_status ret = UPDATE_CONTINUE;
 
-	if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
-		ImGui::SetWindowSize(ImVec2(450, 445));
+
+	ImGui::BeginDock("Console", false, &visible, false);
+	//if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
+	//	ImGui::SetWindowSize(ImVec2(450, 445));
 		if (ImGui::SmallButton("Clear")) 
 			Clear();
 
@@ -36,8 +39,9 @@ update_status PanelConsole::Draw() {
 			AddLog(console_input);
 			AddLog("\n");
 		}
-		ImGui::End();
-	}
+		ImGui::EndDock();
+		/*ImGui::End();
+	}*/
 
 	return ret;
 }
