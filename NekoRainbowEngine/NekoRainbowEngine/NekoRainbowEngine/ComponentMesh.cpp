@@ -1,0 +1,85 @@
+#include "ComponentMesh.h"
+
+#include "GL/include/glew.h"
+
+//-------------- Devil --------------
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
+
+#pragma comment(lib, "Devil/libx86/DevIL.lib")
+#pragma comment(lib, "Devil/libx86/ILU.lib")
+#pragma comment(lib, "Devil/libx86/ILUT.lib")
+
+bool ComponentMesh::Update()
+{
+	Render();
+
+	return true;
+}
+
+void ComponentMesh::GenerateMesh()
+{
+	//Cube Vertex
+	glGenBuffers(1, &id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)* num_vertices * 3, vertices, GL_STATIC_DRAW);
+
+	//Cube Vertex definition
+	glGenBuffers(1, &id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_index, index, GL_STATIC_DRAW);
+
+	//UVs definition
+	if (UV_coord)
+	{
+		glGenBuffers(1, &uv_id);
+		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * num_vertices, &UV_coord[0], GL_STATIC_DRAW);
+	}
+
+	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
+}
+
+void ComponentMesh::Render()
+{
+	//Render FBX Mesh
+	glEnableClientState(GL_VERTEX_ARRAY);
+	if (UV_num > 0)
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	//UVs
+	glEnable(GL_TEXTURE_2D);
+	if (UV_coord)
+	{
+		glBindTexture(GL_TEXTURE_2D, image_id);
+		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
+		glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
+	}
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
+	//Render Vertex Normals
+	uint j = 0;
+	for (uint i = 0; i < num_vertices; i++)
+	{
+		glBegin(GL_LINES);
+		glColor3f(255, 0, 0);
+
+		glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+
+		glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
+		glEnd();
+		j += 3;
+	}
+	glColor3f(1, 1, 1);
+
+}
