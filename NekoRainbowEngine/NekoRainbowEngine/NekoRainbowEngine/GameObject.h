@@ -22,6 +22,7 @@ public:
 	bool Update();
 
 	Component* CreateComponent(component_type comp_type, bool active = true);
+	ComponentTransform* GetComponentTransform();
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);
 	void SetActive(bool act);
@@ -39,6 +40,7 @@ private:
 
 public:
 	std::vector<GameObject*>	children;
+	bool selected = false;
 };
 
 #endif // !_GAMEOBJECT_H_

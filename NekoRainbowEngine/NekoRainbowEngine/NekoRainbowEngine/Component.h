@@ -39,7 +39,7 @@ public:
 //-------------- Component Transform --------------
 class ComponentTransform: public Component {
 public:
-	ComponentTransform(component_type comp_type, bool act, GameObject* obj) : Component(type, active, my_go) {};
+	ComponentTransform(component_type comp_type, bool act, GameObject* obj) : Component(comp_type, act, obj) {};
 	~ComponentTransform() {};
 
 	bool Update() { return true; };
@@ -48,8 +48,8 @@ public:
 	void Disable() {};
 
 public:
-	float3 position;
-	float3 scale;
+	float position[3];
+	float scale[3];
 	Quat rotation;
 };
 

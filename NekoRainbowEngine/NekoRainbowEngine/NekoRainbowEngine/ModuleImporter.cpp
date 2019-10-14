@@ -12,6 +12,7 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 
+
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
 #include <list>
@@ -67,8 +68,12 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 				float3 scale(scaling.x, scaling.y, scaling.z);
 				Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 				ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
-				trans->position = pos;
-				trans->scale = scale;
+				trans->position[0] = pos.x;
+				trans->position[1] = pos.y;
+				trans->position[2] = pos.z;
+				trans->scale[0] = scale.x;
+				trans->scale[1] = scale.y;
+				trans->scale[2] = scale.z;
 				trans->rotation = rot;
 
 				//Load Mesh 

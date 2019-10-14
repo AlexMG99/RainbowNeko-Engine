@@ -1,6 +1,5 @@
 #include "Panel.h"
 #include "PanelConsole.h"
-#include "imgui/imgui.h"
 #include "Application.h"
 #include "ModuleInput.h"
 

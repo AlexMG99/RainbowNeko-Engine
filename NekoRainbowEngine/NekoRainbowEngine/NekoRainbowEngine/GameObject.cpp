@@ -60,6 +60,17 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 	return comp;
 }
 
+ComponentTransform * GameObject::GetComponentTransform()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if((*it_comp)->type == COMPONENT_TRANSFORM)
+			return (ComponentTransform*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
 void GameObject::AddChildren(GameObject* obj)
 {
 	children.push_back(obj);
@@ -77,7 +88,9 @@ void GameObject::SetActive(bool act)
 
 std::string GameObject::GetName() const
 {
-	return name;
+	std::size_t pos = name.find_last_of("/");
+	std::string str = name.substr(pos + 1);
+	return str;
 }
 
 void GameObject::SetName(const char * name_)
