@@ -49,7 +49,7 @@ bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
 	const aiNode* node = scene->mRootNode;
 
-	for (uint node_num = 0; node_num < node->mNumChildren; node_num++) 
+	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
 		if (scene->HasMeshes())
 		{
@@ -110,15 +110,19 @@ bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
 					for (uint i = 0; i < m->num_vertices; i++)
 					{
 						memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
-						//LOG("Vertex: %f, %f, %f", m->UV_coord->x, m->UV_coord->y, m->UV_coord->z);
 					}
 
 				}
 
 				m->GenerateMesh();
 
-				/*if (aimesh->HasTextureCoords(0))
-					ret = aux_obj->LoadTextures(m, path_tex);*/
+				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
+
+				if (aimesh->HasTextureCoords(0)) 
+				{
+					texture->LoadTexture(path_texture);
+					m->image_id = texture->image_id;
+				}
 
 			}
 			LOG("Loaded mesh file succesfully!");
@@ -129,7 +133,6 @@ bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
 			LOG("The file with path: %s can not be load", path_fbx);
 		}
 	}
-	
 
 	return ret;
 }

@@ -48,6 +48,9 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 	case COMPONENT_MESH:
 		comp = new ComponentMesh(comp_type, act, this);
 		break;
+	case COMPONENT_TEXTURE:
+		comp = new ComponentTexture(comp_type, act, this);
+		break;
 	case COMPONENT_NONE:
 		break;
 	}

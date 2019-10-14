@@ -2,12 +2,13 @@
 #define _COMPONENTMESH_H_
 
 #include "Component.h"
+#include <string>
 
-//-------------- Component Transform --------------
+//-------------- Component Mesh --------------
 class ComponentMesh : public Component {
 public:
 	ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(type, active, my_go) {};
-	~ComponentMesh() {};
+	~ComponentMesh();
 
 	bool Update();
 
@@ -36,6 +37,23 @@ public:
 	//Normals
 	float3* normals;
 
+};
+
+class ComponentTexture : public Component {
+public:
+	ComponentTexture(component_type comp_type, bool act, GameObject * obj) : Component(type, active, my_go) {};
+	~ComponentTexture() {};
+
+	void Enable() {};
+	void Disable() {};
+
+	void LoadTexture(const char* path);
+	void GenerateTexture();
+
+public:
+	uint width, height;
+	uint image_id = 0;
+	std::string path = "";
 };
 
 #endif // !COMPONENTMESH_H_

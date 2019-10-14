@@ -187,9 +187,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="FBX.cpp">
-      <Filter>Sources\Importer</Filter>
-    </ClCompile>
     <ClCompile Include="PanelConfiguration.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
@@ -515,9 +512,6 @@
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Sources\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="FBX.h">
-      <Filter>Sources\Importer</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Sources\Importer</Filter>

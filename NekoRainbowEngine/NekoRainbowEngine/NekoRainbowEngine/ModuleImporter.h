@@ -4,7 +4,6 @@
 #include "Globals.h"
 #include <list>
 
-#include "FBX.h"
 #include "Primitive.h"
 
 struct aiScene;

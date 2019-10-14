@@ -11,6 +11,15 @@
 #pragma comment(lib, "Devil/libx86/ILU.lib")
 #pragma comment(lib, "Devil/libx86/ILUT.lib")
 
+ComponentMesh::~ComponentMesh()
+{
+	delete index;
+	index = nullptr;
+
+	delete vertices;
+	vertices = nullptr;
+}
+
 bool ComponentMesh::Update()
 {
 	Render();
@@ -82,4 +91,68 @@ void ComponentMesh::Render()
 	}
 	glColor3f(1, 1, 1);
 
+}
+
+void ComponentTexture::LoadTexture(const char* path)
+{
+	bool ret = true;
+
+	if (path != "") {
+		ILuint devil_id = 0;
+
+		ilGenImages(1, &devil_id);
+		ilBindImage(devil_id);
+		ilutRenderer(ILUT_OPENGL);
+
+		ILuint Size;
+		FILE *File;
+		ILubyte *Lump;
+
+		File = fopen(path, "rb");
+		fseek(File, 0, SEEK_END);
+		Size = ftell(File);
+
+		Lump = (ILubyte*)malloc(Size);
+		fseek(File, 0, SEEK_SET);
+		fread(Lump, 1, Size, File);
+		fclose(File);
+
+		if (!ilLoadL(IL_DDS, Lump, Size)) {
+			auto error = ilGetError();
+			LOG("Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
+			ret = false;
+		}
+		else {
+			image_id = ilutGLBindTexImage();
+			height = ilGetInteger(IL_IMAGE_HEIGHT) / 2;
+			width = ilGetInteger(IL_IMAGE_WIDTH) / 2;
+
+			GenerateTexture();
+		}
+
+		free(Lump);
+		ilDeleteImages(1, &devil_id);
+		this->path = path;
+	}
+	else
+	{
+		LOG("The FBX doesn't have a texture path or path %s is incorrect", path);
+	}
+}
+
+void ComponentTexture::GenerateTexture()
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, image_id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
