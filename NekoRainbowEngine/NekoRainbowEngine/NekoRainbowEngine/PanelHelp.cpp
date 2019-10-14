@@ -27,6 +27,9 @@ bool PanelHelp::Start()
 	strcpy_s(MathGeoLib_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "MathGeoLib Link"));
 	strcpy_s(PCG_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "PCG Link"));
 	strcpy_s(Parson_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "Parson Link"));
+	strcpy_s(Devil_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "Devil Link"));
+	strcpy_s(Assimp_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "Assimp Link"));
+	strcpy_s(Par_Shapes_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "ParShapes Link"));
 	strcpy_s(license, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "License"));
 
 	return true;
@@ -101,6 +104,16 @@ void PanelHelp::AboutWindow()
 
 		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Parson"))
 			RequestBrowser(Parson_link);
+
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Devil"))
+			RequestBrowser(Devil_link);
+
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Assimp"))
+			RequestBrowser(Assimp_link);
+
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Par Shapes"))
+			RequestBrowser(Par_Shapes_link);
+
 		ImGui::Separator();
 
 		ImGui::Text(license);
