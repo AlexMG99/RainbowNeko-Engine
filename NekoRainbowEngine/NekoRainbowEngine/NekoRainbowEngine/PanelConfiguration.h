@@ -20,6 +20,7 @@ public:
 	void WindowSettings();
 	void InputSettings();
 	void HardwareSettings();
+	void RendererSettings();
 
 private:
 	bool open = true;
@@ -35,6 +36,19 @@ private:
 	int capped_fps = 60;
 	int   win_w = 0;
 	
+	bool gl_depth;
+	bool gl_cull_face;
+	bool gl_lighting;
+	bool gl_color_material;
+	bool gl_texture_2d = false;
+	bool gl_fog = false;
+	bool gl_shade_model;
+	bool gl_front_and_back = false;
+	bool gl_points = false;
+	bool gl_lines = false;
+	bool gl_fill = true;
+
+
 
 	PerfTimer	check_time;
 };
