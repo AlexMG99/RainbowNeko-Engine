@@ -71,7 +71,7 @@ void PanelConfiguration::AppSettings()
 			App->CapFPS(capped_fps);
 
 		ImGui::Text("Limit Framerate: "); ImGui::SameLine();
-		ImGui::TextColored({ ImVec4(0.42f, 0.69f, 0.30f, 1.0f) }, "%i", App->GetCurrFPS());
+		ImGui::TextColored({ ImVec4(0.91f, 0.22f, 0.27f, 1.00f) }, "%i", App->GetCurrFPS());
 
 		//Histogram
 		static char title[25];
@@ -163,9 +163,9 @@ void PanelConfiguration::AppSettings()
 		{
 			int x, y;
 
-			ImGui::Text("Mouse Position:"); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "X axis : %i, Y axis : %i", App->input->GetMouseX(), App->input->GetMouseY());
-			ImGui::Text("Mouse Motion:  "); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
-			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "Z axis : %i", App->input->GetMouseZ());
+			ImGui::Text("Mouse Position:"); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseX(), App->input->GetMouseY());
+			ImGui::Text("Mouse Motion:  "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"Z axis : %i", App->input->GetMouseZ());
 
 		}
 	}
@@ -178,10 +178,10 @@ void PanelConfiguration::AppSettings()
 
 			SDL_version compiled;
 
-			ImGui::Text("SDL Version:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%d", &compiled);
+			ImGui::Text("SDL Version:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", &compiled);
 			ImGui::Separator();
-			ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%i (Cache: % i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
-			ImGui::Text("System RAM:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%i Gb", SDL_GetSystemRAM() / 1024);
+			ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i (Cache: % i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+			ImGui::Text("System RAM:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Gb", SDL_GetSystemRAM() / 1024);
 
 			static std::string caps = "";
 			caps += SDL_HasRDTSC() ? "RDTSC, " : "";
@@ -193,7 +193,7 @@ void PanelConfiguration::AppSettings()
 			caps += SDL_HasSSE41() ? "SEE41, " : "";
 			caps += SDL_HasSSE42() ? "SEE42 " : "";
 
-			ImGui::Text("Caps:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), caps.c_str());
+			ImGui::Text("Caps:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), caps.c_str());
 			caps = "";
 
 			ImGui::Separator();
@@ -202,14 +202,14 @@ void PanelConfiguration::AppSettings()
 			GLint currentmemoryaviable = 0;
 			GLint info = 0;
 
-			ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%s", glGetString(GL_VERSION));
-			ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%s", glGetString(GL_VENDOR));
+			ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f) , "%s", glGetString(GL_VERSION));
+			ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
 			glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalmemory);
-			ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%i Mb", totalmemory / 1024);
+			ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.69f, 0.30f, 1.0f), "%i Mb", totalmemory / 1024);
 
 			glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &currentmemoryaviable);
-			ImGui::Text("VRAM Aviable:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.42f, 0.69f, 0.30f, 1.0f), "%i Mb", currentmemoryaviable / 1024);
+			ImGui::Text("VRAM Aviable:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", currentmemoryaviable / 1024);
 
 			ImGui::Text("VRAM Reserved:");
 
