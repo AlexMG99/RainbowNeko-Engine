@@ -49,7 +49,7 @@ update_status PanelHelp::Draw() {
 		ImGui::EndMenu();
 	}
 
-	ImGui::ShowDemoWindow();
+	/*ImGui::ShowDemoWindow();*/
 
 	//Checks About
 	if(open)

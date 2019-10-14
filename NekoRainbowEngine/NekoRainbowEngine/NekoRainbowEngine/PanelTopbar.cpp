@@ -12,10 +12,13 @@ bool PanelTopbar::Start()
 {
 	//Create Panels
 	panel_topbar_map.insert(std::pair<std::string, Panel*>("Help", new PanelHelp("Help")));
-	panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
+	/*panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
 	panel_map.insert(std::pair<std::string, Panel*>("Hierarchy", new PanelHierarchy("Hierarchy")));
-	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
+	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));*/
 
+	panel_hierarchy = new PanelHierarchy("Hirerarchy");
+	panel_configuration = new PanelConfiguration("Configuration");
+	panel_inspector = new PanelInspector("Inspector");
 	panel_console = new PanelConsole("Console");
 
 	//Start other Panels
@@ -27,7 +30,10 @@ bool PanelTopbar::Start()
 		(*it_panel).second->Start();
 	}
 
+	panel_configuration->Start();
 	panel_console->Start();
+	panel_inspector->Start();
+	panel_hierarchy->Start();
 
 
 
@@ -50,6 +56,7 @@ update_status PanelTopbar::Draw()
 		ImGui::EndMenu();
 	}
 
+	
 
 	//Help Menu
 	for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
@@ -57,36 +64,101 @@ update_status PanelTopbar::Draw()
 	}
 
 	ImGui::EndMainMenuBar();
+CreateStyle();
+	CreateDockRight();
+	CreateDockHier();
+	CreateDockLeft();
+	CreateDockBottom();
 
+	
+	return ret;
+}
 
+void PanelTopbar::CreateDockLeft()
+{
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	display_size.x -= 900;
+	display_size.x = 280;
 	display_size.y -= 300;
 	ImGui::SetNextWindowSize(display_size);
 	ImGui::SetNextWindowPos(ImVec2(0, 19));
 
-	ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+	ImGui::BeginDockspace();
 
-	CreateStyle();
+	panel_configuration->Draw();
+	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
+		(*it_panel).second->Draw();
+	}*/
+
+	ImGui::EndDockspace();
+	
+	ImGui::End();
+
+
+}
+
+void PanelTopbar::CreateDockRight()
+{
+	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
+	display_size3.x = 200;
+	display_size3.y -= 300;
+	ImGui::SetNextWindowSize(display_size3);
+	ImGui::SetNextWindowPos(ImVec2(1080, 19));
+
+	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+
+
+	///*ImGui::PushID("ConfigDock");*/
+	ImGui::BeginDockspace();
+
+	panel_inspector->Draw();
+	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
+	//	(*it_panel).second->Draw();
+	//}*/
+	///*ImGui::EndChild();*/
+	ImGui::EndDockspace();
+	////ImGui::PopID();
+	ImGui::End();
+}
+
+void PanelTopbar::CreateDockHier()
+{
+	ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
+	display_size4.x = 150;
+	display_size4.y -= 300;
+	ImGui::SetNextWindowSize(display_size4);
+	ImGui::SetNextWindowPos(ImVec2(280, 19));
+
+	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+
+
 
 	ImGui::BeginDockspace();
 
-	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-		(*it_panel).second->Draw();
-	}
+	panel_hierarchy->Draw();
+
 	ImGui::EndDockspace();
+
 	ImGui::End();
+}
+
+void PanelTopbar::CreateDockBottom()
+{
 
 	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
-	display_size2.y -= 765;
+	display_size2.y -= 770;
 	ImGui::SetNextWindowSize(display_size2);
 	ImGui::SetNextWindowPos(ImVec2(0, 745));
 
-	ImGui::Begin("PanelC", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 
 
 
@@ -94,12 +166,10 @@ update_status PanelTopbar::Draw()
 
 	panel_console->Draw();
 
-
-
 	ImGui::EndDockspace();
+
 	ImGui::End();
 
-	return ret;
 }
 
 void PanelTopbar::CreateStyle()
