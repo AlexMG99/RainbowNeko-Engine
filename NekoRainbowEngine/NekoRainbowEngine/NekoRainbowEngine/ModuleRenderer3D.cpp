@@ -36,6 +36,9 @@ bool ModuleRenderer3D::Init()
 		//Use Vsync
 		SDL_GL_SetSwapInterval(0);
 
+		//fbo = new FBO();
+		//fbo->Create(App->window->GetWinSize().x, App->window->GetWinSize().y);
+
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -96,6 +99,8 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	//fbo->Bind();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -114,6 +119,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	//fbo->Unbind();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
@@ -122,6 +128,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
+
+	fbo->Unbind();
+	delete fbo;
+	fbo = nullptr;
 
 	SDL_GL_DeleteContext(context);
 
@@ -140,4 +150,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+uint ModuleRenderer3D::GetWinTexture() const
+{
+	return fbo->GetTexture();
 }

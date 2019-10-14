@@ -12,7 +12,6 @@
 #include "Parson/parson.h"
 
 #include "PanelHelp.h"
-#include "PanelDebug.h"
 #include "PanelWindow.h"
 #include "PanelConsole.h"
 

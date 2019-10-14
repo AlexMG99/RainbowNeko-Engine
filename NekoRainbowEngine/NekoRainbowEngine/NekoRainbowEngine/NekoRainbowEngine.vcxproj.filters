@@ -178,9 +178,6 @@
     <ClCompile Include="PanelWindow.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="PanelDebug.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
@@ -203,6 +200,10 @@
       <Filter>Sources\Panel</Filter>
     </ClCompile>
     <ClCompile Include="PanelHierarchy.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="FBO.cpp" />
+    <ClCompile Include="PanelGame.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
@@ -486,9 +487,6 @@
     <ClInclude Include="PanelWindow.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="PanelDebug.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
       <Filter>Sources\Devil</Filter>
     </ClInclude>
@@ -538,6 +536,12 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="PanelHierarchy.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelGame.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>

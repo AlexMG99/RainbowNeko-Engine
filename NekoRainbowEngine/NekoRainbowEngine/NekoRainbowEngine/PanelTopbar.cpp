@@ -4,6 +4,7 @@
 #include "PanelConfiguration.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
+#include "PanelGame.h"
 #include "imgui/imgui_docking.h"
 
 #include "Application.h"
@@ -15,6 +16,7 @@ bool PanelTopbar::Start()
 	panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
 	panel_map.insert(std::pair<std::string, Panel*>("Hierarchy", new PanelHierarchy("Hierarchy")));
 	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
+	panel_map.insert(std::pair<std::string, Panel*>("Game", new PanelGame("Game")));
 
 	panel_console = new PanelConsole("Console");
 
