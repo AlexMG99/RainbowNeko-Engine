@@ -19,13 +19,17 @@ public:
 	GameObject() {};
 	~GameObject();
 
-	bool Update() { return true; };
+	bool Update();
 
-	Component* CreateComponent() {};
+	Component* CreateComponent(component_type comp_type, bool active = true);
+	void AddChildren(GameObject* obj);
+	void AddParent(GameObject* obj);
+	void SetActive(bool act);
 
 private:
 	object_type type = OBJECT_NONE;
 	std::string name = "Object Null";
+	bool active = true;
 	
 	GameObject*					parent = nullptr;
 	std::vector<GameObject*>	children;

@@ -8,6 +8,7 @@
 #include "Primitive.h"
 
 struct aiScene;
+class GameObject;
 
 //----------------- ModuleImporter -----------------//
 class ModuleImporter : public Module
@@ -23,9 +24,7 @@ public:
 	bool CleanUp();
 
 	bool ImportFBX(const char* path_fbx, char* path_texture = "");
-	bool LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& path, const char* path_tex);
 
 private:
-	std::list<FBX*> fbx_list;
 
 };

@@ -15,10 +15,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CreateGameObject(GameObject* obj, bool active, GameObject* parent = nullptr);
+
 private:
 	void CreateGrid(uint separation, uint lines);
-	void makeCheckImage(void);
-	void CreateGameObject() {};
 
 public:
 	GameObject* root_object = nullptr;

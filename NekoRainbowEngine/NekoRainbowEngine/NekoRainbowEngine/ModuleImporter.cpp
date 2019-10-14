@@ -2,6 +2,9 @@
 #include "GL/include/glew.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "GameObject.h"
+#include "Component.h"
+#include "ComponentMesh.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -43,114 +46,103 @@ bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
 {
 	bool ret = true;
 
-	FBX* aux_fbx = new FBX();
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiNode* node = scene->mRootNode;
 
-	ret = LoadMesh(scene, aux_fbx, path_fbx, path_texture);
-
-	return ret;
-}
-
-bool ModuleImporter::LoadMesh(const aiScene* scene, FBX*& aux_fbx, const char*& path_fbx,const char* path_tex)
-{
-	bool ret = true;
-
-	if (scene != nullptr && scene->HasMeshes())
+	for (uint node_num = 0; node_num < node->mNumChildren; node_num++) 
 	{
-		for (uint i = 0; i < scene->mNumMeshes; i++)
+		if (scene->HasMeshes())
 		{
-			//Load Mesh 
-			Mesh* m = new Mesh();
-			aiMesh* aimesh = scene->mMeshes[i];
+			GameObject* aux_obj = new GameObject();
 
-			m->num_vertices = aimesh->mNumVertices;
-			m->vertices = new float[m->num_vertices * 3];
-			memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
-			LOG("New mesh with %d vertices", m->num_vertices);
-
-			if (aimesh->HasFaces())
+			for (uint i = 0; i < node->mChildren[node_num]->mNumMeshes; i++)
 			{
-				m->num_index = aimesh->mNumFaces * 3;
-				m->index = new uint[m->num_index]; // assume each face is a triangle
+				//Load Position
+				aiVector3D translation, scaling;
+				aiQuaternion rotation;
+				node->mTransformation.Decompose(scaling, rotation, translation);
+				float3 pos(translation.x, translation.y, translation.z);
+				float3 scale(scaling.x, scaling.y, scaling.z);
+				Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+				ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
+				trans->position = pos;
+				trans->scale = scale;
+				trans->rotation = rot;
 
-				for (uint j = 0; j < aimesh->mNumFaces; ++j)
+				//Load Mesh 
+				ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
+				const aiMesh* aimesh = scene->mMeshes[node->mChildren[node_num]->mMeshes[i]];
+
+				m->num_vertices = aimesh->mNumVertices;
+				m->vertices = new float[m->num_vertices * 3];
+				memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
+				LOG("New mesh with %d vertices", m->num_vertices);
+
+				if (aimesh->HasFaces())
 				{
-					if (aimesh->mFaces[j].mNumIndices != 3) {
-						LOG("WARNING, geometry face with != 3 indices!");
-					}
-					else {
-						memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
+					m->num_index = aimesh->mNumFaces * 3;
+					m->index = new uint[m->num_index]; // assume each face is a triangle
+
+					for (uint j = 0; j < aimesh->mNumFaces; ++j)
+					{
+						if (aimesh->mFaces[j].mNumIndices != 3) {
+							LOG("WARNING, geometry face with != 3 indices!");
+						}
+						else {
+							memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
+						}
 					}
 				}
-			}
 
-			//Load Normals
-			if (aimesh->HasNormals())
-			{
-				m->normals = new float3[aimesh->mNumVertices];
-				memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
-			}
-
-			//Load UVs
-			if (aimesh->HasTextureCoords(0))
-			{
-				m->UV_num = aimesh->mNumUVComponents[0];
-				m->UV_coord = new float[m->num_vertices * m->UV_num];
-
-				for (uint i = 0; i < m->num_vertices; i++)
+				//Load Normals
+				if (aimesh->HasNormals())
 				{
-					memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
-					//LOG("Vertex: %f, %f, %f", m->UV_coord->x, m->UV_coord->y, m->UV_coord->z);
+					m->normals = new float3[aimesh->mNumVertices];
+					memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
 				}
-				
+
+				//Load UVs
+				if (aimesh->HasTextureCoords(0))
+				{
+					m->UV_num = aimesh->mNumUVComponents[0];
+					m->UV_coord = new float[m->num_vertices * m->UV_num];
+
+					for (uint i = 0; i < m->num_vertices; i++)
+					{
+						memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
+						//LOG("Vertex: %f, %f, %f", m->UV_coord->x, m->UV_coord->y, m->UV_coord->z);
+					}
+
+				}
+
+				m->GenerateMesh();
+
+				/*if (aimesh->HasTextureCoords(0))
+					ret = aux_obj->LoadTextures(m, path_tex);*/
+
 			}
-
-			m->GenerateMesh();
-
-			if (aimesh->HasTextureCoords(0))
-				ret = aux_fbx->LoadTextures(m, path_tex);
-
-			aux_fbx->mesh_list.push_back(m);
-
+			LOG("Loaded mesh file succesfully!");
+			App->viewport->CreateGameObject(aux_obj, true);
 		}
-
-		fbx_list.push_back(aux_fbx);
-		LOG("Loaded mesh file succesfully!");
-
+		else {
+			ret = false;
+			LOG("The file with path: %s can not be load", path_fbx);
+		}
 	}
-	else {
-		ret = false;
-		LOG("The file with path: %s can not be load", path_fbx);
-	}
+	
 
 	return ret;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)
 {
-	for (auto it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
-	{
-		//Render Mesh
-		for (auto it_mesh = (*it_fbx)->mesh_list.begin(); it_mesh != (*it_fbx)->mesh_list.end(); ++it_mesh)
-		{
-			(*it_mesh)->Render();
-		}
 
-		//Render Texture
-		if((*it_fbx)->texture)
-			(*it_fbx)->texture->Render();
-	}
 
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleImporter::CleanUp()
 {
-	for (auto it_fbx = fbx_list.begin(); it_fbx != fbx_list.end(); ++it_fbx)
-	{
-		delete (*it_fbx);
-		(*it_fbx) = nullptr;
-	}
 
 	aiDetachAllLogStreams();
 	return true;
