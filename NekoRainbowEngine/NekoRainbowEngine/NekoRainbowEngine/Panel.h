@@ -2,6 +2,7 @@
 #define PANEL_H
 
 #include "Globals.h"
+#include "imgui/imgui.h"
 
 class Panel {
 public:

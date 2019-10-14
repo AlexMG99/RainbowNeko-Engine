@@ -22,7 +22,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	bool ImportFBX(const char* path_fbx, char* path_texture = "");
+	bool ImportFBX(char* path_fbx, char* path_texture = "");
 
 private:
 

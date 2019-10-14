@@ -96,6 +96,8 @@
     <ClInclude Include="PanelConfiguration.h" />
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelDebug.h" />
+    <ClInclude Include="PanelHierarchy.h" />
+    <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelTopbar.h" />
     <ClInclude Include="PanelWindow.h" />
     <ClInclude Include="PanelHelp.h" />
@@ -244,6 +246,8 @@
     <ClCompile Include="PanelConfiguration.cpp" />
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelDebug.cpp" />
+    <ClCompile Include="PanelHierarchy.cpp" />
+    <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelWindow.cpp" />
     <ClCompile Include="PanelHelp.cpp" />

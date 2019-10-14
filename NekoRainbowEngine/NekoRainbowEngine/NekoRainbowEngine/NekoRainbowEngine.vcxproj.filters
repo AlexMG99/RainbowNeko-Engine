@@ -199,6 +199,12 @@
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="PanelInspector.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelHierarchy.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -527,6 +533,12 @@
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
       <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelInspector.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelHierarchy.h">
+      <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

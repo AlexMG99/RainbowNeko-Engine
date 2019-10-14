@@ -2,6 +2,7 @@
 #include "PanelConsole.h"
 #include "PanelHelp.h"
 #include "PanelConfiguration.h"
+#include "PanelHierarchy.h"
 #include "imgui/imgui_docking.h"
 
 #include "Application.h"
@@ -11,6 +12,7 @@ bool PanelTopbar::Start()
 	//Create Panels
 	panel_topbar_map.insert(std::pair<std::string, Panel*>("Help", new PanelHelp("Help")));
 	panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
+	panel_map.insert(std::pair<std::string, Panel*>("Hierarchy", new PanelHierarchy("Hierarchy")));
 
 	panel_console = new PanelConsole("Console");
 

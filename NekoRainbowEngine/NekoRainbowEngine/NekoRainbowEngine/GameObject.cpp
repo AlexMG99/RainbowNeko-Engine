@@ -74,3 +74,13 @@ void GameObject::SetActive(bool act)
 {
 	active = act;
 }
+
+std::string GameObject::GetName() const
+{
+	return name;
+}
+
+void GameObject::SetName(const char * name_)
+{
+	name = name_;
+}

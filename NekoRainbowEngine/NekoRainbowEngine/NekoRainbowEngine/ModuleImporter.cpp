@@ -42,7 +42,7 @@ bool ModuleImporter::Start()
 	return ret;
 }
 
-bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
+bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 {
 	bool ret = true;
 
@@ -54,6 +54,8 @@ bool ModuleImporter::ImportFBX(const char* path_fbx, char* path_texture)
 		if (scene->HasMeshes())
 		{
 			GameObject* aux_obj = new GameObject();
+			std::string name_obj = path_fbx + std::to_string(node_num);
+			aux_obj->SetName(name_obj.c_str());
 
 			for (uint i = 0; i < node->mChildren[node_num]->mNumMeshes; i++)
 			{

@@ -25,6 +25,9 @@ public:
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);
 	void SetActive(bool act);
+	std::string GetName() const;
+	void SetName(const char* name_);
+
 
 private:
 	object_type type = OBJECT_NONE;
@@ -32,9 +35,10 @@ private:
 	bool active = true;
 	
 	GameObject*					parent = nullptr;
-	std::vector<GameObject*>	children;
 	std::vector<Component*>		components;
 
+public:
+	std::vector<GameObject*>	children;
 };
 
 #endif // !_GAMEOBJECT_H_
