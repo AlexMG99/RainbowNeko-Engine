@@ -7,7 +7,7 @@
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
 public:
-	ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(type, active, my_go) {};
+	ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj) {};
 	~ComponentMesh();
 
 	bool Update();
@@ -41,7 +41,7 @@ public:
 
 class ComponentTexture : public Component {
 public:
-	ComponentTexture(component_type comp_type, bool act, GameObject * obj) : Component(type, active, my_go) {};
+	ComponentTexture(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj) {};
 	~ComponentTexture() {};
 
 	void Enable() {};

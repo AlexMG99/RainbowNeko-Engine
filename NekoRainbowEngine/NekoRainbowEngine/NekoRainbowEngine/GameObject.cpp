@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "Component.h"
-#include "ComponentMesh.h"
 
 GameObject::~GameObject()
 {
@@ -66,6 +65,28 @@ ComponentTransform * GameObject::GetComponentTransform()
 	{
 		if((*it_comp)->type == COMPONENT_TRANSFORM)
 			return (ComponentTransform*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
+ComponentMesh * GameObject::GetComponentMesh()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_MESH)
+			return (ComponentMesh*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
+ComponentTexture* GameObject::GetComponentTexture()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_TEXTURE)
+			return (ComponentTexture*)(*it_comp);
 	}
 
 	return nullptr;

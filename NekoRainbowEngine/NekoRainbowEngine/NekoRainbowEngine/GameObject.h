@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Component.h"
+#include "ComponentMesh.h"
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -22,7 +23,11 @@ public:
 	bool Update();
 
 	Component* CreateComponent(component_type comp_type, bool active = true);
+
 	ComponentTransform* GetComponentTransform();
+	ComponentMesh* GetComponentMesh();
+	ComponentTexture* GetComponentTexture();
+
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);
 	void SetActive(bool act);
