@@ -1,14 +1,16 @@
-#include "Application.h"
 #include "FBO.h"
-#include "ModuleWindow.h"
+#include "Application.h"
 #include "GL/include/glew.h"
-#include "imgui/imgui.h"
+#include "ModuleWindow.h"
 
 bool FBO::Create(uint width, uint height)
 {
 	bool ret = true;
 
 	//Generate Buffers
+
+	if (glGenFramebuffers == 0)
+		LOG("Error, glGenFramebuffers not present!");
 	glGenFramebuffers(1, &fbo_id);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_id);
 

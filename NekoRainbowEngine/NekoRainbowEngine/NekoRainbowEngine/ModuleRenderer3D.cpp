@@ -36,9 +36,6 @@ bool ModuleRenderer3D::Init()
 		//Use Vsync
 		SDL_GL_SetSwapInterval(0);
 
-		//fbo = new FBO();
-		//fbo->Create(App->window->GetWinSize().x, App->window->GetWinSize().y);
-
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -57,6 +54,10 @@ bool ModuleRenderer3D::Init()
 			LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 			LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 		}
+
+		//Init FBO
+		fbo = new FBO();
+		fbo->Create(100,100);
 
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
@@ -91,15 +92,15 @@ bool ModuleRenderer3D::Init()
 	}
 
 	// Projection matrix for
-	OnResize(App->window->width, App->window->height);
-
+	/*OnResize(App->window->width, App->window->height);*/
+	glEnable(GL_TEXTURE_2D);
 	return ret;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	//fbo->Bind();
+	fbo->Bind();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -119,7 +120,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	//fbo->Unbind();
+	fbo->Unbind();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
