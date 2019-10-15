@@ -10,6 +10,5 @@ Component::Component(component_type comp_type, bool act, GameObject * obj)
 
 Component::~Component()
 {
-	delete my_go;
-	my_go = nullptr;
+	//RELEASE(my_go);
 }

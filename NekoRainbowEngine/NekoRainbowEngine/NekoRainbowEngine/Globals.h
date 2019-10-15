@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <stdio.h>
 
+//LOG
 enum ConsoleTextType;
 
 #define LOG(format, ...) _log(__FILE__, __LINE__, format, __VA_ARGS__);
@@ -43,6 +44,27 @@ enum update_status
 // Configuration -----------
 #define SCREEN_SIZE 1
 #define VSYNC true
+
+// Deletes a buffer
+#define RELEASE( x )		\
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete x;             \
+	  x = nullptr;          \
+	    }                   \
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x )  \
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete[] x;           \
+	  x = nullptr;          \
+	    }                   \
+                            \
+    }
 
 // Performance macros
 #define PERF_START(timer) timer.Start()

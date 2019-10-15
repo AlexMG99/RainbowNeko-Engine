@@ -3,18 +3,16 @@
 
 GameObject::~GameObject()
 {
-	delete parent;
-	parent = nullptr;
-
-	for (auto it_obj = children.begin(); it_obj != children.end(); it_obj++) {
-		delete (*it_obj);
-		(*it_obj) = nullptr;
+	LOG("%s", name.c_str());
+	for (auto it_obj = children.begin(); it_obj != children.end();) {
+		RELEASE(*it_obj);
+		it_obj = children.erase(it_obj);
 	}
 	children.clear();
 
-	for (auto it_comp = components.begin(); it_comp != components.end(); it_comp++) {
-		delete (*it_comp);
-		(*it_comp) = nullptr;
+	for (auto it_comp = components.begin(); it_comp != components.end();) {
+		RELEASE(*it_comp);
+		it_comp = components.erase(it_comp);
 	}
 	components.clear();
 }

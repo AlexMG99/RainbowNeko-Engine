@@ -75,6 +75,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Assimp\include\cfileio.h" />
     <ClInclude Include="Assimp\include\cimport.h" />
     <ClInclude Include="Assimp\include\Importer.hpp" />
     <ClInclude Include="Assimp\include\Logger.hpp" />

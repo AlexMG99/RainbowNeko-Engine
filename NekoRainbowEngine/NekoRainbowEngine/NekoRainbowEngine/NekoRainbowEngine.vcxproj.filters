@@ -564,6 +564,9 @@
     <ClInclude Include="Assimp\include\Importer.hpp">
       <Filter>Sources\Assimp</Filter>
     </ClInclude>
+    <ClInclude Include="Assimp\include\cfileio.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">

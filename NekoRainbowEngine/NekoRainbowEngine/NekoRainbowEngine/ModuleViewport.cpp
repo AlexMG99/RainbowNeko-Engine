@@ -15,8 +15,8 @@ ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(ap
 // Destructor
 ModuleViewport::~ModuleViewport()
 {
-	/*delete root_object;
-	root_object = nullptr;*/
+	RELEASE(root_object);
+	
 }
 
 bool ModuleViewport::Start()
