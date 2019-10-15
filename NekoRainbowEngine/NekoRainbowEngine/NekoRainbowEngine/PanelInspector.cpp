@@ -60,7 +60,9 @@ update_status PanelInspector::Draw()
 		{
 			if (ImGui::CollapsingHeader("Texture"))
 			{
+				ImGui::Text("Path: %s", comp_texture->path.c_str());
 				ImGui::Text("Id texture: %i", comp_texture->image_id);
+				ImGui::Text("W: %i		H: %i", comp_texture->width, comp_texture->height);
 				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200));
 			}
 		}

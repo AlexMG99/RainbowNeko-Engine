@@ -38,7 +38,7 @@ bool ModuleImporter::Init()
 bool ModuleImporter::Start()
 {
 	bool ret = true;
-	ret = ImportFBX("../Game/Assets/BakerHouse.fbx");
+	ret = ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
 
 	return ret;
 }
@@ -161,7 +161,7 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 	}
 	else
 	{
-		C_WARNING("Warning! Object no selected. Please, select an object.", ConsoleTextType::CONSOLE_WARNING);
+		C_WARNING("Warning! Object no selected. Please, select an object.");
 	}
 	return false;
 }
