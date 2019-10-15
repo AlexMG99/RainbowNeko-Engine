@@ -23,6 +23,7 @@ public:
 	bool CleanUp();
 
 	bool ImportFBX(char* path_fbx, char* path_texture = "");
+	bool ImportTexture(char* path_texture);
 
 private:
 

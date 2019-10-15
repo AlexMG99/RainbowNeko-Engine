@@ -32,7 +32,7 @@ update_status PanelConsole::Draw() {
 		{
 			ImVec4 color = GetColorFromType((*it_cons).type);
 			ImGui::PushStyleColor(ImGuiCol_Text, color);
-			ImGui::TextUnformatted((*it_cons).text.c_str());
+			ImGui::Text((*it_cons).text.c_str());
 			ImGui::PopStyleColor();
 		}
 		ImGui::EndChild(); ImGui::Separator();
