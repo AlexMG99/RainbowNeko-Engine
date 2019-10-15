@@ -45,7 +45,7 @@ private:
 	float				avg_fps = 1.00f;
 	float				curr_fps = 60.00f;
 
-	std::string			log;
+	std::list<ConsoleText> logs;
 
 public:
 
@@ -61,8 +61,9 @@ public:
 	uint GetCurrFPS();
 	void CapFPS(float frame_r);
 
-	void Log(const char* log_text);
-	const char* GetLog();
+	void Log(ConsoleText text);
+	std::list<ConsoleText> GetLogs() const;
+	void ClearLogs();
 
 private:
 

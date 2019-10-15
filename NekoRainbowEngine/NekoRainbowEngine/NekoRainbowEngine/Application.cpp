@@ -58,7 +58,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	LOG("-------------- Application Start --------------");
 	
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++) {
 		ret = (*item)->Start();
@@ -165,16 +165,19 @@ void Application::CapFPS(float frame_r)
 	capped_ms = 1000 / frame_r;
 }
 
-void Application::Log(const char* log_text)
+void Application::Log(ConsoleText text)
 {
-	log.append(log_text);
-
-	scene_test->Log(log_text);
+	logs.push_back(text);
 }
 
-const char * Application::GetLog()
+std::list<ConsoleText> Application::GetLogs() const
 {
-	return log.c_str();
+	return logs;
+}
+
+void Application::ClearLogs()
+{
+	logs.clear();
 }
 
 void Application::AddModule(Module* mod)

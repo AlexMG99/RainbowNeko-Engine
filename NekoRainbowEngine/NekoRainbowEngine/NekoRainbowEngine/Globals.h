@@ -7,11 +7,18 @@
 #include <windows.h>
 #include <stdio.h>
 
+enum ConsoleTextType;
+
 #define LOG(format, ...) _log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define CONSOLE_INFO(format, ...) _log(ConsoleTextType::CONSOLE_INFO, __FILE__, __LINE__, format, __VA_ARGS__);
+#define CONSOLE_SUCCES(format, ...) _log(ConsoleTextType::CONSOLE_SUCCESS, __FILE__, __LINE__, format, __VA_ARGS__);
+#define CONSOLE_WARNING(format, ...) _log(ConsoleTextType::CONSOLE_WARNING, __FILE__, __LINE__, format, __VA_ARGS__);
+#define CONSOLE_ERROR(format, ...) _log(ConsoleTextType::CONSOLE_ERROR, __FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);
 
 void _log(const char file[], int line, const char* format, ...);
+void _log(ConsoleTextType type, const char file[], int line, const char * format, ...);
 
 
 

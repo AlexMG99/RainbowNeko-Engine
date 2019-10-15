@@ -102,20 +102,6 @@ update_status ModuleTest::Save()
 	return ret;
 }
 
-void ModuleTest::Log(const char * log_text)
-{
-	if (panel_topbar && panel_topbar->panel_console) {
-		if (!panel_topbar->panel_console->start_console) {
-			panel_topbar->panel_console->AddLog(App->GetLog());
-			panel_topbar->panel_console->start_console = true;
-		}
-		else {
-			panel_topbar->panel_console->AddLog(log_text);
-		}
-	}
-
-}
-
 // Update
 update_status ModuleTest::PostUpdate(float dt)
 {
