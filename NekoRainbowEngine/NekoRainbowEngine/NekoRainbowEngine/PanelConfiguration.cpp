@@ -49,7 +49,9 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui::BeginDock("Configuration", false, &visible, true);
+	ImGui::BeginDock("Configuration", false, &visible, false);
+	ImGui::SetNextDock(ImGuiDockSlot_Right);
+	/*ImGui::SetWindowSize(ImVec2(100, 700));*/
 	
 		AppSettings();
 
@@ -60,10 +62,10 @@ update_status PanelConfiguration::Draw()
 		HardwareSettings();
 
 		RendererSettings();
-		
+
 		
 	ImGui::EndDock();
-	
+
 	return ret;
 }
 

@@ -6,7 +6,10 @@
 
 update_status PanelHierarchy::Draw()
 {
-	ImGui::BeginDock("Hierarchy", false, &visible, true);
+
+	ImGui::BeginDock("Hierarchy", false, &visible, false);
+	ImGui::SetNextDock(ImGuiDockSlot_Right);
+
 	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
 	{
 		ImGui::Selectable((*it_obj)->GetName().c_str(), &(*it_obj)->selected);
