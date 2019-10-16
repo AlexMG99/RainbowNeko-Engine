@@ -12,26 +12,28 @@
 bool PanelTopbar::Start()
 {
 	//Create Panels
-	panel_topbar_map.insert(std::pair<std::string, Panel*>("Help", new PanelHelp("Help")));
-	panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
-	panel_map.insert(std::pair<std::string, Panel*>("Hierarchy", new PanelHierarchy("Hierarchy")));
-	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
-	panel_map.insert(std::pair<std::string, Panel*>("Game", new PanelGame("Game")));
-	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
-
+//	/*panel_topbar_map.insert(std::pair<std::string, Panel>("Help", new PanelHelp("Help")));
+//*/
+	panel_hierarchy = new PanelHierarchy("Hirerarchy");
+	panel_configuration = new PanelConfiguration("Configuration");
+	panel_inspector = new PanelInspector("Inspector");
 	panel_console = new PanelConsole("Console");
+	panel_game = new PanelGame("Game");
 
 	//Start other Panels
-	for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-		(*it_panel_top).second->Start();
-	}
+	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
+	//	(it_panel_top).second->Start();
+	//}
 
 	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
 		(*it_panel).second->Start();
 	}
 
+	panel_configuration->Start();
 	panel_console->Start();
-
+	panel_inspector->Start();
+	panel_hierarchy->Start();
+	panel_game->Start();
 
 	return false;
 }
@@ -55,9 +57,9 @@ update_status PanelTopbar::Draw()
 	
 
 	//Help Menu
-	for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-		(*it_panel_top).second->Draw();
-	}
+	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
+	//	(*it_panel_top).second->Draw();
+	//}
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
@@ -197,6 +199,7 @@ void PanelTopbar::CreateDockBottom()
 
 	panel_configuration->Draw();
 	panel_hierarchy->Draw();
+	panel_game->Draw();
 	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
 		(*it_panel).second->Draw();
 	}*/
