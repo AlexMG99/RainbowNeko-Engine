@@ -53,7 +53,6 @@ update_status PanelTopbar::Draw()
 
 		ImGui::EndMenu();
 	}
-
 	
 
 	//Help Menu
@@ -68,6 +67,8 @@ update_status PanelTopbar::Draw()
 	
 	CreateDockBottom();*/
 	CreateDocking();
+
+	panel_console->Draw();
     
 	
 	return ret;

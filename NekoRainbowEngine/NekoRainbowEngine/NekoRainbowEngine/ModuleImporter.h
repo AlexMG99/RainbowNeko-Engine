@@ -28,3 +28,5 @@ public:
 private:
 
 };
+
+void LogCallback(const char * text, char * data);
