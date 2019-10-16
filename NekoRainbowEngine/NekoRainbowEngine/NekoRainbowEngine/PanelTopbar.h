@@ -19,10 +19,11 @@ public:
 	bool Start();
 	update_status Draw();
 	void CreateStyle();
-	void CreateDockLeft();
-	void CreateDockRight();
+	/*void CreateDockLeft();*/
+	/*void CreateDockRight();*/
 	void CreateDockBottom();
-	void CreateDockHier();
+	/*void CreateDockHier();*/
+	void CreateDocking();
 
 
 public:

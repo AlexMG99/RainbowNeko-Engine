@@ -19,7 +19,8 @@ update_status PanelConsole::Draw() {
 	CopyLogs();
 
 	ImGui::BeginDock("Console", false, &visible, false);
-	//if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
+	
+	/*if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {*/
 	//	ImGui::SetWindowSize(ImVec2(450, 445));
 		//if (ImGui::SmallButton("Clear")) 
 		//	Clear();

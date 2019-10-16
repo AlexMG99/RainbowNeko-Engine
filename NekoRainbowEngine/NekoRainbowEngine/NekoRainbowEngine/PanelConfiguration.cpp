@@ -50,8 +50,21 @@ bool PanelConfiguration::Start()
 update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
+	
+	/*ImVec2 size = ImGui::GetIO().DisplaySize;
+	size.y = 975;
+	ImGui::SetNextWindowSize(size);
+	ImGui::SetNextWindowPos(ImVec2(0, 25));*/
+
+//ImGui::Begin("Configuration", &open, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_None);
+	/*ImGui::SetWindowPos(ImVec2(0, 0));*/
+
+
+	/*ImGui::SetNextDock(ImGuiDockSlot_Right);*/
 
 	ImGui::BeginDock("Configuration", false, &visible, false);
+	ImGui::SetNextDock(ImGuiDockSlot_Right);
+	/*ImGui::SetWindowSize(ImVec2(100, 700));*/
 	
 		AppSettings();
 
@@ -62,10 +75,10 @@ update_status PanelConfiguration::Draw()
 		HardwareSettings();
 
 		RendererSettings();
-		
+
 		
 	ImGui::EndDock();
-	
+			/*ImGui::End();*/
 	return ret;
 }
 
