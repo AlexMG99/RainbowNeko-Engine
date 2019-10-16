@@ -1,14 +1,11 @@
-#include "Panel.h"
-#include "PanelHelp.h"
-
-#include "imgui/imgui.h"
 #include "Application.h"
+#include "PanelHelp.h"
 
 #include <string>
 
 bool PanelHelp::Start()
 {
-	JSON_Object* about = json_object(App->scene_test->credits_doc);
+	JSON_Object* about = json_object(App->credits_doc);
 
 	////Set Help Attributes
 	strcpy_s(documentation, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "Help")), "Documentation"));

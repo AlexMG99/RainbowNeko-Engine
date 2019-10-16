@@ -1,7 +1,5 @@
-#include "Panel.h"
-#include "PanelConfiguration.h"
 #include "Application.h"
-#include "imgui/imgui.h"
+#include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_docking.h"
@@ -13,7 +11,7 @@ PanelConfiguration::~PanelConfiguration()
 
 bool PanelConfiguration::Start()
 {
-	JSON_Object* obj = json_object(App->scene_test->settings_doc);
+	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* app_obj = json_object_get_object(obj, "Application");
 
 	//Set window attributes

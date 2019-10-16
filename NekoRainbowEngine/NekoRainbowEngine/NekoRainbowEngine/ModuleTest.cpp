@@ -38,19 +38,6 @@ bool ModuleTest::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context); // Link Window and Context
 	ImGui_ImplOpenGL3_Init(); // Initialize Panels
 
-	settings_doc = json_parse_file("Settings/win_config.json");
-	credits_doc = json_parse_file("Settings/win_about.json");
-
-	if (!settings_doc) {
-		settings_doc = json_value_init_object();
-		json_serialize_to_file(settings_doc, "Settings/win_config.json");
-	}
-
-	if (!credits_doc) {
-		credits_doc = json_value_init_object();
-		json_serialize_to_file(credits_doc, "Settings/win_about.json");
-	}
-
 	panel_topbar = new PanelTopbar();
 
 	panel_topbar->Start();
@@ -91,9 +78,6 @@ void ModuleTest::DrawImGui()
 bool ModuleTest::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
-	json_value_free(settings_doc);
-	json_value_free(credits_doc);
 
 	return true;
 }

@@ -1,6 +1,5 @@
-#include "Panel.h"
-#include "PanelConsole.h"
 #include "Application.h"
+#include "PanelConsole.h"
 #include "ModuleInput.h"
 
 #include "GL/include/glew.h"

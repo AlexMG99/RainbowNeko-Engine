@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "imgui/imgui.h"
+#include "Parson/parson.h"
 
 class Panel {
 public:

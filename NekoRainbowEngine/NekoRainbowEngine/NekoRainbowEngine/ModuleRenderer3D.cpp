@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "SDL/include/SDL_opengl.h"
+#include "imgui/imgui.h"
 
 #include <gl/GL.h>
 
@@ -57,7 +58,7 @@ bool ModuleRenderer3D::Init()
 
 		//Init FBO
 		fbo = new FBO();
-		fbo->Create(100,100);
+		fbo->Create((uint)App->window->GetWinSize().x , App->window->GetWinSize().y);
 
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
@@ -92,7 +93,7 @@ bool ModuleRenderer3D::Init()
 	}
 
 	// Projection matrix for
-	/*OnResize(App->window->width, App->window->height);*/
+	OnResize(App->window->width, App->window->height);
 	glEnable(GL_TEXTURE_2D);
 	return ret;
 }
@@ -121,6 +122,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	fbo->Unbind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	App->scene_test->DrawImGui();
 	SDL_GL_SwapWindow(App->window->window);
@@ -153,6 +155,11 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+ImVec2 ModuleRenderer3D::GetTextureSize() const
+{
+	return ImVec2(fbo->width, fbo->height);
 }
 
 uint ModuleRenderer3D::GetWinTexture() const

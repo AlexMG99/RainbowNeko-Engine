@@ -8,6 +8,8 @@
 
 #define MAX_LIGHTS 8
 
+class ImVec2;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -21,7 +23,9 @@ public:
 
 	void OnResize(int width, int height);
 
+	ImVec2 GetTextureSize() const;
 	uint GetWinTexture() const;
+
 
 public:
 	FBO* fbo = nullptr;

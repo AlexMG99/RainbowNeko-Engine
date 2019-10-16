@@ -1,7 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "ImGui/imgui.h"
+#include "imgui/imgui.h"
+
+#include "Parson/parson.h"
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -73,6 +75,15 @@ bool ModuleWindow::Init()
 	}
 
 	return ret;
+}
+
+bool ModuleWindow::Load()
+{
+	JSON_Object* obj = json_object(App->settings_doc);
+	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"),
+		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
+
+	return true;
 }
 
 // Called before quitting

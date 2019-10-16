@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "imgui/imgui.h"
+#include "Parson/parson.h"
 
 Application::Application()
 {
@@ -52,8 +53,11 @@ bool Application::Init()
 	bool ret = true;
 
 	// Call Init() in all modules
+
+	InitializeJSONDoc();
 	
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++) {
+		ret = (*item)->Load();
 		ret = (*item)->Init();
 	}
 
@@ -138,6 +142,9 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 	}
 
+	json_value_free(settings_doc);
+	json_value_free(credits_doc);
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -183,4 +190,20 @@ void Application::ClearLogs()
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+void Application::InitializeJSONDoc()
+{
+	settings_doc = json_parse_file("Settings/win_config.json");
+	credits_doc = json_parse_file("Settings/win_about.json");
+
+	if (!settings_doc) {
+		settings_doc = json_value_init_object();
+		json_serialize_to_file(settings_doc, "Settings/win_config.json");
+	}
+
+	if (!credits_doc) {
+		credits_doc = json_value_init_object();
+		json_serialize_to_file(credits_doc, "Settings/win_about.json");
+	}
 }

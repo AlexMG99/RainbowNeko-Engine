@@ -1,15 +1,17 @@
+#include "Application.h"
 #include "Panel.h"
 #include "PanelWindow.h"
 #include "imgui/imgui.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 
-#include "Application.h"
+#include "Parson/parson.h"
+
 #include <string>
 
 bool PanelWindow::Start()
 {
-	JSON_Object* obj = json_object(App->scene_test->settings_doc);
+	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* app_obj = json_object_get_object(obj, "Application");
 
 	//Set window attributes
@@ -47,7 +49,7 @@ update_status PanelWindow::Draw() {
 
 update_status PanelWindow::Save()
 {
-	JSON_Object* win_object = json_object(App->scene_test->settings_doc);
+	JSON_Object* win_object = json_object(App->settings_doc);
 
 	json_object_dotset_string(win_object, "Application.Title", App->window->GetTitle());
 	json_object_dotset_number(win_object, "Application.Width", App->window->GetWinSize().x);
@@ -58,7 +60,7 @@ update_status PanelWindow::Save()
 	json_object_dotset_boolean(win_object, "Application.Border", App->window->border_on);
 	json_object_dotset_number(win_object, "Application.Brightness", App->window->brigthness);
 
-	json_serialize_to_file(App->scene_test->settings_doc, "Settings/win_config.json");
+	json_serialize_to_file(App->settings_doc, "Settings/win_config.json");
 
 	return UPDATE_CONTINUE;
 }
