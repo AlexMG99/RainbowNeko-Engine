@@ -538,12 +538,6 @@
     <ClInclude Include="PanelHierarchy.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="FBO.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude> Include="PanelGame.h">
-      <Filter>Sources\Panel</Filter>
-      </ClInclude>
     <ClInclude Include="Assimp\include\Logger.hpp">
       <Filter>Sources\Assimp</Filter>
     </ClInclude>
@@ -570,6 +564,10 @@
     </ClInclude>
     <ClInclude Include="Assimp\include\cfileio.h">
       <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="FBO.h" />
+    <ClInclude Include="PanelGame.h">
+      <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

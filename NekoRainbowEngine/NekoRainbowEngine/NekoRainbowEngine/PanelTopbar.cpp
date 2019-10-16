@@ -13,15 +13,12 @@ bool PanelTopbar::Start()
 {
 	//Create Panels
 	panel_topbar_map.insert(std::pair<std::string, Panel*>("Help", new PanelHelp("Help")));
-	/*panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
+	panel_map.insert(std::pair<std::string, Panel*>("Configuration", new PanelConfiguration("Configuration")));
 	panel_map.insert(std::pair<std::string, Panel*>("Hierarchy", new PanelHierarchy("Hierarchy")));
 	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
 	panel_map.insert(std::pair<std::string, Panel*>("Game", new PanelGame("Game")));
-	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));*/
+	panel_map.insert(std::pair<std::string, Panel*>("Inspector", new PanelInspector("Inspector")));
 
-	panel_hierarchy = new PanelHierarchy("Hirerarchy");
-	panel_configuration = new PanelConfiguration("Configuration");
-	panel_inspector = new PanelInspector("Inspector");
 	panel_console = new PanelConsole("Console");
 
 	//Start other Panels
@@ -33,11 +30,7 @@ bool PanelTopbar::Start()
 		(*it_panel).second->Start();
 	}
 
-	panel_configuration->Start();
 	panel_console->Start();
-	panel_inspector->Start();
-	panel_hierarchy->Start();
-
 
 
 	return false;
@@ -90,10 +83,9 @@ void PanelTopbar::CreateDockLeft()
 		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 	ImGui::BeginDockspace();
 
-	panel_configuration->Draw();
-	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
+	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
 		(*it_panel).second->Draw();
-	}*/
+	}
 
 	ImGui::EndDockspace();
 	
@@ -115,16 +107,6 @@ void PanelTopbar::CreateDockRight()
 		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 
 
-	///*ImGui::PushID("ConfigDock");*/
-	ImGui::BeginDockspace();
-
-	panel_inspector->Draw();
-	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-	//	(*it_panel).second->Draw();
-	//}*/
-	///*ImGui::EndChild();*/
-	ImGui::EndDockspace();
-	////ImGui::PopID();
 	ImGui::End();
 }
 
@@ -140,13 +122,6 @@ void PanelTopbar::CreateDockHier()
 		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 
-
-
-	ImGui::BeginDockspace();
-
-	panel_hierarchy->Draw();
-
-	ImGui::EndDockspace();
 
 	ImGui::End();
 }
@@ -164,12 +139,7 @@ void PanelTopbar::CreateDockBottom()
 		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 
 
-
-	ImGui::BeginDockspace();
-
 	panel_console->Draw();
-
-	ImGui::EndDockspace();
 
 	ImGui::End();
 

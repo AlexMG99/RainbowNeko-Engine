@@ -9,9 +9,10 @@
 
 update_status PanelGame::Draw()
 {
+	size = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
 
 	ImGui::Begin(name);
-	//ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(), { 200,200 });
+	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(),ImVec2(1280,1024), ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 	return UPDATE_CONTINUE;
 }

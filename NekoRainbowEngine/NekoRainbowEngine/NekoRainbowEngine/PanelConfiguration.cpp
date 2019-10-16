@@ -51,7 +51,7 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui::BeginDock("Configuration", false, &visible, false);
+	ImGui::BeginDock("Configuration", false, &visible, true);
 	
 		AppSettings();
 

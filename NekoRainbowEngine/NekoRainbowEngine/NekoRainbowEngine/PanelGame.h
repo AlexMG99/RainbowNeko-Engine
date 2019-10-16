@@ -3,6 +3,8 @@
 
 #include "Panel.h"
 
+class ImVec2;
+
 class PanelGame : public Panel {
 public:
 	PanelGame() {};
@@ -11,7 +13,8 @@ public:
 
 	update_status Draw();
 
-
+public:
+	ImVec2 size;
 };
 
 
