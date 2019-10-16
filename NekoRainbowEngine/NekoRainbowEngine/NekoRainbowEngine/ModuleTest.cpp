@@ -12,7 +12,6 @@
 #include "Parson/parson.h"
 
 #include "PanelHelp.h"
-#include "PanelDebug.h"
 #include "PanelWindow.h"
 #include "PanelConsole.h"
 
@@ -31,39 +30,13 @@ bool ModuleTest::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	//Create Context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	/*ImGui::StyleColorsDark();*/
-
 	// Setup Platform/Renderer bindings
-	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL3_Init();
-
-	/*topbar_panel_list.push_back(new PanelFile("File"));
-	topbar_panel_list.push_back(new PanelHelp("Help"));
-	topbar_panel_list.push_back(new PanelDebug("Debug"));
-	topbar_panel_list.push_back(new PanelWindow("Window"));
-
-	panel_console = new PanelConsole("Console");
-	panel_configuration = new PanelConfiguration("Configuration");
-	panel_console->Start();
-	panel_configuration->Start();
-
-	*/
-
-	settings_doc = json_parse_file("Settings/win_config.json");
-	credits_doc = json_parse_file("Settings/win_about.json");
-
-	if (!settings_doc) {
-		settings_doc = json_value_init_object();
-		json_serialize_to_file(settings_doc, "Settings/win_config.json");
-	}
-
-	if (!credits_doc) {
-		credits_doc = json_value_init_object();
-		json_serialize_to_file(credits_doc, "Settings/win_about.json");
-	}
+	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context); // Link Window and Context
+	ImGui_ImplOpenGL3_Init(); // Initialize Panels
 
 	panel_topbar = new PanelTopbar();
 
@@ -79,16 +52,32 @@ update_status ModuleTest::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
 		ret = Save();
 
+	// Start the Dear ImGui frame
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(App->window->window);
+	ImGui::NewFrame();
+
 	return ret;
+}
+
+update_status ModuleTest::Update(float dt)
+{
+	panel_topbar->Draw();
+	return UPDATE_CONTINUE;
+}
+
+void ModuleTest::DrawImGui()
+{
+	// Rendering
+	ImGui::Render();
+	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 // Load assets
 bool ModuleTest::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
-	json_value_free(settings_doc);
-	json_value_free(credits_doc);
 
 	return true;
 }
@@ -106,18 +95,6 @@ update_status ModuleTest::Save()
 update_status ModuleTest::PostUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
-
-	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame(App->window->window);
-	ImGui::NewFrame();
-
-	panel_topbar->Draw();
-
-	// Rendering
-	ImGui::Render();
-	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	return ret;
 }

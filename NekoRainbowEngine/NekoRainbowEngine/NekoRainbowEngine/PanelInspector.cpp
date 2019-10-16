@@ -11,7 +11,7 @@
 
 update_status PanelInspector::Draw()
 {
-	ImGui::BeginDock("Inspector", false, &visible, false);
+	ImGui::BeginDock("Inspector", false, &visible, true);
 
 	GameObject* object = nullptr;
 

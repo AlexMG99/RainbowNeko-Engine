@@ -2,10 +2,13 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+#include "FBO.h"
 
 #include "Light.h"
 
 #define MAX_LIGHTS 8
+
+class ImVec2;
 
 class ModuleRenderer3D : public Module
 {
@@ -20,7 +23,12 @@ public:
 
 	void OnResize(int width, int height);
 
+	ImVec2 GetTextureSize() const;
+	uint GetWinTexture() const;
+
+
 public:
+	FBO* fbo = nullptr;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

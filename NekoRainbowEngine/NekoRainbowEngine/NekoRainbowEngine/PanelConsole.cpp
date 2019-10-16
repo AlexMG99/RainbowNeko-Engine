@@ -1,6 +1,5 @@
-#include "Panel.h"
-#include "PanelConsole.h"
 #include "Application.h"
+#include "PanelConsole.h"
 #include "ModuleInput.h"
 
 #include "GL/include/glew.h"
@@ -18,8 +17,8 @@ update_status PanelConsole::Draw() {
 
 	CopyLogs();
 
+
 	ImGui::BeginDock("Console", false, &visible, false);
-	
 	/*if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {*/
 	//	ImGui::SetWindowSize(ImVec2(450, 445));
 		//if (ImGui::SmallButton("Clear")) 

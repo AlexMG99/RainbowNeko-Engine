@@ -13,6 +13,8 @@
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 
+typedef struct json_value_t  JSON_Value;
+
 class Application
 {
 public:
@@ -25,6 +27,8 @@ public:
 	ModuleImporter* importer;
 
 	int					capped_ms = -1;
+	JSON_Value* settings_doc = nullptr;
+	JSON_Value* credits_doc = nullptr;
 
 private:
 
@@ -68,6 +72,7 @@ public:
 private:
 
 	void AddModule(Module* mod);
+	void InitializeJSONDoc();
 	void PrepareUpdate();
 	void FinishUpdate();
 };

@@ -6,6 +6,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConsole.h"
+#include "PanelGame.h"
 
 #include <map>
 #include <list>
@@ -34,6 +35,7 @@ public:
 	PanelConfiguration* panel_configuration = nullptr;
 	PanelInspector* panel_inspector = nullptr;
 	PanelHierarchy* panel_hierarchy = nullptr;
+	PanelGame* panel_game = nullptr;
 };
 
 #endif // !PANEL_TOPBAR_H_

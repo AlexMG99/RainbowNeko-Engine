@@ -110,7 +110,6 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-
 				str = e.drop.file;
 				pos = str.find_last_of(".");
 				file_ext = str.substr(pos + 1);
@@ -147,4 +146,9 @@ bool ModuleInput::CleanUp()
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+ImVec2 ModuleInput::GetImGuiMouse() const
+{
+	return ImGui::GetCursorScreenPos();
 }

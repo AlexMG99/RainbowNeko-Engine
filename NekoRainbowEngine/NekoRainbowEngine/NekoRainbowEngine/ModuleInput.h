@@ -38,6 +38,8 @@ public:
 		return mouse_x;
 	}
 
+	ImVec2 GetImGuiMouse() const;
+
 	int GetMouseY() const
 	{
 		return mouse_y;

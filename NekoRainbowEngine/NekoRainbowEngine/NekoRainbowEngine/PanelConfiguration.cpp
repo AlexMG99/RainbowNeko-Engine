@@ -1,7 +1,5 @@
-#include "Panel.h"
-#include "PanelConfiguration.h"
 #include "Application.h"
-#include "imgui/imgui.h"
+#include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_docking.h"
@@ -13,7 +11,7 @@ PanelConfiguration::~PanelConfiguration()
 
 bool PanelConfiguration::Start()
 {
-	JSON_Object* obj = json_object(App->scene_test->settings_doc);
+	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* app_obj = json_object_get_object(obj, "Application");
 
 	//Set window attributes
@@ -50,17 +48,6 @@ bool PanelConfiguration::Start()
 update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
-	
-	/*ImVec2 size = ImGui::GetIO().DisplaySize;
-	size.y = 975;
-	ImGui::SetNextWindowSize(size);
-	ImGui::SetNextWindowPos(ImVec2(0, 25));*/
-
-//ImGui::Begin("Configuration", &open, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_None);
-	/*ImGui::SetWindowPos(ImVec2(0, 0));*/
-
-
-	/*ImGui::SetNextDock(ImGuiDockSlot_Right);*/
 
 	ImGui::BeginDock("Configuration", false, &visible, false);
 	ImGui::SetNextDock(ImGuiDockSlot_Right);
@@ -78,7 +65,7 @@ update_status PanelConfiguration::Draw()
 
 		
 	ImGui::EndDock();
-			/*ImGui::End();*/
+
 	return ret;
 }
 
@@ -193,6 +180,8 @@ void PanelConfiguration::AppSettings()
 			ImGui::Text("Mouse Motion:  "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"Z axis : %i", App->input->GetMouseZ());
 
+			LOG("%i", (int)App->input->GetImGuiMouse().x);
+			ImGui::Text("ImGui Mouse Position:"); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", (int)App->input->GetImGuiMouse().x, (int)App->input->GetImGuiMouse().y);
 		}
 	}
 
