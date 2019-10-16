@@ -178,6 +178,8 @@ void PanelConfiguration::AppSettings()
 			ImGui::Text("Mouse Motion:  "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"Z axis : %i", App->input->GetMouseZ());
 
+			LOG("%i", (int)App->input->GetImGuiMouse().x);
+			ImGui::Text("ImGui Mouse Position:"); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", (int)App->input->GetImGuiMouse().x, (int)App->input->GetImGuiMouse().y);
 		}
 	}
 
