@@ -57,6 +57,8 @@ public:
 	~Application();
 
 	bool Init();
+	update_status Load();
+	update_status Save();
 	update_status Update();
 	bool CleanUp();
 

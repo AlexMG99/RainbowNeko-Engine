@@ -26,9 +26,14 @@ public:
 		return true;
 	}
 
-	virtual bool Load()
+	virtual update_status Load()
 	{
-		return true;
+		return UPDATE_CONTINUE;
+	}
+
+	virtual update_status Save()
+	{
+		return UPDATE_CONTINUE;
 	}
 
 	virtual update_status PreUpdate(float dt)

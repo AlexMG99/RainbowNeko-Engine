@@ -12,25 +12,23 @@ PanelConfiguration::~PanelConfiguration()
 bool PanelConfiguration::Start()
 {
 	JSON_Object* obj = json_object(App->settings_doc);
-	JSON_Object* app_obj = json_object_get_object(obj, "Application");
+	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Window");
 
-	//Set window attributes
-	strcpy_s(App->window->project_name, json_object_get_string(app_obj, "Title"));
-	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"),
-		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
+	strcpy_s(App->window->project_name, json_object_get_string(win_obj, "Title"));
+	App->window->SetWindowSize(json_object_get_number(win_obj, "Width"),
+		json_object_get_number(win_obj, "Height"));
 	App->window->SetTitle(App->window->project_name);
-	App->window->resizable_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Resizable");
+	App->window->resizable_on = json_object_get_boolean(win_obj, "Resizable");
 	App->window->SetResizable();
-	App->window->fullscreen_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen");
+	App->window->fullscreen_on = json_object_get_boolean(win_obj, "Fullscreen");
 	App->window->SetFullscreen();
-	App->window->fullscreendesktop_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen Desktop");
+	App->window->fullscreendesktop_on = json_object_get_boolean(win_obj, "Fullscreen Desktop");
 	App->window->SetFullscreenDesktop();
-	App->window->border_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Border");
+	App->window->border_on = json_object_get_boolean(win_obj, "Border");
 	App->window->SetBorderless();
-	App->window->SetBrightness(json_object_get_number(json_object_get_object(obj, "Application"), "Brightness"));
+	App->window->SetBrightness(json_object_get_number(win_obj, "Brightness"));
 
 	App->CapFPS(capped_fps);
-
 
 	//Renderer attributes
 	gl_depth = glIsEnabled(GL_DEPTH);
@@ -62,7 +60,6 @@ update_status PanelConfiguration::Draw()
 		HardwareSettings();
 
 		RendererSettings();
-
 		
 	ImGui::EndDock();
 

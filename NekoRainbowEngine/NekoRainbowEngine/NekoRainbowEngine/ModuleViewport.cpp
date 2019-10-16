@@ -24,6 +24,14 @@ bool ModuleViewport::Start()
 	return true;
 }
 
+update_status ModuleViewport::PreUpdate(float dt)
+{
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		App->camera->SetCameraToCenter();
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleViewport::PostUpdate(float dt)
 {
 	CreateGrid(2,100);

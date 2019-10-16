@@ -77,13 +77,15 @@ bool ModuleWindow::Init()
 	return ret;
 }
 
-bool ModuleWindow::Load()
+update_status ModuleWindow::Load()
 {
 	JSON_Object* obj = json_object(App->settings_doc);
-	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"),
-		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
+	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Window");
 
-	return true;
+	App->window->SetWindowSize(json_object_get_number(win_obj, "Width"),
+		json_object_get_number(win_obj, "Height"));
+
+	return UPDATE_CONTINUE;
 }
 
 // Called before quitting

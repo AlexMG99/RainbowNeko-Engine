@@ -12,22 +12,22 @@
 bool PanelWindow::Start()
 {
 	JSON_Object* obj = json_object(App->settings_doc);
-	JSON_Object* app_obj = json_object_get_object(obj, "Application");
+	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"),"Window");
 
 	//Set window attributes
-	strcpy_s(App->window->project_name, json_object_get_string(app_obj, "Title"));
-	App->window->SetWindowSize(json_object_get_number(json_object_get_object(obj, "Application"), "Width"),
-		json_object_get_number(json_object_get_object(obj, "Application"), "Height"));
+	strcpy_s(App->window->project_name, json_object_get_string(win_obj, "Title"));
+	App->window->SetWindowSize(json_object_get_number(win_obj, "Width"),
+		json_object_get_number(win_obj, "Height"));
 	App->window->SetTitle(App->window->project_name);
-	App->window->resizable_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Resizable");
+	App->window->resizable_on = json_object_get_boolean(win_obj, "Resizable");
 	App->window->SetResizable();
-	App->window->fullscreen_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen");
+	App->window->fullscreen_on = json_object_get_boolean(win_obj, "Fullscreen");
 	App->window->SetFullscreen();
-	App->window->fullscreendesktop_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Fullscreen Desktop");
+	App->window->fullscreendesktop_on = json_object_get_boolean(win_obj, "Fullscreen Desktop");
 	App->window->SetFullscreenDesktop();
-	App->window->border_on = json_object_get_boolean(json_object_get_object(obj, "Application"), "Border");
+	App->window->border_on = json_object_get_boolean(win_obj, "Border");
 	App->window->SetBorderless();
-	App->window->SetBrightness(json_object_get_number(json_object_get_object(obj, "Application"), "Brightness"));
+	App->window->SetBrightness(json_object_get_number(win_obj, "Brightness"));
 
 	App->CapFPS(capped_fps);
 
@@ -49,16 +49,17 @@ update_status PanelWindow::Draw() {
 
 update_status PanelWindow::Save()
 {
-	JSON_Object* win_object = json_object(App->settings_doc);
+	JSON_Object* object = json_object(App->settings_doc);
+	JSON_Object* win_object = json_object_dotget_object(object, "Window");
 
-	json_object_dotset_string(win_object, "Application.Title", App->window->GetTitle());
-	json_object_dotset_number(win_object, "Application.Width", App->window->GetWinSize().x);
-	json_object_dotset_number(win_object, "Application.Height", App->window->GetWinSize().y);
-	json_object_dotset_boolean(win_object, "Application.Resizable", App->window->resizable_on);
-	json_object_dotset_boolean(win_object, "Application.Fullscreen", App->window->fullscreen_on);
-	json_object_dotset_boolean(win_object, "Application.Fullscreen Desktop", App->window->fullscreendesktop_on);
-	json_object_dotset_boolean(win_object, "Application.Border", App->window->border_on);
-	json_object_dotset_number(win_object, "Application.Brightness", App->window->brigthness);
+	json_object_dotset_string(win_object, "Window.Title", App->window->GetTitle());
+	json_object_dotset_number(win_object, "Window.Width", App->window->GetWinSize().x);
+	json_object_dotset_number(win_object, "Window.Height", App->window->GetWinSize().y);
+	json_object_dotset_boolean(win_object, "Window.Resizable", App->window->resizable_on);
+	json_object_dotset_boolean(win_object, "Window.Fullscreen", App->window->fullscreen_on);
+	json_object_dotset_boolean(win_object, "Window.Fullscreen Desktop", App->window->fullscreendesktop_on);
+	json_object_dotset_boolean(win_object, "Window.Border", App->window->border_on);
+	json_object_dotset_number(win_object, "Window.Brightness", App->window->brigthness);
 
 	json_serialize_to_file(App->settings_doc, "Settings/win_config.json");
 

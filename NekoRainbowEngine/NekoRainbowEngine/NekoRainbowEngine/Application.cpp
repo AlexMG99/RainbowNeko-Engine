@@ -72,6 +72,24 @@ bool Application::Init()
 	return ret;
 }
 
+update_status Application::Load()
+{
+	update_status ret = UPDATE_CONTINUE;
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++) {
+		ret = (*item)->Load();
+	}
+	return ret;
+}
+
+update_status Application::Save()
+{
+	update_status ret = UPDATE_CONTINUE;
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++) {
+		ret = (*item)->Save();
+	}
+	return ret;
+}
+
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
