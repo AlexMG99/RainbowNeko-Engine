@@ -64,101 +64,146 @@ update_status PanelTopbar::Draw()
 	}
 
 	ImGui::EndMainMenuBar();
-CreateStyle();
-	CreateDockRight();
+    CreateStyle();
+	/*CreateDockRight();
 	CreateDockHier();
-	CreateDockLeft();
-	CreateDockBottom();
-
+	
+	CreateDockBottom();*/
+	CreateDocking();
+    
 	
 	return ret;
 }
 
-void PanelTopbar::CreateDockLeft()
+void PanelTopbar::CreateDocking()
 {
+	ImVec2 size = ImGui::GetIO().DisplaySize;
+	size.y = 975;
+	ImGui::SetNextWindowSize(size);
+	ImGui::SetNextWindowPos(ImVec2(0,19));
+
+	ImGui::Begin("PanelDocking", NULL, ImVec2(0, 19), 0.0f, /*ImGuiWindowFlags_NoMove |*/
+			ImGuiWindowFlags_NoBringToFrontOnFocus | /*ImGuiWindowFlags_NoResize |*/
+			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*| ImGuiWindowFlags_NoMouseInputs*/ );
+
+	ImGui::BeginDockspace();
+
+		/*CreateDockLeft();*/
+		CreateDockBottom();
+
+
+	ImGui::EndDockspace();
+	ImGui::End();
+
+}
+
+//void PanelTopbar::CreateDockLeft()
+//{
+//	ImVec2 display_size = ImGui::GetIO().DisplaySize;
+//	display_size.x = 280;
+//	display_size.y -= 300;
+//	ImGui::SetNextWindowSize(display_size); 
+//	ImGui::SetNextWindowPos(ImVec2(0, 19));
+//
+//	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
+//		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
+//	/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+//	ImGui::BeginDockspace();
+//
+//	panel_configuration->Draw();
+//	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
+//		(*it_panel).second->Draw();
+//	}*/
+//
+//	ImGui::EndDockspace();
+//	//
+//	ImGui::End();
+//
+//
+//}
+
+//void PanelTopbar::CreateDockRight()
+//{
+//	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
+//	display_size3.x = 200;
+//	display_size3.y -= 300;
+//	ImGui::SetNextWindowSize(display_size3);
+//	ImGui::SetNextWindowPos(ImVec2(1080, 19));
+//
+//	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+//
+//
+//	///*ImGui::PushID("ConfigDock");*/
+//	ImGui::BeginDockspace();
+//
+//	panel_inspector->Draw();
+//	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
+//	//	(*it_panel).second->Draw();
+//	//}*/
+//	///*ImGui::EndChild();*/
+//	ImGui::EndDockspace();
+//	////ImGui::PopID();
+//	ImGui::End();
+//}
+
+//void PanelTopbar::CreateDockHier()
+//{
+//	ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
+//	display_size4.x = 150;
+//	display_size4.y -= 300;
+//	ImGui::SetNextWindowSize(display_size4);
+//	ImGui::SetNextWindowPos(ImVec2(280, 19));
+//
+//	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+//
+//
+//
+//	ImGui::BeginDockspace();
+//
+//	panel_hierarchy->Draw();
+//
+//	ImGui::EndDockspace();
+//
+//	ImGui::End();
+//}
+
+void PanelTopbar::CreateDockBottom()
+{
+
+
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	display_size.x = 280;
+	display_size.x = 580;
 	display_size.y -= 300;
 	ImGui::SetNextWindowSize(display_size);
 	ImGui::SetNextWindowPos(ImVec2(0, 19));
 
-	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
+		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
+		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 	ImGui::BeginDockspace();
 
 	panel_configuration->Draw();
+	panel_hierarchy->Draw();
 	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
 		(*it_panel).second->Draw();
 	}*/
 
 	ImGui::EndDockspace();
-	
+	//
 	ImGui::End();
-
-
-}
-
-void PanelTopbar::CreateDockRight()
-{
-	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-	display_size3.x = 200;
-	display_size3.y -= 300;
-	ImGui::SetNextWindowSize(display_size3);
-	ImGui::SetNextWindowPos(ImVec2(1080, 19));
-
-	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-
-
-	///*ImGui::PushID("ConfigDock");*/
-	ImGui::BeginDockspace();
-
-	panel_inspector->Draw();
-	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-	//	(*it_panel).second->Draw();
-	//}*/
-	///*ImGui::EndChild();*/
-	ImGui::EndDockspace();
-	////ImGui::PopID();
-	ImGui::End();
-}
-
-void PanelTopbar::CreateDockHier()
-{
-	ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
-	display_size4.x = 150;
-	display_size4.y -= 300;
-	ImGui::SetNextWindowSize(display_size4);
-	ImGui::SetNextWindowPos(ImVec2(280, 19));
-
-	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-
-
-
-	ImGui::BeginDockspace();
-
-	panel_hierarchy->Draw();
-
-	ImGui::EndDockspace();
-
-	ImGui::End();
-}
-
-void PanelTopbar::CreateDockBottom()
-{
 
 	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
 	display_size2.y -= 770;
 	ImGui::SetNextWindowSize(display_size2);
 	ImGui::SetNextWindowPos(ImVec2(0, 745));
 
-	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
+		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
+		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 
 
 
@@ -168,8 +213,26 @@ void PanelTopbar::CreateDockBottom()
 
 	ImGui::EndDockspace();
 
-	ImGui::End();
-
+ImGui::End();
+	//ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
+	//	display_size4.x = 150;
+	//	display_size4.y -= 300;
+	//	ImGui::SetNextWindowSize(display_size4);
+	//	ImGui::SetNextWindowPos(ImVec2(280, 19));
+	//
+	//	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
+	//		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
+	//		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+	//
+	//
+	//
+	//	ImGui::BeginDockspace();
+	//
+	//	panel_hierarchy->Draw();
+	//
+	//	ImGui::EndDockspace();
+	//
+	//	ImGui::End();
 }
 
 void PanelTopbar::CreateStyle()
