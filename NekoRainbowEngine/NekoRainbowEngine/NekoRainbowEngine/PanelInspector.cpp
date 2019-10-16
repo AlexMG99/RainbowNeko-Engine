@@ -5,12 +5,13 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "imgui/imgui.h"
+#include "imgui/imgui_docking.h"
 
 #include <list>
 
 update_status PanelInspector::Draw()
 {
-	ImGui::Begin(name);
+	ImGui::BeginDock("Inspector", false, &visible, false);
 
 	GameObject* object = nullptr;
 
@@ -59,13 +60,15 @@ update_status PanelInspector::Draw()
 		{
 			if (ImGui::CollapsingHeader("Texture"))
 			{
+				ImGui::Text("Path: %s", comp_texture->path.c_str());
 				ImGui::Text("Id texture: %i", comp_texture->image_id);
+				ImGui::Text("W: %i		H: %i", comp_texture->width, comp_texture->height);
 				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200));
 			}
 		}
 	}
-
-	ImGui::End();
+	ImGui::EndDock();
+	
 
 	return UPDATE_CONTINUE;
 }

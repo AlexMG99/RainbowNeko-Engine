@@ -36,6 +36,9 @@ private:
 	char MathGeoLib_link[50];
 	char PCG_link[50];
 	char Parson_link[50];
+	char Devil_link[50];
+	char Assimp_link[50];
+	char Par_Shapes_link[60];
 	char license[2070];
 };
 

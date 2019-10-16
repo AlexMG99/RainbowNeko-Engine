@@ -7,11 +7,19 @@
 #include <windows.h>
 #include <stdio.h>
 
+//LOG
+enum ConsoleTextType;
+
 #define LOG(format, ...) _log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define C_INFO(format, ...) _log(ConsoleTextType::CONSOLE_INFO, __FILE__, __LINE__, format, __VA_ARGS__);
+#define C_SUCCES(format, ...) _log(ConsoleTextType::CONSOLE_SUCCESS, __FILE__, __LINE__, format, __VA_ARGS__);
+#define C_WARNING(format, ...) _log(ConsoleTextType::CONSOLE_WARNING, __FILE__, __LINE__, format, __VA_ARGS__);
+#define C_ERROR(format, ...) _log(ConsoleTextType::CONSOLE_ERROR, __FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);
 
 void _log(const char file[], int line, const char* format, ...);
+void _log(ConsoleTextType type, const char file[], int line, const char * format, ...);
 
 
 
@@ -36,6 +44,27 @@ enum update_status
 // Configuration -----------
 #define SCREEN_SIZE 1
 #define VSYNC true
+
+// Deletes a buffer
+#define RELEASE( x )		\
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete x;             \
+	  x = nullptr;          \
+	    }                   \
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x )  \
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete[] x;           \
+	  x = nullptr;          \
+	    }                   \
+                            \
+    }
 
 // Performance macros
 #define PERF_START(timer) timer.Start()

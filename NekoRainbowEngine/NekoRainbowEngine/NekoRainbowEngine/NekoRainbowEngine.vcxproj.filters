@@ -541,8 +541,35 @@
     <ClInclude Include="FBO.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="PanelGame.h">
+    <ClInclude> Include="PanelGame.h">
       <Filter>Sources\Panel</Filter>
+      </ClInclude>
+    <ClInclude Include="Assimp\include\Logger.hpp">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\LogStream.hpp">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\mesh.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\scene.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\texture.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\cimport.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\postprocess.h">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\Importer.hpp">
+      <Filter>Sources\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\include\cfileio.h">
+      <Filter>Sources\Assimp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -602,6 +629,9 @@
     </Filter>
     <Filter Include="Sources\Importer">
       <UniqueIdentifier>{35723bb6-d76f-4f68-822f-2c57164715fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Assimp">
+      <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

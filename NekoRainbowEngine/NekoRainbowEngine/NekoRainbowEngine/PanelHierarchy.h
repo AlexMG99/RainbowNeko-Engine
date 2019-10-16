@@ -10,6 +10,10 @@ public:
 	~PanelHierarchy() {};
 
 	update_status Draw();
+
+private:
+
+	bool visible = true;
 };
 
 #endif

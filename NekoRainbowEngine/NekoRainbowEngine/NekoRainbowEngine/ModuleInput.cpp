@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "imgui/imgui_impl_sdl.h"
+#include <string>
 
 #define MAX_KEYS 300
 
@@ -87,6 +88,10 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	bool quit = false;
 	SDL_Event e;
+	std::string str;
+	std::size_t pos;
+	std::string file_ext;
+
 	while(SDL_PollEvent(&e))
 	{
 		ImGui_ImplSDL2_ProcessEvent(&e);
@@ -105,7 +110,16 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				App->importer->ImportFBX(e.drop.file);
+
+				str = e.drop.file;
+				pos = str.find_last_of(".");
+				file_ext = str.substr(pos + 1);
+
+				if(file_ext == "fbx")
+					App->importer->ImportFBX(e.drop.file);
+				else if(file_ext == "dds")
+					App->importer->ImportTexture(e.drop.file);
+
 			break;
 
 			case SDL_QUIT:
@@ -117,6 +131,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
 			}
+			break;
 		}
 	}
 

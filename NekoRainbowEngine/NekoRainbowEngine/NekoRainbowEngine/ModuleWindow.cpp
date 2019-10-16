@@ -162,6 +162,7 @@ void ModuleWindow::SetBrightness(float brightness)
 void ModuleWindow::SetWindowSize()
 {
 	SDL_SetWindowSize(window, width, height);
+	App->renderer3D->OnResize(width, height);
 }
 
 void ModuleWindow::SetWindowSize(int width_, int height_)
@@ -169,4 +170,5 @@ void ModuleWindow::SetWindowSize(int width_, int height_)
 	width = width_;
 	height = height_;
 	SDL_SetWindowSize(window, width, height);
+	App->renderer3D->OnResize(width, height);
 }

@@ -13,11 +13,10 @@
 
 ComponentMesh::~ComponentMesh()
 {
-	delete index;
-	index = nullptr;
-
-	delete vertices;
-	vertices = nullptr;
+	RELEASE_ARRAY(index);
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(UV_coord);
+	RELEASE_ARRAY(normals);
 }
 
 bool ComponentMesh::Update()

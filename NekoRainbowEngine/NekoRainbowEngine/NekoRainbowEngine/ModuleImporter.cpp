@@ -123,10 +123,9 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 
 				m->GenerateMesh();
 
-				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
-
-				if (aimesh->HasTextureCoords(0)) 
+				if (aimesh->HasTextureCoords(0) && path_texture != "") 
 				{
+					ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 					texture->LoadTexture(path_texture);
 					m->image_id = texture->image_id;
 				}
@@ -142,6 +141,29 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	}
 
 	return ret;
+}
+
+bool ModuleImporter::ImportTexture(char * path_texture)
+{
+	GameObject* object = nullptr;
+
+	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
+	{
+		if ((*it_obj)->selected)
+			object = (*it_obj);
+
+	}
+
+	if (object) {
+		ComponentTexture* texture = (ComponentTexture*)object->CreateComponent(COMPONENT_TEXTURE);
+		texture->LoadTexture(path_texture);
+		object->GetComponentMesh()->image_id = texture->image_id;
+	}
+	else
+	{
+		C_WARNING("Warning! Object no selected. Please, select an object.");
+	}
+	return false;
 }
 
 update_status ModuleImporter::PostUpdate(float dt)

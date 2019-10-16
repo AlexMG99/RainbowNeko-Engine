@@ -45,6 +45,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INCLUDED_AI_LOGGER_H
 
 #include "types.h"
+#include "../../Globals.h"
 namespace Assimp    {
 class LogStream;
 
@@ -237,6 +238,7 @@ inline Logger::LogSeverity Logger::getLogSeverity() const {
 // ----------------------------------------------------------------------------------
 inline void Logger::debug(const std::string &message)
 {
+    LOG(message.c_str());
     return debug(message.c_str());
 }
 
@@ -256,6 +258,7 @@ inline void Logger::warn(const std::string &message)
 inline void Logger::info(const std::string &message)
 {
     return info(message.c_str());
+    
 }
 
 // ----------------------------------------------------------------------------------

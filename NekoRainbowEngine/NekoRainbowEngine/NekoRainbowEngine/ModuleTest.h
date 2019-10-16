@@ -17,7 +17,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	update_status Save();
-	void Log(const char* log_text);
+	void Log(const char* log_text, ConsoleTextType type);
 
 	bool CleanUp();
 public:
