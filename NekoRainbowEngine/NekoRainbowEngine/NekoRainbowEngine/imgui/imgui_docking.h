@@ -34,5 +34,4 @@ namespace ImGui
 
 extern bool gImGuiDockReuseTabWindowTextureIfAvailable; // [true] (used only when available)
 
-
 #endif //IMGUIDOCK_H_

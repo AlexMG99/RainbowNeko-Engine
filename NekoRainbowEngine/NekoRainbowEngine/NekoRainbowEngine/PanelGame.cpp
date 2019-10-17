@@ -8,12 +8,10 @@
 update_status PanelGame::Draw()
 {
 	ImGui::BeginDock("Game", false, &visible, false);
-	ImGui::SetNextDock(ImGuiDockSlot_Tab);
 	size = ImVec2(App->renderer3D->GetTextureSize());
 
-	/*ImGui::Begin(name);*/
 	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(),size, ImVec2(0, 1), ImVec2(1, 0));
-	/*ImGui::End();*/
+
 	ImGui::EndDock();
 	return UPDATE_CONTINUE;
 }

@@ -17,15 +17,13 @@ update_status PanelConsole::Draw() {
 
 	CopyLogs();
 
-
-	ImGui::BeginDock("Console", false, &visible, false, ImGuiWindowFlags_NoMove, ImVec2(0,745));
-	ImGui::SetNextDock(ImGuiDockSlot_Tab);
+	ImGui::BeginDock("Console", false, &visible, false/*, ImGuiWindowFlags_NoMove*/);
+	ImGui::SetNextDock(ImGuiDockSlot_Top);
 	/*ImGui::SetNextDock(ImGuiDockSlot_Top);*/
 	/*if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {*/
 	/*ImGui::SetWindowSize(ImVec2(450, 445));*/
 		/*if (ImGui::SmallButton("Clear")) 
 		Clear();*/
-
 		ImGui::Separator();
 
 		//Console output

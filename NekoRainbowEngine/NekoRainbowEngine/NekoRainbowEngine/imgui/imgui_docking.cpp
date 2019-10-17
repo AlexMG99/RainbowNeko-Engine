@@ -1054,7 +1054,7 @@ namespace ImGui
 					opened,
 					dock.size,
 					-1.0f,
-					ImGuiWindowFlags_NoCollapse | /*ImGuiWindowFlags_ShowBorders |*/ extra_flags);
+					ImGuiWindowFlags_NoCollapse | extra_flags);
 				m_end_action = EndAction_End;
 				dock.pos = GetWindowPos();
 				dock.size = GetWindowSize();
@@ -1167,10 +1167,18 @@ namespace ImGui
 			return idx < 0 ? nullptr : m_docks[(int)idx]; 
 		}
 
+		Dock* GetDockByLabel(const char* label)
+		{
+			for (auto it_dock = m_docks.begin(); it_dock != m_docks.end(); +it_dock)
+			{
+				if ((*it_dock)->label == label)
+					return (*it_dock);
+			}
+		}
+
 	};
 
 	static DockContext g_dock;
-
 
 	void ShutdownDock()
 	{

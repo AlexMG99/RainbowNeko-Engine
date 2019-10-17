@@ -118,24 +118,38 @@ update_status PanelTopbar::Draw()
 
 void PanelTopbar::CreateDockTop()
 {
+	//Dockspace
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	display_size.x = 1280;
-	display_size.y -= 300;
-	ImGui::SetNextWindowSize(display_size);
-	ImGui::SetNextWindowPos(ImVec2(0, 19));
+	float offset_y = 19;
+	display_size.y = App->window->GetWinSize().y - offset_y;
 
-	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+	//Upper Dockspace
+	ImGui::SetNextWindowSize(display_size);
+	ImGui::SetNextWindowPos(ImVec2(0, offset_y));
+
+	ImGui::Begin("PanelUp", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
 	ImGui::BeginDockspace();
 
 	panel_configuration->Draw();
 	panel_hierarchy->Draw();
 	panel_inspector->Draw();
 	panel_game->Draw();
-	CreateDockHier();
-	
+	panel_console->Draw();
+
 	ImGui::EndDockspace();
-	
 	ImGui::End();
+
+	////Bottom Dockspace
+	//float pos_y = (App->window->GetWinSize().y) - (App->window->GetWinSize().y * 0.25) + offset_y;
+	//display_size.y = (App->window->GetWinSize().y * 0.25);
+	//ImGui::SetNextWindowSize(display_size);
+	//ImGui::SetNextWindowPos(ImVec2(0, pos_y));
+
+	//ImGui::Begin("PanelDown", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+	//ImGui::BeginDockspace();
+
+	//ImGui::EndDockspace();
+	//ImGui::End();
 
 
 	//ImVec2 display_size2 = ImGui::GetIO().DisplaySize;

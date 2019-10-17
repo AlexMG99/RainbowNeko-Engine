@@ -8,8 +8,6 @@ update_status PanelHierarchy::Draw()
 {
 
 	ImGui::BeginDock("Hierarchy", false, &visible, false);
-	/*/ImGui::SetWindowSize(ImVec2(100, 700));*/
-	ImGui::SetNextDock(ImGuiDockSlot_Tab);
 
 	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
 	{
