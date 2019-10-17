@@ -18,7 +18,9 @@ update_status PanelConsole::Draw() {
 	CopyLogs();
 
 
-	ImGui::BeginDock("Console", false, &visible, false);
+	ImGui::BeginDock("Console", false, &visible, false, ImGuiWindowFlags_NoMove, ImVec2(0,745));
+	ImGui::SetNextDock(ImGuiDockSlot_Tab);
+	/*ImGui::SetNextDock(ImGuiDockSlot_Top);*/
 	/*if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {*/
 	/*ImGui::SetWindowSize(ImVec2(450, 445));*/
 		/*if (ImGui::SmallButton("Clear")) 

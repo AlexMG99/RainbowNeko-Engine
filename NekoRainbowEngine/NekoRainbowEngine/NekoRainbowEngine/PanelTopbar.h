@@ -22,8 +22,8 @@ public:
 	void CreateStyle();
 	/*void CreateDockLeft();*/
 	/*void CreateDockRight();*/
-	void CreateDockBottom();
-	/*void CreateDockHier();*/
+	void CreateDockTop();
+	void CreateDockHier();
 	void CreateDocking();
 
 

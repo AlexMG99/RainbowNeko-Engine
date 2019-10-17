@@ -450,7 +450,7 @@ namespace ImGui
 			case ImGuiDockSlot_Top: return ImRect(center + ImVec2(-20, -50), center + ImVec2(20, -30));
 			case ImGuiDockSlot_Right: return ImRect(center + ImVec2(30, -20), center + ImVec2(50, 20));
 			case ImGuiDockSlot_Bottom: return ImRect(center + ImVec2(-20, +30), center + ImVec2(20, 50));
-			case ImGuiDockSlot_Left: return ImRect(center + ImVec2(-50, -20), center + ImVec2(-30, 20));
+			case ImGuiDockSlot_Center: return ImRect(center + ImVec2(0, 0), center + ImVec2(0, 0));
 			}
 		}
 
@@ -953,6 +953,7 @@ namespace ImGui
 			case '1': return ImGuiDockSlot_Left;
 			case '2': return ImGuiDockSlot_Top;
 			case '3': return ImGuiDockSlot_Bottom;
+			case '4': return ImGuiDockSlot_Center;
 			default: return ImGuiDockSlot_Right;
 			}
 		}

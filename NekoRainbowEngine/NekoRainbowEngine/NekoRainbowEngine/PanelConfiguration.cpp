@@ -49,10 +49,11 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
+
+	
 	ImGui::BeginDock("Configuration", false, &visible, false, ImGuiWindowFlags_HorizontalScrollbar);
-	ImGui::SetNextDock(ImGuiDockSlot_Right);
-	
-	
+	ImGui::SetNextDock(ImGuiDockSlot_Tab);
+	/*ImGui::SetNextWindowSize(ImVec2(30, 100));*/
 	
 		AppSettings();
 

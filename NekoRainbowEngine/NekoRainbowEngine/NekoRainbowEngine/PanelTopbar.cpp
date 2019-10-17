@@ -28,11 +28,12 @@ bool PanelTopbar::Start()
 	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
 		(*it_panel).second->Start();
 	}
-
-	panel_configuration->Start();
 	panel_console->Start();
-	panel_inspector->Start();
+	panel_configuration->Start();
 	panel_hierarchy->Start();
+	
+	panel_inspector->Start();
+
 	panel_game->Start();
 
 	return false;
@@ -57,109 +58,40 @@ update_status PanelTopbar::Draw()
 	
 
 	//Help Menu
-	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-	//	(*it_panel_top).second->Draw();
-	//}
+	for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
+		(*it_panel_top).second->Draw();
+	}
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
-	/*CreateDockRight();
-	CreateDockHier();
+	/*CreateDockHier();*/
+	CreateDockTop();
 	
-	CreateDockBottom();*/
-	CreateDocking();
-    
 	
 	return ret;
 }
 
-void PanelTopbar::CreateDocking()
-{
-	ImVec2 size = ImGui::GetIO().DisplaySize;
-	size.y = 975;
-	ImGui::SetNextWindowSize(size);
-	ImGui::SetNextWindowPos(ImVec2(0,19));
-
-	ImGui::Begin("PanelDocking", NULL, ImVec2(0, 19), 0.0f, /*ImGuiWindowFlags_NoMove |*/
-			ImGuiWindowFlags_NoBringToFrontOnFocus | /*ImGuiWindowFlags_NoResize |*/
-			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*| ImGuiWindowFlags_NoMouseInputs*/ );
-
-	ImGui::BeginDockspace();
-
-		/*CreateDockLeft();*/
-		CreateDockBottom();
-
-	ImGui::EndDockspace();
-	ImGui::End();
-
-}
-//
-//void PanelTopbar::CreateDockRight()
+//void PanelTopbar::CreateDocking()
 //{
-//	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-//	display_size3.x = 200;
-//	display_size3.y -= 300;
-//	ImGui::SetNextWindowSize(display_size3);
-//	ImGui::SetNextWindowPos(ImVec2(1080, 19));
+//	ImVec2 size = ImGui::GetIO().DisplaySize;
+//	size.y = 975;
+//	ImGui::SetNextWindowSize(size);
+//	ImGui::SetNextWindowPos(ImVec2(0,19));
 //
-//	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+//	ImGui::Begin("PanelDocking", NULL, ImVec2(0, 19), 1.0f, /*ImGuiWindowFlags_NoMove |*/
+//			ImGuiWindowFlags_NoBringToFrontOnFocus | /*ImGuiWindowFlags_NoResize |*/
+//			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*| ImGuiWindowFlags_NoMouseInputs*/ );
 //
-//
-//	ImGui::End();
-//}
-
-//void PanelTopbar::CreateDockLeft()
-//{
-//	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-//	display_size.x = 280;
-//	display_size.y -= 300;
-//	ImGui::SetNextWindowSize(display_size); 
-//	ImGui::SetNextWindowPos(ImVec2(0, 19));
-//
-//	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-//		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-//	/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
 //	ImGui::BeginDockspace();
 //
-//	panel_configuration->Draw();
-//	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-//		(*it_panel).second->Draw();
-//	}*/
-//
+//		CreateDockTop();
+//		
 //	ImGui::EndDockspace();
-//	//
 //	ImGui::End();
-//
 //
 //}
 
-//void PanelTopbar::CreateDockRight()
-//{
-//	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-//	display_size3.x = 200;
-//	display_size3.y -= 300;
-//	ImGui::SetNextWindowSize(display_size3);
-//	ImGui::SetNextWindowPos(ImVec2(1080, 19));
-//
-//	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//
-//
-//	///*ImGui::PushID("ConfigDock");*/
-//	ImGui::BeginDockspace();
-//
-//	panel_inspector->Draw();
-//	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-//	//	(*it_panel).second->Draw();
-//	//}*/
-//	///*ImGui::EndChild();*/
-//	ImGui::EndDockspace();
-//	////ImGui::PopID();
-//	ImGui::End();
-//}
+
 
 //void PanelTopbar::CreateDockHier()
 //{
@@ -184,10 +116,10 @@ void PanelTopbar::CreateDocking()
 //	ImGui::End();
 //}
 
-void PanelTopbar::CreateDockBottom()
+void PanelTopbar::CreateDockTop()
 {
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	display_size.x = 380;
+	display_size.x = 1280;
 	display_size.y -= 300;
 	ImGui::SetNextWindowSize(display_size);
 	ImGui::SetNextWindowPos(ImVec2(0, 19));
@@ -197,36 +129,47 @@ void PanelTopbar::CreateDockBottom()
 
 	panel_configuration->Draw();
 	panel_hierarchy->Draw();
+	panel_inspector->Draw();
+	panel_game->Draw();
+	CreateDockHier();
 	
 	ImGui::EndDockspace();
 	
 	ImGui::End();
 
 
-	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-		display_size3.x = 200;
-		display_size3.y -= 300;
-		ImGui::SetNextWindowSize(display_size3);
-		ImGui::SetNextWindowPos(ImVec2(1080, 19));
+	//ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
+
+	//display_size2.y -= 770;
+	//ImGui::SetNextWindowSize(display_size2);
+	//ImGui::SetNextWindowPos(ImVec2(0, 745));
+
+	//ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f,
+	//	/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar);
+	//ImGui::BeginDockspace();
+
+	//panel_console->Draw();
+
+	//ImGui::EndDockspace();
+
+	//ImGui::End();
+
 	
-		ImGui::Begin("Panel Inspector", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-		ImGui::BeginDockspace();
-	
-		panel_inspector->Draw();
-	
-		ImGui::EndDockspace();
-		
-		ImGui::End();
 
 
+
+}
+
+void PanelTopbar::CreateDockHier()
+{
 	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
+	
 	display_size2.y -= 770;
 	ImGui::SetNextWindowSize(display_size2);
 	ImGui::SetNextWindowPos(ImVec2(0, 745));
 
-	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
+	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, 
+		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar );
 	ImGui::BeginDockspace();
 
 	panel_console->Draw();
@@ -234,8 +177,6 @@ void PanelTopbar::CreateDockBottom()
 	ImGui::EndDockspace();
 
 	ImGui::End();
-
-
 }
 
 void PanelTopbar::CreateStyle()

@@ -11,6 +11,7 @@ typedef enum ImGuiDockSlot
 	ImGuiDockSlot_Right,
 	ImGuiDockSlot_Top,
 	ImGuiDockSlot_Bottom,
+	ImGuiDockSlot_Center,
 	ImGuiDockSlot_Tab,
 
 	ImGuiDockSlot_Float,
