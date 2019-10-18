@@ -49,10 +49,8 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-
-	
 	ImGui::BeginDock("Configuration", false, &visible, false, ImGuiWindowFlags_HorizontalScrollbar);
-	
+	ImGui::GetDockPositionSize("Configuration");
 		AppSettings();
 
 		WindowSettings();
@@ -63,7 +61,6 @@ update_status PanelConfiguration::Draw()
 
 		RendererSettings();
 
-		
 	ImGui::EndDock();
 
 	return ret;

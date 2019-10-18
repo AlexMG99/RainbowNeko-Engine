@@ -31,6 +31,7 @@ SOFTWARE.
 //-----------------------------------------------------------------------------------------------------------------
 
 #include "imgui_docking.h"
+#include "..\Globals.h"
 #include <string>
 
 bool gImGuiDockReuseTabWindowTextureIfAvailable = true;
@@ -1169,9 +1170,9 @@ namespace ImGui
 
 		Dock* GetDockByLabel(const char* label)
 		{
-			for (auto it_dock = m_docks.begin(); it_dock != m_docks.end(); +it_dock)
+			for (auto it_dock = m_docks.begin(); it_dock != m_docks.end(); ++it_dock)
 			{
-				if ((*it_dock)->label == label)
+				if (strcmp((*it_dock)->label, label) == 0)
 					return (*it_dock);
 			}
 		}
@@ -1179,6 +1180,11 @@ namespace ImGui
 	};
 
 	static DockContext g_dock;
+
+	void GetDockPositionSize(const char* label)
+	{
+		LOG("X: %f	Y:%f	W:%f	H:%f", g_dock.GetDockByLabel(label)->pos.x, g_dock.GetDockByLabel(label)->pos.y, g_dock.GetDockByLabel(label)->size.x, g_dock.GetDockByLabel(label)->size.y);
+	}
 
 	void ShutdownDock()
 	{
