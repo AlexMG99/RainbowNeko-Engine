@@ -1,42 +1,17 @@
 #include "PanelTopbar.h"
-#include "PanelConsole.h"
 #include "PanelHelp.h"
-#include "PanelConfiguration.h"
-#include "PanelHierarchy.h"
-#include "PanelInspector.h"
-#include "PanelGame.h"
+
 #include "imgui/imgui_docking.h"
 
 #include "Application.h"
 
 bool PanelTopbar::Start()
 {
-	//Create Panels
-//	/*panel_topbar_map.insert(std::pair<std::string, Panel>("Help", new PanelHelp("Help")));
-//*/
-	panel_hierarchy = new PanelHierarchy("Hirerarchy");
-	panel_configuration = new PanelConfiguration("Configuration");
-	panel_inspector = new PanelInspector("Inspector");
-	panel_console = new PanelConsole("Console");
-	panel_game = new PanelGame("Game");
+	//Initialize Panels
+	panel_help = new PanelHelp("Help");
+	panel_help->Start();
 
-	//Start other Panels
-	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-	//	(it_panel_top).second->Start();
-	//}
-
-	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-		(*it_panel).second->Start();
-	}
-	panel_console->Start();
-	panel_configuration->Start();
-	panel_hierarchy->Start();
-	
-	panel_inspector->Start();
-
-	panel_game->Start();
-
-	return false;
+	return true;
 }
 
 update_status PanelTopbar::Draw()
@@ -55,18 +30,10 @@ update_status PanelTopbar::Draw()
 		ImGui::EndMenu();
 	}
 
-	
-
-	//Help Menu
-	for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-		(*it_panel_top).second->Draw();
-	}
+	panel_help->Draw();
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
-	/*CreateDockHier();*/
-	CreateDockTop();
-	
 	
 	return ret;
 }
@@ -116,64 +83,6 @@ update_status PanelTopbar::Draw()
 //	ImGui::End();
 //}
 
-void PanelTopbar::CreateDockTop()
-{
-	//Dockspace
-	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	float offset_y = 19;
-	display_size.y = App->window->GetWinSize().y - offset_y;
-
-	//Upper Dockspace
-	ImGui::SetNextWindowSize(display_size);
-	ImGui::SetNextWindowPos(ImVec2(0, offset_y));
-
-	ImGui::Begin("PanelUp", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-	ImGui::BeginDockspace();
-
-	panel_configuration->Draw();
-	panel_hierarchy->Draw();
-	panel_inspector->Draw();
-	panel_game->Draw();
-	panel_console->Draw();
-
-	ImGui::EndDockspace();
-	ImGui::End();
-
-	////Bottom Dockspace
-	//float pos_y = (App->window->GetWinSize().y) - (App->window->GetWinSize().y * 0.25) + offset_y;
-	//display_size.y = (App->window->GetWinSize().y * 0.25);
-	//ImGui::SetNextWindowSize(display_size);
-	//ImGui::SetNextWindowPos(ImVec2(0, pos_y));
-
-	//ImGui::Begin("PanelDown", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-	//ImGui::BeginDockspace();
-
-	//ImGui::EndDockspace();
-	//ImGui::End();
-
-
-	//ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
-
-	//display_size2.y -= 770;
-	//ImGui::SetNextWindowSize(display_size2);
-	//ImGui::SetNextWindowPos(ImVec2(0, 745));
-
-	//ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f,
-	//	/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar);
-	//ImGui::BeginDockspace();
-
-	//panel_console->Draw();
-
-	//ImGui::EndDockspace();
-
-	//ImGui::End();
-
-	
-
-
-
-}
-
 void PanelTopbar::CreateDockHier()
 {
 	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
@@ -186,7 +95,7 @@ void PanelTopbar::CreateDockHier()
 		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar );
 	ImGui::BeginDockspace();
 
-	panel_console->Draw();
+	//panel_console->Draw();
 
 	ImGui::EndDockspace();
 

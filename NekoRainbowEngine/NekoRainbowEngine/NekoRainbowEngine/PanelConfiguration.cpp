@@ -52,7 +52,6 @@ update_status PanelConfiguration::Draw()
 
 	
 	ImGui::BeginDock("Configuration", false, &visible, false, ImGuiWindowFlags_HorizontalScrollbar);
-	ImGui::SetNextDock(ImGuiDockSlot_Right);
 	
 		AppSettings();
 

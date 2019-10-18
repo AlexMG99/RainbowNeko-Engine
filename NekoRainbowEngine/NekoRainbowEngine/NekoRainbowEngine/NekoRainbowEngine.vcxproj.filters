@@ -28,9 +28,6 @@
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTest.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -206,6 +203,9 @@
     <ClCompile Include="PanelGame.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -242,9 +242,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTest.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
@@ -568,6 +565,9 @@
     <ClInclude Include="FBO.h" />
     <ClInclude Include="PanelGame.h">
       <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

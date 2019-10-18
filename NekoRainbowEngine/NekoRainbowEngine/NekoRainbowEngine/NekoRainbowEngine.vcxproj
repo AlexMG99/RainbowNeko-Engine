@@ -184,7 +184,7 @@
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleTest.h" />
+    <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="Parson\parson.h" />
@@ -251,7 +251,7 @@
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleTest.cpp" />
+    <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleViewport.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PanelConfiguration.cpp" />

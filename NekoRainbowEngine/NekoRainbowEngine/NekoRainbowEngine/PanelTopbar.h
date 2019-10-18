@@ -2,14 +2,11 @@
 #define PANEL_TOPBAR_H_
 
 #include "Panel.h"
-#include "PanelConfiguration.h"
-#include "PanelHierarchy.h"
-#include "PanelInspector.h"
-#include "PanelConsole.h"
-#include "PanelGame.h"
 
 #include <map>
 #include <list>
+
+class PanelHelp;
 
 class PanelTopbar :public Panel {
 public:
@@ -22,20 +19,12 @@ public:
 	void CreateStyle();
 	/*void CreateDockLeft();*/
 	/*void CreateDockRight();*/
-	void CreateDockTop();
 	void CreateDockHier();
-	void CreateDocking();
 
 
 public:
-	std::map< std::string, Panel*> panel_topbar_map;
-	std::map< std::string, Panel*> panel_map;
+	PanelHelp* panel_help = nullptr;
 
-	PanelConsole* panel_console = nullptr;
-	PanelConfiguration* panel_configuration = nullptr;
-	PanelInspector* panel_inspector = nullptr;
-	PanelHierarchy* panel_hierarchy = nullptr;
-	PanelGame* panel_game = nullptr;
 };
 
 #endif // !PANEL_TOPBAR_H_

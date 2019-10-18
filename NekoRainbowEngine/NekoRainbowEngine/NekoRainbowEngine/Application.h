@@ -7,20 +7,21 @@
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "ModuleTest.h"
+#include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 
 typedef struct json_value_t  JSON_Value;
+struct ConsoleText;
 
 class Application
 {
 public:
 	ModuleWindow* window;
 	ModuleInput* input;
-	ModuleTest* scene_test;
+	ModuleEditor* editor;
 	ModuleViewport* viewport;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
