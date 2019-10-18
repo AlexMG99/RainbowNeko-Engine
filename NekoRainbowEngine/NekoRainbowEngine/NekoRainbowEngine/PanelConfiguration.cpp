@@ -2,7 +2,6 @@
 #include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_docking.h"
 
 #include <string>
 PanelConfiguration::~PanelConfiguration()
@@ -49,8 +48,7 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui::BeginDock("Configuration", false, &visible, false, ImGuiWindowFlags_HorizontalScrollbar);
-	ImGui::GetDockPositionSize("Configuration");
+	ImGui::Begin(name);
 		AppSettings();
 
 		WindowSettings();
@@ -61,7 +59,7 @@ update_status PanelConfiguration::Draw()
 
 		RendererSettings();
 
-	ImGui::EndDock();
+	ImGui::End();
 
 	return ret;
 }

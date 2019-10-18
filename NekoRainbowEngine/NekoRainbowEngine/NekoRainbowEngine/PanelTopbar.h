@@ -17,10 +17,6 @@ public:
 	bool Start();
 	update_status Draw();
 	void CreateStyle();
-	/*void CreateDockLeft();*/
-	/*void CreateDockRight();*/
-	void CreateDockHier();
-
 
 public:
 	PanelHelp* panel_help = nullptr;

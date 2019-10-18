@@ -5,13 +5,12 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "imgui/imgui.h"
-#include "imgui/imgui_docking.h"
 
 #include <list>
 
 update_status PanelInspector::Draw()
 {
-	ImGui::BeginDock("Inspector", false, &visible, false);
+	ImGui::Begin(name);
 
 	GameObject* object = nullptr;
 
@@ -67,7 +66,7 @@ update_status PanelInspector::Draw()
 			}
 		}
 	}
-	ImGui::EndDock();
+	ImGui::End();
 	
 
 	return UPDATE_CONTINUE;

@@ -13,7 +13,6 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_sdl.h"
-#include "imgui/imgui_docking.h"
 #include "PCG/pcg_random.hpp"
 
 #include "Parson/parson.h"
@@ -68,6 +67,8 @@ update_status ModuleEditor::PreUpdate(float dt)
 		ret = Save();
 
 	// Start the Dear ImGui frame
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags = ImGuiConfigFlags_DockingEnable;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
@@ -104,6 +105,7 @@ bool ModuleEditor::CleanUp()
 void ModuleEditor::DrawPanels()
 {
 
+
 	//Dockspace
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
 	float offset_y = 19;
@@ -114,7 +116,15 @@ void ModuleEditor::DrawPanels()
 	ImGui::SetNextWindowPos(ImVec2(0, offset_y));
 
 	ImGui::Begin("PanelUp", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
-	ImGui::BeginDockspace();
+
+	// DockSpace
+	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+	{
+		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+	}
 
 	panel_console->Draw();
 	panel_config->Draw();
@@ -122,7 +132,6 @@ void ModuleEditor::DrawPanels()
 	panel_inspector->Draw();
 	panel_game->Draw();
 
-	ImGui::EndDockspace();
 	ImGui::End();
 }
 

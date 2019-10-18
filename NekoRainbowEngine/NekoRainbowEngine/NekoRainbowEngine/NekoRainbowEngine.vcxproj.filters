@@ -187,9 +187,6 @@
     <ClCompile Include="PanelTopbar.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_docking.cpp">
-      <Filter>Sources\imGUI</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
@@ -522,9 +519,6 @@
     </ClInclude>
     <ClInclude Include="PanelTopbar.h">
       <Filter>Sources\Panel</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imgui_docking.h">
-      <Filter>Sources\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
       <Filter>Sources\GameObject</Filter>

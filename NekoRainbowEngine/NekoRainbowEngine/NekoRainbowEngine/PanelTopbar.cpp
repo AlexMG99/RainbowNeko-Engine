@@ -1,8 +1,6 @@
 #include "PanelTopbar.h"
 #include "PanelHelp.h"
 
-#include "imgui/imgui_docking.h"
-
 #include "Application.h"
 
 bool PanelTopbar::Start()
@@ -36,70 +34,6 @@ update_status PanelTopbar::Draw()
     CreateStyle();
 	
 	return ret;
-}
-
-//void PanelTopbar::CreateDocking()
-//{
-//	ImVec2 size = ImGui::GetIO().DisplaySize;
-//	size.y = 975;
-//	ImGui::SetNextWindowSize(size);
-//	ImGui::SetNextWindowPos(ImVec2(0,19));
-//
-//	ImGui::Begin("PanelDocking", NULL, ImVec2(0, 19), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-//			ImGuiWindowFlags_NoBringToFrontOnFocus | /*ImGuiWindowFlags_NoResize |*/
-//			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*| ImGuiWindowFlags_NoMouseInputs*/ );
-//
-//	ImGui::BeginDockspace();
-//
-//		CreateDockTop();
-//		
-//	ImGui::EndDockspace();
-//	ImGui::End();
-//
-//}
-
-
-
-//void PanelTopbar::CreateDockHier()
-//{
-//	ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
-//	display_size4.x = 150;
-//	display_size4.y -= 300;
-//	ImGui::SetNextWindowSize(display_size4);
-//	ImGui::SetNextWindowPos(ImVec2(280, 19));
-//
-//	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//
-//
-//
-//	ImGui::BeginDockspace();
-//
-//	panel_hierarchy->Draw();
-//
-//	ImGui::EndDockspace();
-//
-//	ImGui::End();
-//}
-
-void PanelTopbar::CreateDockHier()
-{
-	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
-	
-	display_size2.y -= 770;
-	ImGui::SetNextWindowSize(display_size2);
-	ImGui::SetNextWindowPos(ImVec2(0, 745));
-
-	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, 
-		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar );
-	ImGui::BeginDockspace();
-
-	//panel_console->Draw();
-
-	ImGui::EndDockspace();
-
-	ImGui::End();
 }
 
 void PanelTopbar::CreateStyle()
@@ -142,11 +76,11 @@ void PanelTopbar::CreateStyle()
 	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.60f, 0.60f, 0.80f, 0.30f);
 	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
 	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);
-	style.Colors[ImGuiCol_CloseButton] = ImVec4(0.41f, 0.75f, 0.98f, 0.50f);
+	/*style.Colors[ImGuiCol_CloseButton] = ImVec4(0.41f, 0.75f, 0.98f, 0.50f);
 	style.Colors[ImGuiCol_CloseButtonHovered] = ImVec4(1.00f, 0.47f, 0.41f, 0.60f);
-	style.Colors[ImGuiCol_CloseButtonActive] = ImVec4(1.00f, 0.16f, 0.00f, 1.00f);
+	style.Colors[ImGuiCol_CloseButtonActive] = ImVec4(1.00f, 0.16f, 0.00f, 1.00f);*/
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(1.00f, 0.99f, 0.54f, 0.43f);
-	style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.82f, 0.92f, 1.00f, 0.90f);
+	/*style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.82f, 0.92f, 1.00f, 0.90f);*/
 	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.71f, 0.22f, 0.27f, 1.00f);
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.91f, 0.22f, 0.27f, 1.00f);
 

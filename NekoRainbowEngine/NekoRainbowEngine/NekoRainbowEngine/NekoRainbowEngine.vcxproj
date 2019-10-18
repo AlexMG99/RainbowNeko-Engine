@@ -100,7 +100,6 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="imgui\imgui_docking.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
     <ClInclude Include="PanelConfiguration.h" />
@@ -207,7 +206,6 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_docking.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_impl_sdl.cpp" />
