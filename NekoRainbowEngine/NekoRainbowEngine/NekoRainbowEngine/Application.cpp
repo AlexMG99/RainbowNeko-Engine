@@ -2,13 +2,15 @@
 #include "imgui/imgui.h"
 #include "Parson/parson.h"
 
+#include "PanelConsole.h"
+
 Application::Application()
 {
 	PERF_START(ptimer);
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	scene_test = new ModuleTest(this);
+	editor = new ModuleEditor(this);
 	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
@@ -26,7 +28,7 @@ Application::Application()
 	
 	// Scenes
 	AddModule(viewport);
-	AddModule(scene_test);
+	AddModule(editor);
 
 	// Renderer last!
 	AddModule(renderer3D);

@@ -100,16 +100,15 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="imgui\imgui_docking.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
+    <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="PanelConfiguration.h" />
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelTopbar.h" />
-    <ClInclude Include="PanelWindow.h" />
     <ClInclude Include="PanelHelp.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -184,8 +183,7 @@
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleTest.h" />
-    <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="Parson\parson.h" />
     <ClInclude Include="par\par_shapes.h" />
@@ -207,7 +205,6 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_docking.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_impl_sdl.cpp" />
@@ -251,7 +248,7 @@
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleTest.cpp" />
+    <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleViewport.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PanelConfiguration.cpp" />
@@ -260,7 +257,6 @@
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
-    <ClCompile Include="PanelWindow.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
     <ClCompile Include="Parson\parson.c" />
     <ClCompile Include="par\par_shapes.cpp" />

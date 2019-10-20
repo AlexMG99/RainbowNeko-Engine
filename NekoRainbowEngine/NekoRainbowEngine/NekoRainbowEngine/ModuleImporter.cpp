@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "PanelConsole.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"

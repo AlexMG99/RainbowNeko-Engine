@@ -15,6 +15,7 @@ public:
 
 public:
 	ImVec2 size;
+	bool visible = true;
 };
 
 

@@ -1,41 +1,21 @@
+#include "Application.h"
 #include "PanelTopbar.h"
-#include "PanelConsole.h"
+#include "PanelGame.h"
 #include "PanelHelp.h"
-#include "PanelConfiguration.h"
+#include "PanelConsole.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
-#include "PanelGame.h"
-#include "imgui/imgui_docking.h"
+#include "PanelConfiguration.h"
 
 #include "Application.h"
 
 bool PanelTopbar::Start()
 {
-	//Create Panels
-//	/*panel_topbar_map.insert(std::pair<std::string, Panel>("Help", new PanelHelp("Help")));
-//*/
-	panel_hierarchy = new PanelHierarchy("Hirerarchy");
-	panel_configuration = new PanelConfiguration("Configuration");
-	panel_inspector = new PanelInspector("Inspector");
-	panel_console = new PanelConsole("Console");
-	panel_game = new PanelGame("Game");
+	//Initialize Panels
+	panel_help = new PanelHelp("Help");
+	panel_help->Start();
 
-	//Start other Panels
-	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-	//	(it_panel_top).second->Start();
-	//}
-
-	for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-		(*it_panel).second->Start();
-	}
-
-	panel_configuration->Start();
-	panel_console->Start();
-	panel_inspector->Start();
-	panel_hierarchy->Start();
-	panel_game->Start();
-
-	return false;
+	return true;
 }
 
 update_status PanelTopbar::Draw()
@@ -53,198 +33,26 @@ update_status PanelTopbar::Draw()
 
 		ImGui::EndMenu();
 	}
-	
 
 	//Help Menu
-	//for (auto it_panel_top = panel_topbar_map.begin(); it_panel_top != panel_topbar_map.end(); ++it_panel_top) {
-	//	(*it_panel_top).second->Draw();
-	//}
+	panel_help->Draw();
+
+	//Window Menu
+	if (ImGui::BeginMenu("Window"))
+	{
+		ImGui::MenuItem("Console	", NULL, &App->editor->panel_console->enabled);
+		ImGui::MenuItem("Configuration	", NULL, &App->editor->panel_config->enabled);
+		ImGui::MenuItem("Game	", NULL, &App->editor->panel_game->enabled);
+		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
+		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
+
+		ImGui::EndMenu();
+	}
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
-	/*CreateDockRight();
-	CreateDockHier();
-	
-	CreateDockBottom();*/
-	CreateDocking();
-
-	panel_console->Draw();
-    
 	
 	return ret;
-}
-
-void PanelTopbar::CreateDocking()
-{
-	ImVec2 size = ImGui::GetIO().DisplaySize;
-	size.y = 975;
-	ImGui::SetNextWindowSize(size);
-	ImGui::SetNextWindowPos(ImVec2(0,19));
-
-	ImGui::Begin("PanelDocking", NULL, ImVec2(0, 19), 0.0f, /*ImGuiWindowFlags_NoMove |*/
-			ImGuiWindowFlags_NoBringToFrontOnFocus | /*ImGuiWindowFlags_NoResize |*/
-			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*| ImGuiWindowFlags_NoMouseInputs*/ );
-
-	ImGui::BeginDockspace();
-
-		/*CreateDockLeft();*/
-		CreateDockBottom();
-
-	ImGui::EndDockspace();
-	ImGui::End();
-
-}
-//
-//void PanelTopbar::CreateDockRight()
-//{
-//	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-//	display_size3.x = 200;
-//	display_size3.y -= 300;
-//	ImGui::SetNextWindowSize(display_size3);
-//	ImGui::SetNextWindowPos(ImVec2(1080, 19));
-//
-//	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//
-//
-//	ImGui::End();
-//}
-
-//void PanelTopbar::CreateDockLeft()
-//{
-//	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-//	display_size.x = 280;
-//	display_size.y -= 300;
-//	ImGui::SetNextWindowSize(display_size); 
-//	ImGui::SetNextWindowPos(ImVec2(0, 19));
-//
-//	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-//		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-//	/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//	ImGui::BeginDockspace();
-//
-//	panel_configuration->Draw();
-//	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-//		(*it_panel).second->Draw();
-//	}*/
-//
-//	ImGui::EndDockspace();
-//	//
-//	ImGui::End();
-//
-//
-//}
-
-//void PanelTopbar::CreateDockRight()
-//{
-//	ImVec2 display_size3 = ImGui::GetIO().DisplaySize;
-//	display_size3.x = 200;
-//	display_size3.y -= 300;
-//	ImGui::SetNextWindowSize(display_size3);
-//	ImGui::SetNextWindowPos(ImVec2(1080, 19));
-//
-//	ImGui::Begin("PanelRight", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//
-//
-//	///*ImGui::PushID("ConfigDock");*/
-//	ImGui::BeginDockspace();
-//
-//	panel_inspector->Draw();
-//	///*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-//	//	(*it_panel).second->Draw();
-//	//}*/
-//	///*ImGui::EndChild();*/
-//	ImGui::EndDockspace();
-//	////ImGui::PopID();
-//	ImGui::End();
-//}
-
-//void PanelTopbar::CreateDockHier()
-//{
-//	ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
-//	display_size4.x = 150;
-//	display_size4.y -= 300;
-//	ImGui::SetNextWindowSize(display_size4);
-//	ImGui::SetNextWindowPos(ImVec2(280, 19));
-//
-//	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-//		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-//		/*ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-//
-//
-//
-//	ImGui::BeginDockspace();
-//
-//	panel_hierarchy->Draw();
-//
-//	ImGui::EndDockspace();
-//
-//	ImGui::End();
-//}
-
-void PanelTopbar::CreateDockBottom()
-{
-	ImVec2 display_size = ImGui::GetIO().DisplaySize;
-	display_size.x = 580;
-	display_size.y -= 300;
-	ImGui::SetNextWindowSize(display_size);
-	ImGui::SetNextWindowPos(ImVec2(0, 19));
-
-	ImGui::Begin("PanelLeft", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-	ImGui::BeginDockspace();
-
-	panel_configuration->Draw();
-	panel_hierarchy->Draw();
-	panel_game->Draw();
-	/*for (auto it_panel = panel_map.begin(); it_panel != panel_map.end(); ++it_panel) {
-		(*it_panel).second->Draw();
-	}*/
-
-	ImGui::EndDockspace();
-	//
-	ImGui::End();
-
-
-	ImVec2 display_size2 = ImGui::GetIO().DisplaySize;
-	display_size2.y -= 770;
-	ImGui::SetNextWindowSize(display_size2);
-	ImGui::SetNextWindowPos(ImVec2(0, 745));
-
-	ImGui::Begin("PanelBottom", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-	ImGui::BeginDockspace();
-
-	panel_console->Draw();
-
-	ImGui::EndDockspace();
-
-	ImGui::End();
-
-	//ImVec2 display_size4 = ImGui::GetIO().DisplaySize;
-	//	display_size4.x = 150;
-	//	display_size4.y -= 300;
-	//	ImGui::SetNextWindowSize(display_size4);
-	//	ImGui::SetNextWindowPos(ImVec2(280, 19));
-	//
-	//	ImGui::Begin("PanelHier", NULL, ImVec2(0, 0), 1.0f, /*ImGuiWindowFlags_NoMove |*/
-	//		/*ImGuiWindowFlags_NoBringToFrontOnFocus |*/ ImGuiWindowFlags_NoResize |
-	//		/*	ImGuiWindowFlags_NoScrollbar |*/ ImGuiWindowFlags_NoTitleBar /*ImGuiWindowFlags_NoMouseInputs */);
-	//
-	//
-	//
-	//	ImGui::BeginDockspace();
-	//
-	//	panel_hierarchy->Draw();
-	//
-	//	ImGui::EndDockspace();
-	//
-	//	ImGui::End();
 }
 
 void PanelTopbar::CreateStyle()
@@ -253,8 +61,6 @@ void PanelTopbar::CreateStyle()
 
 	ImGuiStyle& style = ImGui::GetStyle();
 
-	//style.Alpha = 1.0f;
-	/*style.WindowFillAlphaDefault = 1.0f;*/
 	style.FrameRounding = 4;
 	style.IndentSpacing = 12.0f;
 
@@ -287,11 +93,11 @@ void PanelTopbar::CreateStyle()
 	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.60f, 0.60f, 0.80f, 0.30f);
 	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
 	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);
-	style.Colors[ImGuiCol_CloseButton] = ImVec4(0.41f, 0.75f, 0.98f, 0.50f);
+	/*style.Colors[ImGuiCol_CloseButton] = ImVec4(0.41f, 0.75f, 0.98f, 0.50f);
 	style.Colors[ImGuiCol_CloseButtonHovered] = ImVec4(1.00f, 0.47f, 0.41f, 0.60f);
-	style.Colors[ImGuiCol_CloseButtonActive] = ImVec4(1.00f, 0.16f, 0.00f, 1.00f);
+	style.Colors[ImGuiCol_CloseButtonActive] = ImVec4(1.00f, 0.16f, 0.00f, 1.00f);*/
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(1.00f, 0.99f, 0.54f, 0.43f);
-	style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.82f, 0.92f, 1.00f, 0.90f);
+	/*style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.82f, 0.92f, 1.00f, 0.90f);*/
 	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.71f, 0.22f, 0.27f, 1.00f);
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.91f, 0.22f, 0.27f, 1.00f);
 

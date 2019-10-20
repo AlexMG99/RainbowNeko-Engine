@@ -49,8 +49,6 @@ update_status PanelHelp::Draw() {
 		ImGui::EndMenu();
 	}
 
-	/*ImGui::ShowDemoWindow();*/
-
 	//Checks About
 	if(open)
 		AboutWindow();

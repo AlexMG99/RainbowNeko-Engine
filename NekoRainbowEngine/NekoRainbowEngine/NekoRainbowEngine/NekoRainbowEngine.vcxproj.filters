@@ -28,12 +28,6 @@
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTest.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="log.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -175,9 +169,6 @@
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="PanelWindow.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
@@ -189,9 +180,6 @@
     </ClCompile>
     <ClCompile Include="PanelTopbar.cpp">
       <Filter>Sources\Panel</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui\imgui_docking.cpp">
-      <Filter>Sources\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\GameObject</Filter>
@@ -205,6 +193,12 @@
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="PanelGame.cpp">
       <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,12 +236,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTest.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
@@ -484,9 +472,6 @@
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="PanelWindow.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
       <Filter>Sources\Devil</Filter>
     </ClInclude>
@@ -525,9 +510,6 @@
     </ClInclude>
     <ClInclude Include="PanelTopbar.h">
       <Filter>Sources\Panel</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imgui_docking.h">
-      <Filter>Sources\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
       <Filter>Sources\GameObject</Filter>
@@ -568,6 +550,12 @@
     <ClInclude Include="FBO.h" />
     <ClInclude Include="PanelGame.h">
       <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

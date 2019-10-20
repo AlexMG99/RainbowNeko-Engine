@@ -124,7 +124,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	fbo->Unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	App->scene_test->DrawImGui();
+	App->editor->DrawImGui();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }

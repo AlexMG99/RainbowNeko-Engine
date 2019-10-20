@@ -2,7 +2,6 @@
 #include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_docking.h"
 
 #include <string>
 PanelConfiguration::~PanelConfiguration()
@@ -47,10 +46,7 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui::BeginDock("Configuration", false, &visible, false);
-	ImGui::SetNextDock(ImGuiDockSlot_Right);
-	/*ImGui::SetWindowSize(ImVec2(100, 700));*/
-	
+	ImGui::Begin(name);
 		AppSettings();
 
 		WindowSettings();
@@ -60,8 +56,9 @@ update_status PanelConfiguration::Draw()
 		HardwareSettings();
 
 		RendererSettings();
-		
-	ImGui::EndDock();
+
+	ImGui::End();
+
 
 	return ret;
 }
@@ -176,6 +173,7 @@ void PanelConfiguration::AppSettings()
 			ImGui::Text("Mouse Position:"); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseX(), App->input->GetMouseY());
 			ImGui::Text("Mouse Motion:  "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 			ImGui::Text("Mouse Wheel:   "); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"Z axis : %i", App->input->GetMouseZ());
+
 			ImGui::Text("ImGui Mouse Position:"); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "X axis : %i, Y axis : %i", (int)App->input->GetImGuiMouse().x, (int)App->input->GetImGuiMouse().y);
 		}
 	}
@@ -185,7 +183,6 @@ void PanelConfiguration::AppSettings()
 
 		if (ImGui::CollapsingHeader("Hardware", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-
 			SDL_version compiled;
 
 			ImGui::Text("SDL Version:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", &compiled);

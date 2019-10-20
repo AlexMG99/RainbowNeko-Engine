@@ -3,7 +3,6 @@
 #include "ModuleInput.h"
 
 #include "GL/include/glew.h"
-#include "imgui/imgui_docking.h"
 
 
 PanelConsole::~PanelConsole()
@@ -17,32 +16,24 @@ update_status PanelConsole::Draw() {
 
 	CopyLogs();
 
+	ImGui::Begin(name);
+	ImGui::Separator();
 
-	ImGui::BeginDock("Console", false, &visible, false);
-	/*if(ImGui::Begin(name, &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {*/
-	//	ImGui::SetWindowSize(ImVec2(450, 445));
-		//if (ImGui::SmallButton("Clear")) 
-		//	Clear();
+	//Console output
+	ImGui::BeginChild("Console Output", ImVec2(0, 165), false, ImGuiWindowFlags_HorizontalScrollbar);
+	for (auto it_cons = console_text.begin(); it_cons != console_text.end(); it_cons++)
+	{
+		ImVec4 color = GetColorFromType((*it_cons).type);
+		ImGui::PushStyleColor(ImGuiCol_Text, color);
+		ImGui::Text((*it_cons).text.c_str());
+		ImGui::PopStyleColor();
+	}
+	ImGui::EndChild(); ImGui::Separator();
 
-		ImGui::Separator();
-
-		//Console output
-		ImGui::BeginChild("Console Output", ImVec2(0, 165), false, ImGuiWindowFlags_HorizontalScrollbar);
-		for (auto it_cons = console_text.begin(); it_cons != console_text.end(); it_cons++) 
-		{
-			ImVec4 color = GetColorFromType((*it_cons).type);
-			ImGui::PushStyleColor(ImGuiCol_Text, color);
-			ImGui::Text((*it_cons).text.c_str());
-			ImGui::PopStyleColor();
-		}
-		ImGui::EndChild(); ImGui::Separator();
-
-		if (ImGui::InputText("Input", console_input, IM_ARRAYSIZE(console_input), ImGuiInputTextFlags_EnterReturnsTrue) ) {
-			AddLog(console_input);
-		}
-		ImGui::EndDock();
-		/*ImGui::End();
-	}*/
+	if (ImGui::InputText("Input", console_input, IM_ARRAYSIZE(console_input), ImGuiInputTextFlags_EnterReturnsTrue)) {
+		AddLog(console_input);
+	}
+	ImGui::End();
 
 	return ret;
 }
