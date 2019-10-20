@@ -70,7 +70,5 @@ update_status PanelInspector::Draw()
 		}
 	}
 	ImGui::End();
-	
-
 	return UPDATE_CONTINUE;
 }

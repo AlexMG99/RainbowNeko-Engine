@@ -505,9 +505,6 @@
     <ClInclude Include="Component.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Sources\Importer</Filter>
-    </ClInclude>
     <ClInclude Include="PanelConfiguration.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
@@ -618,9 +615,6 @@
     </Filter>
     <Filter Include="Sources\GameObject">
       <UniqueIdentifier>{f3d858d8-ce79-4fcf-9a69-0e1cef45f891}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Importer">
-      <UniqueIdentifier>{35723bb6-d76f-4f68-822f-2c57164715fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Assimp">
       <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>

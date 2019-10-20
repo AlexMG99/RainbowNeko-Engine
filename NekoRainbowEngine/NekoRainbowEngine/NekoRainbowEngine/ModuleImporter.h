@@ -4,8 +4,6 @@
 #include "Globals.h"
 #include <list>
 
-#include "Primitive.h"
-
 struct aiScene;
 struct aiNode;
 class GameObject;

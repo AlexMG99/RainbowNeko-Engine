@@ -161,7 +161,11 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 	}
 
 	if (object) {
-		ComponentTexture* texture = (ComponentTexture*)object->CreateComponent(COMPONENT_TEXTURE);
+		ComponentTexture* texture = object->GetComponentTexture();
+
+		if (!texture)
+			texture = (ComponentTexture*)object->CreateComponent(COMPONENT_TEXTURE);
+
 		texture->LoadTexture(path_texture);
 		object->GetComponentMesh()->image_id = texture->image_id;
 	}
