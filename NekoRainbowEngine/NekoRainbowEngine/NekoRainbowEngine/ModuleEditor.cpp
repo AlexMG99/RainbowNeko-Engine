@@ -104,8 +104,6 @@ bool ModuleEditor::CleanUp()
 
 void ModuleEditor::DrawPanels()
 {
-
-
 	//Dockspace
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
 	float offset_y = 19;
@@ -126,11 +124,16 @@ void ModuleEditor::DrawPanels()
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 	}
 
-	panel_console->Draw();
-	panel_config->Draw();
-	panel_hierarchy->Draw();
-	panel_inspector->Draw();
-	panel_game->Draw();
+	if(panel_console->IsEnabled())
+		panel_console->Draw();
+	if (panel_config->IsEnabled())
+		panel_config->Draw();
+	if (panel_hierarchy->IsEnabled())
+		panel_hierarchy->Draw();
+	if (panel_inspector->IsEnabled())
+		panel_inspector->Draw();
+	if (panel_game->IsEnabled())
+		panel_game->Draw();
 
 	ImGui::End();
 }

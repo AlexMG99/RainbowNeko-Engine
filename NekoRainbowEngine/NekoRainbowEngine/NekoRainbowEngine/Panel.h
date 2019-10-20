@@ -14,10 +14,10 @@ public:
 	virtual bool Start() { return true; };
 
 	virtual update_status Draw() { return UPDATE_CONTINUE; };
-	virtual bool IsEnabled() { return true; };
+	virtual bool IsEnabled() { return enabled; };
 	virtual update_status Save() { return UPDATE_CONTINUE; };
 
-protected:
+public:
 	bool enabled;
 	const char* name = "";
 };

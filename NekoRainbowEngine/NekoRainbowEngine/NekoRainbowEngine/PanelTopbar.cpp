@@ -1,5 +1,11 @@
+#include "Application.h"
 #include "PanelTopbar.h"
+#include "PanelGame.h"
 #include "PanelHelp.h"
+#include "PanelConsole.h"
+#include "PanelHierarchy.h"
+#include "PanelInspector.h"
+#include "PanelConfiguration.h"
 
 #include "Application.h"
 
@@ -28,7 +34,20 @@ update_status PanelTopbar::Draw()
 		ImGui::EndMenu();
 	}
 
+	//Help Menu
 	panel_help->Draw();
+
+	//Window Menu
+	if (ImGui::BeginMenu("Window"))
+	{
+		ImGui::MenuItem("Console	", NULL, &App->editor->panel_console->enabled);
+		ImGui::MenuItem("Configuration	", NULL, &App->editor->panel_config->enabled);
+		ImGui::MenuItem("Game	", NULL, &App->editor->panel_game->enabled);
+		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
+		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
+
+		ImGui::EndMenu();
+	}
 
 	ImGui::EndMainMenuBar();
     CreateStyle();

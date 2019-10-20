@@ -172,9 +172,6 @@
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="PanelWindow.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
@@ -477,9 +474,6 @@
     </ClInclude>
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="PanelWindow.h">
-      <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
       <Filter>Sources\Devil</Filter>
