@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "PanelConsole.h"
+#include <list>
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -13,10 +14,7 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 
-
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
-
-#include <list>
 
 //----------------- ModuleImporter -----------------//
 
@@ -40,7 +38,6 @@ bool ModuleImporter::Init()
 bool ModuleImporter::Start()
 {
 	bool ret = true;
-	//ret = ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
 
 	return ret;
 }
@@ -146,7 +143,7 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 				m->image_id = texture->image_id;
 			}
 			LOG("Loaded mesh file succesfully!");
-			App->viewport->CreateGameObject(aux_obj, true);
+			App->viewport->AddGameObject(aux_obj, OBJECT_FBX, true);
 		}
 
 	}

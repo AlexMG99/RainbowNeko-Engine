@@ -1,0 +1,67 @@
+#include "GameObject.h"
+#include "ComponentShape.h"
+#include "ComponentMesh.h"
+
+#include "par/par_shapes.h"
+#include "MathGeoLib/include/Math/Quat.h"
+
+bool ComponentShape::Update()
+{
+	return false;
+}
+
+void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
+{
+	//Initialize variables
+	slice = sl;
+	stack = st;
+
+	//Create shape
+	switch (type)
+	{
+	case SHAPE_CUBE:
+		shape = par_shapes_create_cube();
+		break;
+	case SHAPE_SPHERE:
+		shape = par_shapes_create_parametric_sphere(sl, st);
+		break;
+	case SHAPE_CYLINDER:
+		shape = par_shapes_create_cylinder(sl, st);
+		break;
+	case SHAPE_CONE:
+		shape = par_shapes_create_cone(sl, st);
+		break;
+	case SHAPE_PLANE:
+		shape = par_shapes_create_cone(sl, st);
+		break;
+	default:
+		LOG("Shape type incorrect or inexistent!");
+		break;
+	}
+
+	ComponentTransform* trans = (ComponentTransform*)my_go->CreateComponent(COMPONENT_TRANSFORM);
+	trans->position[0] = shape->points[0];
+	trans->position[0] = shape->points[1];
+	trans->position[0] = shape->points[2];
+
+	par_shapes_scale(shape, 1.0f, 1.0f, 1.0f);
+	trans->scale[0] = 1;
+	trans->scale[1] = 1;
+	trans->scale[2] = 1;
+
+	trans->rotation.x = 0;
+	trans->rotation.y = 0;
+	trans->rotation.z = 0;
+
+	ComponentMesh* mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
+	mesh->vertices = shape->points;
+	mesh->num_vertices = shape->npoints;
+	mesh->index = (uint*)shape->triangles;
+	mesh->num_index = shape->ntriangles * 3;
+	mesh->par_shape = true;
+
+	mesh->GenerateMesh();
+
+	my_go->SetName(std::string("GameObject " + std::to_string(shape_num)).c_str());
+	shape_num++;
+}

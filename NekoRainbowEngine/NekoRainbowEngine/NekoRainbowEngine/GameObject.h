@@ -6,13 +6,13 @@
 
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentShape.h"
 
 enum object_type {
 	OBJECT_NONE = -1,
 
 	OBJECT_FBX,
-	OBJECT_CUBE,
-	OBJECT_SPHERE
+	OBJECT_PARSHAPE
 };
 
 class GameObject {
@@ -27,6 +27,7 @@ public:
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
+	ComponentShape*	GetComponentShape();
 
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);

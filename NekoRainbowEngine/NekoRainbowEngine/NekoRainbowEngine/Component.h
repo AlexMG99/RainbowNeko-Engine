@@ -12,6 +12,7 @@ enum component_type {
 
 	COMPONENT_TRANSFORM,
 	COMPONENT_MESH,
+	COMPONENT_SHAPE,
 	COMPONENT_TEXTURE,
 	COMPONENT_LIGHT
 };
@@ -32,7 +33,7 @@ public:
 	component_type type = COMPONENT_NONE;
 	bool active = true;
 	GameObject* my_go = nullptr;
-
+	uint shape_num = 0;
 
 };
 

@@ -87,6 +87,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentShape.h" />
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp" />
     <ClInclude Include="Devil\include\devil_internal_exports.h" />
     <ClInclude Include="Devil\include\il.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentShape.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />

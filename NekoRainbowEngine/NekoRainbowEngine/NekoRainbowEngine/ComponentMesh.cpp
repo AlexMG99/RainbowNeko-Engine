@@ -68,7 +68,12 @@ void ComponentMesh::Render()
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
+	//Checks if is a shape or a fbx
+	if(par_shape)
+		glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_SHORT, NULL);
+	else
+		glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -77,18 +82,20 @@ void ComponentMesh::Render()
 
 	//Render Vertex Normals
 	uint j = 0;
-	for (uint i = 0; i < num_vertices; i++)
-	{
-		glBegin(GL_LINES);
-		glColor3f(255, 0, 0);
+	if (normals) {
+		for (uint i = 0; i < num_vertices; i++)
+		{
+			glBegin(GL_LINES);
+			glColor3f(255, 0, 0);
 
-		glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+			glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
 
-		glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
-		glEnd();
-		j += 3;
+			glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
+			glEnd();
+			j += 3;
+		}
+		glColor3f(1, 1, 1);
 	}
-	glColor3f(1, 1, 1);
 
 }
 

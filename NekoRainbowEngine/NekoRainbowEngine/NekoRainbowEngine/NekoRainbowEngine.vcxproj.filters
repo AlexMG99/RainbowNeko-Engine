@@ -181,9 +181,6 @@
     <ClCompile Include="PanelTopbar.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentMesh.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
@@ -199,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMesh.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentShape.cpp">
+      <Filter>Sources\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -511,9 +514,6 @@
     <ClInclude Include="PanelTopbar.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentMesh.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="PanelInspector.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
@@ -556,6 +556,12 @@
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMesh.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentShape.h">
+      <Filter>Sources\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,7 +35,9 @@ public:
 	uint UV_num = 0;
 
 	//Normals
-	float3* normals;
+	float3* normals = nullptr;
+
+	bool par_shape = false;
 
 };
 
