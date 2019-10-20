@@ -27,43 +27,45 @@ update_status PanelInspector::Draw()
 		//Transform
 		ImGui::Text("Name: %s", object->GetName().c_str()); ImGui::Separator();
 		ComponentTransform* comp_trans = object->GetComponentTransform();
-		if (comp_trans)
+		if (comp_trans && ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 		{
 			//Position / Rotation / Scale
-			if(ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen) 
-			{
-				ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
-				ImGui::InputFloat3("Scale", comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
-				float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
-				ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
-			}
+			ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Scale", comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
+			float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
+			ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
 			ImGui::Separator();
 		}
 
 		//Mesh
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
-		if (comp_mesh)
+		if (comp_mesh && ImGui::CollapsingHeader("Mesh"), ImGuiTreeNodeFlags_DefaultOpen)
 		{
-			if (ImGui::CollapsingHeader("Mesh"), ImGuiTreeNodeFlags_DefaultOpen)
-			{
-				ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
-				ImGui::Text("Num vertices: %i", comp_mesh->num_vertices);
-				ImGui::Text("Id indices: %i", comp_mesh->id_index);
-				ImGui::Text("Num indices: %i", comp_mesh->num_index);
-				ImGui::Text("Id uv: %i", comp_mesh->uv_id);
-			}
+			ImGui::PushID("Mesh");
+			ImGui::Checkbox("Active", &comp_mesh->active);
+			ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
+			ImGui::Text("Num vertices: %i", comp_mesh->num_vertices);
+			ImGui::Text("Id indices: %i", comp_mesh->id_index);
+			ImGui::Text("Num indices: %i", comp_mesh->num_index);
+			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
+			ImGui::PopID();
+			ImGui::Separator();
 		}
 
 		//Texture
 		ComponentTexture* comp_texture = object->GetComponentTexture();
 		if (comp_texture)
 		{
-			if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen)
+			if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen) 
 			{
+				ImGui::PushID("Texture");
+				ImGui::Checkbox("Active", &comp_texture->active);
 				ImGui::Text("Path: %s", comp_texture->path.c_str());
 				ImGui::Text("Id texture: %i", comp_texture->image_id);
 				ImGui::Text("W: %i		H: %i", comp_texture->width, comp_texture->height);
 				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200));
+				ImGui::PopID();
+				ImGui::Separator();
 			}
 		}
 	}

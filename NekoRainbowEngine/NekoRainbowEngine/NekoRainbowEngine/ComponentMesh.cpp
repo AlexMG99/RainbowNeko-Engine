@@ -1,3 +1,4 @@
+#include "GameObject.h"
 #include "ComponentMesh.h"
 
 #include "GL/include/glew.h"
@@ -60,11 +61,14 @@ void ComponentMesh::Render()
 
 	//UVs
 	glEnable(GL_TEXTURE_2D);
-	if (UV_coord)
+	if (UV_coord && my_go->GetComponentTexture())
 	{
-		glBindTexture(GL_TEXTURE_2D, image_id);
-		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
+		if (my_go->GetComponentTexture()->active) 
+		{
+			glBindTexture(GL_TEXTURE_2D, image_id);
+			glBindBuffer(GL_ARRAY_BUFFER, uv_id);
+			glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
+		}
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);

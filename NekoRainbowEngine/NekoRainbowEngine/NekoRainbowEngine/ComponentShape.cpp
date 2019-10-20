@@ -39,10 +39,11 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 		break;
 	}
 
+	//Create Component Transform
 	ComponentTransform* trans = (ComponentTransform*)my_go->CreateComponent(COMPONENT_TRANSFORM);
 	trans->position[0] = shape->points[0];
-	trans->position[0] = shape->points[1];
-	trans->position[0] = shape->points[2];
+	trans->position[1] = shape->points[1];
+	trans->position[2] = shape->points[2];
 
 	par_shapes_scale(shape, 1.0f, 1.0f, 1.0f);
 	trans->scale[0] = 1;
@@ -53,14 +54,21 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 	trans->rotation.y = 0;
 	trans->rotation.z = 0;
 
+	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
 	mesh->vertices = shape->points;
 	mesh->num_vertices = shape->npoints;
 	mesh->index = (uint*)shape->triangles;
 	mesh->num_index = shape->ntriangles * 3;
 	mesh->par_shape = true;
+	mesh->UV_coord = shape->tcoords;
+	mesh->UV_num = 2;
 
 	mesh->GenerateMesh();
+
+	//Create Component Texture
+	ComponentTexture* tex = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
+	/*tex->LoadTexture()*/
 
 	my_go->SetName(std::string("GameObject " + std::to_string(shape_num)).c_str());
 	shape_num++;

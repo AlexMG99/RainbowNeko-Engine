@@ -53,7 +53,7 @@ public:
 	void GenerateTexture();
 
 public:
-	uint width, height;
+	uint width = 0, height = 0;
 	uint image_id = 0;
 	std::string path = "";
 };

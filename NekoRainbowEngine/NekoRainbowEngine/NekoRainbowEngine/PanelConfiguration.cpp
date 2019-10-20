@@ -38,7 +38,6 @@ bool PanelConfiguration::Start()
 	gl_fog = glIsEnabled(GL_FOG);
 	gl_shade_model = glIsEnabled(GL_SHADE_MODEL);
 
-
 	return true;
 }
 

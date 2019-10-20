@@ -27,7 +27,8 @@ bool GameObject::Update()
 	//Iterate Components
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
 	{
-		(*it_comp)->Update();
+		if((*it_comp)->active)
+			(*it_comp)->Update();
 	}
 	return true;
 }

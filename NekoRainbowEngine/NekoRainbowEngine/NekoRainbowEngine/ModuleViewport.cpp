@@ -22,7 +22,7 @@ bool ModuleViewport::Start()
 {
 	bool ret = true;
 	//ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
-	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_CUBE);
+	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_SPHERE);
 	return ret;
 }
 
