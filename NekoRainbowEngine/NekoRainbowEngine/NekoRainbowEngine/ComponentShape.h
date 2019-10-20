@@ -23,8 +23,9 @@ public:
 
 	bool Update();
 	void CreateShape(shape_type type, uint sl, uint st);
+	std::string GetTypeString();
 
-private:
+public:
 	par_shapes_mesh_s* shape;
 	shape_type shape_t = SHAPE_NONE;
 	uint slice = 0;

@@ -31,6 +31,10 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		App->camera->SetCameraToCenter();
 
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
+			DeleteGameObject();
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -50,7 +54,6 @@ bool ModuleViewport::CleanUp()
 
 void ModuleViewport::CreateGrid(uint separation, uint lines)
 {
-
 	//Vertex Point
 	glPointSize(10.0f);
 
@@ -124,4 +127,17 @@ void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, 
 	shape->CreateShape(s_type, slice, stack);
 
 	AddGameObject(obj);
+}
+
+void ModuleViewport::DeleteGameObject()
+{
+	//Iterate Childrens
+	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end();) {
+		if ((*it_obj)->selected)
+		{
+			RELEASE(*it_obj);
+			it_obj = root_object->children.erase(it_obj);
+			return;
+		}
+	}
 }

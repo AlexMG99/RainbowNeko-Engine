@@ -15,6 +15,7 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 	//Initialize variables
 	slice = sl;
 	stack = st;
+	shape_t = type;
 
 	//Create shape
 	switch (type)
@@ -72,4 +73,32 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 
 	my_go->SetName(std::string("GameObject " + std::to_string(shape_num)).c_str());
 	shape_num++;
+}
+
+std::string ComponentShape::GetTypeString()
+{
+	std::string tmp_str = "No Object!";
+
+	switch (shape_t)
+	{
+	case SHAPE_CUBE:
+		tmp_str = "Cube";
+		break;
+	case SHAPE_SPHERE:
+		tmp_str = "Sphere";
+		break;
+	case SHAPE_CYLINDER:
+		tmp_str = "Cylinder";
+		break;
+	case SHAPE_CONE:
+		tmp_str = "Cone";
+		break;
+	case SHAPE_PLANE:
+		tmp_str = "Plane";
+		break;
+	default:
+		break;
+	}
+
+	return tmp_str;
 }

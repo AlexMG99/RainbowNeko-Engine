@@ -27,7 +27,7 @@ update_status PanelInspector::Draw()
 		//Transform
 		ImGui::Text("Name: %s", object->GetName().c_str()); ImGui::Separator();
 		ComponentTransform* comp_trans = object->GetComponentTransform();
-		if (comp_trans && ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
+		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
 			ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
@@ -39,7 +39,7 @@ update_status PanelInspector::Draw()
 
 		//Mesh
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
-		if (comp_mesh && ImGui::CollapsingHeader("Mesh"), ImGuiTreeNodeFlags_DefaultOpen)
+		if (comp_mesh && ImGui::CollapsingHeader("Mesh"))
 		{
 			ImGui::PushID("Mesh");
 			ImGui::Checkbox("Active", &comp_mesh->active);
@@ -56,7 +56,7 @@ update_status PanelInspector::Draw()
 		ComponentTexture* comp_texture = object->GetComponentTexture();
 		if (comp_texture)
 		{
-			if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen) 
+			if (ImGui::CollapsingHeader("Texture")) 
 			{
 				ImGui::PushID("Texture");
 				ImGui::Checkbox("Active", &comp_texture->active);
@@ -66,6 +66,19 @@ update_status PanelInspector::Draw()
 				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200));
 				ImGui::PopID();
 				ImGui::Separator();
+			}
+		}
+
+		//Shape
+		ComponentShape* comp_shape = object->GetComponentShape();
+		if (comp_shape)
+		{
+			if (ImGui::CollapsingHeader("Shape"))
+			{
+				ImGui::Text("Type: %s", comp_shape->GetTypeString().c_str());
+				int division[2] = { comp_shape->stack, comp_shape->slice };
+				ImGui::InputInt2("Divisions", division, ImGuiInputTextFlags_ReadOnly);
+
 			}
 		}
 	}
