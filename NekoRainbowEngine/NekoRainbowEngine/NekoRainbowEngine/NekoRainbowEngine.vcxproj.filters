@@ -28,9 +28,6 @@
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="log.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -200,6 +197,9 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -236,9 +236,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
@@ -555,6 +552,9 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditor.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
