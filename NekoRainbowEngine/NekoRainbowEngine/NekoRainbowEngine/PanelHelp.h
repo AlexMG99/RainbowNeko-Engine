@@ -19,7 +19,7 @@ private:
 
 private:
 	//PanelHelp
-	bool open = false;
+	bool about_open = false;
 
 	char documentation[50];
 	char download_last[70];

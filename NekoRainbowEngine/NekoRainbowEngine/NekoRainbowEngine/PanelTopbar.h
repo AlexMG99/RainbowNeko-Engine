@@ -12,7 +12,7 @@ class PanelTopbar :public Panel {
 public:
 	PanelTopbar() {};
 	PanelTopbar(const char* name) :Panel(name) {};
-	~PanelTopbar() {};
+	~PanelTopbar();
 
 	bool Start();
 	update_status Draw();

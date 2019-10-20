@@ -13,7 +13,6 @@ public:
 	update_status Draw();
 
 private:
-	bool visible = true;
 	float3 position;
 };
 

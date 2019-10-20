@@ -114,9 +114,9 @@ update_status ModuleInput::PreUpdate(float dt)
 				pos = str.find_last_of(".");
 				file_ext = str.substr(pos + 1);
 
-				if(file_ext == "fbx")
+				if(file_ext == "fbx" || file_ext == "FBX")
 					App->importer->ImportFBX(e.drop.file);
-				else if(file_ext == "dds")
+				else if(file_ext == "dds" || file_ext == "DDS")
 					App->importer->ImportTexture(e.drop.file);
 
 			break;
@@ -150,5 +150,5 @@ bool ModuleInput::CleanUp()
 
 ImVec2 ModuleInput::GetImGuiMouse() const
 {
-	return ImGui::GetCursorScreenPos();
+	return ImGui::GetMousePos();
 }

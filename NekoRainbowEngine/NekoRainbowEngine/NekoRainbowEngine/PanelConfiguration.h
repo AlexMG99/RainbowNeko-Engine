@@ -23,8 +23,6 @@ public:
 	void RendererSettings();
 
 private:
-	bool open = true;
-	bool visible = true;
 
 	float fps_log[MAX_HISTOGRAM_LOG];
 	int fps_current_log = 0;
@@ -47,8 +45,6 @@ private:
 	bool gl_points = false;
 	bool gl_lines = false;
 	bool gl_fill = true;
-
-
 
 	PerfTimer	check_time;
 };

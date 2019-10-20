@@ -6,7 +6,7 @@
 
 update_status PanelGame::Draw()
 {
-	ImGui::Begin(name);
+	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	size = ImVec2(App->renderer3D->GetTextureSize());
 
 	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(),size, ImVec2(0, 1), ImVec2(1, 0));

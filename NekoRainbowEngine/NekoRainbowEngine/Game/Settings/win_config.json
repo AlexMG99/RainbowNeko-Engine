@@ -3,7 +3,7 @@
 
     "Window": {
       "Title": "NekoRainbow Engine",
-      "Width": 1280,
+      "Width": 1920,
       "Height": 1024,
       "Resizable": false,
       "Fullscreen": false,

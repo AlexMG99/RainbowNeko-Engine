@@ -5,7 +5,7 @@
 
 update_status PanelHierarchy::Draw()
 {
-	ImGui::Begin(name);
+	ImGui::Begin(name, &enabled);
 
 	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
 	{

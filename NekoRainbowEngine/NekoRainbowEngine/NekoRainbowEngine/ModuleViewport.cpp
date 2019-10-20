@@ -16,7 +16,6 @@ ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(ap
 ModuleViewport::~ModuleViewport()
 {
 	RELEASE(root_object);
-	
 }
 
 bool ModuleViewport::Start()

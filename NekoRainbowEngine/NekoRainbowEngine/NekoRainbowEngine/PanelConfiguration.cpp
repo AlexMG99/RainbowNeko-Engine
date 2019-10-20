@@ -46,7 +46,7 @@ update_status PanelConfiguration::Draw()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui::Begin(name);
+	ImGui::Begin(name, &enabled);
 		AppSettings();
 
 		WindowSettings();

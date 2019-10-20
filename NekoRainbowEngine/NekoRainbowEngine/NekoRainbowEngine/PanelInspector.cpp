@@ -5,12 +5,13 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "imgui/imgui.h"
+#include "MathGeoLib/include/Math/Quat.h"
 
 #include <list>
 
 update_status PanelInspector::Draw()
 {
-	ImGui::Begin(name);
+	ImGui::Begin(name, &enabled);
 
 	GameObject* object = nullptr;
 
@@ -18,7 +19,6 @@ update_status PanelInspector::Draw()
 	{
 		if ((*it_obj)->selected)
 			object = (*it_obj);
-
 	}
 
 	
@@ -30,11 +30,12 @@ update_status PanelInspector::Draw()
 		if (comp_trans)
 		{
 			//Position / Rotation / Scale
-			if(ImGui::CollapsingHeader("Transform")) 
+			if(ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen) 
 			{
 				ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
 				ImGui::InputFloat3("Scale", comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
-				//ImGui::InputFloat3("Rotation", comp_trans->rotation, 2, ImGuiInputTextFlags_ReadOnly);
+				float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
+				ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
 			}
 			ImGui::Separator();
 		}
@@ -43,7 +44,7 @@ update_status PanelInspector::Draw()
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
 		if (comp_mesh)
 		{
-			if (ImGui::CollapsingHeader("Mesh")) 
+			if (ImGui::CollapsingHeader("Mesh"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
 				ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
 				ImGui::Text("Num vertices: %i", comp_mesh->num_vertices);
@@ -57,7 +58,7 @@ update_status PanelInspector::Draw()
 		ComponentTexture* comp_texture = object->GetComponentTexture();
 		if (comp_texture)
 		{
-			if (ImGui::CollapsingHeader("Texture"))
+			if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
 				ImGui::Text("Path: %s", comp_texture->path.c_str());
 				ImGui::Text("Id texture: %i", comp_texture->image_id);

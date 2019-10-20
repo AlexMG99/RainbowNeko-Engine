@@ -7,7 +7,11 @@
 
 PanelConsole::~PanelConsole()
 {
-
+	for (auto it_obj = console_text.begin(); it_obj != console_text.end();) {
+		(*it_obj).text.clear();
+		it_obj = console_text.erase(it_obj);
+	}
+	console_text.clear();
 }
 
 update_status PanelConsole::Draw() {
@@ -16,7 +20,7 @@ update_status PanelConsole::Draw() {
 
 	CopyLogs();
 
-	ImGui::Begin(name);
+	ImGui::Begin(name, &enabled);
 	ImGui::Separator();
 
 	//Console output

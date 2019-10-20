@@ -40,8 +40,6 @@ private:
 	void CopyLogs();
 
 private:
-	bool visible = true;
-	bool open = true;
 	std::list<ConsoleText> console_text;
 
 	char console_input[50] = "";

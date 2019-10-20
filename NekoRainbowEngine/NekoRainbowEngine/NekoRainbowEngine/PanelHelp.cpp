@@ -44,13 +44,13 @@ update_status PanelHelp::Draw() {
 			RequestBrowser(download_last);
 		if (ImGui::MenuItem("Report a bug\t"))
 			RequestBrowser(report_bug);
-		if (ImGui::MenuItem("About\t") && !open)
-			open = true;
+		if (ImGui::MenuItem("About\t") && !about_open)
+			about_open = true;
 		ImGui::EndMenu();
 	}
 
 	//Checks About
-	if(open)
+	if(about_open)
 		AboutWindow();
 
 	return UPDATE_CONTINUE;
@@ -64,7 +64,7 @@ void PanelHelp::RequestBrowser(const char* link)
 void PanelHelp::AboutWindow()
 {
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
-	if (ImGui::Begin("About", &open, window_flags)) {
+	if (ImGui::Begin("About", &about_open, window_flags)) {
 		ImGui::SetWindowSize(ImVec2(575, 600));
 		ImGui::SetWindowPos(ImGui::GetWindowPos(), ImGuiCond_FirstUseEver);
 		ImGui::Text("%s", engine_name);

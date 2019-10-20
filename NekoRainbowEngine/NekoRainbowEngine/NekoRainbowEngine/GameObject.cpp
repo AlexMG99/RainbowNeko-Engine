@@ -3,7 +3,6 @@
 
 GameObject::~GameObject()
 {
-	LOG("%s", name.c_str());
 	for (auto it_obj = children.begin(); it_obj != children.end();) {
 		RELEASE(*it_obj);
 		it_obj = children.erase(it_obj);
@@ -114,5 +113,10 @@ std::string GameObject::GetName() const
 
 void GameObject::SetName(const char * name_)
 {
-	name = name_;
+	std::string temp_str = name_;
+	std::size_t pos = temp_str.find_last_of("/");
+	if(pos >1000)
+		pos = temp_str.find_last_of("\\");
+	std::string str = temp_str.substr(pos + 1);
+	name = str;
 }

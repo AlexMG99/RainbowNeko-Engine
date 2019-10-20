@@ -97,7 +97,15 @@ void ModuleEditor::DrawImGui()
 // Load assets
 bool ModuleEditor::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	LOG("Unloading Editor scene");
+
+	//Release Panels
+	RELEASE(panel_config);
+	RELEASE(panel_game);
+	RELEASE(panel_hierarchy);
+	RELEASE(panel_inspector);
+	RELEASE(panel_console);
+	RELEASE(panel_topbar);
 
 	return true;
 }
@@ -142,7 +150,7 @@ update_status ModuleEditor::Save()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	panel_topbar->Save();
+	ret = panel_topbar->Save();
 
 	return ret;
 }

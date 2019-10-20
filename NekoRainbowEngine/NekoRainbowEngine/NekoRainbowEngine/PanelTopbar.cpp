@@ -9,6 +9,11 @@
 
 #include "Application.h"
 
+PanelTopbar::~PanelTopbar()
+{
+	RELEASE(panel_help);
+}
+
 bool PanelTopbar::Start()
 {
 	//Initialize Panels
