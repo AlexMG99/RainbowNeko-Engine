@@ -1,0 +1,26 @@
+{
+  "Application": {
+
+    "Window": {
+      "Title": "NekoRainbow Engine",
+      "Width": 1280,
+      "Height": 1024,
+      "Resizable": false,
+      "Fullscreen": false,
+      "Fullscreen Desktop": false,
+      "Border": true,
+      "Brightness": 1
+    },
+
+    "Camera": {
+      "Speed": 0.01,
+      "Position": {
+        "X": 7.0,
+        "Y": 7.0,
+        "Z": 7.0
+      }
+    }
+  }
+}
+
+
