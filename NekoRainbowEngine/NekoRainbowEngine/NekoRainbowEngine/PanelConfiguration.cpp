@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "ModuleWindow.h"
 #include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
