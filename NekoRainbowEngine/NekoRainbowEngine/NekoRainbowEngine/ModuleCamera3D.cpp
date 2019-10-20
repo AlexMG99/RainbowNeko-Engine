@@ -26,6 +26,19 @@ bool ModuleCamera3D::Start()
 	return ret;
 }
 
+update_status ModuleCamera3D::Load()
+{
+	JSON_Object* obj = json_object(App->settings_doc);
+	JSON_Object* cam_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Camera");
+
+	base_speed = json_object_get_number(cam_obj, "Speed");
+	Position = { (float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "X"),
+		(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Y"),
+		(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Z") };
+
+	return UPDATE_CONTINUE;
+}
+
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
@@ -164,6 +177,22 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 	Reference += Movement;
 
 	CalculateViewMatrix();
+}
+
+// -----------------------------------------------------------------
+void ModuleCamera3D::MoveTo(const vec3 &Pos)
+{
+	Position = Pos;
+	Reference = Pos;
+
+	CalculateViewMatrix();
+}
+
+// -----------------------------------------------------------------
+void ModuleCamera3D::SetCameraToCenter()
+{
+	App->camera->MoveTo(vec3(7.0f, 7.0f, 7.0f));
+	App->camera->LookAt(vec3(0, 0, 0));
 }
 
 // -----------------------------------------------------------------

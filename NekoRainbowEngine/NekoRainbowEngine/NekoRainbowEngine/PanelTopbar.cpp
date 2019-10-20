@@ -61,8 +61,6 @@ void PanelTopbar::CreateStyle()
 
 	ImGuiStyle& style = ImGui::GetStyle();
 
-	//style.Alpha = 1.0f;
-	/*style.WindowFillAlphaDefault = 1.0f;*/
 	style.FrameRounding = 4;
 	style.IndentSpacing = 12.0f;
 

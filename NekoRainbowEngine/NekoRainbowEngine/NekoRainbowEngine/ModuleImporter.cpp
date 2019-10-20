@@ -32,6 +32,7 @@ bool ModuleImporter::Init()
 {
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	stream.callback = LogCallback;
 	aiAttachLogStream(&stream);
 	return true;
 }
@@ -179,4 +180,22 @@ bool ModuleImporter::CleanUp()
 
 	aiDetachAllLogStreams();
 	return true;
+}
+
+void LogCallback(const char* text, char* data)
+{
+	std::string temp_string = text;
+	std::size_t pos = temp_string.find(",");
+	std::string temp_string2 = temp_string.substr(0,4);
+	temp_string.erase(std::remove(temp_string.begin(), temp_string.end(), '%'), temp_string.end());
+	if (temp_string2 == "Info")
+	{
+		temp_string2 = temp_string.substr(pos + 1);
+		C_INFO(temp_string2.c_str());
+	}
+	else if (temp_string2 == "Warn")
+	{
+		temp_string2 = temp_string.substr(pos + 1);
+		C_WARNING(temp_string2.c_str());
+	}
 }
