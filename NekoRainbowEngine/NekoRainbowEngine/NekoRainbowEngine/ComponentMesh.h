@@ -36,6 +36,8 @@ public:
 
 	//Normals
 	float3* normals = nullptr;
+	std::vector<float3> normals_face;
+	uint normal_id = -1;
 
 	bool par_shape = false;
 

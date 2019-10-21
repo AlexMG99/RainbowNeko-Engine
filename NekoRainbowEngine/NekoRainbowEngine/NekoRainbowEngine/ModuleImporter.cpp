@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "PanelConsole.h"
+#include "glmath.h"
 #include <list>
 
 #include "Assimp/include/cimport.h"
@@ -119,6 +120,19 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			{
 				m->normals = new float3[aimesh->mNumVertices];
 				memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
+
+				for (uint i = 0; i < m->num_index; i += 3)
+				{
+					uint index = m->index[i];
+					vec3 vertex0(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+
+					index = m->index[i + 1];
+					vec3 vertex1(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+
+					index = m->index[i + 2];
+					vec3 vertex2(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+					CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
+				}
 			}
 
 			//Load UVs
@@ -147,6 +161,22 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 		}
 
 	}
+}
+
+void ModuleImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
+{
+	//Calculate center of the triangle
+	vec3 center = (triangle_p1 + triangle_p2 + triangle_p3) / 3;
+
+	vec3 vec_v = triangle_p1 - triangle_p3;
+	vec3 vec_w = triangle_p2 - triangle_p3;
+
+	vec3 norm_v = cross(vec_v, vec_w);
+	norm_v = normalize(norm_v);
+
+	m->normals_face.push_back(float3(center.x, center.y, center.z));
+	m->normals_face.push_back(float3(norm_v.x, norm_v.y, norm_v.z));
+
 }
 
 bool ModuleImporter::ImportTexture(char * path_texture)

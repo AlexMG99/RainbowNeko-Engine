@@ -7,6 +7,7 @@
 struct aiScene;
 struct aiNode;
 class GameObject;
+class vec3;
 
 //----------------- ModuleImporter -----------------//
 class ModuleImporter : public Module
@@ -26,6 +27,7 @@ public:
 private:
 	void RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture);
 	void CreateObject(const aiNode * node,  char * path_fbx, const aiScene * scene, char * path_texture);
+	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
 };
 
 void LogCallback(const char * text, char * data);
