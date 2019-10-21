@@ -6,8 +6,8 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
-
 #include "Application.h"
+#include "Brofiler/Brofiler.h"
 
 PanelTopbar::~PanelTopbar()
 {
@@ -16,6 +16,7 @@ PanelTopbar::~PanelTopbar()
 
 bool PanelTopbar::Start()
 {
+	BROFILER_CATEGORY("Start_PanelTopBar", Profiler::Color::LimeGreen);
 	//Initialize Panels
 	panel_help = new PanelHelp("Help");
 	panel_help->Start();
@@ -25,6 +26,9 @@ bool PanelTopbar::Start()
 
 update_status PanelTopbar::Draw()
 {
+
+	BROFILER_CATEGORY("Draw_PanelTopBar", Profiler::Color::GoldenRod);
+
 	update_status ret = UPDATE_CONTINUE;
 
 	//Draw Topbar Panel
@@ -62,6 +66,10 @@ update_status PanelTopbar::Draw()
 
 void PanelTopbar::CreateStyle()
 {
+
+	BROFILER_CATEGORY("Set_Style", Profiler::Color::MediumPurple);
+
+
 	//Set Up Style
 
 	ImGuiStyle& style = ImGui::GetStyle();

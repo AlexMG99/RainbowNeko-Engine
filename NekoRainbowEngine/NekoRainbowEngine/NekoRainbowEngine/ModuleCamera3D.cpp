@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+#include "Brofiler/Brofiler.h"
 #include "ModuleCamera3D.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -20,6 +21,8 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
+	BROFILER_CATEGORY("Start_ModuleCamera3D", Profiler::Color::LimeGreen);
+
 	LOG("Setting up the camera");
 	bool ret = true;
 	
@@ -50,6 +53,7 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_ModuleCamera3D", Profiler::Color::DeepSkyBlue);
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 

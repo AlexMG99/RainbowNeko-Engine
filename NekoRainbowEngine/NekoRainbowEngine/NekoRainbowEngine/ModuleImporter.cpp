@@ -15,6 +15,8 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 
+#include"Brofiler/Brofiler.h"
+
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
 //----------------- ModuleImporter -----------------//

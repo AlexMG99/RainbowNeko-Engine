@@ -97,7 +97,6 @@ namespace Profiler
 			LightCyan = 0xFFE0FFFF,
 			LightGoldenRodYellow = 0xFFFAFAD2,
 			LightGray = 0xFFD3D3D3,
-			LightGreen = 0xFF90EE90,
 			LightPink = 0xFFFFB6C1,
 			LightSalmon = 0xFFFFA07A,
 			LightSeaGreen = 0xFF20B2AA,

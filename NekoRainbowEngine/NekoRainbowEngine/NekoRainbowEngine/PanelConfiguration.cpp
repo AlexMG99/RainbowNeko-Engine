@@ -3,6 +3,7 @@
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
+#include "Brofiler/Brofiler.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -10,6 +11,8 @@ PanelConfiguration::~PanelConfiguration()
 
 bool PanelConfiguration::Start()
 {
+	BROFILER_CATEGORY("Start_PanelConfig", Profiler::Color::LimeGreen);
+
 	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Window");
 
@@ -43,6 +46,9 @@ bool PanelConfiguration::Start()
 
 update_status PanelConfiguration::Draw()
 {
+
+	BROFILER_CATEGORY("Draw_PanelConfig", Profiler::Color::GoldenRod);
+
 	update_status ret = UPDATE_CONTINUE;
 
 	ImGui::Begin(name, &enabled);

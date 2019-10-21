@@ -6,11 +6,14 @@
 #include "ComponentMesh.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"
-
+#include "Brofiler/Brofiler.h"
 #include <list>
 
 update_status PanelInspector::Draw()
 {
+
+	BROFILER_CATEGORY("Draw_PaneInspector", Profiler::Color::GoldenRod);
+
 	ImGui::Begin(name, &enabled);
 
 	GameObject* object = nullptr;

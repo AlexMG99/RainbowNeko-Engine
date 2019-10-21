@@ -6,6 +6,8 @@
 #include "ModuleImporter.h"
 #include "par/par_shapes.h"
 
+#include "Brofiler/Brofiler.h"
+
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	root_object = new GameObject();
@@ -19,6 +21,8 @@ ModuleViewport::~ModuleViewport()
 
 bool ModuleViewport::Start()
 {
+	BROFILER_CATEGORY("Start_ModuleViewport", Profiler::Color::LimeGreen);
+
 	bool ret = true;
 	//ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
 	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_SPHERE);
@@ -27,6 +31,9 @@ bool ModuleViewport::Start()
 
 update_status ModuleViewport::PreUpdate(float dt)
 {
+	BROFILER_CATEGORY("PreUpdate_ModuleViewport", Profiler::Color::SkyBlue);
+
+
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		App->camera->SetCameraToCenter();
 
@@ -39,6 +46,8 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 update_status ModuleViewport::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
+
 	CreateGrid(2,100);
 
 	root_object->Update();

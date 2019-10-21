@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "PanelConsole.h"
 #include "ModuleInput.h"
-//#include "Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 
 #include "GL/include/glew.h"
 
@@ -17,7 +17,7 @@ PanelConsole::~PanelConsole()
 
 update_status PanelConsole::Draw() {
 
-	//BROFILER_CATEGORY("Draw_PanelConsole", Profiler::Color::GoldenRod);
+	BROFILER_CATEGORY("Draw_PanelConsole", Profiler::Color::GoldenRod);
 	update_status ret = UPDATE_CONTINUE;
 
 	CopyLogs();

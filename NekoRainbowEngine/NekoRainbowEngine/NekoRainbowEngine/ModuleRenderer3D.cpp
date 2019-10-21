@@ -7,6 +7,8 @@
 
 #include <gl/GL.h>
 
+#include "Brofiler/Brofiler.h"
+
 #pragma comment (lib, "GL/libx86/glew32.lib")    /* link glew Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -101,6 +103,9 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+
+	BROFILER_CATEGORY("PreUpdate_ModuleRenderer3D", Profiler::Color::SkyBlue);
+
 	fbo->Bind();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -121,6 +126,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("PostUpdate_ModuleRenderer3D", Profiler::Color::DarkBlue);
+
 	fbo->Unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

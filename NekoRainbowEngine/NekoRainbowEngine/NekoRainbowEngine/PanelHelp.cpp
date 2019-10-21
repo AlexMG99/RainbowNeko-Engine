@@ -1,13 +1,14 @@
 #include "Application.h"
 #include "PanelHelp.h"
-#include "Brofiler/Brofiler.h"
 
 #include <string>
+
+#include "Brofiler/Brofiler.h"
 
 bool PanelHelp::Start()
 {
 
-	BROFILER_CATEGORY("Start_PanelHelp", Profiler::Color::LightGreen);
+	BROFILER_CATEGORY("Start_PanelHelp", Profiler::Color::LimeGreen);
 	JSON_Object* about = json_object(App->credits_doc);
 
 	////Set Help Attributes

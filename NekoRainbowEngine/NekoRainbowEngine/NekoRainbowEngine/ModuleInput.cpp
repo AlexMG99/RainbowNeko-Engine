@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "imgui/imgui_impl_sdl.h"
 #include <string>
+#include "Brofiler/Brofiler.h"
 
 #define MAX_KEYS 300
 
@@ -22,6 +23,9 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
+
+	BROFILER_CATEGORY("Init_ModuleInput", Profiler::Color::Crimson);
+
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
@@ -38,6 +42,8 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::PreUpdate(float dt)
 {
+
+	BROFILER_CATEGORY("PreUpdate_ModuleInput", Profiler::Color::SkyBlue);
 	SDL_PumpEvents();
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);

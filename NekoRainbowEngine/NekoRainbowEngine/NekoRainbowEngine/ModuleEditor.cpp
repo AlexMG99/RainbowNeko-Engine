@@ -18,6 +18,8 @@
 
 #include "Parson/parson.h"
 
+#include "Brofiler/Brofiler.h"
+
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -27,6 +29,8 @@ ModuleEditor::~ModuleEditor()
 
 bool ModuleEditor::Start()
 {
+	BROFILER_CATEGORY("Start_ModuleEditor", Profiler::Color::LimeGreen);
+
 	LOG("Loading Editor Scene");
 	bool ret = true;
 
@@ -64,6 +68,8 @@ bool ModuleEditor::Start()
 
 update_status ModuleEditor::PreUpdate(float dt)
 {
+	BROFILER_CATEGORY("PreUpdate_ModuleEditor", Profiler::Color::SkyBlue);
+
 	update_status ret = UPDATE_CONTINUE;
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
@@ -81,6 +87,8 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
+
+	BROFILER_CATEGORY("Update_ModuleEditor", Profiler::Color::DeepSkyBlue);
 	//Draw Panels
 	panel_topbar->Draw();
 
@@ -91,6 +99,7 @@ update_status ModuleEditor::Update(float dt)
 
 void ModuleEditor::DrawImGui()
 {
+	BROFILER_CATEGORY("Draw_ModuleEditor_ImGui", Profiler::Color::GoldenRod);
 	// Rendering
 	ImGui::Render();
 	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
@@ -115,6 +124,9 @@ bool ModuleEditor::CleanUp()
 
 void ModuleEditor::DrawPanels()
 {
+
+	BROFILER_CATEGORY("Draw_ModuleEditor_Panels", Profiler::Color::GoldenRod);
+
 	//Dockspace
 	ImVec2 display_size = ImGui::GetIO().DisplaySize;
 	float offset_y = 19;

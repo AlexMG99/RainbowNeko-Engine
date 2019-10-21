@@ -1,9 +1,13 @@
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "PanelShape.h"
+#include "Brofiler/Brofiler.h"
 
 update_status PanelShape::Draw()
 {
+
+	BROFILER_CATEGORY("Draw_PanelShape", Profiler::Color::GoldenRod);
+
 	update_status ret = UPDATE_CONTINUE;
 
 	static const char* combo_item[] = { "CUBE", "SPHERE", "CYLINDER", "CONE", "PLANE" };
