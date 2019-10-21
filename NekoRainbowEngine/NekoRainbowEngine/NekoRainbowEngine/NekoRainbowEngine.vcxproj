@@ -101,6 +101,8 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GPUinfo\DeviceId.h" />
+    <ClInclude Include="GPUinfo\dxgi1_4.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="GPUinfo\DeviceId.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />

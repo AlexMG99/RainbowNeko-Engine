@@ -2,7 +2,8 @@
 #include "PanelConfiguration.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
-
+#include "SDL/include/SDL.h"
+#include "GPUinfo/DeviceId.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -162,9 +163,9 @@ void PanelConfiguration::AppSettings()
 
 			ImGui::Text("SDL Version:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", &compiled);
 			ImGui::Separator();
-			ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i (Cache: % i)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
-			ImGui::Text("System RAM:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Gb", SDL_GetSystemRAM() / 1024);
-
+			ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i (Cache: %i kb) ", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+			ImGui::Text("System RAM:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.2f GB", (float(SDL_GetSystemRAM()) / 1024.f));
+			ImGui::Text("OS:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", SDL_GetCurrentVideoDriver());
 			static std::string caps = "";
 			caps += SDL_HasRDTSC() ? "RDTSC, " : "";
 			caps += SDL_HasMMX() ? "MMX, " : "";
@@ -180,20 +181,34 @@ void PanelConfiguration::AppSettings()
 
 			ImGui::Separator();
 
-			GLint totalmemory = 0;
-			GLint currentmemoryaviable = 0;
-			GLint info = 0;
+			std::wstring GPU;
+			char GPU_Brand[50];
+			uint VendorId;
+			uint DevideId;
+			Uint64 VMB;
+			Uint64 VMCU;
+			Uint64 VMA;
+			Uint64 VMR;
+			float conversion = (1024.f * 1024.f);
 
-			ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f) , "%s", glGetString(GL_VERSION));
+			if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
+			{
+				VMB = VMB / conversion;
+				VMCU = VMCU / conversion;
+				VMA = VMA / conversion;
+				VMR = VMR / conversion;
+			}
+			
+
+			ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VERSION));
 			ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
-			glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalmemory);
-			ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", totalmemory / 1024);
 
-			glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &currentmemoryaviable);
-			ImGui::Text("VRAM Aviable:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", currentmemoryaviable / 1024);
-
-			ImGui::Text("VRAM Reserved:");
+			ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb",(float)VMB);
+			ImGui::Text("VRAM Current Usage"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMCU);
+			ImGui::Text("VRAM Aviable"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMA);
+			ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);
+			
 
 
 		}

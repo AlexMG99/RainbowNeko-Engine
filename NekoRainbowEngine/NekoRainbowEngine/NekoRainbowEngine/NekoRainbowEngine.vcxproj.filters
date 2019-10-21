@@ -206,6 +206,9 @@
     <ClCompile Include="PanelShape.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="GPUinfo\DeviceId.cpp">
+      <Filter>Sources\GPUinfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -566,6 +569,12 @@
     <ClInclude Include="PanelShape.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="GPUinfo\DeviceId.h">
+      <Filter>Sources\GPUinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="GPUinfo\dxgi1_4.h">
+      <Filter>Sources\GPUinfo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -624,6 +633,9 @@
     </Filter>
     <Filter Include="Sources\Assimp">
       <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GPUinfo">
+      <UniqueIdentifier>{bc7a7dd0-1cd0-4987-889c-1e8d59b80009}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
