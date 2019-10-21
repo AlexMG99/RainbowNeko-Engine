@@ -39,6 +39,8 @@ private:
 	char Devil_link[50];
 	char Assimp_link[50];
 	char Par_Shapes_link[60];
+	char Deviceld_link[70];
+	char mmgr_link[70];
 	char license[2070];
 };
 

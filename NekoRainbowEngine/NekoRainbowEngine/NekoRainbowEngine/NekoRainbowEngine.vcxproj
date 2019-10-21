@@ -88,6 +88,8 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentShape.h" />
+    <ClInclude Include="Deviceld\DeviceId.h" />
+    <ClInclude Include="Deviceld\dxgi1_4.h" />
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp" />
     <ClInclude Include="Devil\include\devil_internal_exports.h" />
     <ClInclude Include="Devil\include\il.h" />
@@ -101,8 +103,6 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\include\glew.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GPUinfo\DeviceId.h" />
-    <ClInclude Include="GPUinfo\dxgi1_4.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleImporter.h" />
@@ -205,11 +205,11 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentShape.cpp" />
+    <ClCompile Include="Deviceld\DeviceId.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Globals.cpp" />
-    <ClCompile Include="GPUinfo\DeviceId.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />

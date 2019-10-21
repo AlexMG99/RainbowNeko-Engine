@@ -3,7 +3,7 @@
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
-#include "GPUinfo/DeviceId.h"
+#include "Deviceld/DeviceId.h"
 #include "mmgr/mmgr.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()

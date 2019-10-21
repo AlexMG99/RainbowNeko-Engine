@@ -206,11 +206,11 @@
     <ClCompile Include="PanelShape.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="GPUinfo\DeviceId.cpp">
-      <Filter>Sources\GPUinfo</Filter>
-    </ClCompile>
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>Sources\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Deviceld\DeviceId.cpp">
+      <Filter>Sources\DeviceId</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,17 +572,17 @@
     <ClInclude Include="PanelShape.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="GPUinfo\DeviceId.h">
-      <Filter>Sources\GPUinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="GPUinfo\dxgi1_4.h">
-      <Filter>Sources\GPUinfo</Filter>
-    </ClInclude>
     <ClInclude Include="mmgr\mmgr.h">
       <Filter>Sources\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>Sources\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Deviceld\DeviceId.h">
+      <Filter>Sources\DeviceId</Filter>
+    </ClInclude>
+    <ClInclude Include="Deviceld\dxgi1_4.h">
+      <Filter>Sources\DeviceId</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -643,11 +643,11 @@
     <Filter Include="Sources\Assimp">
       <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\GPUinfo">
-      <UniqueIdentifier>{bc7a7dd0-1cd0-4987-889c-1e8d59b80009}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\mmgr">
       <UniqueIdentifier>{93bf363a-efb3-40f8-aa7f-0473c3933cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\DeviceId">
+      <UniqueIdentifier>{9bcf48c1-233a-4395-a12e-a69ea6128eee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
