@@ -1,3 +1,5 @@
+#include "Application.h"
+#include "ModuleViewport.h"
 #include "GameObject.h"
 #include "Component.h"
 
@@ -121,3 +123,4 @@ void GameObject::SetName(const char * name_)
 	std::string str = temp_str.substr(pos + 1);
 	name = str;
 }
+

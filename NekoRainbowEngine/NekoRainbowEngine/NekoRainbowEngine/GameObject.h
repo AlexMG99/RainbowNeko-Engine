@@ -30,6 +30,7 @@ public:
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);
 	void SetActive(bool act);
+	void SetSelected(bool select);
 	std::string GetName() const;
 	void SetName(const char* name_);
 

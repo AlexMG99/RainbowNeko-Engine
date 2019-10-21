@@ -246,9 +246,9 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Transform
 	ComponentTransform* trans = (ComponentTransform*)obj->CreateComponent(COMPONENT_TRANSFORM);
-	trans->position[0] = shape->points[0];
-	trans->position[1] = shape->points[1];
-	trans->position[2] = shape->points[2];
+	trans->position[0] = 0;
+	trans->position[1] = 0;
+	trans->position[2] = 0;
 
 	par_shapes_scale(shape, 1.0f, 1.0f, 1.0f);
 	trans->scale[0] = 1;

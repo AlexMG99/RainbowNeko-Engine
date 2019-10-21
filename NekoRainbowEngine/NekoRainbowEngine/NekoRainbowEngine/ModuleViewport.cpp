@@ -134,3 +134,11 @@ void ModuleViewport::DeleteGameObject()
 		}
 	}
 }
+
+void ModuleViewport::CheckObjectSelected(GameObject * obj)
+{
+	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end(); ++it_obj) {
+		if ((*it_obj) != obj)
+			(*it_obj)->selected = false;
+	}
+}
