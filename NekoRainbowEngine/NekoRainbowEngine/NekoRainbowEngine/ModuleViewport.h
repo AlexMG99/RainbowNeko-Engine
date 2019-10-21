@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "par/par_shapes.h"
 #include "GameObject.h"
-#include "ComponentShape.h"
+#include "ModuleImporter.h"
 
 class ModuleViewport : public Module
 {

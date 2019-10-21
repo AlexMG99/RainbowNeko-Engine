@@ -68,19 +68,6 @@ update_status PanelInspector::Draw()
 				ImGui::Separator();
 			}
 		}
-
-		//Shape
-		ComponentShape* comp_shape = object->GetComponentShape();
-		if (comp_shape)
-		{
-			if (ImGui::CollapsingHeader("Shape"))
-			{
-				ImGui::Text("Type: %s", comp_shape->GetTypeString().c_str());
-				int division[2] = { comp_shape->stack, comp_shape->slice };
-				ImGui::InputInt2("Divisions", division, ImGuiInputTextFlags_ReadOnly);
-
-			}
-		}
 	}
 	ImGui::End();
 	return UPDATE_CONTINUE;

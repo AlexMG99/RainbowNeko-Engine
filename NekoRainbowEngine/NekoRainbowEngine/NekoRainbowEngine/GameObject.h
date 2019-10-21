@@ -6,7 +6,6 @@
 
 #include "Component.h"
 #include "ComponentMesh.h"
-#include "ComponentShape.h"
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -27,7 +26,6 @@ public:
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
-	ComponentShape*	GetComponentShape();
 
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);

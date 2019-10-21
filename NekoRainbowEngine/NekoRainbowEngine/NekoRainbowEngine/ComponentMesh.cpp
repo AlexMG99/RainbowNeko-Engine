@@ -62,10 +62,9 @@ void ComponentMesh::Render()
 {
 	//Render FBX Mesh
 	glEnableClientState(GL_VERTEX_ARRAY);
-	if (UV_num > 0)
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
 	//UVs
 	glEnable(GL_TEXTURE_2D);
@@ -73,13 +72,13 @@ void ComponentMesh::Render()
 	{
 		if (my_go->GetComponentTexture()->active) 
 		{
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindTexture(GL_TEXTURE_2D, image_id);
 			glBindBuffer(GL_ARRAY_BUFFER, uv_id);
 			glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
 		}
 	}
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	//Checks if is a shape or a fbx
 	if(par_shape)
 		glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_SHORT, NULL);

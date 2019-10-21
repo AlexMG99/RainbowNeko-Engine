@@ -4,7 +4,6 @@
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
-#include "ComponentShape.h"
 #include "par/par_shapes.h"
 
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -119,14 +118,7 @@ void ModuleViewport::AddGameObject(GameObject * obj, object_type type, bool acti
 
 void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, uint slice, uint stack, bool active, GameObject * parent)
 {
-	GameObject* obj = new GameObject();
-	obj->CreateComponent(COMPONENT_SHAPE);
-
-	ComponentShape* shape = (ComponentShape*)obj->GetComponentShape();
-
-	shape->CreateShape(s_type, slice, stack);
-
-	AddGameObject(obj);
+	App->importer->CreateShape(s_type, slice, stack);
 }
 
 void ModuleViewport::DeleteGameObject()

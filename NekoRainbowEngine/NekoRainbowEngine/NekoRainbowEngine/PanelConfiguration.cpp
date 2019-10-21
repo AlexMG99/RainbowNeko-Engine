@@ -3,8 +3,6 @@
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
-#include "Deviceld/DeviceId.h"
-#include "mmgr/mmgr.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -192,13 +190,13 @@ void PanelConfiguration::AppSettings()
 			Uint64 VMR;
 			float conversion = (1024.f * 1024.f);
 
-			if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
+			/*if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
 			{
 				VMB = VMB / conversion;
 				VMCU = VMCU / conversion;
 				VMA = VMA / conversion;
 				VMR = VMR / conversion;
-			}
+			}*/
 			
 			ImGui::Text("Mode: ");
 			ImGui::RadioButton("VRAM Memory", &mode, 1);  ImGui::SameLine();
@@ -213,15 +211,36 @@ void PanelConfiguration::AppSettings()
 				ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
 
-				ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMB);
+				/*ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMB);
 				ImGui::Text("VRAM Current Usage"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMCU);
 				ImGui::Text("VRAM Aviable"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMA);
-				ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);
+				ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);*/
+
+				/*ImGui::Text("VRAM Budget: ");
+				ImGui::SameLine();
+				int temp = 0;
+				glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &temp);
+				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+
+				ImGui::Text("VRAM Usage: ");
+				ImGui::SameLine();
+				glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &temp);
+				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+
+				ImGui::Text("VRAM Available: ");
+				ImGui::SameLine();
+				glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &temp);
+				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+
+				ImGui::Text("VRAM Reserved: ");
+				ImGui::SameLine();
+				glGetIntegerv(GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX, &temp);
+				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);*/
 			}
 
 			if (mode == 2) 
 			{
-				ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
+				/*ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
 				ImGui::Text("Peak Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakReportedMemory);
 				ImGui::Text("Total Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"%d", m_getMemoryStatistics().totalActualMemory);
 				ImGui::Text("Peak Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakActualMemory);
@@ -229,7 +248,7 @@ void PanelConfiguration::AppSettings()
 				ImGui::Text("Peak Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakAllocUnitCount);
 				ImGui::Text("Accumulated Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedReportedMemory);
 				ImGui::Text("Accumulated Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
-				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
+				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);*/
 			}
 			ImGui::Separator();
 

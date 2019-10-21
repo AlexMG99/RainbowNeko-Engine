@@ -48,9 +48,6 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 	case COMPONENT_TEXTURE:
 		comp = new ComponentTexture(comp_type, act, this);
 		break;
-	case COMPONENT_SHAPE:
-		comp = new ComponentShape(comp_type, act, this);
-		break;
 	case COMPONENT_NONE:
 		break;
 	}
@@ -91,15 +88,6 @@ ComponentTexture* GameObject::GetComponentTexture()
 	}
 
 	return nullptr;
-}
-
-ComponentShape * GameObject::GetComponentShape()
-{
-	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
-	{
-		if ((*it_comp)->type == COMPONENT_SHAPE)
-			return (ComponentShape*)(*it_comp);
-	}
 }
 
 void GameObject::AddChildren(GameObject* obj)

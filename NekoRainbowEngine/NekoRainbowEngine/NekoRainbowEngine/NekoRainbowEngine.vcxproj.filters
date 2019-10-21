@@ -200,9 +200,6 @@
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentShape.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="PanelShape.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
@@ -564,9 +561,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentShape.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PanelShape.h">
