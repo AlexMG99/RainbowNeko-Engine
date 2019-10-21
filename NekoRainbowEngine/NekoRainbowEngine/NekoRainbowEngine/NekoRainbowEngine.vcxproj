@@ -103,6 +103,8 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GPUinfo\DeviceId.h" />
     <ClInclude Include="GPUinfo\dxgi1_4.h" />
+    <ClInclude Include="mmgr\mmgr.h" />
+    <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleViewport.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -249,6 +251,7 @@
     <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />

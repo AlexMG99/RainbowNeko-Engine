@@ -4,6 +4,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
 #include "GPUinfo/DeviceId.h"
+#include "mmgr/mmgr.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -142,7 +143,7 @@ void PanelConfiguration::AppSettings()
 
 	void PanelConfiguration::InputSettings()
 	{
-		if (ImGui::CollapsingHeader("Input", ImGuiTreeNodeFlags_DefaultOpen))
+		if (ImGui::CollapsingHeader("Input"))
 		{
 			int x, y;
 
@@ -157,7 +158,7 @@ void PanelConfiguration::AppSettings()
 	void PanelConfiguration::HardwareSettings()
 	{
 
-		if (ImGui::CollapsingHeader("Hardware", ImGuiTreeNodeFlags_DefaultOpen))
+		if (ImGui::CollapsingHeader("Hardware"))
 		{
 			SDL_version compiled;
 
@@ -199,16 +200,38 @@ void PanelConfiguration::AppSettings()
 				VMR = VMR / conversion;
 			}
 			
+			ImGui::Text("Mode: ");
+			ImGui::RadioButton("VRAM Memory", &mode, 1);  ImGui::SameLine();
+			ImGui::RadioButton(" RAM Memory", &mode, 2); 
 
-			ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VERSION));
-			ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
+			ImGui::Separator();
+
+			if (mode == 1) 
+			{
+
+				ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VERSION));
+				ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
 
-			ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb",(float)VMB);
-			ImGui::Text("VRAM Current Usage"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMCU);
-			ImGui::Text("VRAM Aviable"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMA);
-			ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);
-			
+				ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMB);
+				ImGui::Text("VRAM Current Usage"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMCU);
+				ImGui::Text("VRAM Aviable"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMA);
+				ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);
+			}
+
+			if (mode == 2) 
+			{
+				ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
+				ImGui::Text("Peak Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakReportedMemory);
+				ImGui::Text("Total Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"%d", m_getMemoryStatistics().totalActualMemory);
+				ImGui::Text("Peak Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakActualMemory);
+				ImGui::Text("Total Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalAllocUnitCount);
+				ImGui::Text("Peak Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakAllocUnitCount);
+				ImGui::Text("Accumulated Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedReportedMemory);
+				ImGui::Text("Accumulated Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
+				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
+			}
+			ImGui::Separator();
 
 
 		}
@@ -217,7 +240,7 @@ void PanelConfiguration::AppSettings()
 	void PanelConfiguration::RendererSettings()
 	{
 
-		if (ImGui::CollapsingHeader("Renderer", ImGuiTreeNodeFlags_DefaultOpen))
+		if (ImGui::CollapsingHeader("Renderer"))
 		{
 
 			if (gl_depth) glEnable(GL_DEPTH); else glDisable(GL_DEPTH);
