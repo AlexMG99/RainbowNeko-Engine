@@ -10,6 +10,7 @@ class PanelConsole;
 class PanelHierarchy;
 class PanelInspector;
 class PanelGame;
+class PanelShape;
 
 class ModuleEditor : public Module
 {
@@ -35,5 +36,6 @@ public:
 	PanelHierarchy*			panel_hierarchy = nullptr;
 	PanelInspector*			panel_inspector = nullptr;
 	PanelGame*				panel_game = nullptr;
+	PanelShape*				panel_shape = nullptr;
 
 };

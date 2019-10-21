@@ -18,7 +18,6 @@ public:
 
 	bool Init();
 	bool Start();
-	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 	bool ImportFBX(char* path_fbx, char* path_texture = "");

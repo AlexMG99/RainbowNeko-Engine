@@ -7,6 +7,7 @@
 #include "PanelGame.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
+#include "PanelShape.h"
 
 #include "SDL/include/SDL_opengl.h"
 #include "SDL/include/SDL.h"
@@ -47,6 +48,7 @@ bool ModuleEditor::Start()
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
 	panel_game = new PanelGame("Game");
+	panel_shape = new PanelShape("Shape Creator");
 
 	//Start Panels
 	panel_topbar->Start();
@@ -55,6 +57,7 @@ bool ModuleEditor::Start()
 	panel_hierarchy->Start();
 	panel_inspector->Start();
 	panel_game->Start();
+	panel_shape->Start();
 
 	return ret;
 }
@@ -142,6 +145,8 @@ void ModuleEditor::DrawPanels()
 		panel_inspector->Draw();
 	if (panel_game->IsEnabled())
 		panel_game->Draw();
+	if (panel_shape->IsEnabled())
+		panel_shape->Draw();
 
 	ImGui::End();
 }

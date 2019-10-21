@@ -33,8 +33,6 @@ public:
 	component_type type = COMPONENT_NONE;
 	bool active = true;
 	GameObject* my_go = nullptr;
-	uint shape_num = 0;
-
 };
 
 //-------------- Component Transform --------------

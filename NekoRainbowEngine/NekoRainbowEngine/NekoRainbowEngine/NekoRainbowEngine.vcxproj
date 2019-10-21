@@ -109,6 +109,7 @@
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelShape.h" />
     <ClInclude Include="PanelTopbar.h" />
     <ClInclude Include="PanelHelp.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="PanelGame.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelShape.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
     <ClCompile Include="Parson\parson.c" />

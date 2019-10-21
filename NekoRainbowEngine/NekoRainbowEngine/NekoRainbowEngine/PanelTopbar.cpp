@@ -69,7 +69,6 @@ void PanelTopbar::CreateStyle()
 	style.FrameRounding = 4;
 	style.IndentSpacing = 12.0f;
 
-
 	style.Colors[ImGuiCol_Text] = ImVec4(255, 235, 238, 1.00f);
 	style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
 	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.11, 0.11, 0.11, 1.00f);

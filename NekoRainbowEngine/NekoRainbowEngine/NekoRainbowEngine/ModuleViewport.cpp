@@ -132,11 +132,12 @@ void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, 
 void ModuleViewport::DeleteGameObject()
 {
 	//Iterate Childrens
-	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end();) {
+	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end(); ++it_obj) {
 		if ((*it_obj)->selected)
 		{
 			RELEASE(*it_obj);
 			it_obj = root_object->children.erase(it_obj);
+			shape_num--;
 			return;
 		}
 	}

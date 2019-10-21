@@ -176,12 +176,6 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 	return false;
 }
 
-update_status ModuleImporter::PostUpdate(float dt)
-{
-
-
-	return UPDATE_CONTINUE;
-}
 
 bool ModuleImporter::CleanUp()
 {

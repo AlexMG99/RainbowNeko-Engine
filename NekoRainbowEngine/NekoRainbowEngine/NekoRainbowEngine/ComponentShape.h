@@ -21,7 +21,6 @@ public:
 	ComponentShape(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj) {};
 	~ComponentShape() {};
 
-	bool Update();
 	void CreateShape(shape_type type, uint sl, uint st);
 	std::string GetTypeString();
 

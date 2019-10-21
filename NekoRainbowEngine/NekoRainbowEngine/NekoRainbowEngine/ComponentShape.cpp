@@ -1,14 +1,11 @@
+#include "Application.h"
+#include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentShape.h"
 #include "ComponentMesh.h"
 
 #include "par/par_shapes.h"
 #include "MathGeoLib/include/Math/Quat.h"
-
-bool ComponentShape::Update()
-{
-	return false;
-}
 
 void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 {
@@ -33,7 +30,7 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 		shape = par_shapes_create_cone(sl, st);
 		break;
 	case SHAPE_PLANE:
-		shape = par_shapes_create_cone(sl, st);
+		shape = par_shapes_create_plane(sl, st);
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");
@@ -69,10 +66,9 @@ void ComponentShape::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Texture
 	ComponentTexture* tex = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
-	/*tex->LoadTexture()*/
 
-	my_go->SetName(std::string("GameObject " + std::to_string(shape_num)).c_str());
-	shape_num++;
+	my_go->SetName(std::string("GameObject " + std::to_string(App->viewport->shape_num)).c_str());
+	App->viewport->shape_num++;
 }
 
 std::string ComponentShape::GetTypeString()
