@@ -1,10 +1,13 @@
 #include "Application.h"
 #include "PanelHelp.h"
+#include "Brofiler/Brofiler.h"
 
 #include <string>
 
 bool PanelHelp::Start()
 {
+
+	BROFILER_CATEGORY("Start_PanelHelp", Profiler::Color::LightGreen);
 	JSON_Object* about = json_object(App->credits_doc);
 
 	////Set Help Attributes
@@ -34,6 +37,9 @@ bool PanelHelp::Start()
 }
 
 update_status PanelHelp::Draw() {
+
+	BROFILER_CATEGORY("Draw_PanelHelp", Profiler::Color::GoldenRod);
+
 	//Documentation Links & About
 	if (ImGui::BeginMenu(name))
 	{
