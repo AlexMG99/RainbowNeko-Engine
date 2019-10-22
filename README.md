@@ -101,18 +101,8 @@ The panel Console prints:
 	* _**While right clicking, and using "WASD" movment and free look around is enabled**_.
 * **Zoom In/ Zoom Out**:
 	* _**Mouse Wheel**_.
-* **Alt+Left**:
-	* _**Orbit the object**_.
-
-
-
-
-
-## Game Engine Controls
-* **Camera Movement**:
-	* _**While right clicking, and using "WASD" movment and free look around is enabled**_.
-* **Zoom In/ Zoom Out**:
-	* _**Mouse Wheel**_.
+* **F key**:
+	* _**Focus the camera around the object selected**_.
 * **Alt+Left**:
 	* _**Orbit the object**_.
 
