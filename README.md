@@ -45,10 +45,75 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 
 ### Hierarchy
 The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
-## Game Engine Controls
 
-* Camera Movement:  WASD
-* Zoom In/ Zoom Out: Mouse Wheel
+### Inspector
+The panel Inspector shows information about that GameObject selected in the panel Hierarchy.
+* **Name**: Name of the object selected.
+* **Transform**: Shows info about:
+	* _**Position of the object**_. 
+	* _**Scale of the object**_.
+	* _**Rotation of the object**_:.
+	
+* **Mesh**: Clicking in the check boxes you can:
+	* _**Activate or deactivate the mesh**_. 
+	* _**Activate or deactivate the normal vertex**_.
+	* _**Activate or deactivate the normal face**_:.
+	    
+	    
+	
+* **Mesh**: Shows info about:
+	* _**Id Vertices**_. 
+	* _**Number of Vertices**_.
+	* _**Id Indices**_:. 
+	* _**Id Indices**_. 
+	* _**Number of Indices**_.
+	* _**Id Uv**_.
+
+* **Texture**: Clicking in the check box you can:
+	* _**Activate or deactivate the texture**_. 
+	
+* **Texture**: Clicking in the check box you can:
+	* _**Path of the texture**_.
+	* _**Id of the texture**_:. 
+	* _**Width and Height of the texture**_. 
+	* _**Number of Indices**_.
+	* _**Image of the texture**_.
+		
+### Shape Creator
+The panel Shape Creator allows you to create 5 types of shapes:
+* **Saphes**:
+	* _**Cube**_.
+	* _**Sphere**_. 
+	* _**Cylinder**_. 
+	* _**Cone**_.
+	* _**Plane**_.
+	
+
+### Console
+The panel Console prints: 
+* **Prints**:
+	* _**Assimp Logs**_.
+	* _**Normal Logs**_. 
+	
+
+## Game Engine Controls
+* **Camera Movement**:
+	* _**While right clicking, and using "WASD" movment and free look around is enabled**_.
+* **Zoom In/ Zoom Out**:
+	* _**Mouse Wheel**_.
+* **Alt+Left**:
+	* _**Orbit the object**_.
+
+
+
+## Innovations
+Innovations implemented in our Engine: 
+* **Code**:
+        * _**Assimp Logs**_.
+	* _**Normal Logs**_. 
+* **Style**:
+        * _**Assimp Logs**_.
+	* _**Normal Logs**_. 
 
 
 
@@ -75,3 +140,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
