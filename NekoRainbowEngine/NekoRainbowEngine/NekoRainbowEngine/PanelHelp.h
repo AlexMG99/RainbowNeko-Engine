@@ -21,7 +21,7 @@ private:
 	//PanelHelp
 	bool about_open = false;
 
-	char documentation[50];
+	char documentation[70];
 	char download_last[70];
 	char report_bug[70];
 

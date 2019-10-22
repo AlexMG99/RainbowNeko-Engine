@@ -68,6 +68,7 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
 {
 	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
+
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
 		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture);
@@ -194,6 +195,8 @@ void ModuleImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1
 
 bool ModuleImporter::ImportTexture(char * path_texture)
 {
+	BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
+
 	GameObject* object = nullptr;
 
 	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
@@ -228,6 +231,8 @@ bool ModuleImporter::CleanUp()
 
 void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 {
+	BROFILER_CATEGORY("CreateShapes_ModuleImporter", Profiler::Color::Orange);
+
 	GameObject* obj = new GameObject();
 	obj->SetType(OBJECT_PARSHAPE);
 	par_shapes_mesh_s* shape = nullptr;
