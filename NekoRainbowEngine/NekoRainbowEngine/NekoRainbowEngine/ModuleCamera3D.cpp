@@ -123,6 +123,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Position += newPos;
 		Reference += newPos;
 
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
 	}
 
 	// Wheel Movement ---------------

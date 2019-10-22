@@ -578,6 +578,9 @@
     <ClInclude Include="Deviceld\dxgi1_4.h">
       <Filter>Sources\DeviceId</Filter>
     </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
