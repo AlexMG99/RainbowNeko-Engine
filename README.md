@@ -106,14 +106,25 @@ The panel Console prints:
 
 
 
+
+
+## Game Engine Controls
+* **Camera Movement**:
+	* _**While right clicking, and using "WASD" movment and free look around is enabled**_.
+* **Zoom In/ Zoom Out**:
+	* _**Mouse Wheel**_.
+* **Alt+Left**:
+	* _**Orbit the object**_.
+
+
 ## Innovations
 Innovations implemented in our Engine: 
 * **Code**:
-        * _**Assimp Logs**_.
-	* _**Normal Logs**_. 
+	* _**Render screen as a game panel**_.
+	* _**Created a DockingSpace which allows us to change the panels position**_.
 * **Style**:
-        * _**Assimp Logs**_.
-	* _**Normal Logs**_. 
+	* _**Created two types of cursor icons (eye and hand)**_.
+	* _**Created our Engine style and applied to it**_.
 
 
 
