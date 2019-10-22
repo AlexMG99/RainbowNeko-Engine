@@ -110,7 +110,7 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Eye);
 		Position = Reference + Z * length(Position);
 	}
 

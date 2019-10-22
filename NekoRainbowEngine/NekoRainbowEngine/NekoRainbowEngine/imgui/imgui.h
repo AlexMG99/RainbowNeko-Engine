@@ -1251,6 +1251,7 @@ enum ImGuiMouseCursor_
     ImGuiMouseCursor_ResizeNWSE,        // When hovering over the bottom-right corner of a window
     ImGuiMouseCursor_Hand,              // (Unused by Dear ImGui functions. Use for e.g. hyperlinks)
     ImGuiMouseCursor_Move,              // When moving camera
+    ImGuiMouseCursor_Eye,               // When rotating an object
     ImGuiMouseCursor_COUNT
 
     // Obsolete names (will be removed)
