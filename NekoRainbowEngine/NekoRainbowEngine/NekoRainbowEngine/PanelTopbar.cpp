@@ -37,7 +37,7 @@ update_status PanelTopbar::Draw()
 	//File Menu
 	if (ImGui::BeginMenu("File"))
 	{
-		if (ImGui::MenuItem("Exit"))
+		if (ImGui::MenuItem("Exit", "Esc"))
 			ret = UPDATE_STOP;
 
 		ImGui::EndMenu();

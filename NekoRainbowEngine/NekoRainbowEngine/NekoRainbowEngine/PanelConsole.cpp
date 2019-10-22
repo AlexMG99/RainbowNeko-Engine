@@ -36,9 +36,6 @@ update_status PanelConsole::Draw() {
 	}
 	ImGui::EndChild(); ImGui::Separator();
 
-	if (ImGui::InputText("Input", console_input, IM_ARRAYSIZE(console_input), ImGuiInputTextFlags_EnterReturnsTrue)) {
-		AddLog(console_input);
-	}
 	ImGui::End();
 
 	return ret;

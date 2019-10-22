@@ -87,14 +87,15 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
 
 	BROFILER_CATEGORY("Update_ModuleEditor", Profiler::Color::DeepSkyBlue);
 	//Draw Panels
-	panel_topbar->Draw();
+	ret = panel_topbar->Draw();
 
 	DrawPanels();
 
-	return UPDATE_CONTINUE;
+	return ret;
 }
 
 void ModuleEditor::DrawImGui()

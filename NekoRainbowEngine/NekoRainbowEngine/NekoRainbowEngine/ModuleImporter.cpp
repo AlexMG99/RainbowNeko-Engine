@@ -234,6 +234,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	BROFILER_CATEGORY("CreateShapes_ModuleImporter", Profiler::Color::Orange);
 
 	GameObject* obj = new GameObject();
+	obj->SetType(OBJECT_PARSHAPE);
 	par_shapes_mesh_s* shape = nullptr;
 
 	//Create shape

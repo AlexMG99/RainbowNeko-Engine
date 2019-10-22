@@ -42,7 +42,6 @@ private:
 private:
 	std::list<ConsoleText> console_text;
 
-	char console_input[50] = "";
 public:
 	bool start_console = false;
 };
