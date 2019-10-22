@@ -4,6 +4,8 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
+#include "mmgr/mmgr.h"
+#include "Deviceld/DeviceId.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -196,13 +198,13 @@ void PanelConfiguration::AppSettings()
 			Uint64 VMR;
 			float conversion = (1024.f * 1024.f);
 
-			/*if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
+			if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
 			{
 				VMB = VMB / conversion;
 				VMCU = VMCU / conversion;
 				VMA = VMA / conversion;
 				VMR = VMR / conversion;
-			}*/
+			}
 			
 			ImGui::Text("Mode: ");
 			ImGui::RadioButton("VRAM Memory", &mode, 1);  ImGui::SameLine();
@@ -246,13 +248,13 @@ void PanelConfiguration::AppSettings()
 
 			if (mode == 2) 
 			{
-				/*ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
+				ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
 				ImGui::Text("Peak Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakReportedMemory);
 				ImGui::Text("Total Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"%d", m_getMemoryStatistics().totalActualMemory);
 				ImGui::Text("Peak Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakActualMemory);
 				ImGui::Text("Total Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalAllocUnitCount);
 				ImGui::Text("Peak Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakAllocUnitCount);
-				ImGui::Text("Accumulated Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedReportedMemory);
+				/*ImGui::Text("Accumulated Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedReportedMemory);
 				ImGui::Text("Accumulated Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
 				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);*/
 			}

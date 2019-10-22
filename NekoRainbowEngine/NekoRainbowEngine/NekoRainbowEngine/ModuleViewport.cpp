@@ -24,7 +24,7 @@ bool ModuleViewport::Start()
 	BROFILER_CATEGORY("Start_ModuleViewport", Profiler::Color::LimeGreen);
 
 	bool ret = true;
-	//ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
+	ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
 	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_SPHERE);
 	return ret;
 }

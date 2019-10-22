@@ -46,6 +46,8 @@ update_status PanelInspector::Draw()
 		{
 			ImGui::PushID("Mesh");
 			ImGui::Checkbox("Active", &comp_mesh->active);
+			ImGui::Checkbox("Normal Vertex", &comp_mesh->normal_show);
+			ImGui::Checkbox("Normal Face", &comp_mesh->normal_face_show);
 			ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
 			ImGui::Text("Num vertices: %i", comp_mesh->num_vertices);
 			ImGui::Text("Id indices: %i", comp_mesh->id_index);

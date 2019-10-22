@@ -40,6 +40,8 @@ public:
 	uint normal_id = -1;
 
 	bool par_shape = false;
+	bool normal_show = false;
+	bool normal_face_show = false;
 
 };
 

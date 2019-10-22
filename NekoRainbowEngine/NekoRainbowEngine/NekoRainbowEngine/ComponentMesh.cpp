@@ -92,25 +92,25 @@ void ComponentMesh::Render()
 	glDisable(GL_TEXTURE_2D);
 
 	//Render Vertex Normals
-	//uint j = 0;
-	//if (normals) {
-	//	for (uint i = 0; i < num_vertices; i++)
-	//	{
-	//		glBegin(GL_LINES);
-	//		glColor3f(0, 255, 0);
+	if (normals && normal_show) {
+		uint j = 0;
+		for (uint i = 0; i < num_vertices; i++)
+		{
+			glBegin(GL_LINES);
+			glColor3f(255, 0, 0);
 
-	//		glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+			glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
 
-	//		glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
-	//		glEnd();
-	//		j += 3;
-	//	}
-	//	glColor3f(1, 1, 1);
-	//}
+			glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
+			glEnd();
+			j += 3;
+		}
+		glColor3f(1, 1, 1);
+	}
 
-	if (normals_face.size() > 0) {
+	if (normals_face.size() > 0 && normal_face_show) {
 		glBegin(GL_LINES);
-		glColor3f(0, 255, 0);
+		glColor3f(0, 0, 255);
 		for (int i = 0; i < (num_index / 3); i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
