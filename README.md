@@ -1,18 +1,56 @@
 # 3D Game Engine: NekoRainbow-Engine
 
 ## Description 
-This is a 3D Game Engine created by Laia Martinez Motis and Alex Morales Garcia,  two Students at CITM (UPC) university.
+This is a 3D Game Engine created by Laia Martinez Motis and Alex Morales Garcia,  two Students at CITM (UPC) university for the 3D engines subject during 3rd year of Game Design and Game Development degree.
 
-Link to **NekoRainbow Engine** Github Repository: [NekoRainbow](https://github.com/AlexMG99/RainbowNeko-Engine)
+Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99/RainbowNeko-Engine).
 
+## Authors Githubs
+* Link to [**Laia Martinez Motis**  ](https://github.com/LaiaMartinezMotis) GithubPage.
+*  Link to [**Alex Morales Garcia** ](https://github.com/AlexMG99) GithubPage.
+
+## Game Engine Intructions
+### Main Menu Bar
+* **File**
+	* _**Quit (Escape)**_: Exits the application
+* **Help**: Links to the folllowing pages:
+	* _**Github Repository**_. 
+	* _**Documentation**_: Github README. 
+	* _**Download latest**_: Latest engine version.
+	* _**Report a bug**_.
+	* _**About**_. 
+* **Window**: Show/Hide Panels.
+	* _**Console**_.
+	* _**Configuration**_.
+	*	_**Game**_.
+	*	_**Hierarchy**_.
+	*	_**Inspector**_.
+### Configuration
+* **Application**: Shows info about:
+	* _**Project Name**_. 
+	* _**Organization**_.
+	* _**Max FPS**_: Cap FPS.
+	* _**Framerate Plot**_.
+	* _**Milliseconds Plot**_.
+* **Window**: Window parameters:
+	* _**Brightness**_.
+	* _**Width and height**_.
+	* _**Fullscreen/Fullscreen Desktop/Resizable/Borderless**_.    
+	* _**Mouse position**_.
+	* _**Mouse movement**_.
+	* _**Mouse wheel**_.
+	* _**Game panel mouse**_.
+* **Hardware**: It shows the capabilities of the hardware.
+* **Renderer**: Activate/Deactivate glRender properties and change view between POLYGON, WIREFRAME and VERTEX.
+
+### Hierarchy
+The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
 ## Game Engine Controls
 
 * Camera Movement:  WASD
 * Zoom In/ Zoom Out: Mouse Wheel
 
-## Authors Githubs
-* **Laia Martinez Motis** [LaiaMartinezMotis ](https://github.com/LaiaMartinezMotis)
-* **Alex Morales Garcia** [AlexMG99](https://github.com/AlexMG99)
+
 
 ## License
 
