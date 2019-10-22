@@ -88,7 +88,6 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			GameObject* aux_obj = new GameObject();
 			std::string name_obj = path_fbx + std::to_string(App->viewport->root_object->children.size());
 			aux_obj->SetName(name_obj.c_str());
-
 			aiVector3D translation, scaling;
 			aiQuaternion rotation;
 			node->mTransformation.Decompose(scaling, rotation, translation);

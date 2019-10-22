@@ -81,6 +81,17 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
+		GameObject* object = nullptr;
+
+		for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
+		{
+			if ((*it_obj)->selected)
+				object = (*it_obj);
+		}
+
+		if (object)
+			FocusObject();
+
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
@@ -206,6 +217,19 @@ void ModuleCamera3D::SetCameraToCenter()
 float* ModuleCamera3D::GetViewMatrix()
 {
 	return &ViewMatrix;
+}
+
+void ModuleCamera3D::FocusObject()
+{
+	//Iterate Childrens
+	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj) {
+		if ((*it_obj)->selected)
+		{
+			ComponentTransform* trans = (*it_obj)->GetComponentTransform();
+			Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
+			LookAt(Reference);
+		}
+	}
 }
 
 // -----------------------------------------------------------------

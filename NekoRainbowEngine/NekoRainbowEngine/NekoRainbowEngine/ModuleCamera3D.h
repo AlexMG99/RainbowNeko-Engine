@@ -22,6 +22,8 @@ public:
 	void SetCameraToCenter();
 	float* GetViewMatrix();
 
+	void FocusObject();
+
 private:
 
 	void CalculateViewMatrix();

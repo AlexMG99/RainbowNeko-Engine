@@ -40,6 +40,9 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 			DeleteGameObject();
 
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		App->camera->FocusObject();
+
 
 	return UPDATE_CONTINUE;
 }

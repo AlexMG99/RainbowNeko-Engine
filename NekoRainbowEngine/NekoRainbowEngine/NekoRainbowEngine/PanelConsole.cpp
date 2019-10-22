@@ -34,7 +34,16 @@ update_status PanelConsole::Draw() {
 		ImGui::Text((*it_cons).text.c_str());
 		ImGui::PopStyleColor();
 	}
+
+	if (scroll_bottom)
+	{
+		ImGui::SetScrollHereY(1.0f);
+		scroll_bottom = false;
+	}
+
 	ImGui::EndChild(); ImGui::Separator();
+
+	ImGui::InputText("Input", filter_text, IM_ARRAYSIZE(filter_text), ImGuiInputTextFlags_EnterReturnsTrue);
 
 	ImGui::End();
 
@@ -54,7 +63,11 @@ void PanelConsole::AddLog(ConsoleText text)
 		console_text.pop_front();
 	}
 
-	/*ImGui::SetScrollHereY(1.0f);*/
+	scroll_bottom = true;
+}
+
+void PanelConsole::FilterConsole()
+{
 }
 
 ImVec4 PanelConsole::GetColorFromType(ConsoleTextType type)
