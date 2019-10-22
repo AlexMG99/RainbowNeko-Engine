@@ -31,6 +31,9 @@ ModuleImporter::~ModuleImporter()
 
 bool ModuleImporter::Init()
 {
+
+	BROFILER_CATEGORY("Init_ModuleImporter", Profiler::Color::Crimson);
+
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	stream.callback = LogCallback;
@@ -40,6 +43,8 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
+	BROFILER_CATEGORY("Start_ModuleImporter", Profiler::Color::LimeGreen);
+
 	bool ret = true;
 
 	return ret;
@@ -47,6 +52,9 @@ bool ModuleImporter::Start()
 
 bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 {
+
+	BROFILER_CATEGORY("ImportFBX_ModuleImporter", Profiler::Color::Yellow);
+
 	bool ret = true;
 
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
@@ -59,6 +67,7 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 
 void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
 {
+	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
 		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture);
@@ -68,6 +77,8 @@ void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const 
 
 void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
 {
+	BROFILER_CATEGORY("CreateObject_ModuleImporter", Profiler::Color::Brown);
+
 	if (node->mNumMeshes > 0)
 	{
 		for (uint i = 0; i < node->mNumMeshes; i++)

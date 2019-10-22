@@ -23,6 +23,8 @@ ModuleRenderer3D::~ModuleRenderer3D()
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
+	BROFILER_CATEGORY("Init_ModuleRenderer3D", Profiler::Color::Crimson);
+
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	

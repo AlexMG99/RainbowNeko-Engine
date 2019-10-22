@@ -2,8 +2,9 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "imgui/imgui.h"
-
+#include "Brofiler/Brofiler.h"
 #include "Parson/parson.h"
+
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -19,6 +20,9 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
+
+	BROFILER_CATEGORY("Init_ModuleWindow", Profiler::Color::Crimson);
+
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -79,6 +83,8 @@ bool ModuleWindow::Init()
 
 update_status ModuleWindow::Load()
 {
+	BROFILER_CATEGORY("Load_ModuleWindow", Profiler::Color::LightGray);
+
 	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Window");
 
