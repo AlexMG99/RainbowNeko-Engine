@@ -107,6 +107,11 @@ void GameObject::SetActive(bool act)
 	active = act;
 }
 
+object_type GameObject::GetType()
+{
+	return type;
+}
+
 std::string GameObject::GetName() const
 {
 	std::size_t pos = name.find_last_of("/");

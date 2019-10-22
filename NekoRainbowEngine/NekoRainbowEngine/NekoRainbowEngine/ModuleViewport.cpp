@@ -138,7 +138,8 @@ void ModuleViewport::DeleteGameObject()
 		{
 			RELEASE(*it_obj);
 			it_obj = root_object->children.erase(it_obj);
-			shape_num--;
+			if((*it_obj) && ((*it_obj)->GetType() == OBJECT_FBX && shape_num > 0))
+				shape_num--;
 			return;
 		}
 	}
