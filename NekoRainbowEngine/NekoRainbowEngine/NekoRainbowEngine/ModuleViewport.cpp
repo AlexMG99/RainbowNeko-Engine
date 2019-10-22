@@ -136,10 +136,12 @@ void ModuleViewport::DeleteGameObject()
 	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end(); ++it_obj) {
 		if ((*it_obj)->selected)
 		{
+			//Check ID
+			if ((*it_obj)->GetType() == OBJECT_PARSHAPE && shape_num > 0)
+				shape_num--;
+
 			RELEASE(*it_obj);
 			it_obj = root_object->children.erase(it_obj);
-			if((*it_obj) && ((*it_obj)->GetType() == OBJECT_FBX && shape_num > 0))
-				shape_num--;
 			return;
 		}
 	}

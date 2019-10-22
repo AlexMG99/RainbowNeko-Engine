@@ -112,6 +112,11 @@ object_type GameObject::GetType()
 	return type;
 }
 
+void GameObject::SetType(object_type ty_)
+{
+	type = ty_;
+}
+
 std::string GameObject::GetName() const
 {
 	std::size_t pos = name.find_last_of("/");

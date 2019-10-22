@@ -229,6 +229,7 @@ bool ModuleImporter::CleanUp()
 void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 {
 	GameObject* obj = new GameObject();
+	obj->SetType(OBJECT_PARSHAPE);
 	par_shapes_mesh_s* shape = nullptr;
 
 	//Create shape
