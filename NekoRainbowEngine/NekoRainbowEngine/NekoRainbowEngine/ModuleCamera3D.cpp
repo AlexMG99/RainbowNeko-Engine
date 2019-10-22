@@ -31,6 +31,8 @@ bool ModuleCamera3D::Start()
 
 update_status ModuleCamera3D::Load()
 {
+	BROFILER_CATEGORY("Load_ModuleCamera3D", Profiler::Color::LightGray);
+
 	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* cam_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Camera");
 
