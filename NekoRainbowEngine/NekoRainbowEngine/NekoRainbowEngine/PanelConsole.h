@@ -34,6 +34,7 @@ public:
 
 	void AddLog(const char* text);
 	void AddLog(ConsoleText text);
+	void FilterConsole();
 
 private:
 	ImVec4 GetColorFromType(ConsoleTextType type);
@@ -41,9 +42,11 @@ private:
 
 private:
 	std::list<ConsoleText> console_text;
+	char filter_text[10] = "";
 
 public:
 	bool start_console = false;
+	bool scroll_bottom = false;
 };
 
 
