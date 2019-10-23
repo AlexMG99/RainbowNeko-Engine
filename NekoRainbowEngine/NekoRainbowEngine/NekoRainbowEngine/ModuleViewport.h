@@ -26,5 +26,6 @@ private:
 
 public:
 	GameObject* root_object = nullptr;
+	GameObject* selected_object = nullptr;
 	uint shape_num = 0;
 };

@@ -16,15 +16,9 @@ update_status PanelInspector::Draw()
 
 	ImGui::Begin(name, &enabled);
 
-	GameObject* object = nullptr;
+	GameObject* object = App->viewport->selected_object;
 
-	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
-	{
-		if ((*it_obj)->selected)
-			object = (*it_obj);
-	}
 
-	
 	if (object)
 	{
 		//Transform
