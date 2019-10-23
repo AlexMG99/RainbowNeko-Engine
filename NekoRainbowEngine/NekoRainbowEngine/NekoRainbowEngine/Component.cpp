@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "GameObject.h"
+#include "glmath.h"
 
 Component::Component(component_type comp_type, bool act, GameObject * obj)
 {
@@ -11,4 +12,9 @@ Component::Component(component_type comp_type, bool act, GameObject * obj)
 Component::~Component()
 {
 	//RELEASE(my_go);
+}
+
+void ComponentTransform::CalculatePosition()
+{
+
 }

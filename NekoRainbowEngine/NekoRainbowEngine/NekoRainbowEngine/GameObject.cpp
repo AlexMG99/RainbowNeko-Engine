@@ -97,6 +97,14 @@ void GameObject::AddChildren(GameObject* obj)
 	children.push_back(obj);
 }
 
+bool GameObject::HasChildren() const
+{
+	if (children.empty())
+		return false;
+	else
+		return true;
+}
+
 void GameObject::AddParent(GameObject * obj)
 {
 	parent = obj;

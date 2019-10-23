@@ -43,6 +43,8 @@ public:
 
 	bool Update() { return true; };
 
+	void CalculatePosition();
+
 	void Enable() {};
 	void Disable() {};
 

@@ -28,6 +28,7 @@ public:
 	ComponentTexture* GetComponentTexture();
 
 	void AddChildren(GameObject* obj);
+	bool HasChildren() const;
 	void AddParent(GameObject* obj);
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);

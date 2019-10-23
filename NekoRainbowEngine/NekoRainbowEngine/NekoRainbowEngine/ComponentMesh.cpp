@@ -48,12 +48,12 @@ void ComponentMesh::GenerateMesh()
 	}
 
 	//Normal Definition
-	if (normals_face.size() > 0)
+	/*if (normals_face.size() > 0)
 	{
 		glGenBuffers(1, &normal_id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, normal_id);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float3) *num_vertices, &normals[0], GL_STATIC_DRAW);
-	}
+	}*/
 
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
 }
