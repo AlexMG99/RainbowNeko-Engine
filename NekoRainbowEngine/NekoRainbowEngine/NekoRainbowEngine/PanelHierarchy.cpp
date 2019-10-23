@@ -40,7 +40,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
 	{
 		ImGuiTreeNodeFlags node_flags;
-
+		i++;
 		if (is_selected && (node_num == i))
 		{
 			App->viewport->selected_object = (*it_obj);
@@ -65,7 +65,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 		//Create Tree Node elements: Checks if has more children ? calls TreeObject : prints Node
 		if (pop) {
 			
-			bool node_open = ImGui::TreeNode((*it_obj)->GetName().c_str());
+			bool node_open = ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str());
 			
 			if (node_open)
 			{
@@ -83,7 +83,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 			node_num = i;
 		}
 
-		i++;
+		
 	}
 	i = 0;
 }
