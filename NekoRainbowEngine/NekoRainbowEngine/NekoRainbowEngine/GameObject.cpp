@@ -117,7 +117,7 @@ GameObject * GameObject::GetParent() const
 
 void GameObject::SetParent(GameObject* par)
 {
-	if(par)
+	if (par)
 		parent = par;
 	else
 		parent = App->viewport->root_object;

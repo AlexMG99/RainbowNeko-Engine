@@ -113,22 +113,6 @@ void ModuleViewport::CreateGrid(uint separation, uint lines)
 
 }
 
-void ModuleViewport::AddGameObject(GameObject * obj, object_type type, bool active, GameObject * parent)
-{
-	if (parent == nullptr)
-	{
-		root_object->AddChildren(obj);
-		obj->AddParent(root_object);
-	}
-	else
-	{
-		parent->AddChildren(obj);
-		obj->AddParent(parent);
-	}
-	
-	obj->SetActive(active);
-}
-
 void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, uint slice, uint stack, bool active, GameObject * parent)
 {
 	App->importer->CreateShape(s_type, slice, stack);

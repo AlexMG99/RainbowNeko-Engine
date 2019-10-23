@@ -16,7 +16,6 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void AddGameObject(GameObject* obj, object_type type = OBJECT_FBX, bool active = true, GameObject* parent = nullptr);
 	void CreateGameObjectShape(object_type type, shape_type s_type, uint slice = 10, uint stack = 10, bool active = true, GameObject* parent = nullptr);
 	void DeleteGameObject();
 

@@ -38,7 +38,7 @@
       <Filter>Sources\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>Sources\Helpers</Filter>
+      <Filter>Sources\imGUI\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
       <Filter>Sources\MathGeoLib\Time</Filter>
@@ -164,7 +164,7 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="par\par_shapes.cpp">
-      <Filter>Sources\Helpers</Filter>
+      <Filter>Sources\imGUI\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
@@ -254,7 +254,7 @@
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Sources\Helpers</Filter>
+      <Filter>Sources\imGUI\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Sources\Modules</Filter>
@@ -476,7 +476,7 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="par\par_shapes.h">
-      <Filter>Sources\Helpers</Filter>
+      <Filter>Sources\imGUI\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
@@ -601,9 +601,6 @@
     <Filter Include="Sources\Containers">
       <UniqueIdentifier>{c167687f-58f8-44a7-bc0a-826d227e9ad1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Helpers">
-      <UniqueIdentifier>{cdd2c0c2-e205-4869-a607-a2f78110c747}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\PCG">
       <UniqueIdentifier>{6a23c318-bd0b-4cf0-a3b8-379ff6df0b54}</UniqueIdentifier>
     </Filter>
@@ -645,6 +642,9 @@
     </Filter>
     <Filter Include="Sources\DeviceId">
       <UniqueIdentifier>{9bcf48c1-233a-4395-a12e-a69ea6128eee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\imGUI\Helpers">
+      <UniqueIdentifier>{cdd2c0c2-e205-4869-a607-a2f78110c747}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

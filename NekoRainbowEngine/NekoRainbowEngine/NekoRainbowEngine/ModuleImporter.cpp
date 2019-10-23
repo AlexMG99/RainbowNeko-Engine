@@ -60,31 +60,38 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
 	const aiNode* node = scene->mRootNode;
 
-	RecursiveChild(node, path_fbx, scene, path_texture);
+	int i = 0;
+
+	RecursiveChild(node, path_fbx, scene, path_texture, i);
 
 	aiReleaseImport(scene);
 
 	return ret;
 }
 
-void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
+void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, int &id, GameObject* parent)
 {
 	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
-	GameObject* par = CreateObject(node, path_fbx, scene, path_texture);
+	GameObject* child = CreateObject(node, path_fbx, scene, path_texture, id);
 
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
-		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, par);
+		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, id, child);
 	}
 
-	if(parent)
-		par->SetParent(parent);
-	else if(par && !parent)
-		par->SetParent(App->viewport->root_object);
+	if (parent) {
+		child->SetParent(parent);
+		parent->children.push_back(child);
+	}
+	else if (child && !parent)
+	{
+		child->SetParent(App->viewport->root_object);
+		App->viewport->root_object->children.push_back(child);
+	}
 }
 
-GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
+GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, int &id)
 {
 	BROFILER_CATEGORY("CreateObject_ModuleImporter", Profiler::Color::Brown);
 
@@ -103,7 +110,7 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 				first = aux_obj;
 
 			//Set object name
-			std::string name_obj = path_fbx + std::to_string(App->viewport->root_object->children.size());
+			std::string name_obj = path_fbx + std::to_string(id);
 			aux_obj->SetName(name_obj.c_str());
 
 			//Load Position
@@ -197,7 +204,6 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 				m->image_id = texture->image_id;
 			}
 			LOG("Loaded mesh file succesfully!");
-			App->viewport->AddGameObject(aux_obj, OBJECT_FBX, true);
 
 			if (first)
 				aux_obj->SetParent(first);
@@ -206,6 +212,8 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 				trans->global_matrix = trans->local_matrix * aux_obj->GetParent()->GetComponentTransform()->global_matrix;
 			else
 				trans->global_matrix = trans->local_matrix;
+
+			id++;
 		}
 
 	}
@@ -334,7 +342,13 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	//Create Component Texture
 	ComponentTexture* tex = (ComponentTexture*)obj->CreateComponent(COMPONENT_TEXTURE);
 
-	App->viewport->AddGameObject(obj);
+	//Set Parent
+	if (!obj->GetParent())
+	{
+		obj->SetParent(App->viewport->root_object);
+		App->viewport->root_object->children.push_back(obj);
+	}
+
 	App->viewport->shape_num++;
 
 	par_shapes_free_mesh(shape);

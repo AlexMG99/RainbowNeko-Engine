@@ -21,11 +21,10 @@ update_status PanelHierarchy::Draw()
 	}
 
 	ImGui::End();*/
+	/*ImGui::ShowDemoWindow();*/
 	bool ret = true;
 	if (ImGui::Begin("Game Ojects", &ret, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		//show a list of game objects
-		ImGui::LabelText("", "Game Objects in Scene.");
 
 		if (ImGui::TreeNode("Object List"))
 		{
@@ -62,23 +61,19 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 			pop = false;
 		}
 
-		if (ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str()))
-		{
-			App->viewport->CheckObjectSelected((*it_obj));
+		if (pop) {
+			
+			bool node_open = ImGui::TreeNode((*it_obj)->GetName().c_str());
+			if (node_open)
+			{
+				TreeObject(*it_obj);
+				ImGui::TreePop();
+			}
 		}
-		TreeObject(*it_obj);
+		else
+			ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str());
 
-
-		//Move Object
-		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceNoDisableHover))
-		{
-			ImGui::SetDragDropPayload((*it_obj)->GetName().c_str(), &it_obj, sizeof(GameObject*));
-			ImGui::Text("Make %s a child", (*it_obj)->GetName().c_str());
-			ImGui::EndDragDropSource();
-		}
 	}
 
-	if (pop)
-		ImGui::TreePop();
 }
 
