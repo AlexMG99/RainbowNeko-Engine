@@ -38,6 +38,7 @@ update_status PanelInspector::Draw()
 			float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
 			ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
 			ImGui::Separator();
+			ImGui::Text("%s", object->GetParent()->GetName().c_str());
 		}
 
 		//Mesh

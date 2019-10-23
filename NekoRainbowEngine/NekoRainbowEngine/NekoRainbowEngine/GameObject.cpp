@@ -107,6 +107,14 @@ GameObject * GameObject::GetParent() const
 	return parent;
 }
 
+void GameObject::SetParent(GameObject* par)
+{
+	if(par)
+		parent = par;
+	else
+		parent = App->viewport->root_object;
+}
+
 void GameObject::SetActive(bool act)
 {
 	active = act;

@@ -11,6 +11,8 @@ public:
 
 	update_status Draw();
 
+	void TreeObject(GameObject* obj);
+
 private:
 };
 

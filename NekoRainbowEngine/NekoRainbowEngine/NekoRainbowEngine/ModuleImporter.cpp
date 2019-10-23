@@ -67,30 +67,46 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	return ret;
 }
 
-void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
+void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
 {
 	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
+	GameObject* par = CreateObject(node, path_fbx, scene, path_texture);
+
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
-		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture);
+		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, par);
 	}
-	CreateObject(node, path_fbx, scene, path_texture);
+
+	if(parent)
+		par->SetParent(parent);
+	else if(par && !parent)
+		par->SetParent(App->viewport->root_object);
 }
 
-void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
+GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
 {
 	BROFILER_CATEGORY("CreateObject_ModuleImporter", Profiler::Color::Brown);
+
+	GameObject* first = nullptr;
 
 	if (node->mNumMeshes > 0)
 	{
 		for (uint i = 0; i < node->mNumMeshes; i++)
 		{
-			//Load Position
+			
+			//Create aux_obj
 			GameObject* aux_obj = new GameObject();
+
+			//Set first object
+			if (i == 0)
+				first = aux_obj;
+
+			//Set object name
 			std::string name_obj = path_fbx + std::to_string(App->viewport->root_object->children.size());
 			aux_obj->SetName(name_obj.c_str());
 
+			//Load Position
 			ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
 			trans->local_matrix.Set(
 				node->mTransformation.a1, node->mTransformation.b1, node->mTransformation.c1, node->mTransformation.d1,
@@ -99,8 +115,7 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 				node->mTransformation.a4, node->mTransformation.b4, node->mTransformation.c1, node->mTransformation.d4
 			);
 
-			/*trans->position = trans->global_matrix * float3(0, 0, 1);*/
-			/*aiVector3D translation, scaling;
+			aiVector3D translation, scaling;
 			aiQuaternion rotation;
 			node->mTransformation.Decompose(scaling, rotation, translation);
 			float3 pos(translation.x, translation.y, translation.z);
@@ -113,7 +128,7 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			trans->scale[0] = scale.x;
 			trans->scale[1] = scale.y;
 			trans->scale[2] = scale.z;
-			trans->rotation = rot;*/
+			trans->rotation = rot;
 
 			//Load Mesh 
 			ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
@@ -184,6 +199,9 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			LOG("Loaded mesh file succesfully!");
 			App->viewport->AddGameObject(aux_obj, OBJECT_FBX, true);
 
+			if (first)
+				aux_obj->SetParent(first);
+
 			if (aux_obj->GetParent() != App->viewport->root_object)
 				trans->global_matrix = trans->local_matrix * aux_obj->GetParent()->GetComponentTransform()->global_matrix;
 			else
@@ -191,6 +209,8 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 		}
 
 	}
+
+	return first;
 }
 
 void ModuleImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
@@ -258,18 +278,23 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	{
 	case SHAPE_CUBE:
 		shape = par_shapes_create_cube();
+		obj->SetName(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_SPHERE:
 		shape = par_shapes_create_parametric_sphere(sl, st);
+		obj->SetName(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CYLINDER:
 		shape = par_shapes_create_cylinder(sl, st);
+		obj->SetName(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CONE:
 		shape = par_shapes_create_cone(sl, st);
+		obj->SetName(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_PLANE:
 		shape = par_shapes_create_plane(sl, st);
+		obj->SetName(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");
@@ -308,8 +333,6 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Texture
 	ComponentTexture* tex = (ComponentTexture*)obj->CreateComponent(COMPONENT_TEXTURE);
-
-	obj->SetName(std::string("GameObject " + std::to_string(App->viewport->shape_num)).c_str());
 
 	App->viewport->AddGameObject(obj);
 	App->viewport->shape_num++;
