@@ -75,6 +75,10 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+
+			//Init icon
+			SDL_Surface* icon = SDL_LoadBMP("../Game/Assets/icon.bmp");
+			SDL_SetWindowIcon(window,icon);
 		}
 	}
 
