@@ -62,6 +62,8 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 
 	RecursiveChild(node, path_fbx, scene, path_texture);
 
+	aiReleaseImport(scene);
+
 	return ret;
 }
 
@@ -88,20 +90,30 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			GameObject* aux_obj = new GameObject();
 			std::string name_obj = path_fbx + std::to_string(App->viewport->root_object->children.size());
 			aux_obj->SetName(name_obj.c_str());
-			aiVector3D translation, scaling;
+
+			ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
+			trans->local_matrix.Set(
+				node->mTransformation.a1, node->mTransformation.b1, node->mTransformation.c1, node->mTransformation.d1,
+				node->mTransformation.a2, node->mTransformation.b2, node->mTransformation.c1, node->mTransformation.d2,
+				node->mTransformation.a3, node->mTransformation.b3, node->mTransformation.c1, node->mTransformation.d3,
+				node->mTransformation.a4, node->mTransformation.b4, node->mTransformation.c1, node->mTransformation.d4
+			);
+
+			/*trans->position = trans->global_matrix * float3(0, 0, 1);*/
+			/*aiVector3D translation, scaling;
 			aiQuaternion rotation;
 			node->mTransformation.Decompose(scaling, rotation, translation);
 			float3 pos(translation.x, translation.y, translation.z);
 			float3 scale(scaling.x, scaling.y, scaling.z);
 			Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-			ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
+			
 			trans->position[0] = pos.x;
 			trans->position[1] = pos.y;
 			trans->position[2] = pos.z;
 			trans->scale[0] = scale.x;
 			trans->scale[1] = scale.y;
 			trans->scale[2] = scale.z;
-			trans->rotation = rot;
+			trans->rotation = rot;*/
 
 			//Load Mesh 
 			ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
@@ -171,6 +183,11 @@ void ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const ai
 			}
 			LOG("Loaded mesh file succesfully!");
 			App->viewport->AddGameObject(aux_obj, OBJECT_FBX, true);
+
+			if (aux_obj->GetParent() != App->viewport->root_object)
+				trans->global_matrix = trans->local_matrix * aux_obj->GetParent()->GetComponentTransform()->global_matrix;
+			else
+				trans->global_matrix = trans->local_matrix;
 		}
 
 	}

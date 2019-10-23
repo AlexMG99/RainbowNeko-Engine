@@ -29,6 +29,7 @@ public:
 
 	void AddChildren(GameObject* obj);
 	void AddParent(GameObject* obj);
+	GameObject* GetParent() const;
 	void SetActive(bool act);
 
 	object_type GetType();

@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
+#include "MathGeoLib/include/Math/float4x4.h"
 #include "MathGeoLib/include/Math/Quat.h"
 
 class GameObject;
@@ -46,6 +47,8 @@ public:
 	void Disable() {};
 
 public:
+	float4x4 local_matrix;
+	float4x4 global_matrix;
 	float position[3];
 	float scale[3];
 	Quat rotation;

@@ -102,6 +102,11 @@ void GameObject::AddParent(GameObject * obj)
 	parent = obj;
 }
 
+GameObject * GameObject::GetParent() const
+{
+	return parent;
+}
+
 void GameObject::SetActive(bool act)
 {
 	active = act;
