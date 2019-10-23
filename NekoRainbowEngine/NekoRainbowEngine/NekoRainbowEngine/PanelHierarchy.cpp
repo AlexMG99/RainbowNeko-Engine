@@ -10,18 +10,6 @@ update_status PanelHierarchy::Draw()
 
 	BROFILER_CATEGORY("Draw_PanelHierarchy", Profiler::Color::GoldenRod);
 
-	/*ImGui::Begin(name, &enabled);
-
-	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
-	{
-		if(ImGui::Selectable((*it_obj)->GetName().c_str(), &(*it_obj)->selected))
-		{
-			App->viewport->CheckObjectSelected((*it_obj));
-		}
-	}
-
-	ImGui::End();*/
-	/*ImGui::ShowDemoWindow();*/
 	bool ret = true;
 	if (ImGui::Begin("Game Ojects", &ret, ImGuiWindowFlags_AlwaysAutoResize))
 	{
@@ -52,13 +40,6 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
 	{
 		ImGuiTreeNodeFlags node_flags;
-
-		// Set Selectable
-		if (ImGui::IsItemClicked())
-		{
-			is_selected = !is_selected;
-			node_num = i;
-		}
 
 		if (is_selected && (node_num == i))
 		{
@@ -94,6 +75,13 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 		}
 		else
 			ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str());
+
+		// Set Selectable
+		if (ImGui::IsItemClicked())
+		{
+			is_selected = !is_selected;
+			node_num = i;
+		}
 
 		i++;
 	}
