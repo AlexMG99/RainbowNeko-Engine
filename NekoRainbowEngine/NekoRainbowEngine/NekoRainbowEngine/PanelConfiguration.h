@@ -46,6 +46,8 @@ private:
 	bool gl_lines = false;
 	bool gl_fill = true;
 
+	bool vsync;
+
 	int mode = 0;
 
 	PerfTimer	check_time;

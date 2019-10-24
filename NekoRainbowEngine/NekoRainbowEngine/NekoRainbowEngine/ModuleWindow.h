@@ -40,6 +40,10 @@ public:
 	void SetWindowSize(int width_, int height_);
 	
 
+	bool GetVsync() const;
+	void SetVsync(bool on);
+
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
@@ -60,6 +64,8 @@ public:
 	bool resizable_on = false;
 	bool border_on = false;
 	bool fullscreendesktop_on = false;
+
+	bool vsync_on; 
 
 	float brigthness = 5.0f;
 	int width;

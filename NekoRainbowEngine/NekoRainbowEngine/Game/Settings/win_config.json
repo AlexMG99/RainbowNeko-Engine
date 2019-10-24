@@ -9,7 +9,8 @@
       "Fullscreen": false,
       "Fullscreen Desktop": false,
       "Border": true,
-      "Brightness": 1
+      "Brightness": 1,
+      "VSYNC":  false
     },
 
     "Camera": {
