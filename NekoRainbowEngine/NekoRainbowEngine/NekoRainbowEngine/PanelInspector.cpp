@@ -16,29 +16,24 @@ update_status PanelInspector::Draw()
 
 	ImGui::Begin(name, &enabled);
 
-	GameObject* object = nullptr;
+	GameObject* object = App->viewport->selected_object;
 
-	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
-	{
-		if ((*it_obj)->selected)
-			object = (*it_obj);
-	}
 
-	
 	if (object)
 	{
 		//Transform
-		ImGui::Text("Name: %s", object->GetName().c_str()); ImGui::Separator();
+		ImGui::Text("Name: %s		", object->GetName().c_str()); ImGui::SameLine();
+		ImGui::Text("Parent: %s", object->GetParent()->GetName().c_str());
+		ImGui::Separator();
 		ComponentTransform* comp_trans = object->GetComponentTransform();
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
-			ImGui::InputFloat3("Scale", comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Position", (float*)&comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Scale", (float*)&comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
 			float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
 			ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
 			ImGui::Separator();
-			ImGui::Text("%s", object->GetParent()->GetName().c_str());
 		}
 
 		//Mesh

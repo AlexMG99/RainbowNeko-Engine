@@ -16,7 +16,7 @@ update_status PanelShape::Draw()
 	{
 		ImGui::Text("Shapes"); ImGui::Separator();
 		if (ImGui::Combo("Shape", &shape_t, combo_item, IM_ARRAYSIZE(combo_item)))
-			App->viewport->CreateGameObjectShape(OBJECT_PARSHAPE, (shape_type)shape_t);
+			App->importer->CreateShape((shape_type)shape_t, 10, 10);
 
 		ImGui::Separator();
 		ImGui::End();

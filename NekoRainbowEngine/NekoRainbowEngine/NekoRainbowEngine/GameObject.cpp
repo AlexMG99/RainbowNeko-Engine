@@ -97,6 +97,14 @@ void GameObject::AddChildren(GameObject* obj)
 	children.push_back(obj);
 }
 
+bool GameObject::HasChildren() const
+{
+	if (children.empty())
+		return false;
+	else
+		return true;
+}
+
 void GameObject::AddParent(GameObject * obj)
 {
 	parent = obj;
@@ -109,10 +117,16 @@ GameObject * GameObject::GetParent() const
 
 void GameObject::SetParent(GameObject* par)
 {
-	if(par)
+	if (par)
+	{
 		parent = par;
+		parent->children.push_back(this);
+	}
 	else
+	{
 		parent = App->viewport->root_object;
+		App->viewport->root_object->children.push_back(this);
+	}
 }
 
 void GameObject::SetActive(bool act)
@@ -144,6 +158,6 @@ void GameObject::SetName(const char * name_)
 	if(pos >1000)
 		pos = temp_str.find_last_of("\\");
 	std::string str = temp_str.substr(pos + 1);
-	name = str;
+	name = str.c_str();
 }
 

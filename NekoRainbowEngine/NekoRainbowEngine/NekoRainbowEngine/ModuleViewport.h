@@ -4,6 +4,9 @@
 #include "par/par_shapes.h"
 #include "GameObject.h"
 #include "ModuleImporter.h"
+#include "MathGeoLib/include/Math/float3.h"
+#include "MathGeoLib/include/Math/Quat.h"
+
 
 class ModuleViewport : public Module
 {
@@ -16,8 +19,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void AddGameObject(GameObject* obj, object_type type = OBJECT_FBX, bool active = true, GameObject* parent = nullptr);
-	void CreateGameObjectShape(object_type type, shape_type s_type, uint slice = 10, uint stack = 10, bool active = true, GameObject* parent = nullptr);
+	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 0.0f,0.0f,0.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();
 
 	void CheckObjectSelected(GameObject* obj);
@@ -27,5 +29,6 @@ private:
 
 public:
 	GameObject* root_object = nullptr;
+	GameObject* selected_object = nullptr;
 	uint shape_num = 0;
 };

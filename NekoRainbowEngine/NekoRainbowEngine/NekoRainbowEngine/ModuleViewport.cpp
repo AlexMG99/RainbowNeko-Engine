@@ -5,6 +5,7 @@
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 #include "par/par_shapes.h"
+#include "Component.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -26,7 +27,7 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
-	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_SPHERE);
+	App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
 	return ret;
 }
 
@@ -113,25 +114,17 @@ void ModuleViewport::CreateGrid(uint separation, uint lines)
 
 }
 
-void ModuleViewport::AddGameObject(GameObject * obj, object_type type, bool active, GameObject * parent)
+GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)
 {
-	if (parent == nullptr)
-	{
-		root_object->AddChildren(obj);
-		obj->AddParent(root_object);
-	}
-	else
-	{
-		parent->AddChildren(obj);
-		obj->AddParent(parent);
-	}
+	GameObject* object = new GameObject();
+	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
+	object->SetName(name.c_str());
+	object->GetComponentTransform()->local_position = position;
+	object->GetComponentTransform()->local_rotation = rotation;
+	object->GetComponentTransform()->local_scale = scale;
+	object->SetParent(parent);
 	
-	obj->SetActive(active);
-}
-
-void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, uint slice, uint stack, bool active, GameObject * parent)
-{
-	App->importer->CreateShape(s_type, slice, stack);
+	return object;
 }
 
 void ModuleViewport::DeleteGameObject()
