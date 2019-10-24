@@ -14,6 +14,7 @@ public:
 	void TreeObject(GameObject* obj);
 
 private:
+	uint node_it = 0;
 };
 
 #endif

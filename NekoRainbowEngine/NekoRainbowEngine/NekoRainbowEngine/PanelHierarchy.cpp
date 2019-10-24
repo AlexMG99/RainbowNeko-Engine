@@ -10,19 +10,12 @@ update_status PanelHierarchy::Draw()
 
 	BROFILER_CATEGORY("Draw_PanelHierarchy", Profiler::Color::GoldenRod);
 
-	bool ret = true;
-	if (ImGui::Begin("Game Ojects", &ret, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::Begin("Game Ojects", &enabled, ImGuiWindowFlags_AlwaysAutoResize))
 	{
+		node_it = 0;
 
-		if (ImGui::TreeNode("Object List"))
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, ImGui::GetFontSize() * 3);
-
-			TreeObject(App->viewport->root_object);
-
-			ImGui::TreePop();
-			ImGui::PopStyleVar();
-		}
+		for(auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); it_obj++)
+			TreeObject(*it_obj);
 
 		ImGui::End();
 	}
@@ -32,59 +25,48 @@ update_status PanelHierarchy::Draw()
 
 void PanelHierarchy::TreeObject(GameObject* obj)
 {
-	bool pop = false;
-	static uint i = 0;
+	ImGuiTreeNodeFlags node_flags;
 	static uint node_num = -1;
-	static bool is_selected = false;
+	static int selection_mask = (1 << 2);
+	node_it++;
 
-	for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
+	const bool is_selected = (selection_mask & (1 << node_it)) != 0;
+	if (is_selected)
+		node_flags |= ImGuiTreeNodeFlags_Selected;
+
+	//Check if has children
+	if (obj->HasChildren())
 	{
-		ImGuiTreeNodeFlags node_flags;
-		i++;
-		if (is_selected && (node_num == i))
-		{
-			App->viewport->selected_object = (*it_obj);
-			node_flags |= ImGuiTreeNodeFlags_Selected;
-		}
-		else
-			node_flags = node_flags & ~ImGuiTreeNodeFlags_Selected;
-
-		//Check if has children
-
-		if ((*it_obj)->HasChildren())
-		{
-			node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-			pop = true;
-		}
-		else
-		{
-			node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-			pop = false;
+		node_flags |= ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+		
+		bool node_open = ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
+		if (ImGui::IsItemClicked()) {
+			node_num = node_it;
+			App->viewport->selected_object = obj;
 		}
 
-		//Create Tree Node elements: Checks if has more children ? calls TreeObject : prints Node
-		if (pop) {
-			
-			bool node_open = ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str());
-			
-			if (node_open)
+		if (node_open)
+		{
+			for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
 			{
 				TreeObject(*it_obj);
-				ImGui::TreePop();
 			}
+			ImGui::TreePop();
 		}
-		else
-			ImGui::TreeNodeEx((*it_obj)->GetName().c_str(), node_flags, (*it_obj)->GetName().c_str());
-
-		// Set Selectable
-		if (ImGui::IsItemClicked())
-		{
-			is_selected = !is_selected;
-			node_num = i;
-		}
-
-		
 	}
-	i = 0;
+	else
+	{
+		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
+		if (ImGui::IsItemClicked()) {
+			node_num = node_it;
+			App->viewport->selected_object = obj;
+		}
+	}
+
+	if (node_num != -1)
+	{
+		selection_mask = (1 << node_num);
+	}
 }
 
