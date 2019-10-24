@@ -11,8 +11,6 @@
 
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	root_object = new GameObject();
-	root_object->SetName("");
 }
 
 // Destructor
@@ -26,8 +24,9 @@ bool ModuleViewport::Start()
 	BROFILER_CATEGORY("Start_ModuleViewport", Profiler::Color::LimeGreen);
 
 	bool ret = true;
+	root_object = CreateGameObject("Root Object");
 	ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
-	App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
+	//App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
 	return ret;
 }
 
@@ -119,9 +118,10 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	GameObject* object = new GameObject();
 	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
 	object->SetName(name.c_str());
-	object->GetComponentTransform()->local_position = position;
-	object->GetComponentTransform()->local_rotation = rotation;
-	object->GetComponentTransform()->local_scale = scale;
+	trans->local_position = position;
+	trans->local_rotation = rotation;
+	trans->local_scale = scale;
+	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
 	object->SetParent(parent);
 	
 	return object;

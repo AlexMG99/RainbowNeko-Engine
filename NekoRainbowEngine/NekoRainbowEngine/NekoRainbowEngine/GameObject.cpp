@@ -122,7 +122,7 @@ void GameObject::SetParent(GameObject* par)
 		parent = par;
 		parent->children.push_back(this);
 	}
-	else
+	else if(par != App->viewport->root_object)
 	{
 		parent = App->viewport->root_object;
 		App->viewport->root_object->children.push_back(this);

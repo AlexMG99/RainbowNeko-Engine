@@ -102,6 +102,8 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 		ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
 
+		m->transform = aux_obj->GetComponentTransform();
+
 		m->num_vertices = aimesh->mNumVertices;
 		m->vertices = new float[m->num_vertices * 3];
 		memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);

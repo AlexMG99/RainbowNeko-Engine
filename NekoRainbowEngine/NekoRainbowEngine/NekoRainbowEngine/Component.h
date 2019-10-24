@@ -38,15 +38,15 @@ public:
 //-------------- Component Transform --------------
 class ComponentTransform: public Component {
 public:
-	ComponentTransform(component_type comp_type, bool act, GameObject* obj) : Component(comp_type, act, obj) {};
+	ComponentTransform(component_type comp_type, bool act, GameObject* obj);
 	~ComponentTransform() {};
 
 	bool Update() { return true; };
 
-	void CalculatePosition();
-
 	void Enable() {};
 	void Disable() {};
+
+	float4x4 GetGlobalTransformMatrix();
 
 public:
 	//Global
@@ -59,6 +59,7 @@ public:
 	float4x4 local_matrix;
 	float3 local_position;
 	float3 local_scale;
+	float3 local_rotation_euler;
 	Quat local_rotation;
 };
 

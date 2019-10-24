@@ -43,6 +43,8 @@ public:
 	bool normal_show = false;
 	bool normal_face_show = false;
 
+	ComponentTransform* transform = nullptr;
+
 };
 
 class ComponentTexture : public Component {

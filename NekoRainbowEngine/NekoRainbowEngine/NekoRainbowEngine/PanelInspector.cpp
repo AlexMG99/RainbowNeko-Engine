@@ -18,7 +18,6 @@ update_status PanelInspector::Draw()
 
 	GameObject* object = App->viewport->selected_object;
 
-
 	if (object)
 	{
 		//Transform
@@ -29,10 +28,9 @@ update_status PanelInspector::Draw()
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			ImGui::InputFloat3("Position", (float*)&comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
-			ImGui::InputFloat3("Scale", (float*)&comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
-			float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
-			ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2);
+			ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2);
+			ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2);
 			ImGui::Separator();
 		}
 

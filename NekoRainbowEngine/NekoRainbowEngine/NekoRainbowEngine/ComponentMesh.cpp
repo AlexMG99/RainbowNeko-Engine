@@ -60,6 +60,9 @@ void ComponentMesh::GenerateMesh()
 
 void ComponentMesh::Render()
 {
+	glPushMatrix();
+	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
+	
 	//Render FBX Mesh
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
@@ -120,6 +123,7 @@ void ComponentMesh::Render()
 		glColor3f(1, 1, 1);
 	}
 
+	glPopMatrix();
 }
 
 void ComponentTexture::LoadTexture(const char* path)

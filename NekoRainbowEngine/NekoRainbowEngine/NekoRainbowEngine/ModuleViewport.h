@@ -19,7 +19,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 0.0f,0.0f,0.0f }, Quat rotation = Quat::identity);
+	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();
 
 	void CheckObjectSelected(GameObject* obj);
