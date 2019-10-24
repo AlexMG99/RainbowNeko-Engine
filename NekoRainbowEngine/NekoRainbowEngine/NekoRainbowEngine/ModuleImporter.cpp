@@ -272,18 +272,19 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Transform
 	ComponentTransform* trans = (ComponentTransform*)obj->CreateComponent(COMPONENT_TRANSFORM);
-	trans->position[0] = 0;
-	trans->position[1] = 0;
-	trans->position[2] = 0;
+	trans->local_position.x = 0;
+	trans->local_position.y = 0;
+	trans->local_position.z = 0;
 
 	par_shapes_scale(shape, 1.0f, 1.0f, 1.0f);
-	trans->scale[0] = 1;
-	trans->scale[1] = 1;
-	trans->scale[2] = 1;
+	trans->local_scale.x = 1;
+	trans->local_scale.y = 1;
+	trans->local_scale.z = 1;
 
-	trans->rotation.x = 0;
-	trans->rotation.y = 0;
-	trans->rotation.z = 0;
+	trans->local_rotation = Quat::identity;
+	trans->local_rotation_euler.x = 0;
+	trans->local_rotation_euler.y = 0;
+	trans->local_rotation_euler.z = 0;
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
@@ -294,6 +295,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	mesh->par_shape = true;
 	mesh->UV_coord = shape->tcoords;
 	mesh->UV_num = 2;
+	mesh->transform = trans;
 
 	mesh->GenerateMesh();
 
