@@ -195,3 +195,14 @@ void ModuleWindow::SetWindowSize(int width_, int height_)
 	SDL_SetWindowSize(window, width, height);
 	App->renderer3D->OnResize(width, height);
 }
+
+bool ModuleWindow::GetVsync() const
+{
+	return vsync_on;
+}
+
+void ModuleWindow::SetVsync(bool on)
+{
+	vsync_on = on;
+	SDL_GL_SetSwapInterval(vsync_on);
+}

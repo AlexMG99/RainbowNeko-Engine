@@ -29,6 +29,9 @@ bool PanelConfiguration::Start()
 	App->window->border_on = json_object_get_boolean(win_obj, "Border");
 	App->window->SetBorderless();
 	App->window->SetBrightness(json_object_get_number(win_obj, "Brightness"));
+	vsync = json_object_get_boolean(win_obj, "VSYNC");
+	App->window->GetVsync();
+
 
 	App->CapFPS(capped_fps);
 
@@ -112,6 +115,11 @@ void PanelConfiguration::AppSettings()
 
 		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
 		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
+	
+		if (ImGui::Checkbox("Vsync", &vsync)) {
+			App->window->SetVsync(vsync);
+		}
+
 	}
 }
 
