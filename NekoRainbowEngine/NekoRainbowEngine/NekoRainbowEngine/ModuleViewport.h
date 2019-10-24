@@ -20,7 +20,6 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 0.0f,0.0f,0.0f }, Quat rotation = Quat::identity);
-	void CreateGameObjectShape(object_type type, shape_type s_type, uint slice = 10, uint stack = 10, bool active = true, GameObject* parent = nullptr);
 	void DeleteGameObject();
 
 	void CheckObjectSelected(GameObject* obj);

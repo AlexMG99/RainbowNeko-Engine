@@ -229,8 +229,8 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 {
 	BROFILER_CATEGORY("CreateShapes_ModuleImporter", Profiler::Color::Orange);
 
-	GameObject* obj = new GameObject();
-	obj->SetType(OBJECT_PARSHAPE);
+	GameObject* obj;
+	std::string name;
 	par_shapes_mesh_s* shape = nullptr;
 
 	//Create shape
@@ -238,28 +238,32 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	{
 	case SHAPE_CUBE:
 		shape = par_shapes_create_cube();
-		obj->SetName(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
+		name = "Cube ";
 		break;
 	case SHAPE_SPHERE:
 		shape = par_shapes_create_parametric_sphere(sl, st);
-		obj->SetName(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
+		name = "Sphere ";
 		break;
 	case SHAPE_CYLINDER:
 		shape = par_shapes_create_cylinder(sl, st);
-		obj->SetName(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
+		name = "Cylinder";
 		break;
 	case SHAPE_CONE:
 		shape = par_shapes_create_cone(sl, st);
-		obj->SetName(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
+		name = "Cone";
 		break;
 	case SHAPE_PLANE:
 		shape = par_shapes_create_plane(sl, st);
-		obj->SetName(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
+		name = "Plane";
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");
 		break;
 	}
+
+	name += std::to_string(App->viewport->shape_num);
+	obj = App->viewport->CreateGameObject(name.c_str());
+	obj->SetType(OBJECT_PARSHAPE);
 
 	if (!shape || !obj)
 		return;
@@ -293,13 +297,6 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Texture
 	ComponentTexture* tex = (ComponentTexture*)obj->CreateComponent(COMPONENT_TEXTURE);
-
-	//Set Parent
-	if (!obj->GetParent())
-	{
-		obj->SetParent(App->viewport->root_object);
-		App->viewport->root_object->children.push_back(obj);
-	}
 
 	App->viewport->shape_num++;
 

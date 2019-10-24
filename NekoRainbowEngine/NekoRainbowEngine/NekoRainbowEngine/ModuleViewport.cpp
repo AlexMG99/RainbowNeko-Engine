@@ -27,7 +27,7 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
-	CreateGameObjectShape(OBJECT_PARSHAPE, SHAPE_SPHERE);
+	App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
 	return ret;
 }
 
@@ -125,11 +125,6 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	object->SetParent(parent);
 	
 	return object;
-}
-
-void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, uint slice, uint stack, bool active, GameObject * parent)
-{
-	App->importer->CreateShape(s_type, slice, stack);
 }
 
 void ModuleViewport::DeleteGameObject()
