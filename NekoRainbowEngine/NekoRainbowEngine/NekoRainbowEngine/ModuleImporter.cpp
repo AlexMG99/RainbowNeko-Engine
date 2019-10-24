@@ -60,38 +60,39 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
 	const aiNode* node = scene->mRootNode;
 
-	int i = 0;
-	GameObject* parent_fbx = new GameObject();
-	parent_fbx->SetName(path_fbx);
+	//Create gameObject that contains FBX parts
+	GameObject* parent_fbx = RecursiveChild(node, path_fbx, scene, path_texture);
+	parent_fbx->SetNameFBX(path_fbx);
 
-	RecursiveChild(node, path_fbx, scene, path_texture);
+	App->viewport->root_object->children.push_back(parent_fbx);
+	parent_fbx->SetParent(App->viewport->root_object);
 
 	aiReleaseImport(scene);
 
 	return ret;
 }
 
-void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
+GameObject* ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
 {
 	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
 	GameObject* child = CreateObject(node, path_fbx, scene, path_texture);
+
+	if (!child)
+		child = new GameObject();
 
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
 		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, child);
 	}
 	
+	//Set Parent
 	if (parent) {
 		child->SetParent(parent);
 		parent->children.push_back(child);
 	}
-	else if (child && !parent)
-	{
-		child->SetParent(App->viewport->root_object);
-		App->viewport->root_object->children.push_back(child);
-	}
 
+	return child;
 }
 
 GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
@@ -113,7 +114,7 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 
 			//Set object name
 			std::string name_obj = node->mName.C_Str();
-			aux_obj->SetName(name_obj.c_str());
+			aux_obj->SetNameNode(name_obj.c_str());
 
 			//Load Position
 			ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
@@ -287,23 +288,23 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	{
 	case SHAPE_CUBE:
 		shape = par_shapes_create_cube();
-		obj->SetName(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetNameNode(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_SPHERE:
 		shape = par_shapes_create_parametric_sphere(sl, st);
-		obj->SetName(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetNameNode(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CYLINDER:
 		shape = par_shapes_create_cylinder(sl, st);
-		obj->SetName(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetNameNode(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CONE:
 		shape = par_shapes_create_cone(sl, st);
-		obj->SetName(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetNameNode(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_PLANE:
 		shape = par_shapes_create_plane(sl, st);
-		obj->SetName(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetNameNode(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");

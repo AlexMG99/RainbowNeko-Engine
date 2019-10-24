@@ -145,13 +145,19 @@ std::string GameObject::GetName() const
 	return str;
 }
 
-void GameObject::SetName(const char * name_)
+void GameObject::SetNameFBX(const char * name_)
 {
 	std::string temp_str = name_;
 	std::size_t pos = temp_str.find_last_of("/");
 	if(pos >1000)
 		pos = temp_str.find_last_of("\\");
 	std::string str = temp_str.substr(pos + 1);
+	str.resize(str.size() - 4);
 	name = str;
+}
+
+void GameObject::SetNameNode(const char * name_)
+{
+	name = name_;
 }
 

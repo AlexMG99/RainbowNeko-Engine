@@ -11,7 +11,7 @@
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	root_object = new GameObject();
-	root_object->SetName("");
+	root_object->SetNameNode("");
 }
 
 // Destructor

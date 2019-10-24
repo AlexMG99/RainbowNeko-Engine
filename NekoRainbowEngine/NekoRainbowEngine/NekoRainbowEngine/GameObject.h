@@ -38,7 +38,8 @@ public:
 	void SetType(object_type ty_);
 
 	std::string GetName() const;
-	void SetName(const char* name_);
+	void SetNameFBX(const char* name_);
+	void SetNameNode(const char * name_);
 
 
 private:
