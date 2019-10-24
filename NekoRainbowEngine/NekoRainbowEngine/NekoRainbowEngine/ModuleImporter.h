@@ -39,8 +39,7 @@ public:
 	bool ImportTexture(char* path_texture);
 
 private:
-	GameObject* RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent = nullptr);
-	GameObject* CreateObject(const aiNode * node,  char * path_fbx, const aiScene * scene, char * path_texture);
+	void LoadNode(const aiNode * node, const aiScene * scene, char * path_texture, GameObject* parent = nullptr);
 	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
 };
 

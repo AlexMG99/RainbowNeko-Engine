@@ -61,166 +61,116 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	const aiNode* node = scene->mRootNode;
 
 	//Create gameObject that contains FBX parts
-	GameObject* parent_fbx = RecursiveChild(node, path_fbx, scene, path_texture);
-	parent_fbx->SetNameFBX(path_fbx);
 
-	App->viewport->root_object->children.push_back(parent_fbx);
-	parent_fbx->SetParent(App->viewport->root_object);
-
-	aiReleaseImport(scene);
+	GameObject* fbx_obj = App->viewport->CreateGameObject(path_fbx);
+	if (scene && scene->HasMeshes())
+	{
+		for (int i = 0; i < node->mNumChildren; i++)
+		{
+			LoadNode(scene->mRootNode->mChildren[i], scene, path_texture, fbx_obj);
+		}
+		aiReleaseImport(scene);
+	}
+	else
+	{
+		LOG("Error loading FBX with path: %s", path_fbx);
+	}
 
 	return ret;
 }
 
-GameObject* ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
+void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char * path_texture, GameObject* parent)
 {
-	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
+	BROFILER_CATEGORY("LoadNode_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
-	GameObject* child = CreateObject(node, path_fbx, scene, path_texture);
+	//Get Component transform
+	aiVector3D translation, scaling;
+	aiQuaternion rotation;
 
-	if (!child)
-		child = new GameObject();
+	node->mTransformation.Decompose(scaling, rotation, translation);
 
-	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
-	{
-		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, child);
-	}
-	
-	//Set Parent
-	if (parent) {
-		child->SetParent(parent);
-		parent->children.push_back(child);
-	}
+	float3 pos(translation.x, translation.y, translation.z);
+	float3 scale(scaling.x, scaling.y, scaling.z);
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
-	return child;
-}
-
-GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
-{
-	BROFILER_CATEGORY("CreateObject_ModuleImporter", Profiler::Color::Brown);
-
-	GameObject* first = nullptr;
+	//Create aux_obj
+	GameObject* aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale / 100, rot);
 
 	if (node->mNumMeshes > 0)
 	{
-		for (uint i = 0; i < node->mNumMeshes; i++)
+		//Load Mesh 
+		ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
+		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
+
+		m->num_vertices = aimesh->mNumVertices;
+		m->vertices = new float[m->num_vertices * 3];
+		memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
+		LOG("New mesh with %d vertices", m->num_vertices);
+
+		if (aimesh->HasFaces())
 		{
-			//Create aux_obj
-			GameObject* aux_obj = new GameObject();
+			m->num_index = aimesh->mNumFaces * 3;
+			m->index = new uint[m->num_index]; // assume each face is a triangle
 
-			//Set first object
-			if (i == 0)
-				first = aux_obj;
-
-			//Set object name
-			std::string name_obj = node->mName.C_Str();
-			aux_obj->SetNameNode(name_obj.c_str());
-
-			//Load Position
-			ComponentTransform* trans = (ComponentTransform*)aux_obj->CreateComponent(COMPONENT_TRANSFORM);
-			trans->local_matrix.Set(
-				node->mTransformation.a1, node->mTransformation.b1, node->mTransformation.c1, node->mTransformation.d1,
-				node->mTransformation.a2, node->mTransformation.b2, node->mTransformation.c1, node->mTransformation.d2,
-				node->mTransformation.a3, node->mTransformation.b3, node->mTransformation.c1, node->mTransformation.d3,
-				node->mTransformation.a4, node->mTransformation.b4, node->mTransformation.c1, node->mTransformation.d4
-			);
-
-			aiVector3D translation, scaling;
-			aiQuaternion rotation;
-			node->mTransformation.Decompose(scaling, rotation, translation);
-			float3 pos(translation.x, translation.y, translation.z);
-			float3 scale(scaling.x, scaling.y, scaling.z);
-			Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-			
-			trans->position[0] = pos.x;
-			trans->position[1] = pos.y;
-			trans->position[2] = pos.z;
-			trans->scale[0] = scale.x;
-			trans->scale[1] = scale.y;
-			trans->scale[2] = scale.z;
-			trans->rotation = rot;
-
-			//Load Mesh 
-			ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
-			const aiMesh* aimesh = scene->mMeshes[node->mMeshes[i]];
-
-			m->num_vertices = aimesh->mNumVertices;
-			m->vertices = new float[m->num_vertices * 3];
-			memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
-			LOG("New mesh with %d vertices", m->num_vertices);
-
-			if (aimesh->HasFaces())
+			for (uint j = 0; j < aimesh->mNumFaces; ++j)
 			{
-				m->num_index = aimesh->mNumFaces * 3;
-				m->index = new uint[m->num_index]; // assume each face is a triangle
-
-				for (uint j = 0; j < aimesh->mNumFaces; ++j)
-				{
-					if (aimesh->mFaces[j].mNumIndices != 3) {
-						LOG("WARNING, geometry face with != 3 indices!");
-					}
-					else {
-						memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
-					}
+				if (aimesh->mFaces[j].mNumIndices != 3) {
+					LOG("WARNING, geometry face with != 3 indices!");
+				}
+				else {
+					memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
 				}
 			}
+		}
 
-			//Load Normals
-			if (aimesh->HasNormals())
+		//Load Normals
+		if (aimesh->HasNormals())
+		{
+			m->normals = new float3[aimesh->mNumVertices];
+			memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
+
+			for (uint i = 0; i < m->num_index; i += 3)
 			{
-				m->normals = new float3[aimesh->mNumVertices];
-				memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
+				uint index = m->index[i];
+				vec3 vertex0(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
 
-				for (uint i = 0; i < m->num_index; i += 3)
-				{
-					uint index = m->index[i];
-					vec3 vertex0(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+				index = m->index[i + 1];
+				vec3 vertex1(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
 
-					index = m->index[i + 1];
-					vec3 vertex1(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
-
-					index = m->index[i + 2];
-					vec3 vertex2(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
-					CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
-				}
+				index = m->index[i + 2];
+				vec3 vertex2(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+				CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
 			}
+		}
 
-			//Load UVs
-			if (aimesh->HasTextureCoords(0))
+		//Load UVs
+		if (aimesh->HasTextureCoords(0))
+		{
+			m->UV_num = aimesh->mNumUVComponents[0];
+			m->UV_coord = new float[m->num_vertices * m->UV_num];
+
+			for (uint i = 0; i < m->num_vertices; i++)
 			{
-				m->UV_num = aimesh->mNumUVComponents[0];
-				m->UV_coord = new float[m->num_vertices * m->UV_num];
-
-				for (uint i = 0; i < m->num_vertices; i++)
-				{
-					memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
-				}
-
+				memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
 			}
-
-			m->GenerateMesh();
-
-			if (aimesh->HasTextureCoords(0) && path_texture != "")
-			{
-				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
-				texture->LoadTexture(path_texture);
-				m->image_id = texture->image_id;
-			}
-			LOG("Loaded mesh file succesfully!");
-
-			if (first)
-				aux_obj->SetParent(first);
-
-			if (aux_obj->GetParent() != App->viewport->root_object)
-				trans->global_matrix = trans->local_matrix * aux_obj->GetParent()->GetComponentTransform()->global_matrix;
-			else
-				trans->global_matrix = trans->local_matrix;
 
 		}
 
+		m->GenerateMesh();
+
+		if (aimesh->HasTextureCoords(0) && path_texture != "")
+		{
+			ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
+			texture->LoadTexture(path_texture);
+			m->image_id = texture->image_id;
+		}
+		LOG("Loaded mesh file succesfully!");
 	}
 
-	return first;
+	for (int i = 0; i < node->mNumChildren; i++)
+	{
+		LoadNode(node->mChildren[i], scene, path_texture, aux_obj);
+	}
 }
 
 void ModuleImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
@@ -288,23 +238,23 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	{
 	case SHAPE_CUBE:
 		shape = par_shapes_create_cube();
-		obj->SetNameNode(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetName(std::string("Cube " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_SPHERE:
 		shape = par_shapes_create_parametric_sphere(sl, st);
-		obj->SetNameNode(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetName(std::string("Sphere " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CYLINDER:
 		shape = par_shapes_create_cylinder(sl, st);
-		obj->SetNameNode(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetName(std::string("Cylinder " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_CONE:
 		shape = par_shapes_create_cone(sl, st);
-		obj->SetNameNode(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetName(std::string("Cone " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	case SHAPE_PLANE:
 		shape = par_shapes_create_plane(sl, st);
-		obj->SetNameNode(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
+		obj->SetName(std::string("Plane " + std::to_string(App->viewport->shape_num)).c_str());
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");

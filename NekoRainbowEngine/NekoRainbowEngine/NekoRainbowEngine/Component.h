@@ -49,11 +49,17 @@ public:
 	void Disable() {};
 
 public:
-	float4x4 local_matrix;
+	//Global
 	float4x4 global_matrix;
-	float position[3];
-	float scale[3];
+	float3 position;
+	float3 scale;
 	Quat rotation;
+
+	//Local
+	float4x4 local_matrix;
+	float3 local_position;
+	float3 local_scale;
+	Quat local_rotation;
 };
 
 

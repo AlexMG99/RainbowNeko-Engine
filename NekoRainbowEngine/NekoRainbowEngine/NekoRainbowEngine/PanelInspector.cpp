@@ -29,8 +29,8 @@ update_status PanelInspector::Draw()
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			ImGui::InputFloat3("Position", comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
-			ImGui::InputFloat3("Scale", comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Position", (float*)&comp_trans->position, 2, ImGuiInputTextFlags_ReadOnly);
+			ImGui::InputFloat3("Scale", (float*)&comp_trans->scale, 2, ImGuiInputTextFlags_ReadOnly);
 			float angle[3] = { comp_trans->rotation.x ,comp_trans->rotation.y, comp_trans->rotation.z };
 			ImGui::InputFloat3("Rotation", angle, 2, ImGuiInputTextFlags_ReadOnly);
 			ImGui::Separator();

@@ -38,9 +38,7 @@ public:
 	void SetType(object_type ty_);
 
 	std::string GetName() const;
-	void SetNameFBX(const char* name_);
-	void SetNameNode(const char * name_);
-
+	void SetName(const char* name_);
 
 private:
 	object_type type = OBJECT_NONE;

@@ -118,9 +118,15 @@ GameObject * GameObject::GetParent() const
 void GameObject::SetParent(GameObject* par)
 {
 	if (par)
+	{
 		parent = par;
+		parent->children.push_back(this);
+	}
 	else
+	{
 		parent = App->viewport->root_object;
+		App->viewport->root_object->children.push_back(this);
+	}
 }
 
 void GameObject::SetActive(bool act)
@@ -145,19 +151,13 @@ std::string GameObject::GetName() const
 	return str;
 }
 
-void GameObject::SetNameFBX(const char * name_)
+void GameObject::SetName(const char * name_)
 {
 	std::string temp_str = name_;
 	std::size_t pos = temp_str.find_last_of("/");
 	if(pos >1000)
 		pos = temp_str.find_last_of("\\");
 	std::string str = temp_str.substr(pos + 1);
-	str.resize(str.size() - 4);
-	name = str;
-}
-
-void GameObject::SetNameNode(const char * name_)
-{
-	name = name_;
+	name = str.c_str();
 }
 

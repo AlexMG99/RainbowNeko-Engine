@@ -5,13 +5,14 @@
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 #include "par/par_shapes.h"
+#include "Component.h"
 
 #include "Brofiler/Brofiler.h"
 
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	root_object = new GameObject();
-	root_object->SetNameNode("");
+	root_object->SetName("");
 }
 
 // Destructor
@@ -111,6 +112,19 @@ void ModuleViewport::CreateGrid(uint separation, uint lines)
 
 	glEnd();
 
+}
+
+GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)
+{
+	GameObject* object = new GameObject();
+	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
+	object->SetName(name.c_str());
+	object->GetComponentTransform()->local_position = position;
+	object->GetComponentTransform()->local_rotation = rotation;
+	object->GetComponentTransform()->local_scale = scale;
+	object->SetParent(parent);
+	
+	return object;
 }
 
 void ModuleViewport::CreateGameObjectShape(object_type type, shape_type s_type, uint slice, uint stack, bool active, GameObject * parent)
