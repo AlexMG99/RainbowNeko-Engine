@@ -51,8 +51,8 @@ void ComponentMesh::GenerateMesh()
 	if (normals_face.size() > 0)
 	{
 		glGenBuffers(1, &normal_id);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, normal_id);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float3) *num_vertices, &normals[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, normal_id);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * normals_face.size(), &normals[0], GL_STATIC_DRAW);
 	}
 
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
@@ -64,11 +64,20 @@ void ComponentMesh::Render()
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 	
 	//Render FBX Mesh
+	glColor3f(1, 1, 1);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
+	//Normal
+	/*if (normals_face.size() > 0)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, normal_id);
+		glNormalPointer(GL_FLOAT, 0, nullptr);
+	}
+*/
 	//UVs
 	glEnable(GL_TEXTURE_2D);
 	if (UV_coord && my_go->GetComponentTexture())
@@ -99,8 +108,9 @@ void ComponentMesh::Render()
 		uint j = 0;
 		for (uint i = 0; i < num_vertices; i++)
 		{
-			glBegin(GL_LINES);
 			glColor3f(255, 0, 0);
+			glBegin(GL_LINES);
+
 
 			glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
 
@@ -108,20 +118,19 @@ void ComponentMesh::Render()
 			glEnd();
 			j += 3;
 		}
-		glColor3f(1, 1, 1);
 	}
 
 	if (normals_face.size() > 0 && normal_face_show) {
-		glBegin(GL_LINES);
 		glColor3f(0, 0, 255);
+		glBegin(GL_LINES);
 		for (int i = 0; i < (num_index / 3); i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
 		}
 
 		glEnd();
-		glColor3f(1, 1, 1);
 	}
+	
 
 	glPopMatrix();
 }

@@ -102,7 +102,6 @@ bool ModuleRenderer3D::Init()
 
 	// Projection matrix for
 	OnResize(App->window->width, App->window->height);
-	glEnable(GL_TEXTURE_2D);
 	return ret;
 }
 
@@ -115,6 +114,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	fbo->Bind();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
