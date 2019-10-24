@@ -37,7 +37,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	//Check if has children
 	if (obj->HasChildren())
 	{
-		node_flags |= ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+		node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 		
 		bool node_open = ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
 		if (ImGui::IsItemClicked()) {
@@ -56,7 +56,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	}
 	else
 	{
-		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		node_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 		ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
 		if (ImGui::IsItemClicked()) {
 			node_num = node_it;

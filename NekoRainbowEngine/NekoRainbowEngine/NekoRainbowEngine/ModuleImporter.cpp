@@ -61,25 +61,27 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	const aiNode* node = scene->mRootNode;
 
 	int i = 0;
+	GameObject* parent_fbx = new GameObject();
+	parent_fbx->SetName(path_fbx);
 
-	RecursiveChild(node, path_fbx, scene, path_texture, i);
+	RecursiveChild(node, path_fbx, scene, path_texture);
 
 	aiReleaseImport(scene);
 
 	return ret;
 }
 
-void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, int &id, GameObject* parent)
+void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, GameObject* parent)
 {
 	BROFILER_CATEGORY("Recursive_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
-	GameObject* child = CreateObject(node, path_fbx, scene, path_texture, id);
+	GameObject* child = CreateObject(node, path_fbx, scene, path_texture);
 
 	for (uint node_num = 0; node_num < node->mNumChildren; node_num++)
 	{
-		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, id, child);
+		RecursiveChild(node->mChildren[node_num], path_fbx, scene, path_texture, child);
 	}
-
+	
 	if (parent) {
 		child->SetParent(parent);
 		parent->children.push_back(child);
@@ -89,9 +91,10 @@ void ModuleImporter::RecursiveChild(const aiNode * node, char * path_fbx, const 
 		child->SetParent(App->viewport->root_object);
 		App->viewport->root_object->children.push_back(child);
 	}
+
 }
 
-GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture, int &id)
+GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, const aiScene * scene, char * path_texture)
 {
 	BROFILER_CATEGORY("CreateObject_ModuleImporter", Profiler::Color::Brown);
 
@@ -101,7 +104,6 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 	{
 		for (uint i = 0; i < node->mNumMeshes; i++)
 		{
-			
 			//Create aux_obj
 			GameObject* aux_obj = new GameObject();
 
@@ -110,7 +112,7 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 				first = aux_obj;
 
 			//Set object name
-			std::string name_obj = path_fbx + std::to_string(id);
+			std::string name_obj = node->mName.C_Str();
 			aux_obj->SetName(name_obj.c_str());
 
 			//Load Position
@@ -213,7 +215,6 @@ GameObject* ModuleImporter::CreateObject(const aiNode * node, char * path_fbx, c
 			else
 				trans->global_matrix = trans->local_matrix;
 
-			id++;
 		}
 
 	}
