@@ -128,6 +128,12 @@ void ComponentMesh::Render()
 	}
 	
 
+	glBegin(GL_LINES);
+		glVertex3f(local_AABB.minPoint.x, local_AABB.minPoint.y, local_AABB.minPoint.z);
+		glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
+
+	glEnd();
+
 	glPopMatrix();
 }
 

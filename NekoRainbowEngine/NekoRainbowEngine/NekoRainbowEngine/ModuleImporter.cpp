@@ -158,7 +158,9 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 		}
 
 		m->GenerateMesh();
-		//m->local_AABB.Enclose();
+		m->local_AABB.SetNegativeInfinity();
+		m->local_AABB.Enclose(m->vertices.data(), m->vertices.size());
+
 		//Generate Texture
 		if (aimesh->HasTextureCoords(0) && path_texture != "")
 		{
