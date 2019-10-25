@@ -32,7 +32,7 @@ bool PanelConfiguration::Start()
 	vsync = json_object_get_boolean(win_obj, "VSYNC");
 	App->window->GetVsync();
 
-
+	
 	App->CapFPS(capped_fps);
 
 	//Renderer attributes
@@ -275,6 +275,20 @@ void PanelConfiguration::AppSettings()
 
 		if (ImGui::CollapsingHeader("Renderer"))
 		{
+			
+			static float ambientcolor[3] = { 1.0f, 0.4f, 0.3f };
+			static float defaultbackground_color[3] = { 0.0f,0.0f,0.0f};
+
+			if (ImGui::ColorPicker4("Change Render Window Backround Color", ambientcolor))
+			{
+
+				glClearColor(ambientcolor[0], ambientcolor[1], ambientcolor[2], 1);
+			}
+			if (ImGui::Button("Reset Background Color"))
+			{
+				glClearColor(defaultbackground_color[0], defaultbackground_color[1], defaultbackground_color[2], 1);
+			}
+			
 
 			if (gl_depth) glEnable(GL_DEPTH); else glDisable(GL_DEPTH);
 			ImGui::Checkbox("GL DEPTH", &gl_depth); ImGui::SameLine(150);

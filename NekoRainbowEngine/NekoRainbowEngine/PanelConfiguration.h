@@ -33,7 +33,8 @@ private:
 	float current_ms = 0;
 	int capped_fps = 60;
 	int   win_w = 0;
-	
+
+
 	bool gl_depth;
 	bool gl_cull_face;
 	bool gl_lighting;
@@ -45,6 +46,8 @@ private:
 	bool gl_points = false;
 	bool gl_lines = false;
 	bool gl_fill = true;
+
+
 
 	bool vsync;
 
