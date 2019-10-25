@@ -3,6 +3,8 @@
 
 #include "Component.h"
 #include <string>
+#include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Geometry/OBB.h"
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
@@ -19,14 +21,17 @@ public:
 	void Render();
 
 public:
+	//AABB
+	AABB local_AABB;
+	AABB global_AABB;
+	OBB global_OBB;
+
 	//Mesh Properties
 	uint id_index = 0;
-	uint num_index = 0;
-	uint* index = nullptr;
+	std::vector<uint> index;
 
 	uint id_vertex = 0;
-	uint num_vertices = 0;
-	float* vertices = nullptr;
+	std::vector<float3> vertices;
 
 	//UVs
 	float* UV_coord = nullptr;
@@ -43,6 +48,7 @@ public:
 	bool normal_show = false;
 	bool normal_face_show = false;
 
+	//Component Transform
 	ComponentTransform* transform = nullptr;
 
 };

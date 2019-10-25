@@ -104,43 +104,42 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 
 		m->transform = aux_obj->GetComponentTransform();
 
-		m->num_vertices = aimesh->mNumVertices;
-		m->vertices = new float[m->num_vertices * 3];
-		memcpy(m->vertices, aimesh->mVertices, sizeof(float) * m->num_vertices * 3);
-		LOG("New mesh with %d vertices", m->num_vertices);
+		for (uint i = 0; i < aimesh->mNumVertices; i++)
+		{
+			m->vertices.push_back(float3(aimesh->mVertices[i].x, aimesh->mVertices[i].y, aimesh->mVertices[i].z));
+		}
+
+		LOG("New mesh with %d vertices", m->vertices.size());
 
 		if (aimesh->HasFaces())
 		{
-			m->num_index = aimesh->mNumFaces * 3;
-			m->index = new uint[m->num_index]; // assume each face is a triangle
-
-			for (uint j = 0; j < aimesh->mNumFaces; ++j)
+			for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
 			{
-				if (aimesh->mFaces[j].mNumIndices != 3) {
-					LOG("WARNING, geometry face with != 3 indices!");
-				}
-				else {
-					memcpy(&m->index[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
+				aiFace aiface = aimesh->mFaces[i];
+				for (uint j = 0; j < aiface.mNumIndices; j++)
+				{
+					m->index.push_back(aiface.mIndices[j]);
 				}
 			}
+			
 		}
 
 		//Load Normals
 		if (aimesh->HasNormals())
 		{
 			m->normals = new float3[aimesh->mNumVertices];
-			memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->num_vertices);
+			memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->vertices.size());
 
-			for (uint i = 0; i < m->num_index; i += 3)
+			for (uint i = 0; i < m->index.size(); i += 3)
 			{
 				uint index = m->index[i];
-				vec3 vertex0(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+				vec3 vertex0(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
 
 				index = m->index[i + 1];
-				vec3 vertex1(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+				vec3 vertex1(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
 
 				index = m->index[i + 2];
-				vec3 vertex2(m->vertices[index * 3], m->vertices[index * 3 + 1], m->vertices[index * 3 + 2]);
+				vec3 vertex2(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
 				CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
 			}
 		}
@@ -149,9 +148,9 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 		if (aimesh->HasTextureCoords(0))
 		{
 			m->UV_num = aimesh->mNumUVComponents[0];
-			m->UV_coord = new float[m->num_vertices * m->UV_num];
+			m->UV_coord = new float[m->vertices.size() * m->UV_num];
 
-			for (uint i = 0; i < m->num_vertices; i++)
+			for (uint i = 0; i < m->vertices.size(); i++)
 			{
 				memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
 			}
@@ -159,13 +158,15 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 		}
 
 		m->GenerateMesh();
-
+		//m->local_AABB.Enclose();
+		//Generate Texture
 		if (aimesh->HasTextureCoords(0) && path_texture != "")
 		{
 			ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 			texture->LoadTexture(path_texture);
 			m->image_id = texture->image_id;
 		}
+
 		LOG("Loaded mesh file succesfully!");
 	}
 
@@ -288,10 +289,13 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	mesh->vertices = shape->points;
-	mesh->num_vertices = shape->npoints;
-	mesh->index = (uint*)shape->triangles;
-	mesh->num_index = shape->ntriangles * 3;
+	for (uint i = 0; i < shape->npoints;)
+	{
+		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
+		i += 3;
+	}
+
+	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);
 	mesh->par_shape = true;
 	mesh->UV_coord = shape->tcoords;
 	mesh->UV_num = 2;

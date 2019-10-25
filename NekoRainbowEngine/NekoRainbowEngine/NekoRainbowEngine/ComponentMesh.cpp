@@ -14,8 +14,6 @@
 
 ComponentMesh::~ComponentMesh()
 {
-	RELEASE_ARRAY(index);
-	RELEASE_ARRAY(vertices);
 	RELEASE_ARRAY(UV_coord);
 	RELEASE_ARRAY(normals);
 }
@@ -32,19 +30,19 @@ void ComponentMesh::GenerateMesh()
 	//Cube Vertex
 	glGenBuffers(1, &id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)* num_vertices * 3, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices.size(), &vertices[0], GL_STATIC_DRAW);
 
 	//Cube Vertex definition
 	glGenBuffers(1, &id_index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_index, index, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index.size(), &index[0], GL_STATIC_DRAW);
 
 	//UVs definition
 	if (UV_coord)
 	{
 		glGenBuffers(1, &uv_id);
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * num_vertices, &UV_coord[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * vertices.size(), &UV_coord[0], GL_STATIC_DRAW);
 	}
 
 	//Normal Definition
@@ -72,12 +70,12 @@ void ComponentMesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
 	//Normal
-	/*if (normals_face.size() > 0)
+	if (normals_face.size() > 0)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, normal_id);
 		glNormalPointer(GL_FLOAT, 0, nullptr);
 	}
-*/
+
 	//UVs
 	glEnable(GL_TEXTURE_2D);
 	if (UV_coord && my_go->GetComponentTexture())
@@ -93,9 +91,9 @@ void ComponentMesh::Render()
 
 	//Checks if is a shape or a fbx
 	if(par_shape)
-		glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_SHORT, NULL);
 	else
-		glDrawElements(GL_TRIANGLES, num_index * 3, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -105,25 +103,23 @@ void ComponentMesh::Render()
 
 	//Render Vertex Normals
 	if (normals && normal_show) {
-		uint j = 0;
-		for (uint i = 0; i < num_vertices; i++)
+		for (uint i = 0; i < vertices.size(); i++)
 		{
 			glColor3f(255, 0, 0);
 			glBegin(GL_LINES);
 
 
-			glVertex3f(vertices[j], vertices[j + 1], vertices[j + 2]);
+			glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
 
-			glVertex3f(vertices[j] + normals[i].x, vertices[j + 1] + normals[i].y, vertices[j + 2] + normals[i].z);
+			glVertex3f(vertices[i].x + normals[i].x, vertices[i].y + normals[i].y, vertices[i].z + normals[i].z);
 			glEnd();
-			j += 3;
 		}
 	}
 
 	if (normals_face.size() > 0 && normal_face_show) {
 		glColor3f(0, 0, 255);
 		glBegin(GL_LINES);
-		for (int i = 0; i < (num_index / 3); i += 2) {
+		for (int i = 0; i < (index.size() / 3); i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
 		}

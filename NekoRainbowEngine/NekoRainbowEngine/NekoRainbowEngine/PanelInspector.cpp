@@ -43,9 +43,9 @@ update_status PanelInspector::Draw()
 			ImGui::Checkbox("Normal Vertex", &comp_mesh->normal_show); ImGui::SameLine();
 			ImGui::Checkbox("Normal Face", &comp_mesh->normal_face_show);
 			ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
-			ImGui::Text("Num vertices: %i", comp_mesh->num_vertices);
+			ImGui::Text("Num vertices: %i", comp_mesh->vertices.size());
 			ImGui::Text("Id indices: %i", comp_mesh->id_index);
-			ImGui::Text("Num indices: %i", comp_mesh->num_index);
+			ImGui::Text("Num indices: %i", comp_mesh->index.size());
 			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
 			ImGui::PopID();
 			ImGui::Separator();
