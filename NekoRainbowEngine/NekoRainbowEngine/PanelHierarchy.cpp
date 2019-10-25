@@ -25,8 +25,8 @@ update_status PanelHierarchy::Draw()
 
 void PanelHierarchy::TreeObject(GameObject* obj)
 {
-	ImGuiTreeNodeFlags node_flags;
-	static uint node_num = -1;
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	static int node_num = -1;
 	static int selection_mask = (1 << 2);
 	node_it++;
 
@@ -36,13 +36,16 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 
 	//Check if has children
 	if (obj->HasChildren())
-	{
-		node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-		
+	{	
 		bool node_open = ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
-		if (ImGui::IsItemClicked()) {
+		if (ImGui::IsItemClicked() && !is_selected) {
 			node_num = node_it;
 			App->viewport->selected_object = obj;
+		}
+		else if (ImGui::IsItemClicked() && is_selected) {
+			node_num = -10;
+			selection_mask = (1 << 2);
+			App->viewport->selected_object = nullptr;
 		}
 
 		if (node_open)
@@ -56,11 +59,16 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	}
 	else
 	{
-		node_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 		ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
-		if (ImGui::IsItemClicked()) {
+		if (ImGui::IsItemClicked() && !is_selected) {
 			node_num = node_it;
 			App->viewport->selected_object = obj;
+		}
+		else if (ImGui::IsItemClicked() && is_selected) {
+			node_num = -10;
+			selection_mask = (1 << 2);
+			App->viewport->selected_object = nullptr;
 		}
 	}
 

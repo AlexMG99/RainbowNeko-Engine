@@ -94,7 +94,7 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
 	//Create aux_obj
-	GameObject* aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale / 100, rot);
+	GameObject* aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale, rot);
 
 	if (node->mNumMeshes > 0)
 	{

@@ -909,10 +909,6 @@ void AABB::Enclose(const float3 &point)
 {
 	minPoint = Min(minPoint, point);
 	maxPoint = Max(maxPoint, point);
-	{
-		LOG("x:%f	 y:%f	z:%f", point.x, point.y, point.z);
-		LOG("x:%f	 y:%f	z:%f", point.x, point.y, point.z);
-	}
 }
 
 void AABB::Enclose(const LineSegment &lineSegment)

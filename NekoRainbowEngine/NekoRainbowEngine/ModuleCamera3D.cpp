@@ -222,14 +222,11 @@ float* ModuleCamera3D::GetViewMatrix()
 void ModuleCamera3D::FocusObject()
 {
 	//Iterate Childrens
-	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj) {
-		if ((*it_obj)->selected)
-		{
-			ComponentTransform* trans = (*it_obj)->GetComponentTransform();
-			Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
-			LookAt(Reference);
-		}
-	}
+
+	ComponentTransform* trans = App->viewport->selected_object->GetComponentTransform();
+	Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
+	LookAt(Reference);
+
 }
 
 // -----------------------------------------------------------------

@@ -14,15 +14,17 @@ update_status PanelInspector::Draw()
 
 	BROFILER_CATEGORY("Draw_PaneInspector", Profiler::Color::GoldenRod);
 
-	ImGui::Begin(name, &enabled);
+	ImGui::Begin(name, &enabled, ImGuiWindowFlags_HorizontalScrollbar);
 
 	GameObject* object = App->viewport->selected_object;
 
 	if (object)
 	{
 		//Transform
-		ImGui::Text("Name: %s		", object->GetName().c_str()); ImGui::SameLine();
-		ImGui::Text("Parent: %s", object->GetParent()->GetName().c_str());
+		ImGui::PushID("Transform");
+		ImGui::Checkbox("Active", &object->active);
+		ImGui::PopID();
+		ImGui::Text("Name: %s		", object->GetName().c_str());
 		ImGui::Separator();
 		ComponentTransform* comp_trans = object->GetComponentTransform();
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))

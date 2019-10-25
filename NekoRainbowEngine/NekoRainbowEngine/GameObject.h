@@ -32,7 +32,6 @@ public:
 	void AddParent(GameObject* obj);
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);
-	void SetActive(bool act);
 
 	object_type GetType();
 	void SetType(object_type ty_);
@@ -40,10 +39,12 @@ public:
 	std::string GetName() const;
 	void SetName(const char* name_);
 
+	float3 GetScale(const float3 scale) const;
+
+
 private:
 	object_type type = OBJECT_NONE;
 	std::string name = "Object Null";
-	bool active = true;
 	
 	GameObject*					parent = nullptr;
 	std::vector<Component*>		components;
@@ -51,6 +52,7 @@ private:
 public:
 	std::vector<GameObject*>	children;
 	bool selected = false;
+	bool active = true;
 };
 
 #endif // !_GAMEOBJECT_H_

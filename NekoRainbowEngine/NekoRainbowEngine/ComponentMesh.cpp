@@ -77,7 +77,6 @@ void ComponentMesh::Render()
 	}
 
 	//UVs
-	glEnable(GL_TEXTURE_2D);
 	if (UV_coord && my_go->GetComponentTexture())
 	{
 		if (my_go->GetComponentTexture()->active) 
@@ -99,7 +98,6 @@ void ComponentMesh::Render()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_TEXTURE_2D);
 
 	//Render Vertex Normals
 	if (normals && normal_show) {

@@ -23,7 +23,8 @@ bool GameObject::Update()
 	//Iterate Childrens
 	for (auto it_obj = children.begin(); it_obj != children.end(); it_obj++) 
 	{
-		(*it_obj)->Update();
+		if((*it_obj)->active)
+			(*it_obj)->Update();
 	}
 
 	//Iterate Components
@@ -129,11 +130,6 @@ void GameObject::SetParent(GameObject* par)
 	}
 }
 
-void GameObject::SetActive(bool act)
-{
-	active = act;
-}
-
 object_type GameObject::GetType()
 {
 	return type;
@@ -159,5 +155,19 @@ void GameObject::SetName(const char * name_)
 		pos = temp_str.find_last_of("\\");
 	std::string str = temp_str.substr(pos + 1);
 	name = str.c_str();
+}
+
+float3 GameObject::GetScale(const float3 scale) const
+{
+	float3 scale_;
+
+	if ((scale.x >= 100) && (scale.y >= 100) && (scale.z >= 100))
+		scale_ = float3(scale.x * 0.01, scale.y * 0.01, scale.z*0.01);
+	else if ((scale.x >= 1000) && (scale.y >= 1000) && (scale.z >= 1000))
+		scale_ = float3(scale.x * 0.001, scale.y * 0.001, scale.z*0.001);
+	else
+		scale_ = scale;
+
+	return scale_;
 }
 
