@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class GameObject;
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -22,7 +24,8 @@ public:
 	void SetCameraToCenter();
 	float* GetViewMatrix();
 
-	void FocusObject();
+	void FocusObject(GameObject* obj);
+	void FocusObjectImport(GameObject * obj);
 
 private:
 

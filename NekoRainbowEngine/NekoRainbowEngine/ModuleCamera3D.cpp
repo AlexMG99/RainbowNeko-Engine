@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleCamera3D.h"
+#include "GameObject.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -81,21 +82,13 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
-		GameObject* object = nullptr;
-
-		for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
-		{
-			if ((*it_obj)->selected)
-				object = (*it_obj);
-		}
-
-		if (object)
-			FocusObject();
+		
+		FocusObject(App->viewport->selected_object);
 
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		float sensitivity_mouse = 0.25f;
+		float sensitivity_mouse = 0.02f *dt;
 
 		Position -= Reference;
 
@@ -128,7 +121,7 @@ update_status ModuleCamera3D::Update(float dt)
 	//Movement Middle button ----------
 	else if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
 
-		float sensitivity_zoom = 0.10f;
+		float sensitivity_zoom = 0.01f * dt;
 
 		newPos.y -= App->input->GetMouseYMotion() * sensitivity_zoom;
 		newPos += App->input->GetMouseXMotion() * sensitivity_zoom * X;
@@ -219,14 +212,25 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
-void ModuleCamera3D::FocusObject()
+void ModuleCamera3D::FocusObject(GameObject* obj)
 {
-	//Iterate Childrens
+	if (obj)
+	{
+		ComponentTransform* trans = obj->GetComponentTransform();
+		Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
+		LookAt(Reference);
+	}
+}
 
-	ComponentTransform* trans = App->viewport->selected_object->GetComponentTransform();
-	Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
-	LookAt(Reference);
-
+void ModuleCamera3D::FocusObjectImport(GameObject* obj)
+{
+	if (obj)
+	{
+		ComponentMesh* mesh = obj->GetComponentMesh();
+		float3 center = ((mesh->local_AABB.minPoint + mesh->local_AABB.maxPoint) / 2);
+		Reference = vec3(center[0], center[1], center[2]);
+		LookAt(Reference);
+	}
 }
 
 // -----------------------------------------------------------------
