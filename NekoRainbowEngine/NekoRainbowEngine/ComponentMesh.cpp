@@ -114,6 +114,7 @@ void ComponentMesh::Render()
 		}
 	}
 
+	//Render Face Normals
 	if (normals_face.size() > 0 && normal_face_show) {
 		glColor3f(0, 0, 255);
 		glBegin(GL_LINES);
@@ -125,11 +126,10 @@ void ComponentMesh::Render()
 		glEnd();
 	}
 	
-
+	//Bounding Box Diagonal
 	glBegin(GL_LINES);
-		glVertex3f(local_AABB.minPoint.x, local_AABB.minPoint.y, local_AABB.minPoint.z);
-		glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
-
+	glVertex3f(local_AABB.minPoint.x, local_AABB.minPoint.y, local_AABB.minPoint.z);
+	glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
 	glEnd();
 
 	glPopMatrix();
