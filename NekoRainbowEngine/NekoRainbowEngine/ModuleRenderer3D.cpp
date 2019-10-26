@@ -40,7 +40,7 @@ bool ModuleRenderer3D::Init()
 	{
 		//Use Vsync
 
-		if (App->window->vsync_on && SDL_GL_SetSwapInterval(1) < 0)
+		if (App->window->vsync_on && SDL_GL_SetSwapInterval(0) < 0)
 		{
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 		}

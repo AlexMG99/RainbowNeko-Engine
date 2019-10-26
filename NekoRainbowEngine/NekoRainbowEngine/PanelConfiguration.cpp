@@ -115,10 +115,6 @@ void PanelConfiguration::AppSettings()
 
 		sprintf_s(title, 25, "Milliseconds %.1f", current_ms);
 		ImGui::PlotHistogram("##milliseconds", ms_log, MAX_HISTOGRAM_LOG, ms_current_log, title, 0.0f, 40.0f, ImVec2(310, 100));
-	
-		if (ImGui::Checkbox("Vsync", &vsync)) {
-			App->window->SetVsync(vsync);
-		}
 
 	}
 }

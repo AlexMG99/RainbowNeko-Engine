@@ -25,7 +25,7 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	//ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
+	ret = App->importer->ImportFBX("../Game/Assets/BakerHouse.fbx", "../Game/Assets/Baker_house.dds");
 	//App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
 	return ret;
 }
@@ -38,7 +38,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		App->camera->SetCameraToCenter();
 
-	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
+	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && selected_object)
 			DeleteGameObject();
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
@@ -129,25 +129,19 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 
 void ModuleViewport::DeleteGameObject()
 {
-	//Iterate Childrens
-	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end(); ++it_obj) {
-		if ((*it_obj)->selected)
-		{
-			//Check ID
-			if ((*it_obj)->GetType() == OBJECT_PARSHAPE && shape_num > 0)
-				shape_num--;
+	//Check ID
+	if (selected_object->GetType() == OBJECT_PARSHAPE && shape_num > 0)
+		shape_num--;
 
+	GameObject* parent = selected_object->GetParent();
+
+	for (auto it_obj = parent->children.begin(); it_obj < parent->children.end();) {
+		if (selected_object == (*it_obj)) {
 			RELEASE(*it_obj);
-			it_obj = root_object->children.erase(it_obj);
-			return;
+			it_obj = parent->children.erase(it_obj);
+			selected_object = nullptr;
 		}
-	}
-}
-
-void ModuleViewport::CheckObjectSelected(GameObject * obj)
-{
-	for (auto it_obj = root_object->children.begin(); it_obj != root_object->children.end(); ++it_obj) {
-		if ((*it_obj) != obj)
-			(*it_obj)->selected = false;
+		else
+			it_obj++;
 	}
 }

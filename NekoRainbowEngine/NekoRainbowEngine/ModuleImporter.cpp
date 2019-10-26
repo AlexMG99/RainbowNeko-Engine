@@ -76,7 +76,8 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 		LOG("Error loading FBX with path: %s", path_fbx);
 	}
 
-	App->camera->FocusObjectImport(fbx_obj);
+	App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
+
 
 	return ret;
 }
@@ -206,7 +207,6 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 	{
 		if ((*it_obj)->selected)
 			object = (*it_obj);
-
 	}
 
 	if (object) {
