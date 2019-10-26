@@ -191,22 +191,6 @@ void PanelConfiguration::AppSettings()
 			ImGui::Separator();
 
 			std::wstring GPU;
-			char GPU_Brand[50];
-			uint VendorId;
-			uint DevideId;
-			Uint64 VMB;
-			Uint64 VMCU;
-			Uint64 VMA;
-			Uint64 VMR;
-			float conversion = (1024.f * 1024.f);
-
-			/*if (getGraphicsDeviceInfo(NULL, NULL, &GPU, &VMB, &VMCU, &VMA, &VMR))
-			{
-				VMB = VMB / conversion;
-				VMCU = VMCU / conversion;
-				VMA = VMA / conversion;
-				VMR = VMR / conversion;
-			}*/
 			
 			ImGui::Text("Mode: ");
 			ImGui::RadioButton("VRAM Memory", &mode, 1);  ImGui::SameLine();
@@ -220,32 +204,26 @@ void PanelConfiguration::AppSettings()
 				ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VERSION));
 				ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
-
-				/*ImGui::Text("VRAM Budget"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMB);
-				ImGui::Text("VRAM Current Usage"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMCU);
-				ImGui::Text("VRAM Aviable"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMA);
-				ImGui::Text("VRAM Reserved"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%.1f Mb", (float)VMR);*/
-
-				/*ImGui::Text("VRAM Budget: ");
+				ImGui::Text("VRAM Budget: ");
 				ImGui::SameLine();
 				int temp = 0;
 				glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &temp);
-				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+				ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", temp / 1024);
 
 				ImGui::Text("VRAM Usage: ");
 				ImGui::SameLine();
 				glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &temp);
-				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+				ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", temp / 1024);
 
 				ImGui::Text("VRAM Available: ");
 				ImGui::SameLine();
 				glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &temp);
-				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);
+				ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", temp / 1024);
 
 				ImGui::Text("VRAM Reserved: ");
 				ImGui::SameLine();
 				glGetIntegerv(GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX, &temp);
-				ImGui::TextColored({ 255, 255, 0, 255 }, "%i Mb", temp / 1024);*/
+				ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%i Mb", temp / 1024);
 			}
 
 			if (mode == 2) 

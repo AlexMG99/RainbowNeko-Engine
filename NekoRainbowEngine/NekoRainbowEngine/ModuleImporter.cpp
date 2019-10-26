@@ -201,28 +201,20 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 {
 	BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
 
-	GameObject* object = nullptr;
-
-	for (auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); ++it_obj)
-	{
-		if ((*it_obj)->selected)
-			object = (*it_obj);
-	}
-
-	if (object) {
-		ComponentTexture* texture = object->GetComponentTexture();
+	if (App->viewport->selected_object) {
+		ComponentTexture* texture = App->viewport->selected_object->GetComponentTexture();
 
 		if (!texture)
-			texture = (ComponentTexture*)object->CreateComponent(COMPONENT_TEXTURE);
+			texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
 
 		texture->LoadTexture(path_texture);
-		object->GetComponentMesh()->image_id = texture->image_id;
+		App->viewport->selected_object->GetComponentMesh()->image_id = texture->image_id;
 	}
 	else
 	{
 		C_WARNING("Warning! Object no selected. Please, select an object.");
 	}
-	return false;
+	return true;
 }
 
 
