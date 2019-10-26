@@ -17,6 +17,15 @@
 
 #include"Brofiler/Brofiler.h"
 
+//-------------- Devil --------------
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
+
+#pragma comment(lib, "Devil/libx86/DevIL.lib")
+#pragma comment(lib, "Devil/libx86/ILU.lib")
+#pragma comment(lib, "Devil/libx86/ILUT.lib")
+
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
 //----------------- ModuleImporter -----------------//
@@ -38,6 +47,12 @@ bool ModuleImporter::Init()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	stream.callback = LogCallback;
 	aiAttachLogStream(&stream);
+
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
+
 	return true;
 }
 
@@ -76,7 +91,7 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 		LOG("Error loading FBX with path: %s", path_fbx);
 	}
 
-	App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
+	//App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
 
 
 	return ret;

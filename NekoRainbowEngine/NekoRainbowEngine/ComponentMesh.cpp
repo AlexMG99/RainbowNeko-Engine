@@ -8,14 +8,15 @@
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
 
-#pragma comment(lib, "Devil/libx86/DevIL.lib")
-#pragma comment(lib, "Devil/libx86/ILU.lib")
-#pragma comment(lib, "Devil/libx86/ILUT.lib")
-
 ComponentMesh::~ComponentMesh()
 {
 	RELEASE_ARRAY(UV_coord);
 	RELEASE_ARRAY(normals);
+
+	glDeleteBuffers(1, &id_vertex);
+	glDeleteBuffers(1, &id_index);
+	glDeleteBuffers(1, &uv_id);
+	glDeleteBuffers(1, &normal_id);
 }
 
 bool ComponentMesh::Update()
@@ -58,8 +59,8 @@ void ComponentMesh::GenerateMesh()
 
 void ComponentMesh::Render()
 {
-	glPushMatrix();
-	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
+	/*glPushMatrix();
+	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());*/
 	
 	//Render FBX Mesh
 	glColor3f(1, 1, 1);
@@ -127,12 +128,12 @@ void ComponentMesh::Render()
 	}
 	
 	//Bounding Box Diagonal
-	glBegin(GL_LINES);
+	/*glBegin(GL_LINES);
 	glVertex3f(local_AABB.minPoint.x, local_AABB.minPoint.y, local_AABB.minPoint.z);
 	glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
-	glEnd();
+	glEnd();*/
 
-	glPopMatrix();
+	/*glPopMatrix();*/
 }
 
 void ComponentTexture::LoadTexture(const char* path)
@@ -146,20 +147,7 @@ void ComponentTexture::LoadTexture(const char* path)
 		ilBindImage(devil_id);
 		ilutRenderer(ILUT_OPENGL);
 
-		ILuint Size;
-		FILE *File;
-		ILubyte *Lump;
-
-		File = fopen(path, "rb");
-		fseek(File, 0, SEEK_END);
-		Size = ftell(File);
-
-		Lump = (ILubyte*)malloc(Size);
-		fseek(File, 0, SEEK_SET);
-		fread(Lump, 1, Size, File);
-		fclose(File);
-
-		if (!ilLoadL(IL_DDS, Lump, Size)) {
+		if (!ilLoadImage(path)) {
 			auto error = ilGetError();
 			LOG("Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
 			ret = false;
@@ -172,7 +160,6 @@ void ComponentTexture::LoadTexture(const char* path)
 			GenerateTexture();
 		}
 
-		free(Lump);
 		ilDeleteImages(1, &devil_id);
 		this->path = path;
 	}
