@@ -25,6 +25,7 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	*	_**Game**_.
 	*	_**Hierarchy**_.
 	*	_**Inspector**_.
+        * _**Panel Shape**_.
 ### Configuration
 * **Application**: Shows info about:
 	* _**Project Name**_. 
@@ -41,7 +42,7 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* _**Mouse wheel**_.
 	* _**Game panel mouse**_.
 * **Hardware**: It shows the capabilities of the hardware.
-* **Renderer**: Activate/Deactivate glRender properties and change view between POLYGON, WIREFRAME and VERTEX.
+* **Renderer**: Change backgroundcolor and activate/deactivate glRender properties and change view between POLYGON, WIREFRAME and VERTEX.
 
 ### Hierarchy
 The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
@@ -105,6 +106,8 @@ The panel Console prints:
 	* _**Focus the camera around the object selected**_.
 * **Alt+Left**:
 	* _**Orbit the object**_.
+* **Supr**:
+	* _**Delete GameObjects**_.
 
 
 ## Innovations
