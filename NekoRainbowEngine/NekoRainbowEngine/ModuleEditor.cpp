@@ -119,6 +119,7 @@ bool ModuleEditor::CleanUp()
 	RELEASE(panel_inspector);
 	RELEASE(panel_console);
 	RELEASE(panel_topbar);
+	RELEASE(panel_shape);
 
 	return true;
 }

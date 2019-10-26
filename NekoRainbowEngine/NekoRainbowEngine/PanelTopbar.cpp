@@ -6,6 +6,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
+#include "PanelShape.h"
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
 
@@ -54,6 +55,7 @@ update_status PanelTopbar::Draw()
 		ImGui::MenuItem("Game	", NULL, &App->editor->panel_game->enabled);
 		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
 		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
+		ImGui::MenuItem("Panel Shape ", NULL, &App->editor->panel_shape->enabled);
 
 		ImGui::EndMenu();
 	}
