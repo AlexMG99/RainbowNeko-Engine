@@ -120,10 +120,12 @@ update_status ModuleInput::PreUpdate(float dt)
 				pos = str.find_last_of(".");
 				file_ext = str.substr(pos + 1);
 
-				if(file_ext == "fbx" || file_ext == "FBX")
+				if (file_ext == "fbx" || file_ext == "FBX")
 					App->importer->ImportFBX(e.drop.file);
-				else if(file_ext == "dds" || file_ext == "DDS")
+				else if (file_ext == "dds" || file_ext == "DDS" || file_ext == "png" || file_ext == "PNG")
 					App->importer->ImportTexture(e.drop.file);
+				else
+					LOG("File with extension %s can not be load!", file_ext.c_str());
 
 			break;
 
