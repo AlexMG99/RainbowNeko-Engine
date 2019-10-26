@@ -4,6 +4,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
+#include "mmgr/mmgr.h"
 #include <string>
 PanelConfiguration::~PanelConfiguration()
 {
@@ -228,7 +229,7 @@ void PanelConfiguration::AppSettings()
 
 			if (mode == 2) 
 			{
-				/*ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
+				ImGui::Text("Total Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().totalReportedMemory);
 				ImGui::Text("Peak Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakReportedMemory);
 				ImGui::Text("Total Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f),"%d", m_getMemoryStatistics().totalActualMemory);
 				ImGui::Text("Peak Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakActualMemory);
@@ -236,7 +237,7 @@ void PanelConfiguration::AppSettings()
 				ImGui::Text("Peak Alloc Unit Count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().peakAllocUnitCount);
 				ImGui::Text("Accumulated Reported Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedReportedMemory);
 				ImGui::Text("Accumulated Actual Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
-				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);*/
+				ImGui::Text("Accumulated Alloc Memory:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%d", m_getMemoryStatistics().accumulatedActualMemory);
 			}
 			ImGui::Separator();
 
