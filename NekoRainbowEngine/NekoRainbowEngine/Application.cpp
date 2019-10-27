@@ -4,6 +4,7 @@
 
 #include "PanelConsole.h"
 
+
 Application::Application()
 {
 	PERF_START(ptimer);

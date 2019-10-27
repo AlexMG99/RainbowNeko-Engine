@@ -8,6 +8,8 @@
 
 PanelConsole::~PanelConsole()
 {
+	CreateLOGDoc();
+
 	for (auto it_obj = console_text.begin(); it_obj != console_text.end();) {
 		(*it_obj).text.clear();
 		it_obj = console_text.erase(it_obj);
@@ -106,4 +108,17 @@ void PanelConsole::CopyLogs()
 	}
 
 	App->ClearLogs();
+}
+
+void PanelConsole::CreateLOGDoc()
+{
+	FILE *fp = fopen("console_log.txt", "w");
+	if (fp != nullptr)
+	{
+		for (auto it_list = console_text.begin(); it_list != console_text.end(); it_list++) {
+			fprintf(fp, (*it_list).text.c_str());
+		}
+	}
+
+	fclose(fp);
 }

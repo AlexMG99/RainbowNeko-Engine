@@ -92,12 +92,13 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 		{
 			LoadNode(scene->mRootNode->mChildren[i], scene, path_texture, fbx_obj);
 		}
-		aiReleaseImport(scene);
 	}
 	else
 	{
 		LOG("Error loading FBX with path: %s", path_fbx);
 	}
+
+	aiReleaseImport(scene);
 
 	//App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
 

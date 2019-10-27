@@ -40,6 +40,8 @@ private:
 	ImVec4 GetColorFromType(ConsoleTextType type);
 	void CopyLogs();
 
+	void CreateLOGDoc();
+
 private:
 	std::list<ConsoleText> console_text;
 	char filter_text[10] = "";
