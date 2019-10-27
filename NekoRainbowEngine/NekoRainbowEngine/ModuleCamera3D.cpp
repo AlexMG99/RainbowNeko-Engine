@@ -216,8 +216,10 @@ void ModuleCamera3D::FocusObject(GameObject* obj)
 	if (obj)
 	{
 		ComponentTransform* trans = obj->GetComponentTransform();
-		Reference = vec3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
-		LookAt(Reference);
+		if ((Reference.x != trans->local_position.x) && (Reference.y != trans->local_position.y) && (Reference.z != trans->local_position.z)) {
+			Reference = vec3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
+			LookAt(Reference);
+		}
 	}
 }
 
