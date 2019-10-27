@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
-
+	FILE *fp = fopen("console_log.txt", "w");
 	while (state != MAIN_EXIT)
 	{
 		switch (state)
@@ -37,8 +37,11 @@ int main(int argc, char ** argv)
 		case MAIN_CREATION:
 
 			LOG("-------------- Application Creation --------------");
+
+			
 			App = new Application();
 			state = MAIN_START;
+
 			break;
 
 		case MAIN_START:
@@ -48,6 +51,10 @@ int main(int argc, char ** argv)
 			{
 				LOG("Application Init exits with ERROR");
 				state = MAIN_EXIT;
+				if (fp != nullptr)
+				{
+					fprintf(fp, "Potatoe");
+				}
 			}
 			else
 			{

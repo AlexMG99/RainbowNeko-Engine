@@ -80,7 +80,7 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	else
 	{
 		LOG("The Object does not have an scene. It won't be load");
-		return false;
+		ret = false;
 	}
 
 	//Create gameObject that contains FBX parts
@@ -95,10 +95,12 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	}
 	else
 	{
+
 		LOG("Error loading FBX with path: %s", path_fbx);
 	}
 
 	aiReleaseImport(scene);
+
 
 	//App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
 

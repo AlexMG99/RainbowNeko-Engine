@@ -26,7 +26,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(importer);
-	
+
 	// Scenes
 	AddModule(viewport);
 	AddModule(editor);
@@ -228,3 +228,4 @@ void Application::InitializeJSONDoc()
 		json_serialize_to_file(credits_doc, "Settings/win_about.json");
 	}
 }
+

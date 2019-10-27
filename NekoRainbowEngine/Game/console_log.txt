@@ -1,0 +1,42 @@
+
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.5.0 NVIDIA 384.76
+GLSL: 4.50 NVIDIA
+
+Framebuffer created succesfully!
+-------------- Application Start --------------
+Setting up the camera
+  T10440: Load ./Assets/BakerHouse.fbx
+
+  T10440: Found a matching importer for this file format: Autodesk FBX Importer.
+
+  T10440: Import root directory is './Assets\'
+
+  T10440: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+
+  T10440: Entering post processing pipeline
+
+  T10440: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+
+  T10440: CalcTangentsProcess finished. Tangents have been calculated
+
+  T10440: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+
+  T10440: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+
+  T10440: Leaving post processing pipeline
+
+New mesh with 160 vertices
+Generated mesh with id vertex: 1 and id index: 2
+Loaded mesh file succesfully!
+New mesh with 1641 vertices
+Generated mesh with id vertex: 5 and id index: 6
+Loaded mesh file succesfully!
+Loading Editor Scene
+-------------- Application Update --------------
