@@ -5,6 +5,7 @@
 #include "PerfTimer.h"
 
 
+
 #define MAX_HISTOGRAM_LOG 50
 
 class PanelConfiguration : public Panel {
@@ -43,17 +44,15 @@ private:
 	bool gl_fog = false;
 	bool gl_shade_model;
 	bool gl_front_and_back = false;
-	bool gl_points = false;
-	bool gl_lines = false;
-	bool gl_fill = true;
-
-
-
-	bool vsync;
 
 	int mode = 0;
 
 	PerfTimer	check_time;
+
+public:
+	bool gl_points = false;
+	bool gl_lines = false;
+	bool gl_fill = true;
 };
 
 

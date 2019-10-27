@@ -30,7 +30,6 @@ bool PanelConfiguration::Start()
 	App->window->border_on = json_object_get_boolean(win_obj, "Border");
 	App->window->SetBorderless();
 	App->window->SetBrightness(json_object_get_number(win_obj, "Brightness"));
-	vsync = json_object_get_boolean(win_obj, "VSYNC");
 	App->window->GetVsync();
 
 	
@@ -293,17 +292,6 @@ void PanelConfiguration::AppSettings()
 			ImGui::Checkbox("GL WIREFRAME", &gl_lines); ImGui::SameLine(250);
 
 			ImGui::Checkbox("GL VERTEX", &gl_points); 
-
-			if (gl_fill) {
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			}
-			if (gl_lines) {
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			}
-			if (gl_points) {
-				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-			}
-
 			
 		}
 

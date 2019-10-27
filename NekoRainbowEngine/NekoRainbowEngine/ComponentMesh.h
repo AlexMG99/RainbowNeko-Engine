@@ -18,7 +18,8 @@ public:
 	void Disable() {};
 
 	void GenerateMesh();
-	void Render();
+	void RenderFill();
+	void RenderWireframe();
 
 public:
 	//AABB

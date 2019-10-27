@@ -1,5 +1,8 @@
+#include "Application.h"
+#include "ModuleEditor.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "PanelConfiguration.h"
 
 #include "GL/include/glew.h"
 
@@ -7,6 +10,11 @@
 #include "Devil/include/il.h"
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
+
+ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj)
+{
+	color = vec4(0, 255, 0, 1);
+}
 
 ComponentMesh::~ComponentMesh()
 {
@@ -21,7 +29,16 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	Render();
+	glPushMatrix();
+	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
+
+	if(App->editor->panel_config->gl_fill)
+		RenderFill();
+
+	if(App->editor->panel_config->gl_lines)
+		RenderWireframe();
+
+	glPopMatrix();
 
 	return true;
 }
@@ -57,10 +74,9 @@ void ComponentMesh::GenerateMesh()
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
 }
 
-void ComponentMesh::Render()
+void ComponentMesh::RenderFill()
 {
-	glPushMatrix();
-	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	//Render FBX Mesh
 	glColor3f(1, 1, 1);
@@ -126,7 +142,25 @@ void ComponentMesh::Render()
 	glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
 	glEnd();*/
 
-	glPopMatrix();
+}
+
+void ComponentMesh::RenderWireframe()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	//Render FBX Mesh
+	glColor3f(color.x, color.y, color.z);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+
+	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glColor3f(1, 1, 1);
 }
 
 void ComponentTexture::LoadTexture(const char* path)
