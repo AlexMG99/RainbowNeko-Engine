@@ -13,7 +13,10 @@
 
 ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj)
 {
-	color = vec4(0, 255, 0, 1);
+	wireframe_color = vec4(0, 255, 0, 1);
+	vertex_color = vec4(255, 0, 0, 1);
+	point_size = 1.0f;
+	line_width = 1.0f;
 }
 
 ComponentMesh::~ComponentMesh()
@@ -38,6 +41,7 @@ bool ComponentMesh::Update()
 		RenderWireframe();
 	if (App->viewport->point_on)
 		RenderPoint();
+
 	glPopMatrix();
 
 	return true;
@@ -148,8 +152,9 @@ void ComponentMesh::RenderWireframe()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	glLineWidth(line_width);
 	//Render FBX Mesh
-	glColor3f(color.x, color.y, color.z);
+	glColor3f(wireframe_color.x, wireframe_color.y, wireframe_color.z);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -159,17 +164,18 @@ void ComponentMesh::RenderWireframe()
 	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-
+	glLineWidth(1.0);
 	glColor3f(1, 1, 1);
 }
 
 void ComponentMesh::RenderPoint()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	glEnable(GL_POINT_SMOOTH);
+	glPointSize(point_size);
 	//Render FBX Mesh
-	glColor3f(color.x, color.y, color.z);
+	glColor3f(vertex_color.x, vertex_color.y, vertex_color.z);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -179,6 +185,8 @@ void ComponentMesh::RenderPoint()
 	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisable(GL_POINT_SMOOTH);
+	glPointSize(1.0f);
 
 	glColor3f(1, 1, 1);
 }

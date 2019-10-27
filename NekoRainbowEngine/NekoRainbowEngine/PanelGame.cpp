@@ -14,7 +14,8 @@ update_status PanelGame::Draw()
 
 	ImGui::Checkbox("Grid", &App->viewport->draw_grid); ImGui::SameLine();
 	ImGui::Checkbox("Fill", &App->viewport->fill_on); ImGui::SameLine();
-	ImGui::Checkbox("Wireframe", &App->viewport->wireframe_on);
+	ImGui::Checkbox("Wireframe", &App->viewport->wireframe_on); ImGui::SameLine();
+	ImGui::Checkbox("Points", &App->viewport->point_on);
 
 	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(), ImVec2(size.x*0.6, size.y*0.6), ImVec2(0, 1), ImVec2(1, 0));
 

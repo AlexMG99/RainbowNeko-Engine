@@ -54,7 +54,10 @@ public:
 	bool normal_face_show = false;
 
 	//Color Wireframe
-	vec4 color;
+	vec4 wireframe_color;
+	vec4 vertex_color;
+	float point_size;
+	float line_width;
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
