@@ -41,6 +41,7 @@ public:
 
 	float3 GetScale(const float3 scale) const;
 
+	void DeleteComponent(Component* comp);
 
 private:
 	object_type type = OBJECT_NONE;

@@ -73,7 +73,15 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	bool ret = true;
 
 	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
-	const aiNode* node = scene->mRootNode;
+	const aiNode* node;
+
+	if (scene)
+		node = scene->mRootNode;
+	else
+	{
+		LOG("The Object does not have an scene. It won't be load");
+		return false;
+	}
 
 	//Create gameObject that contains FBX parts
 
@@ -218,12 +226,19 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 
 	if (App->viewport->selected_object) {
 		ComponentTexture* texture = App->viewport->selected_object->GetComponentTexture();
+		ComponentMesh* mesh = App->viewport->selected_object->GetComponentMesh();
 
 		if (!texture)
 			texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
 
 		texture->LoadTexture(path_texture);
-		App->viewport->selected_object->GetComponentMesh()->image_id = texture->image_id;
+		if (mesh)
+			mesh->image_id = texture->image_id;
+		else
+		{
+			LOG("The object does not have a MESH! Create one or select another object.");
+			App->viewport->selected_object->DeleteComponent(texture);
+		}
 	}
 	else
 	{
@@ -300,17 +315,17 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	for (uint i = 0; i < shape->npoints;)
+	for (uint i = 0; i < shape->npoints * 3;)
 	{
 		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
 		i += 3;
 	}
 
 	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);
+	
 	mesh->par_shape = true;
 	mesh->UV_coord = shape->tcoords;
 	mesh->UV_num = 2;
-	mesh->transform = trans;
 
 	mesh->GenerateMesh();
 

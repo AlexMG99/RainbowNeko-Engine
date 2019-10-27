@@ -89,11 +89,7 @@ void ComponentMesh::Render()
 		}
 	}
 
-	//Checks if is a shape or a fbx
-	if(par_shape)
-		glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_SHORT, NULL);
-	else
-		glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);

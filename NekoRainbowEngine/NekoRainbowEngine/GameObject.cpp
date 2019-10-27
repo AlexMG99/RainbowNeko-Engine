@@ -171,3 +171,17 @@ float3 GameObject::GetScale(const float3 scale) const
 	return scale_;
 }
 
+void GameObject::DeleteComponent(Component * comp)
+{
+	for (auto it_comp = components.begin(); it_comp != components.end();)
+	{
+		if ((*it_comp) == comp) {
+			RELEASE(*it_comp);
+			it_comp = components.erase(it_comp);
+		}
+		else
+			++it_comp;
+
+	}
+}
+
