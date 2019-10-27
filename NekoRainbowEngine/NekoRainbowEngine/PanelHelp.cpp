@@ -117,10 +117,10 @@ void PanelHelp::AboutWindow()
 		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Par Shapes"))
 			RequestBrowser(Par_Shapes_link);
 
-		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Deviceld Shapes"))
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("Deviceid "))
 			RequestBrowser(Deviceld_link);
 
-		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("mmgr Shapes"))
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("mmgr"))
 			RequestBrowser(mmgr_link);
 
 		ImGui::Separator();
