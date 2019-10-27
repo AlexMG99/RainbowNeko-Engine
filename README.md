@@ -121,6 +121,23 @@ Innovations implemented in our Engine:
 
 
 
+## Libraries Used
+Libraries used in our Engine:
+* **SDL 2.0**
+* **ImGui 1.73**
+* **Glew 2.1.0**
+* **OpenGL**
+* **MatGeoLib 1.5**
+* **PCG 0.98.1**
+* **Parson**
+* **Devil**
+* **Assimp**
+* **Par Shapes**
+* **Deviceid**
+* **mmgr**
+
+
+
 ## License
 
 MIT License
