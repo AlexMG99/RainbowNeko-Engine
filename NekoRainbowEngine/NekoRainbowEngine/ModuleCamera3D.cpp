@@ -226,9 +226,12 @@ void ModuleCamera3D::FocusObjectImport(GameObject* obj)
 	if (obj)
 	{
 		ComponentMesh* mesh = obj->GetComponentMesh();
-		float3 center = ((mesh->local_AABB.minPoint + mesh->local_AABB.maxPoint) / 2);
-		Reference = vec3(center[0], center[1], center[2]);
-		LookAt(Reference);
+		if (mesh)
+		{
+			float3 center = ((mesh->local_AABB.minPoint + mesh->local_AABB.maxPoint) / 2);
+			Reference = vec3(center[0], center[1], center[2]);
+			LookAt(Reference);
+		}
 	}
 }
 

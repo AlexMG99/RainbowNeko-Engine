@@ -14,6 +14,7 @@ public:
 
 private:
 	float3 position;
+	int mode = 0;
 };
 
 #endif // !_PANELINSPECTOR_H_

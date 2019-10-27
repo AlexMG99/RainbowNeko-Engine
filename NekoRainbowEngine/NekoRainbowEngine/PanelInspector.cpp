@@ -49,20 +49,28 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Id indices: %i", comp_mesh->id_index);
 			ImGui::Text("Num indices: %i", comp_mesh->index.size());
 			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
-			ImGui::PopID();
+			
 
 			ImGui::Separator();
+
+			ImGui::Text("Mode: ");
+			ImGui::RadioButton("Wireframe", &mode, 1); ImGui::SameLine();
+			ImGui::RadioButton("Vertex", &mode, 2);
+			if (mode == 1) 
+			{
+				ImGui::ColorPicker4("Change Wireframe Color", &comp_mesh->wireframe_color);
+				ImGui::SliderInt("Line Width", &comp_mesh->line_width, 1, 10, "%i");
+			}
+			if (mode == 2) 
+			{
+				ImGui::ColorPicker4("Change Vertex Color", &comp_mesh->vertex_color);
+				ImGui::SliderInt("Point Size", &comp_mesh->point_size, 1, 10, "%i");
+			}
+			
+			ImGui::PopID();
+			ImGui::Separator();
 		}
-		if (comp_mesh && ImGui::CollapsingHeader("Wireframe"))
-		{
-			ImGui::ColorPicker4("Change Wireframe Color", &comp_mesh->wireframe_color);
-			ImGui::SliderInt("Line Width", &comp_mesh->line_width, 1, 10, "%i");
-		}
-		if (comp_mesh && ImGui::CollapsingHeader("Vertex"))
-		{
-			ImGui::ColorPicker4("Change Vertex Color", &comp_mesh->vertex_color);
-			ImGui::SliderInt("Point Size", &comp_mesh->point_size, 1, 10, "%i");
-		}
+		
 
 		//Texture
 		ComponentTexture* comp_texture = object->GetComponentTexture();
