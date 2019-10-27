@@ -26,7 +26,7 @@ bool ModuleViewport::Start()
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
 	App->importer->ImportFBX("./Assets/BakerHouse.fbx", "./Assets/Baker_house.png");
-	App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
+	/*App->importer->CreateShape(SHAPE_SPHERE, 10, 10);*/
 	return ret;
 }
 

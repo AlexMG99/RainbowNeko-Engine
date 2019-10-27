@@ -50,6 +50,10 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Num indices: %i", comp_mesh->index.size());
 			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
 			ImGui::PopID();
+
+			ImGui::ColorPicker4("Change Wireframe Color", &comp_mesh->color);
+
+
 			ImGui::Separator();
 		}
 
