@@ -45,8 +45,10 @@ Application::~Application()
 		delete* item;
 		*item = nullptr;
 	}
-
 	list_modules.clear();
+
+	RELEASE_LIST(logs);
+
 }
 
 bool Application::Init()

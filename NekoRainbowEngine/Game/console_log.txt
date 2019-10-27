@@ -12,25 +12,25 @@ GLSL: 4.50 NVIDIA
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T13864: Load ./Assets/BakerHouse.fbx
+  T11048: Load ./Assets/BakerHouse.fbx
 
-  T13864: Found a matching importer for this file format: Autodesk FBX Importer.
+  T11048: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T13864: Import root directory is './Assets\'
+  T11048: Import root directory is './Assets\'
 
-  T13864: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T11048: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T13864: Entering post processing pipeline
+  T11048: Entering post processing pipeline
 
-  T13864: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T11048: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T13864: CalcTangentsProcess finished. Tangents have been calculated
+  T11048: CalcTangentsProcess finished. Tangents have been calculated
 
-  T13864: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T11048: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T13864: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T11048: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T13864: Leaving post processing pipeline
+  T11048: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 1 and id index: 2

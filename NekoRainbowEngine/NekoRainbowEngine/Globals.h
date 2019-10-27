@@ -66,6 +66,26 @@ enum update_status
                             \
     }
 
+#define RELEASE_LIST(x)											\
+{																\
+	for (auto it_list = x.begin(); it_list != x.end();)			\
+	{															\
+		it_list = x.erase(it_list);								\
+	}															\
+	x.clear();													\
+}																\
+
+#define RELEASE_ARRAY_LIST(x)									\
+{																\
+	for (auto it_list = x.begin(); it_list != x.end();)			\
+	{															\
+		RELEASE(it_list);										\
+		it_list = x.erase(it_list);								\
+	}															\
+	x.clear();													\
+}																\
+
+
 // Performance macros
 #define PERF_START(timer) timer.Start()
 #define PERF_PEEK(timer) //LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
