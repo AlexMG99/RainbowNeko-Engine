@@ -10,11 +10,7 @@ PanelConsole::~PanelConsole()
 {
 	CreateLOGDoc();
 
-	for (auto it_obj = console_text.begin(); it_obj != console_text.end();) {
-		(*it_obj).text.clear();
-		it_obj = console_text.erase(it_obj);
-	}
-	console_text.clear();
+	RELEASE_LIST(console_text);
 }
 
 update_status PanelConsole::Draw() {

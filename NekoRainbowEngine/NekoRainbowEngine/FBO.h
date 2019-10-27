@@ -8,7 +8,7 @@ typedef unsigned int GLuint;
 class FBO {
 public:
 	FBO() {};
-	~FBO() {};
+	~FBO();
 
 	bool Create(uint width, uint height);
 	void Bind();

@@ -79,7 +79,7 @@ enum update_status
 {																\
 	for (auto it_list = x.begin(); it_list != x.end();)			\
 	{															\
-		RELEASE(it_list);										\
+		RELEASE(*it_list);										\
 		it_list = x.erase(it_list);								\
 	}															\
 	x.clear();													\

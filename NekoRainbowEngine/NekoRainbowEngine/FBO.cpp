@@ -3,6 +3,11 @@
 #include "GL/include/glew.h"
 #include "ModuleWindow.h"
 
+FBO::~FBO()
+{
+	Delete();
+}
+
 bool FBO::Create(uint width, uint height)
 {
 	bool ret = true;

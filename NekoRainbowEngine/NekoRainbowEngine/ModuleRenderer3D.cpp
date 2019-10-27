@@ -148,8 +148,8 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 	fbo->Unbind();
-	delete fbo;
-	fbo = nullptr;
+
+	RELEASE(fbo);
 
 	SDL_GL_DeleteContext(context);
 

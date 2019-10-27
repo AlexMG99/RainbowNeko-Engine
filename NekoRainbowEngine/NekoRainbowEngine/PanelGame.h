@@ -13,8 +13,6 @@ public:
 
 	update_status Draw();
 
-	void ResizeWindow(ImVec2& start_s);
-
 public:
 	ImVec2 size;
 };

@@ -23,11 +23,11 @@ ComponentMesh::~ComponentMesh()
 {
 	RELEASE_ARRAY(UV_coord);
 	RELEASE_ARRAY(normals);
+	RELEASE_LIST(vertices);
+	RELEASE_LIST(index);
+	RELEASE_LIST(normals_face);
 
-	for (auto it_vertex = vertices.begin(); it_vertex != vertices.end();) {
-		it_vertex = vertices.erase(it_vertex);
-	}
-	vertices.clear();
+	RELEASE(transform);
 
 	glDeleteBuffers(1, &id_vertex);
 	glDeleteBuffers(1, &id_index);
