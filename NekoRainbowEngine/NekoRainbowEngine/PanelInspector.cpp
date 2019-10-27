@@ -51,9 +51,17 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
 			ImGui::PopID();
 
-			ImGui::ColorPicker4("Change Wireframe Color", &comp_mesh->wireframe_color);
-
 			ImGui::Separator();
+		}
+		if (comp_mesh && ImGui::CollapsingHeader("Wireframe"))
+		{
+			ImGui::ColorPicker4("Change Wireframe Color", &comp_mesh->wireframe_color);
+			ImGui::SliderInt("Line Width", &comp_mesh->line_width, 1, 10, "%i");
+		}
+		if (comp_mesh && ImGui::CollapsingHeader("Vertex"))
+		{
+			ImGui::ColorPicker4("Change Vertex Color", &comp_mesh->vertex_color);
+			ImGui::SliderInt("Point Size", &comp_mesh->point_size, 1, 10, "%i");
 		}
 
 		//Texture
