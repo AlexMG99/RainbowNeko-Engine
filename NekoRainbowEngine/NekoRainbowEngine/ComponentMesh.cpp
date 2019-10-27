@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleEditor.h"
+#include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "PanelConfiguration.h"
@@ -32,12 +32,12 @@ bool ComponentMesh::Update()
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 
-	if(App->editor->panel_config->gl_fill)
+	if(App->viewport->fill_on)
 		RenderFill();
-
-	if(App->editor->panel_config->gl_lines)
+	if(App->viewport->wireframe_on)
 		RenderWireframe();
-
+	if (App->viewport->point_on)
+		RenderPoint();
 	glPopMatrix();
 
 	return true;
@@ -146,6 +146,26 @@ void ComponentMesh::RenderFill()
 
 void ComponentMesh::RenderWireframe()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	//Render FBX Mesh
+	glColor3f(color.x, color.y, color.z);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+
+	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glColor3f(1, 1, 1);
+}
+
+void ComponentMesh::RenderPoint()
+{
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//Render FBX Mesh

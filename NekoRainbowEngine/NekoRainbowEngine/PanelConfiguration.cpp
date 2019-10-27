@@ -253,7 +253,6 @@ void PanelConfiguration::AppSettings()
 
 			if (ImGui::ColorPicker4("Change Render Window Backround Color", ambientcolor))
 			{
-
 				glClearColor(ambientcolor[0], ambientcolor[1], ambientcolor[2], 1);
 			}
 			if (ImGui::Button("Reset Background Color"))
@@ -261,7 +260,6 @@ void PanelConfiguration::AppSettings()
 				glClearColor(defaultbackground_color[0], defaultbackground_color[1], defaultbackground_color[2], 1);
 			}
 			
-
 			if (gl_depth) glEnable(GL_DEPTH); else glDisable(GL_DEPTH);
 			ImGui::Checkbox("GL DEPTH", &gl_depth); ImGui::SameLine(150);
 
@@ -282,15 +280,6 @@ void PanelConfiguration::AppSettings()
 
 			if (gl_shade_model) glEnable(GL_SHADE_MODEL); else glDisable(GL_SHADE_MODEL);
 			ImGui::Checkbox("GL SHADE MODEL", &gl_shade_model);
-
-			ImGui::Separator();
-
-			ImGui::Checkbox("GL FILL", &gl_fill); ImGui::SameLine(110);
-
-			ImGui::Checkbox("GL WIREFRAME", &gl_lines); ImGui::SameLine(250);
-
-			ImGui::Checkbox("GL VERTEX", &gl_points); 
-			
 		}
 
 	}

@@ -11,7 +11,12 @@ update_status PanelGame::Draw()
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	size = App->window->GetWinSize();
-	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(),ImVec2(size.x*0.6, size.y*0.6), ImVec2(0, 1), ImVec2(1, 0));
+
+	ImGui::Checkbox("Grid", &App->viewport->draw_grid); ImGui::SameLine();
+	ImGui::Checkbox("Fill", &App->viewport->fill_on); ImGui::SameLine();
+	ImGui::Checkbox("Wireframe", &App->viewport->wireframe_on);
+
+	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(), ImVec2(size.x*0.6, size.y*0.6), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 	return UPDATE_CONTINUE;

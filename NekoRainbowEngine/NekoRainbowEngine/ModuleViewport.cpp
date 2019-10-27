@@ -51,8 +51,9 @@ update_status ModuleViewport::PreUpdate(float dt)
 update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
-
-	CreateGrid(2,100);
+	
+	if(draw_grid)
+		DrawGrid(2,100);
 
 	root_object->Update();
 	return UPDATE_CONTINUE;
@@ -64,7 +65,7 @@ bool ModuleViewport::CleanUp()
 	return true;
 }
 
-void ModuleViewport::CreateGrid(uint separation, uint lines)
+void ModuleViewport::DrawGrid(uint separation, uint lines)
 {
 	//Vertex Point
 	glPointSize(10.0f);

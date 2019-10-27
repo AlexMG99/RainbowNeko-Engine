@@ -99,7 +99,7 @@ The panel Console prints:
 
 ## Game Engine Controls
 * **Camera Movement**:
-	* _**While right clicking, and using "WASD" movment and free look around is enabled**_.
+	* _**While right clicking, and using "WASD" movement and free look around is enabled**_.
 * **Zoom In/ Zoom Out**:
 	* _**Mouse Wheel**_.
 * **F key**:
@@ -107,7 +107,9 @@ The panel Console prints:
 * **Alt+Left**:
 	* _**Orbit the object**_.
 * **Supr**:
-	* _**Delete GameObjects**_.
+	* _**Delete the selected GameObject and childrens**_.
+* **C key**:
+	* _**Centers the camera**_.
 
 
 ## Innovations

@@ -20,8 +20,10 @@ public:
 	void Disable() {};
 
 	void GenerateMesh();
+
 	void RenderFill();
 	void RenderWireframe();
+	void RenderPoint();
 
 public:
 	//AABB

@@ -48,11 +48,6 @@ private:
 	int mode = 0;
 
 	PerfTimer	check_time;
-
-public:
-	bool gl_points = false;
-	bool gl_lines = false;
-	bool gl_fill = true;
 };
 
 
