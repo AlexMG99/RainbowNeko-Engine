@@ -56,8 +56,8 @@ public:
 	//Color Wireframe
 	vec4 wireframe_color;
 	vec4 vertex_color;
-	float point_size;
-	float line_width;
+	int point_size;
+	int line_width;
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
