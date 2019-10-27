@@ -10,7 +10,7 @@ update_status PanelShape::Draw()
 
 	update_status ret = UPDATE_CONTINUE;
 
-	static const char* combo_item[] = { "CUBE", "SPHERE", "CYLINDER", "CONE", "PLANE" };
+	static const char* combo_item[] = { "CUBE", "SPHERE", "CYLINDER", "CONE", "PLANE", "TORUS", "OCTAHEDRON" };
 	//Window Menu
 	if (ImGui::Begin(name, &enabled))
 	{

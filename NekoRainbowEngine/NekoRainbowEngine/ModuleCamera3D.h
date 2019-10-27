@@ -34,7 +34,7 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
-	float base_speed = 0.01f;
+	float base_speed = 1.0f;
 
 private:
 

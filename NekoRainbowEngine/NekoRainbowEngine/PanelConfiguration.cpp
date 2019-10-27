@@ -102,7 +102,7 @@ void PanelConfiguration::AppSettings()
 				fps_current_log = 0;
 
 			//Avg Ms
-			ms_log[ms_current_log] = current_ms = App->GetAvgMs();
+			ms_log[ms_current_log] = current_ms = App->GetAvgMs() * 1000;
 			ms_current_log++;
 
 			if (ms_current_log >= MAX_HISTOGRAM_LOG)

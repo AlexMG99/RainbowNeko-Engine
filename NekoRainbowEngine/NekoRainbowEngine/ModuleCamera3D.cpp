@@ -65,30 +65,29 @@ update_status ModuleCamera3D::Update(float dt)
 	static float speed = 0.0f;
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 2 * base_speed * dt;
+		speed = 2 * base_speed;
 	else
-		speed = base_speed * dt;
+		speed = base_speed;
 
-	if((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos -= Z * speed;
-	if((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos += Z * speed;
+	if((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos -= Z * speed * dt;
+	if((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos += Z * speed * dt;
 
-	if((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos -= X * speed;
-	if((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos += X * speed;
+	if((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos -= X * speed * dt;
+	if((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)) newPos += X * speed * dt;
 
-	Position += newPos;
-	Reference += newPos;
+	Position += newPos * dt;
+	Reference += newPos * dt;
 
 	// Mouse motion ----------------
 
 	if((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
-		
 		FocusObject(App->viewport->selected_object);
 
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		float sensitivity_mouse = 0.02f *dt;
+		float sensitivity_mouse = 10.0f * dt;
 
 		Position -= Reference;
 
@@ -121,13 +120,13 @@ update_status ModuleCamera3D::Update(float dt)
 	//Movement Middle button ----------
 	else if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
 
-		float sensitivity_zoom = 0.01f * dt;
+		float sensitivity_zoom = 100.0f;
 
-		newPos.y -= App->input->GetMouseYMotion() * sensitivity_zoom;
-		newPos += App->input->GetMouseXMotion() * sensitivity_zoom * X;
+		newPos.y -= App->input->GetMouseYMotion() * sensitivity_zoom * dt;
+		newPos += App->input->GetMouseXMotion() * sensitivity_zoom * X * dt;
 
-		Position += newPos;
-		Reference += newPos;
+		Position += newPos * dt;
+		Reference += newPos * dt;
 
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
 	}
@@ -135,12 +134,12 @@ update_status ModuleCamera3D::Update(float dt)
 	// Wheel Movement ---------------
 
 	vec3 newPos_mouse(0, 0, 0);
-	float speed_mouse = 0.2f * dt;
+	float speed_mouse = 100.0f;
 
 	newPos_mouse -= App->input->GetMouseZ() * speed_mouse * Z;
 
-	Position += newPos_mouse;
-	Reference += newPos_mouse;
+	Position += newPos_mouse * dt;
+	Reference += newPos_mouse * dt;
 
 
 	// Recalculate matrix -------------
@@ -176,7 +175,7 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 	Z = normalize(Position - Reference);
 	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
 	Y = cross(Z, X);
-
+	
 	CalculateViewMatrix();
 }
 
@@ -217,7 +216,7 @@ void ModuleCamera3D::FocusObject(GameObject* obj)
 	if (obj)
 	{
 		ComponentTransform* trans = obj->GetComponentTransform();
-		Reference = vec3(trans->position[0], trans->position[1], trans->position[2]);
+		Reference = vec3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
 		LookAt(Reference);
 	}
 }

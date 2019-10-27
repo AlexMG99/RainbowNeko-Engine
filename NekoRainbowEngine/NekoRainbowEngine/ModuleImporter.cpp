@@ -278,15 +278,23 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 		break;
 	case SHAPE_CYLINDER:
 		shape = par_shapes_create_cylinder(sl, st);
-		name = "Cylinder";
+		name = "Cylinder ";
 		break;
 	case SHAPE_CONE:
 		shape = par_shapes_create_cone(sl, st);
-		name = "Cone";
+		name = "Cone ";
 		break;
 	case SHAPE_PLANE:
 		shape = par_shapes_create_plane(sl, st);
-		name = "Plane";
+		name = "Plane ";
+		break;
+	case SHAPE_TORUS:
+		shape = par_shapes_create_torus(sl, st, 0.5f);
+		name = "Torus ";
+		break;
+	case SHAPE_OCTAHEDRON:
+		shape = par_shapes_create_octahedron();
+		name = "Octahedron ";
 		break;
 	default:
 		LOG("Shape type incorrect or inexistent!");
@@ -312,15 +320,15 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	trans->local_scale.z = 1;
 
 	trans->local_rotation = Quat::identity;
-	trans->local_rotation_euler.x = 0;
-	trans->local_rotation_euler.y = 0;
-	trans->local_rotation_euler.z = 0;
+	trans->local_rotation_euler = trans->local_rotation.ToEulerXYZ() * RADTODEG;
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 	for (uint i = 0; i < shape->npoints * 3;)
 	{
 		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
+		if (shape->normals)
+			mesh->normals_face.push_back(float3(shape->normals[i], shape->normals[i + 1], shape->normals[i + 2]));
 		i += 3;
 	}
 
@@ -329,11 +337,9 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	mesh->par_shape = true;
 	mesh->UV_coord = shape->tcoords;
 	mesh->UV_num = 2;
+	mesh->transform = trans;
 
 	mesh->GenerateMesh();
-
-	//Create Component Texture
-	ComponentTexture* tex = (ComponentTexture*)obj->CreateComponent(COMPONENT_TEXTURE);
 
 	App->viewport->shape_num++;
 

@@ -26,7 +26,7 @@ bool ModuleViewport::Start()
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
 	App->importer->ImportFBX("./Assets/BakerHouse.fbx", "./Assets/Baker_house.png");
-	//App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
+	App->importer->CreateShape(SHAPE_SPHERE, 10, 10);
 	return ret;
 }
 
@@ -42,7 +42,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 			DeleteGameObject();
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-		App->camera->FocusObject(root_object);
+		App->camera->FocusObject(selected_object);
 
 
 	return UPDATE_CONTINUE;

@@ -100,7 +100,7 @@ void Application::PrepareUpdate()
 	frame_new_count++;
 	last_sec_frame_count++;
 
-	dt = (float)ms_timer.Read();
+	dt = (float)ms_timer.ReadSec();
 	ms_timer.Start();
 }
 

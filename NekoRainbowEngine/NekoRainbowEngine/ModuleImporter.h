@@ -18,7 +18,9 @@ enum shape_type {
 	SHAPE_SPHERE,
 	SHAPE_CYLINDER,
 	SHAPE_CONE,
-	SHAPE_PLANE
+	SHAPE_PLANE,
+	SHAPE_TORUS,
+	SHAPE_OCTAHEDRON
 };
 
 //----------------- ModuleImporter -----------------//

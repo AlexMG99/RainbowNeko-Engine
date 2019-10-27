@@ -59,8 +59,8 @@ void ComponentMesh::GenerateMesh()
 
 void ComponentMesh::Render()
 {
-	/*glPushMatrix();
-	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());*/
+	glPushMatrix();
+	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 	
 	//Render FBX Mesh
 	glColor3f(1, 1, 1);
@@ -102,10 +102,7 @@ void ComponentMesh::Render()
 		{
 			glColor3f(255, 0, 0);
 			glBegin(GL_LINES);
-
-
 			glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
-
 			glVertex3f(vertices[i].x + normals[i].x, vertices[i].y + normals[i].y, vertices[i].z + normals[i].z);
 			glEnd();
 		}
@@ -115,7 +112,7 @@ void ComponentMesh::Render()
 	if (normals_face.size() > 0 && normal_face_show) {
 		glColor3f(0, 0, 255);
 		glBegin(GL_LINES);
-		for (int i = 0; i < (index.size() / 3); i += 2) {
+		for (int i = 0; i < vertices.size() - 1; i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
 		}
@@ -129,7 +126,7 @@ void ComponentMesh::Render()
 	glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
 	glEnd();*/
 
-	/*glPopMatrix();*/
+	glPopMatrix();
 }
 
 void ComponentTexture::LoadTexture(const char* path)
