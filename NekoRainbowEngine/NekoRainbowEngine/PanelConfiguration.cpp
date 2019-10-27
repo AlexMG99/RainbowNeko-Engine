@@ -129,10 +129,10 @@ void PanelConfiguration::AppSettings()
 				App->window->SetBrightness();
 
 			if (ImGui::SliderInt("Width", &App->window->width, 800, 1920, "%i"))
-				App->window->SetWindowSize();
+				App->window->SetWindowSize(App->window->width, App->window->height);
 
 			if (ImGui::SliderInt("Height", &App->window->height, 600, 1080, "%.1f"))
-				App->window->SetWindowSize();
+				App->window->SetWindowSize(App->window->width, App->window->height);
 
 			if (ImGui::Checkbox("Fullscreen", &App->window->fullscreen_on))
 				App->window->SetFullscreen(); ImGui::SameLine();

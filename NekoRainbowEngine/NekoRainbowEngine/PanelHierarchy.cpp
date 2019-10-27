@@ -5,9 +5,14 @@
 #include "GameObject.h"
 
 
+bool PanelHierarchy::Start()
+{
+	object_id = App->viewport->GetRandomInt(1, 300);
+	return true;
+}
+
 update_status PanelHierarchy::Draw()
 {
-
 	BROFILER_CATEGORY("Draw_PanelHierarchy", Profiler::Color::GoldenRod);
 
 	if (ImGui::Begin("Game Ojects", &enabled, ImGuiWindowFlags_AlwaysAutoResize))
@@ -34,6 +39,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	if (is_selected)
 		node_flags |= ImGuiTreeNodeFlags_Selected;
 
+	ImGui::PushID(object_id + node_it);
 	//Check if has children
 	if (obj->HasChildren())
 	{	
@@ -47,7 +53,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 			selection_mask = (1 << 2);
 			App->viewport->selected_object = nullptr;
 		}
-
+		ImGui::PopID();
 		if (node_open)
 		{
 			for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
@@ -70,6 +76,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 			selection_mask = (1 << 2);
 			App->viewport->selected_object = nullptr;
 		}
+		ImGui::PopID();
 	}
 
 	if (node_num != -1)

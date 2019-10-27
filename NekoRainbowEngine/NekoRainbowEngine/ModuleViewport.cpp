@@ -7,6 +7,10 @@
 #include "par/par_shapes.h"
 #include "Component.h"
 
+#include <random>
+#include "PCG/pcg_random.hpp"
+#include "PCG/pcg_extras.hpp"
+
 #include "Brofiler/Brofiler.h"
 
 ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -26,7 +30,6 @@ bool ModuleViewport::Start()
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
 	App->importer->ImportFBX("./Assets/BakerHouse.fbx", "./Assets/Baker_house.png");
-	/*App->importer->CreateShape(SHAPE_SPHERE, 10, 10);*/
 	return ret;
 }
 
@@ -145,4 +148,40 @@ void ModuleViewport::DeleteGameObject()
 		else
 			it_obj++;
 	}
+}
+
+std::vector<int> ModuleViewport::CreateRandomIntNumbers(int range_start, int range_end, int quantity)
+{
+	std::vector<int> aux_rand;
+
+	for (uint i = 0; i < quantity; i++)
+	{
+		aux_rand.push_back(GetRandomInt(range_start, range_end));
+	}
+
+	return aux_rand;
+}
+
+std::vector<int> ModuleViewport::CreateIntVectorFromRandomNumber(int range_start, int range_end, int quantity)
+{
+	std::vector<int> aux_rand;
+	int random = GetRandomInt(range_start, range_end);
+
+	for (uint i = 0; i < quantity; i++)
+	{
+		aux_rand.push_back(random + i);
+	}
+
+	return aux_rand;
+}
+
+int ModuleViewport::GetRandomInt(int range_s, int range_e)
+{
+	pcg_extras::seed_seq_from<std::random_device> seed_source;
+	pcg32 rng(seed_source);
+
+	std::uniform_int_distribution<int> uniform_dist1(range_s, range_e);
+	int num = uniform_dist1(rng);
+
+	return num;
 }
