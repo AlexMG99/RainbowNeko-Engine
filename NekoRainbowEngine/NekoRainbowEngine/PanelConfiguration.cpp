@@ -287,9 +287,9 @@ void PanelConfiguration::AppSettings()
 
 			ImGui::Checkbox("GL FILL", &gl_fill); ImGui::SameLine(110);
 
-			ImGui::Checkbox("GL WIREFRAME", &gl_lines); ImGui::SameLine(250);
-
 			ImGui::Checkbox("GL VERTEX", &gl_points); 
+
+			ImGui::Checkbox("GL WIREFRAME", &gl_lines);
 			
 		}
 

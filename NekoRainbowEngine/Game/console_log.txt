@@ -5,32 +5,32 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.5.0 NVIDIA 384.76
-GLSL: 4.50 NVIDIA
+Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 431.60
+GLSL: 4.60 NVIDIA
 
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T12784: Load ./Assets/BakerHouse.fbx
+  T16892: Load ./Assets/BakerHouse.fbx
 
-  T12784: Found a matching importer for this file format: Autodesk FBX Importer.
+  T16892: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T12784: Import root directory is './Assets\'
+  T16892: Import root directory is './Assets\'
 
-  T12784: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T16892: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T12784: Entering post processing pipeline
+  T16892: Entering post processing pipeline
 
-  T12784: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T16892: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T12784: CalcTangentsProcess finished. Tangents have been calculated
+  T16892: CalcTangentsProcess finished. Tangents have been calculated
 
-  T12784: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T16892: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T12784: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T16892: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T12784: Leaving post processing pipeline
+  T16892: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 1 and id index: 2
@@ -38,6 +38,5 @@ Loaded mesh file succesfully!
 New mesh with 1641 vertices
 Generated mesh with id vertex: 5 and id index: 6
 Loaded mesh file succesfully!
-Generated mesh with id vertex: 9 and id index: 10
 Loading Editor Scene
 -------------- Application Update --------------
