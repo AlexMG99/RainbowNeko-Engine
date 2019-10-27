@@ -5,11 +5,13 @@
 #include <string>
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
+#include "glmath.h"
+
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
 public:
-	ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj) {};
+	ComponentMesh(component_type comp_type, bool act, GameObject * obj);
 	~ComponentMesh();
 
 	bool Update();
@@ -48,6 +50,9 @@ public:
 	bool par_shape = false;
 	bool normal_show = false;
 	bool normal_face_show = false;
+
+	//Color Wireframe
+	vec4 color;
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
