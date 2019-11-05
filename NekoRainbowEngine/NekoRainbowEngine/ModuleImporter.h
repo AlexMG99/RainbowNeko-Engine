@@ -37,11 +37,13 @@ public:
 
 	void CreateShape(shape_type type, uint sl, uint st);
 
-	bool ImportFBX(char* path_fbx, char* path_texture = "");
+	bool ImportFBX(char* path_fbx);
 	bool ImportTexture(char* path_texture);
 
+	bool Import(const char* file, const char* path, std::string& output_file);
+
 private:
-	void LoadNode(const aiNode * node, const aiScene * scene, char * path_texture, GameObject* parent = nullptr);
+	void LoadNode(const aiNode * node, const aiScene * scene, char * path_fbx, GameObject* parent = nullptr);
 	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
 };
 

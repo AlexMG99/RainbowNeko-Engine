@@ -12,6 +12,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
+#include "ModuleFileSystem.h"
 
 typedef struct json_value_t  JSON_Value;
 struct ConsoleText;
@@ -21,6 +22,7 @@ class Application
 public:
 	ModuleWindow* window;
 	ModuleInput* input;
+	ModuleFileSystem* fs;
 	ModuleEditor* editor;
 	ModuleViewport* viewport;
 	ModuleRenderer3D* renderer3D;

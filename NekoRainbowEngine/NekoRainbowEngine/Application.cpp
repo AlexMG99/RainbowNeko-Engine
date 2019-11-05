@@ -11,6 +11,7 @@ Application::Application()
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
+	fs = new ModuleFileSystem(this, true, ASSETS_FOLDER);
 	editor = new ModuleEditor(this);
 	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);
@@ -25,6 +26,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(fs);
 	AddModule(importer);
 
 	// Scenes

@@ -5,6 +5,7 @@
 #include "PanelConfiguration.h"
 
 #include "GL/include/glew.h"
+#include <string>
 
 //-------------- Devil --------------
 #include "Devil/include/il.h"
@@ -144,12 +145,6 @@ void ComponentMesh::RenderFill()
 
 		glEnd();
 	}
-	
-	//Bounding Box Diagonal
-	/*glBegin(GL_LINES);
-	glVertex3f(local_AABB.minPoint.x, local_AABB.minPoint.y, local_AABB.minPoint.z);
-	glVertex3f(local_AABB.maxPoint.x, local_AABB.maxPoint.y, local_AABB.maxPoint.z);
-	glEnd();*/
 
 }
 
@@ -199,6 +194,7 @@ void ComponentMesh::RenderPoint()
 void ComponentTexture::LoadTexture(const char* path)
 {
 	bool ret = true;
+	std::string file_path = ASSETS_FOLDER + std::string(path);
 
 	if (path != "") {
 		ILuint devil_id = 0;
@@ -207,9 +203,9 @@ void ComponentTexture::LoadTexture(const char* path)
 		ilBindImage(devil_id);
 		ilutRenderer(ILUT_OPENGL);
 
-		if (!ilLoadImage(path)) {
+		if (!ilLoadImage(file_path.c_str())) {
 			auto error = ilGetError();
-			LOG("Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
+			LOG("Failed to load texture with path: %s. Error: %s", file_path.c_str(), ilGetString(error));
 			ret = false;
 		}
 		else {

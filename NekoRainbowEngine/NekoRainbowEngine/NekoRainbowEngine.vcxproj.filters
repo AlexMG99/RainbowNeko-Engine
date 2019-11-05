@@ -209,6 +209,9 @@
     <ClCompile Include="Deviceld\DeviceId.cpp">
       <Filter>Sources\DeviceId</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -472,9 +475,6 @@
     <ClInclude Include="ModuleViewport.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="par\par_shapes.h">
       <Filter>Sources\imGUI\Helpers</Filter>
     </ClInclude>
@@ -580,6 +580,9 @@
     </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

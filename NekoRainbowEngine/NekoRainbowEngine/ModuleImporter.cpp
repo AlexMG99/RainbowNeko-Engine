@@ -8,6 +8,7 @@
 #include "PanelConsole.h"
 #include "glmath.h"
 #include <list>
+#include <string>
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -65,7 +66,7 @@ bool ModuleImporter::Start()
 	return ret;
 }
 
-bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
+bool ModuleImporter::ImportFBX(char* path_fbx)
 {
 
 	BROFILER_CATEGORY("ImportFBX_ModuleImporter", Profiler::Color::Yellow);
@@ -90,25 +91,22 @@ bool ModuleImporter::ImportFBX(char* path_fbx, char* path_texture)
 	{
 		for (int i = 0; i < node->mNumChildren; i++)
 		{
-			LoadNode(scene->mRootNode->mChildren[i], scene, path_texture, fbx_obj);
+			LoadNode(scene->mRootNode->mChildren[i], scene, path_fbx, fbx_obj);
 		}
 	}
 	else
 	{
-
 		LOG("Error loading FBX with path: %s", path_fbx);
 	}
 
 	aiReleaseImport(scene);
 
-
 	App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
-
 
 	return ret;
 }
 
-void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char * path_texture, GameObject* parent)
+void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char * path_fbx, GameObject* parent)
 {
 	BROFILER_CATEGORY("LoadNode_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
 
@@ -153,6 +151,22 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 			
 		}
 
+		//Load Material
+		if (aimesh->mMaterialIndex >= 0)
+		{
+			aiString texture_path;
+			scene->mMaterials[aimesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+			if (texture_path.length > 0)
+			{
+				std::string file, extension;
+				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
+
+				//Import(path_fbx, path_texture, );
+				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
+				texture->LoadTexture(file.c_str());
+				m->image_id = texture->image_id;
+			}
+		}
 		//Load Normals
 		if (aimesh->HasNormals())
 		{
@@ -190,20 +204,12 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 		m->local_AABB.SetNegativeInfinity();
 		m->local_AABB.Enclose(m->vertices.data(), m->vertices.size());
 
-		//Generate Texture
-		if (aimesh->HasTextureCoords(0) && path_texture != "")
-		{
-			ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
-			texture->LoadTexture(path_texture);
-			m->image_id = texture->image_id;
-		}
-
 		LOG("Loaded mesh file succesfully!");
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
-		LoadNode(node->mChildren[i], scene, path_texture, aux_obj);
+		LoadNode(node->mChildren[i], scene, path_fbx, aux_obj);
 	}
 }
 
@@ -250,6 +256,22 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 	return true;
 }
 
+bool ModuleImporter::Import(const char * file, const char * path, std::string & output_file)
+{
+	bool ret = true;
+
+	ILuint size;
+	ILubyte *data;
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+	if (size > 0) {
+		data = new ILubyte[size]; // allocate data buffer
+		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+			ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
+		RELEASE_ARRAY(data);
+	}
+	return ret;
+}
 
 bool ModuleImporter::CleanUp()
 {
