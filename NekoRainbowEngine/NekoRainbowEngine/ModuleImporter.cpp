@@ -240,7 +240,11 @@ bool ModuleImporter::ImportTexture(char * path_texture)
 		if (!texture)
 			texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
 
-		texture->LoadTexture(path_texture);
+		//Load Texture
+		std::string file, extension, texture_path = path_texture;
+		App->fs->SplitFilePath(texture_path.c_str(), nullptr, &file, &extension);
+
+		texture->LoadTexture(file.c_str());
 		if (mesh)
 			mesh->image_id = texture->image_id;
 		else

@@ -212,8 +212,9 @@ void ComponentTexture::LoadTexture(const char* path)
 			image_id = ilutGLBindTexImage();
 			height = ilGetInteger(IL_IMAGE_HEIGHT) / 2;
 			width = ilGetInteger(IL_IMAGE_WIDTH) / 2;
-
+		
 			GenerateTexture();
+			LOG("Loaded with path: %s succesfully!", file_path.c_str());
 		}
 
 		ilDeleteImages(1, &devil_id);
