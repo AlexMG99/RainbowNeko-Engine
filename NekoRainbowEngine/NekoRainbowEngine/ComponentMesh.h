@@ -22,12 +22,13 @@ public:
 	void GenerateBuffers();
 
 	//----- Bounding box -----//
+	void GenerateBoundingBuffers();
 	AABB CreateLocalAABB();
 	AABB GetGlobalAABB();
 	OBB GetOBB();
 
-	void DrawAABB();
-	void DrawOBB();
+	void DrawBB();
+	void UpdateOBB();
 
 	void RenderFill();
 	void RenderWireframe();
@@ -40,14 +41,12 @@ public:
 	OBB global_OBB;
 
 	uint id_vertexAABB = 0;
-	uint id_indexAABB = 0;
 	uint id_vertexOBB = 0;
-	uint id_indexOBB = 0;
+	uint id_indexBB = 0;
 
 	std::vector<float3> vertices_AABB;
 	std::vector<float3> vertices_OBB;
-	std::vector<uint> index_AABB;
-	std::vector<uint> index_OBB;
+	std::vector<uint> index_BB;
 
 	//Mesh Properties
 	uint id_index = 0;

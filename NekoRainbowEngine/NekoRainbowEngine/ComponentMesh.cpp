@@ -20,7 +20,6 @@ ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * ob
 	line_width = 1;
 
 	local_AABB.SetNegativeInfinity();
-	global_AABB.SetNegativeInfinity();
 }
 
 ComponentMesh::~ComponentMesh()
@@ -37,6 +36,9 @@ ComponentMesh::~ComponentMesh()
 	glDeleteBuffers(1, &id_index);
 	glDeleteBuffers(1, &uv_id);
 	glDeleteBuffers(1, &normal_id);
+	glDeleteBuffers(1, &id_vertexAABB);
+	glDeleteBuffers(1, &id_indexBB);
+	glDeleteBuffers(1, &id_vertexOBB);
 }
 
 bool ComponentMesh::Update()
@@ -52,11 +54,8 @@ bool ComponentMesh::Update()
 		RenderPoint();
 
 	glPopMatrix();
-
-	DrawAABB();
-
-	DrawOBB();
-
+	//DrawOBB();
+	DrawBB();
 	return true;
 }
 
@@ -89,27 +88,26 @@ void ComponentMesh::GenerateBuffers()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * normals_face.size(), &normals[0], GL_STATIC_DRAW);
 	}
 
+	GenerateBoundingBuffers();
+	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
+}
+
+void ComponentMesh::GenerateBoundingBuffers()
+{
 	//Global AABB vertices
 	glGenBuffers(1, &id_vertexAABB);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_AABB.size(), &vertices_AABB[0], GL_STATIC_DRAW);
-	
-	//Global AABB vertices index
-	glGenBuffers(1, &id_indexAABB);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexAABB);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_AABB.size(), &index_AABB[0], GL_STATIC_DRAW);
 
 	//Global OBB vertices
 	glGenBuffers(1, &id_vertexOBB);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_OBB.size(), &vertices_OBB[0], GL_STATIC_DRAW);
 
-	//Global OBB vertices index
-	glGenBuffers(1, &id_indexOBB);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexOBB);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_OBB.size(), &index_OBB[0], GL_STATIC_DRAW);
-
-	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
+	//Global BB vertices index
+	glGenBuffers(1, &id_indexBB);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_BB.size(), &index_BB[0], GL_STATIC_DRAW);
 }
 
 //------------ Bounding Boxes -------------------------//
@@ -132,17 +130,13 @@ OBB ComponentMesh::GetOBB()
 	{
 		vertices_OBB.push_back(aux_vertices[i]);
 	}
-	index_OBB = { 0,1, 0,4, 4,5, 5,1,	//Front
-	3,2, 2,0, 0,1, 1,3,
-	7,6, 6,2, 2,3, 3,7,
-	6,4, 2,0,
-	7,5, 3,1 };
 
 	return global_OBB;
 }
 
 AABB ComponentMesh::GetGlobalAABB()
 {
+	global_AABB.SetNegativeInfinity();
 	global_AABB.Enclose(GetOBB());
 
 	//Get Vertex and Index
@@ -152,7 +146,7 @@ AABB ComponentMesh::GetGlobalAABB()
 	{
 		vertices_AABB.push_back(aux_vertices[i]);
 	}
-	index_AABB = { 0,1, 0,4, 4,5, 5,1,	//Front
+	index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
 	3,2, 2,0, 0,1, 1,3,
 	7,6, 6,2, 2,3, 3,7,
 	6,4, 2,0,
@@ -161,38 +155,51 @@ AABB ComponentMesh::GetGlobalAABB()
 	return global_AABB;
 }
 
-void ComponentMesh::DrawAABB()
+void ComponentMesh::DrawBB()
 {
 	glColor3f(125, 125, 0);
 	glLineWidth(2.0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
+
+	//Draw Global AABB
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexAABB);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+	glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
 
-	glDrawElements(GL_LINES, index_AABB.size(), GL_UNSIGNED_INT, NULL);
+	//Draw OBB
+	glColor3f(0, 200, 150);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+	glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-
 	glLineWidth(1);
 }
 
-void ComponentMesh::DrawOBB()
+void ComponentMesh::UpdateOBB()
 {
-	glColor3f(0, 200, 150);
-	glLineWidth(2.0);
+	for (int i = 0; i < vertices_AABB.size();)
+	{
+		vertices_AABB.pop_back();
+	}
+	vertices_AABB.clear();
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexOBB);
+	for (int i = 0; i < vertices_OBB.size();)
+	{
+		vertices_OBB.pop_back();
+	}
+	vertices_OBB.clear();
 
-	glDrawElements(GL_LINES, index_OBB.size(), GL_UNSIGNED_INT, NULL);
+	GetGlobalAABB();
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDeleteBuffers(1, &id_vertexAABB);
+	glDeleteBuffers(1, &id_indexBB);
+	glDeleteBuffers(1, &id_vertexOBB);
 
-	glLineWidth(1);
+	GenerateBoundingBuffers();
 }
 
 void ComponentMesh::RenderFill()

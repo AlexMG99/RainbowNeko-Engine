@@ -39,7 +39,7 @@ update_status PanelInspector::Draw()
 			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) || ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2) || ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)) 
 			{
 				if(comp_mesh)
-					comp_mesh->GetGlobalAABB();
+					comp_mesh->UpdateOBB();
 			}
 
 			ImGui::Separator();
