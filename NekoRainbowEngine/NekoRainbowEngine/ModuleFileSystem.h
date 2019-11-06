@@ -2,6 +2,7 @@
 #define __MODULEFILESYSTEM_H__
 
 #include "Module.h"
+#include "Random.h"
 #include <vector>
 #include <string>
 
@@ -51,6 +52,8 @@ public:
 	const char* GetWritePath() const;
 	const char* GetReadPaths() const;
 
+public: 
+	Random id;
 
 };
 

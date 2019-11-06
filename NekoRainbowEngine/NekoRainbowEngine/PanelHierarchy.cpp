@@ -7,7 +7,7 @@
 
 bool PanelHierarchy::Start()
 {
-	object_id = App->viewport->GetRandomInt(1, 300);
+	object_id = 1;
 	return true;
 }
 

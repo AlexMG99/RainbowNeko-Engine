@@ -7,8 +7,6 @@
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/Quat.h"
 
-#include <vector>
-
 class ModuleViewport : public Module
 {
 public:
@@ -22,10 +20,6 @@ public:
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();
-
-	std::vector<int> CreateRandomIntNumbers(int range_start, int range_end, int quantity);
-	std::vector<int> CreateIntVectorFromRandomNumber(int range_start, int range_end, int quantity);
-	int GetRandomInt(int range_s, int range_e);
 
 private:
 	void DrawGrid(uint separation, uint lines);
