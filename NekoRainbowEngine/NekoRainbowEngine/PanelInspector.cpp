@@ -20,6 +20,11 @@ update_status PanelInspector::Draw()
 
 	if (object)
 	{
+		//Components
+		ComponentTransform* comp_trans = object->GetComponentTransform();
+		ComponentMesh* comp_mesh = object->GetComponentMesh();
+		ComponentTexture* comp_texture = object->GetComponentTexture();
+
 		//Transform
 		ImGui::PushID("Transform");
 		ImGui::Checkbox("Active", &object->active);
@@ -27,18 +32,20 @@ update_status PanelInspector::Draw()
 		ImGui::Text("Name: %s		", object->GetName().c_str());
 		ImGui::Text("ID: %u", object->GetId());
 		ImGui::Separator();
-		ComponentTransform* comp_trans = object->GetComponentTransform();
+
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2);
-			ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2);
-			ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2);
+			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) || ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2) || ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)) 
+			{
+				if(comp_mesh)
+					comp_mesh->GetGlobalAABB();
+			}
+
 			ImGui::Separator();
 		}
 
 		//Mesh
-		ComponentMesh* comp_mesh = object->GetComponentMesh();
 		if (comp_mesh && ImGui::CollapsingHeader("Mesh"))
 		{
 			ImGui::PushID("Mesh");
@@ -72,9 +79,7 @@ update_status PanelInspector::Draw()
 			ImGui::Separator();
 		}
 		
-
 		//Texture
-		ComponentTexture* comp_texture = object->GetComponentTexture();
 		if (comp_texture)
 		{
 			if (ImGui::CollapsingHeader("Texture")) 

@@ -199,10 +199,9 @@ void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char *
 			}
 
 		}
-
-		m->GenerateMesh();
-		m->local_AABB.SetNegativeInfinity();
-		m->local_AABB.Enclose(m->vertices.data(), m->vertices.size());
+		m->CreateLocalAABB();
+		m->GetGlobalAABB();
+		m->GenerateBuffers();
 
 		LOG("Loaded mesh file succesfully!");
 	}
@@ -365,7 +364,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	mesh->UV_num = 2;
 	mesh->transform = trans;
 
-	mesh->GenerateMesh();
+	mesh->GenerateBuffers();
 
 	App->viewport->shape_num++;
 

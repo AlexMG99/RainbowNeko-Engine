@@ -18,6 +18,9 @@ ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * ob
 	vertex_color = vec4(255, 0, 0, 1);
 	point_size = 1;
 	line_width = 1;
+
+	local_AABB.SetNegativeInfinity();
+	global_AABB.SetNegativeInfinity();
 }
 
 ComponentMesh::~ComponentMesh()
@@ -50,10 +53,15 @@ bool ComponentMesh::Update()
 
 	glPopMatrix();
 
+	DrawAABB();
+
+	DrawOBB();
+
 	return true;
 }
 
-void ComponentMesh::GenerateMesh()
+//--------------------- Mesh --------------------------//
+void ComponentMesh::GenerateBuffers()
 {
 	//Cube Vertex
 	glGenBuffers(1, &id_vertex);
@@ -81,7 +89,110 @@ void ComponentMesh::GenerateMesh()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * normals_face.size(), &normals[0], GL_STATIC_DRAW);
 	}
 
+	//Global AABB vertices
+	glGenBuffers(1, &id_vertexAABB);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_AABB.size(), &vertices_AABB[0], GL_STATIC_DRAW);
+	
+	//Global AABB vertices index
+	glGenBuffers(1, &id_indexAABB);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexAABB);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_AABB.size(), &index_AABB[0], GL_STATIC_DRAW);
+
+	//Global OBB vertices
+	glGenBuffers(1, &id_vertexOBB);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_OBB.size(), &vertices_OBB[0], GL_STATIC_DRAW);
+
+	//Global OBB vertices index
+	glGenBuffers(1, &id_indexOBB);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexOBB);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_OBB.size(), &index_OBB[0], GL_STATIC_DRAW);
+
 	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
+}
+
+//------------ Bounding Boxes -------------------------//
+AABB ComponentMesh::CreateLocalAABB()
+{
+	local_AABB.Enclose(vertices.data(), vertices.size());
+
+	return local_AABB;
+}
+
+OBB ComponentMesh::GetOBB()
+{
+	global_OBB = local_AABB;
+	global_OBB.Transform(transform->GetGlobalTransformMatrix());
+
+	//Get Vertex and Index
+	float3* aux_vertices = new float3[8];
+	global_OBB.GetCornerPoints(aux_vertices);
+	for (int i = 0; i < 8; i++)
+	{
+		vertices_OBB.push_back(aux_vertices[i]);
+	}
+	index_OBB = { 0,1, 0,4, 4,5, 5,1,	//Front
+	3,2, 2,0, 0,1, 1,3,
+	7,6, 6,2, 2,3, 3,7,
+	6,4, 2,0,
+	7,5, 3,1 };
+
+	return global_OBB;
+}
+
+AABB ComponentMesh::GetGlobalAABB()
+{
+	global_AABB.Enclose(GetOBB());
+
+	//Get Vertex and Index
+	float3* aux_vertices = new float3[8];
+	global_AABB.GetCornerPoints(aux_vertices);
+	for (int i = 0; i < 8; i++)
+	{
+		vertices_AABB.push_back(aux_vertices[i]);
+	}
+	index_AABB = { 0,1, 0,4, 4,5, 5,1,	//Front
+	3,2, 2,0, 0,1, 1,3,
+	7,6, 6,2, 2,3, 3,7,
+	6,4, 2,0,
+	7,5, 3,1 };
+
+	return global_AABB;
+}
+
+void ComponentMesh::DrawAABB()
+{
+	glColor3f(125, 125, 0);
+	glLineWidth(2.0);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexAABB);
+
+	glDrawElements(GL_LINES, index_AABB.size(), GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(1);
+}
+
+void ComponentMesh::DrawOBB()
+{
+	glColor3f(0, 200, 150);
+	glLineWidth(2.0);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexOBB);
+
+	glDrawElements(GL_LINES, index_OBB.size(), GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(1);
 }
 
 void ComponentMesh::RenderFill()
