@@ -6,6 +6,7 @@
 
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "Random.h"
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -36,6 +37,9 @@ public:
 	object_type GetType();
 	void SetType(object_type ty_);
 
+	uint32 GetId() const;
+	void SetId();
+
 	std::string GetName() const;
 	void SetName(const char* name_);
 
@@ -47,6 +51,7 @@ private:
 	object_type type = OBJECT_NONE;
 	std::string name = "Object Null";
 	
+	Random	id;
 	GameObject*					parent = nullptr;
 	std::vector<Component*>		components;
 

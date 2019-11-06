@@ -123,7 +123,7 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	trans->local_scale = object->GetScale(scale);
 	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
 	object->SetParent(parent);
-	
+	object->SetId();
 	return object;
 }
 

@@ -25,6 +25,7 @@ update_status PanelInspector::Draw()
 		ImGui::Checkbox("Active", &object->active);
 		ImGui::PopID();
 		ImGui::Text("Name: %s		", object->GetName().c_str());
+		ImGui::Text("ID: %u", object->GetId());
 		ImGui::Separator();
 		ComponentTransform* comp_trans = object->GetComponentTransform();
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))

@@ -131,6 +131,16 @@ void GameObject::SetType(object_type ty_)
 	type = ty_;
 }
 
+uint32 GameObject::GetId() const
+{
+	return id.GetNumber();
+}
+
+void GameObject::SetId()
+{
+	id.GenerateRandomInt();
+}
+
 std::string GameObject::GetName() const
 {
 	std::size_t pos = name.find_last_of("/");
