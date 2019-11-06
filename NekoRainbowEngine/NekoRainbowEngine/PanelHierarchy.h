@@ -11,7 +11,6 @@ public:
 	PanelHierarchy(const char* name) :Panel(name) {};
 	~PanelHierarchy() {};
 
-	bool Start();
 	update_status Draw();
 
 	void TreeObject(GameObject* obj);
@@ -19,7 +18,6 @@ public:
 private:
 	uint node_it = 0;
 	uint node_max = 100;
-	int object_id;
 };
 
 #endif

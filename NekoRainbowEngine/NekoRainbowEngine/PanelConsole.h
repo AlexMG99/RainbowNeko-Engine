@@ -2,11 +2,11 @@
 #define PANEL_CONSOLE_H_
 
 #include "Panel.h"
-#include <string>
-#include <list>
-#include "imgui/imgui.h"
 
 #define MAX_LINES 120
+
+class string;
+class list;
 
 enum ConsoleTextType {
 	CONSOLE_DEFAULT,

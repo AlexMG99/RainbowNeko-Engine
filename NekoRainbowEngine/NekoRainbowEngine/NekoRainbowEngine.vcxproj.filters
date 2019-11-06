@@ -2,22 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_demo.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_draw.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_sdl.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
@@ -38,106 +38,106 @@
       <Filter>Sources\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>Sources\imGUI\Helpers</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
-      <Filter>Sources\MathGeoLib\Time</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Time</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\BitOps.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float2.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float3.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float3x3.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float3x4.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float4.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\float4x4.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\MathFunc.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\MathLog.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\MathOps.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\Polynomial.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\Quat.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\AABB.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Capsule.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Circle.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Cone.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Cylinder.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Line.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\LineSegment.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\OBB.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Plane.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Polygon.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Polyhedron.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Ray.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Sphere.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\Triangle.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Geometry\TriangleMesh.cpp">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Algorithm\Random\LCG.cpp">
-      <Filter>Sources\MathGeoLib\Algorithm</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Algorithm</Filter>
     </ClCompile>
     <ClCompile Include="Parson\parson.c">
-      <Filter>Sources\Parson</Filter>
+      <Filter>Sources\3rdPartyLibrary\Parson</Filter>
     </ClCompile>
     <ClCompile Include="PanelHelp.cpp">
       <Filter>Sources\Panel</Filter>
@@ -164,7 +164,7 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="par\par_shapes.cpp">
-      <Filter>Sources\imGUI\Helpers</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
@@ -204,42 +204,45 @@
       <Filter>Sources\Panel</Filter>
     </ClCompile>
     <ClCompile Include="mmgr\mmgr.cpp">
-      <Filter>Sources\mmgr</Filter>
+      <Filter>Sources\3rdPartyLibrary\mmgr</Filter>
     </ClCompile>
     <ClCompile Include="Deviceld\DeviceId.cpp">
-      <Filter>Sources\DeviceId</Filter>
+      <Filter>Sources\3rdPartyLibrary\DeviceId</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_sdl.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_rectpack.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_textedit.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_truetype.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_opengl3.h">
-      <Filter>Sources\imGUI</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI</Filter>
     </ClInclude>
     <ClInclude Include="GL\include\glew.h">
-      <Filter>Sources\GL</Filter>
+      <Filter>Sources\3rdPartyLibrary\GL</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
       <Filter>Sources\Modules</Filter>
@@ -257,202 +260,202 @@
       <Filter>Sources\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Sources\imGUI\Helpers</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="PCG\pcg_extras.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\3rdPartyLibrary\PCG</Filter>
     </ClInclude>
     <ClInclude Include="PCG\pcg_random.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\3rdPartyLibrary\PCG</Filter>
     </ClInclude>
     <ClInclude Include="PCG\pcg_uint128.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\3rdPartyLibrary\PCG</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Time\Clock.h">
-      <Filter>Sources\MathGeoLib\Time</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Time</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\assume.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\BitOps.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\Complex.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\CoordinateAxisConvention.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\FixedPoint.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float2.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float3.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float3x3.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float3x4.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4_neon.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4_sse.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4x4.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4x4_neon.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\float4x4_sse.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\FloatCmp.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathAll.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathConstants.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathFunc.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathLog.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathNamespace.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MathTypes.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\MatrixProxy.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\myassert.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\Polynomial.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\Quat.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\quat_simd.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\Rect.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\Reinterpret.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\sse_mathfun.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\SSEMath.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Math\TransformOps.h">
-      <Filter>Sources\MathGeoLib\Math</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Math</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\AABB.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\AABB2D.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Capsule.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Circle.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Cone.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Cylinder.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Frustum.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\GeometryAll.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\GeomType.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\HitInfo.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\KDTree.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Line.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\LineSegment.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\OBB.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\PBVolume.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Plane.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Polygon.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Polyhedron.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\QuadTree.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Ray.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Sphere.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\Triangle.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Geometry\TriangleMesh.h">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h">
-      <Filter>Sources\MathGeoLib\Algorithm</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="Parson\parson.h">
-      <Filter>Sources\Parson</Filter>
+      <Filter>Sources\3rdPartyLibrary\Parson</Filter>
     </ClInclude>
     <ClInclude Include="Panel.h">
       <Filter>Sources\Panel</Filter>
@@ -476,34 +479,34 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="par\par_shapes.h">
-      <Filter>Sources\imGUI\Helpers</Filter>
+      <Filter>Sources\3rdPartyLibrary\imGUI\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\devil_cpp_wrapper.hpp">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\devil_internal_exports.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\il.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\ilu.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\ilu_region.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\ilut.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\ilut_config.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="Devil\include\il_wrap.h">
-      <Filter>Sources\Devil</Filter>
+      <Filter>Sources\3rdPartyLibrary\Devil</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Sources\GameObject</Filter>
@@ -524,31 +527,31 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\Logger.hpp">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\LogStream.hpp">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\mesh.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\scene.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\texture.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\cimport.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\postprocess.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\Importer.hpp">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\include\cfileio.h">
-      <Filter>Sources\Assimp</Filter>
+      <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="FBO.h" />
     <ClInclude Include="PanelGame.h">
@@ -567,16 +570,16 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="mmgr\mmgr.h">
-      <Filter>Sources\mmgr</Filter>
+      <Filter>Sources\3rdPartyLibrary\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="mmgr\nommgr.h">
-      <Filter>Sources\mmgr</Filter>
+      <Filter>Sources\3rdPartyLibrary\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="Deviceld\DeviceId.h">
-      <Filter>Sources\DeviceId</Filter>
+      <Filter>Sources\3rdPartyLibrary\DeviceId</Filter>
     </ClInclude>
     <ClInclude Include="Deviceld\dxgi1_4.h">
-      <Filter>Sources\DeviceId</Filter>
+      <Filter>Sources\3rdPartyLibrary\DeviceId</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>Sources</Filter>
@@ -592,12 +595,6 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{77ccbc2e-ecde-41a2-a116-28afcf7fa095}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\imGUI">
-      <UniqueIdentifier>{cdbf859c-f186-48dc-bf69-ebfd5a0737c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\GL">
-      <UniqueIdentifier>{4aee1448-77cf-49e7-9d32-728b7a0f43d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Modules">
       <UniqueIdentifier>{f5a16a95-18eb-4c2a-a63d-eaea8af75fd4}</UniqueIdentifier>
     </Filter>
@@ -607,58 +604,67 @@
     <Filter Include="Sources\Containers">
       <UniqueIdentifier>{c167687f-58f8-44a7-bc0a-826d227e9ad1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\PCG">
-      <UniqueIdentifier>{6a23c318-bd0b-4cf0-a3b8-379ff6df0b54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib">
-      <UniqueIdentifier>{6ab93d22-f9ff-4171-9910-204dc5fe87f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib\Algorithm">
-      <UniqueIdentifier>{b9feed24-3752-41ae-a481-89dbf231bc31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib\Geometry">
-      <UniqueIdentifier>{cf11b794-dee6-4e7d-a13f-dc44a275d202}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib\Time">
-      <UniqueIdentifier>{2e206e22-7beb-4bef-987c-662cf2c7c6fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib\Math">
-      <UniqueIdentifier>{a78fc10f-e55b-4cb2-9b1e-57730bfdc9a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Parson">
-      <UniqueIdentifier>{b3d1a93c-d0bd-4eb2-a9c2-6089ff18f7f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Panel">
       <UniqueIdentifier>{7e194a24-5b30-4304-a447-6b699b68e631}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Core">
       <UniqueIdentifier>{649ce6ab-c20c-4fa1-af2b-aa96924444af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Devil">
-      <UniqueIdentifier>{5cda62dd-0ad1-4ed8-8571-244e2ea97916}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\GameObject">
       <UniqueIdentifier>{f3d858d8-ce79-4fcf-9a69-0e1cef45f891}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Assimp">
-      <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
+    <Filter Include="Sources\3rdPartyLibrary">
+      <UniqueIdentifier>{4b514650-6691-4d2d-a404-654efe8d2ec1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\mmgr">
+    <Filter Include="Sources\3rdPartyLibrary\Parson">
+      <UniqueIdentifier>{b3d1a93c-d0bd-4eb2-a9c2-6089ff18f7f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\PCG">
+      <UniqueIdentifier>{6a23c318-bd0b-4cf0-a3b8-379ff6df0b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\mmgr">
       <UniqueIdentifier>{93bf363a-efb3-40f8-aa7f-0473c3933cf1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\DeviceId">
+    <Filter Include="Sources\3rdPartyLibrary\MathGeoLib">
+      <UniqueIdentifier>{6ab93d22-f9ff-4171-9910-204dc5fe87f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\MathGeoLib\Algorithm">
+      <UniqueIdentifier>{b9feed24-3752-41ae-a481-89dbf231bc31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\MathGeoLib\Geometry">
+      <UniqueIdentifier>{cf11b794-dee6-4e7d-a13f-dc44a275d202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\MathGeoLib\Time">
+      <UniqueIdentifier>{2e206e22-7beb-4bef-987c-662cf2c7c6fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\MathGeoLib\Math">
+      <UniqueIdentifier>{a78fc10f-e55b-4cb2-9b1e-57730bfdc9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\imGUI">
+      <UniqueIdentifier>{cdbf859c-f186-48dc-bf69-ebfd5a0737c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\imGUI\Helpers">
+      <UniqueIdentifier>{cdd2c0c2-e205-4869-a607-a2f78110c747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\DeviceId">
       <UniqueIdentifier>{9bcf48c1-233a-4395-a12e-a69ea6128eee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\imGUI\Helpers">
-      <UniqueIdentifier>{cdd2c0c2-e205-4869-a607-a2f78110c747}</UniqueIdentifier>
+    <Filter Include="Sources\3rdPartyLibrary\Devil">
+      <UniqueIdentifier>{5cda62dd-0ad1-4ed8-8571-244e2ea97916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\GL">
+      <UniqueIdentifier>{4aee1448-77cf-49e7-9d32-728b7a0f43d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\Assimp">
+      <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </None>
     <None Include="MathGeoLib\include\Geometry\QuadTree.inl">
-      <Filter>Sources\MathGeoLib\Geometry</Filter>
+      <Filter>Sources\3rdPartyLibrary\MathGeoLib\Geometry</Filter>
     </None>
   </ItemGroup>
 </Project>

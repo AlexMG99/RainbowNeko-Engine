@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "PanelConsole.h"
 #include "ModuleInput.h"
+#include "imgui/imgui.h"
 #include "Brofiler/Brofiler.h"
 
 #include "GL/include/glew.h"

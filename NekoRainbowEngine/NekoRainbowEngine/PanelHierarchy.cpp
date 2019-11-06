@@ -4,13 +4,6 @@
 #include "PanelHierarchy.h"
 #include "GameObject.h"
 
-
-bool PanelHierarchy::Start()
-{
-	object_id = 1;
-	return true;
-}
-
 update_status PanelHierarchy::Draw()
 {
 	BROFILER_CATEGORY("Draw_PanelHierarchy", Profiler::Color::GoldenRod);
@@ -39,7 +32,7 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	if (is_selected)
 		node_flags |= ImGuiTreeNodeFlags_Selected;
 
-	ImGui::PushID(object_id + node_it);
+	ImGui::PushID(obj->GetId());
 	//Check if has children
 	if (obj->HasChildren())
 	{	
