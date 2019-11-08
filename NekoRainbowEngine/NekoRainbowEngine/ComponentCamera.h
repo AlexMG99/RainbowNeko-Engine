@@ -19,7 +19,9 @@ public:
 
 	bool Update();
 
+	void ReloadFrustum();
 	void GenerateFrustumBuffers();
+	void UpdateFrustum();
 	void DrawFrustum();
 
 	update_status Load();

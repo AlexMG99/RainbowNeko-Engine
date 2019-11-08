@@ -4,6 +4,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"
 #include "Brofiler/Brofiler.h"
@@ -24,6 +25,7 @@ update_status PanelInspector::Draw()
 		ComponentTransform* comp_trans = object->GetComponentTransform();
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
 		ComponentTexture* comp_texture = object->GetComponentTexture();
+		ComponentCamera* comp_camera = object->GetComponentCamera();
 
 		//Transform
 		ImGui::PushID("Transform");
@@ -40,6 +42,8 @@ update_status PanelInspector::Draw()
 			{
 				if(comp_mesh)
 					comp_mesh->UpdateOBB();
+				if (comp_camera)
+					comp_camera->UpdateFrustum();
 			}
 
 			ImGui::Separator();

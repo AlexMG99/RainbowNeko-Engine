@@ -2,6 +2,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentMesh.h"
 #include "ComponentCamera.h"
 
 GameObject::~GameObject()
@@ -83,6 +84,17 @@ ComponentTexture* GameObject::GetComponentTexture()
 	{
 		if ((*it_comp)->type == COMPONENT_TEXTURE)
 			return (ComponentTexture*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
+ComponentCamera* GameObject::GetComponentCamera()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_CAMERA)
+			return (ComponentCamera*)(*it_comp);
 	}
 
 	return nullptr;

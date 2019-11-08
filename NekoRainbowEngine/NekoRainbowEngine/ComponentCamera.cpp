@@ -17,18 +17,7 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject*
 	camera_frustum.verticalFov = 60.0f * DEGTORAD;
 	camera_frustum.horizontalFov = 2.0f * atanf(tanf(camera_frustum.verticalFov / 2.0f) * 1.3f);
 
-	float3 corners[8];
-	camera_frustum.GetCornerPoints(corners);
-	for (int i = 0; i < 8; i++)
-	{
-		vertices_frustum.push_back(corners[i]);
-	}
-	index_frustum = { 0,1, 0,4, 4,5, 5,1,	
-	3,2, 2,0, 0,1, 1,3,
-	7,6, 6,2, 2,3, 3,7,
-	6,4, 2,0,
-	7,5, 3,1 };
-
+	ReloadFrustum();
 	GenerateFrustumBuffers();
 
 	CalculateViewMatrix();
@@ -55,9 +44,24 @@ void ComponentCamera::CalculateViewMatrix()
 bool ComponentCamera::Update()
 {
 	DrawFrustum();
+
 	return true;
 }
 
+void ComponentCamera::ReloadFrustum()
+{
+	float3 corners[8];
+	camera_frustum.GetCornerPoints(corners);
+	for (int i = 0; i < 8; i++)
+	{
+		vertices_frustum.push_back(corners[i]);
+	}
+	index_frustum = { 0,1, 0,4, 4,5, 5,1,
+	3,2, 2,0, 0,1, 1,3,
+	7,6, 6,2, 2,3, 3,7,
+	6,4, 2,0,
+	7,5, 3,1 };
+}
 void ComponentCamera::GenerateFrustumBuffers()
 {
 	//Cube Vertex
@@ -69,6 +73,22 @@ void ComponentCamera::GenerateFrustumBuffers()
 	glGenBuffers(1, &id_index_frustum);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index_frustum);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_frustum.size(), &index_frustum[0], GL_STATIC_DRAW);
+}
+
+void ComponentCamera::UpdateFrustum()
+{
+	for (int i = 0; i < vertices_frustum.size();)
+	{
+		vertices_frustum.pop_back();
+	}
+	vertices_frustum.clear();
+
+	ReloadFrustum();
+
+	glDeleteBuffers(1, &id_vertices_frustum);
+	glDeleteBuffers(1, &id_index_frustum);
+
+	GenerateFrustumBuffers();
 }
 
 void ComponentCamera::DrawFrustum()

@@ -5,8 +5,11 @@
 #include <vector>
 
 #include "Component.h"
-#include "ComponentMesh.h"
 #include "Random.h"
+
+class ComponentMesh;
+class ComponentTexture;
+class ComponentCamera;
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -27,6 +30,7 @@ public:
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
+	ComponentCamera* GetComponentCamera();
 
 	void AddChildren(GameObject* obj);
 	bool HasChildren() const;

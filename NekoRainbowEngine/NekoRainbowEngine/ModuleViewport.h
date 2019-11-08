@@ -33,4 +33,5 @@ public:
 	bool wireframe_on = false;
 	bool fill_on = true;
 	bool point_on = false;
+
 };
