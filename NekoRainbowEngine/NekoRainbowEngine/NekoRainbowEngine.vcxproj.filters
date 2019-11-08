@@ -215,6 +215,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
