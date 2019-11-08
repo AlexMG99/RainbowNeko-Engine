@@ -7,7 +7,6 @@ Component::Component(component_type comp_type, bool act, GameObject * obj)
 	type = comp_type;
 	active = act;
 	my_go = obj;
-
 }
 
 Component::~Component()
@@ -17,10 +16,11 @@ Component::~Component()
 
 ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj)
 {
-	local_position = { 0,0,0 };
-	local_scale = { 1,1,1 };
+	local_position = position = { 0,0,0 };
+	local_scale = scale = { 1,1,1 };
 	local_rotation_euler = { 0,0,0 };
-	local_rotation = Quat::identity;
+	local_rotation = rotation = Quat::identity;
+	local_matrix = global_matrix = float4x4::identity;
 }
 
 float4x4 ComponentTransform::GetGlobalTransformMatrix()
@@ -36,4 +36,17 @@ float4x4 ComponentTransform::GetGlobalTransformMatrix()
 	global_matrix.Decompose(position, rotation, scale);
 
 	return global_matrix;
+}
+
+void ComponentTransform::CalculateGlobalAxis()
+{
+	float3x3 matrix = global_matrix.Float3x3Part();
+
+	X = { 1,0,0 };
+	Y = { 0,1,0 };
+	Z = { 0,0,1 };
+
+	X = matrix * X;
+	Y = matrix * Y;
+	Z = matrix * Z;
 }

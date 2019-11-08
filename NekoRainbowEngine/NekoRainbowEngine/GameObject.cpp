@@ -174,6 +174,7 @@ void GameObject::SetName(const char * name_)
 	name = str.c_str();
 }
 
+
 float3 GameObject::GetScale(const float3 scale) const
 {
 	float3 scale_;

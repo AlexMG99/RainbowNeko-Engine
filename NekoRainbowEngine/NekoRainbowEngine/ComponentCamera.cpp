@@ -6,6 +6,12 @@
 
 ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject* obj): Component(comp_type, act, obj)
 {
+	if (my_go)
+	{
+		transform = my_go->GetComponentTransform();
+		transform->position = float3::zero;
+		transform->local_position = float3::zero;
+	}
 	camera_frustum.type = FrustumType::PerspectiveFrustum;
 
 	camera_frustum.pos = float3::zero;
@@ -62,6 +68,16 @@ void ComponentCamera::ReloadFrustum()
 	6,4, 2,0,
 	7,5, 3,1 };
 }
+
+void ComponentCamera::ChangePosition()
+{
+	transform->GetGlobalTransformMatrix();
+	camera_frustum.pos = transform->position;
+	transform->CalculateGlobalAxis();
+	camera_frustum.front = transform->Z;
+	camera_frustum.up = transform->Y;
+}
+
 void ComponentCamera::GenerateFrustumBuffers()
 {
 	//Cube Vertex
@@ -83,6 +99,7 @@ void ComponentCamera::UpdateFrustum()
 	}
 	vertices_frustum.clear();
 
+	ChangePosition();
 	ReloadFrustum();
 
 	glDeleteBuffers(1, &id_vertices_frustum);

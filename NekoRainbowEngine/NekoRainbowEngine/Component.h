@@ -48,6 +48,7 @@ public:
 	void Disable() {};
 
 	float4x4 GetGlobalTransformMatrix();
+	void CalculateGlobalAxis();
 
 public:
 	//Global
@@ -62,6 +63,9 @@ public:
 	float3 local_scale;
 	float3 local_rotation_euler;
 	Quat local_rotation;
+
+	//Axis
+	float3 X, Y, Z;
 };
 
 

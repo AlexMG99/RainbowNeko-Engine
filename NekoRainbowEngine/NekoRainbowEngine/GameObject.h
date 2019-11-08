@@ -47,6 +47,7 @@ public:
 	std::string GetName() const;
 	void SetName(const char* name_);
 
+
 	float3 GetScale(const float3 scale) const;
 
 	void DeleteComponent(Component* comp);
