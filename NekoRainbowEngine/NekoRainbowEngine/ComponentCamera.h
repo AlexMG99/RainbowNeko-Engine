@@ -29,12 +29,12 @@ public:
 	update_status Save() { return UPDATE_CONTINUE; };
 
 public:
+	Frustum camera_frustum;
 	vec3 X, Y, Z, Position, Reference;
 	float base_speed = 0.01f;
 
 private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;
-	Frustum camera_frustum;
 
 	std::vector<float3> vertices_frustum;
 	std::vector<uint> index_frustum;

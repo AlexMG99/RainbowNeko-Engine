@@ -64,6 +64,10 @@ update_status PanelInspector::Draw()
 			
 
 			ImGui::Separator();
+			ImGui::Text("Bounding Boxes:");
+			ImGui::Checkbox("Show AABB", &comp_mesh->show_aabb);
+			ImGui::Checkbox("Show OBB", &comp_mesh->show_obb);
+			ImGui::Separator();
 
 			ImGui::Text("Mode: ");
 			ImGui::RadioButton("Wireframe", &mode, 1); ImGui::SameLine();
