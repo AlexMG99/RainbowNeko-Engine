@@ -215,6 +215,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="PanelImporter.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelImporter.h">
+      <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
