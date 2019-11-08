@@ -67,6 +67,7 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Bounding Boxes:");
 			ImGui::Checkbox("Show AABB", &comp_mesh->show_aabb);
 			ImGui::Checkbox("Show OBB", &comp_mesh->show_obb);
+			ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
 			ImGui::Separator();
 
 			ImGui::Text("Mode: ");

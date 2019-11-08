@@ -71,6 +71,7 @@ public:
 	bool normal_face_show = false;
 	bool show_aabb = false;
 	bool show_obb = false;
+	bool camera_culling = false;
 
 	//Color Wireframe
 	vec4 wireframe_color;
