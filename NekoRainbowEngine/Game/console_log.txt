@@ -5,32 +5,32 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
-GLSL: 4.60 NVIDIA
+Renderer: Quadro FX 580/PCIe/SSE2
+OpenGL version supported 3.3.0
+GLSL: 3.30 NVIDIA via Cg compiler
 
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T5992: Load ./Assets/BakerHouse.fbx
+  T14192: Load ./Assets/BakerHouse.fbx
 
-  T5992: Found a matching importer for this file format: Autodesk FBX Importer.
+  T14192: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T5992: Import root directory is './Assets\'
+  T14192: Import root directory is './Assets\'
 
-  T5992: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T14192: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T5992: Entering post processing pipeline
+  T14192: Entering post processing pipeline
 
-  T5992: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T14192: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T5992: CalcTangentsProcess finished. Tangents have been calculated
+  T14192: CalcTangentsProcess finished. Tangents have been calculated
 
-  T5992: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T14192: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T5992: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T14192: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T5992: Leaving post processing pipeline
+  T14192: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Loaded with path: ./Assets/baker_house.png succesfully!

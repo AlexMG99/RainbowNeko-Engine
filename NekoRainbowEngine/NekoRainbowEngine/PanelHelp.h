@@ -41,6 +41,7 @@ private:
 	char Par_Shapes_link[60];
 	char Deviceld_link[70];
 	char mmgr_link[70];
+	char imguizmo_link[60];
 	char license[2070];
 };
 

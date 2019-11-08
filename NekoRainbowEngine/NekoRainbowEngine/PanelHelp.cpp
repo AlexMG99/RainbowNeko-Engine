@@ -33,6 +33,7 @@ bool PanelHelp::Start()
 	strcpy_s(Assimp_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "Assimp Link"));
 	strcpy_s(Deviceld_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "Deviceld Link"));
 	strcpy_s(mmgr_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "mmgr Link"));
+	strcpy_s(imguizmo_link, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "ImGuizmo Link"));
 	strcpy_s(license, json_object_get_string(json_object_get_object(json_object_get_object(about, "Credits"), (about, "About")), "License"));
 
 	return true;
@@ -123,6 +124,9 @@ void PanelHelp::AboutWindow()
 
 		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("mmgr"))
 			RequestBrowser(mmgr_link);
+
+		ImGui::Bullet(); ImGui::SameLine(); if (ImGui::MenuItem("ImGuizmo"))
+			RequestBrowser(imguizmo_link);
 
 		ImGui::Separator();
 
