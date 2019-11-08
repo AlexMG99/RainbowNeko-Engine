@@ -25,7 +25,9 @@ update_status PanelConsole::Draw() {
 	ImGui::Separator();
 
 	//Console output
+	/*ImGui::BeginTabBar("Console Output", ImGuiTabBarFlags_None);*/
 	ImGui::BeginChild("Console Output", ImVec2(0, 165), false, ImGuiWindowFlags_HorizontalScrollbar);
+	/*if(ImGui::BeginTabItem("Console"))*/
 	for (auto it_cons = console_text.begin(); it_cons != console_text.end(); it_cons++)
 	{
 		ImVec4 color = GetColorFromType((*it_cons).type);

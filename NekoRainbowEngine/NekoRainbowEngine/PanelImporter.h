@@ -10,6 +10,9 @@ public:
 	~PanelImporter() {};
 
 
+	update_status Draw();
+
+
 };
 
 
