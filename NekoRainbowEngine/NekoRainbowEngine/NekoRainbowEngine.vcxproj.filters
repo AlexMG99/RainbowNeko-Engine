@@ -218,6 +218,18 @@
     <ClCompile Include="PanelImporter.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="imGuizmo\ImCurveEdit.cpp">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imGuizmo\ImGradient.cpp">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imGuizmo\ImSequencer.cpp">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -596,6 +608,18 @@
     <ClInclude Include="PanelImporter.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="imGuizmo\ImCurveEdit.h">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imGuizmo\ImGradient.h">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imGuizmo\ImGuizmo.h">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imGuizmo\ImSequencer.h">
+      <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -663,6 +687,9 @@
     </Filter>
     <Filter Include="Sources\3rdPartyLibrary\Assimp">
       <UniqueIdentifier>{3025396c-30c0-434c-89d5-065a9a91a5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\3rdPartyLibrary\ImGuizmo">
+      <UniqueIdentifier>{c1eace56-274f-4f35-9d11-afe274fb43df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
