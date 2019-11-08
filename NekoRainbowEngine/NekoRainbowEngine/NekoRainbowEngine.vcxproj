@@ -203,6 +203,7 @@
     <ClInclude Include="PCG\pcg_uint128.hpp" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
