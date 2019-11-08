@@ -137,7 +137,7 @@ Libraries used in our Engine:
 * **Par Shapes**
 * **Deviceid**
 * **mmgr**
-
+* **ImGuizmo**
 
 
 ## License
