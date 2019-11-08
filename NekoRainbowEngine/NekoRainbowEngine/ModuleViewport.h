@@ -26,6 +26,7 @@ private:
 
 public:
 	GameObject* root_object = nullptr;
+	GameObject* camera_test = nullptr;
 	GameObject* selected_object = nullptr;
 	uint shape_num = 0;
 	bool draw_grid = true;

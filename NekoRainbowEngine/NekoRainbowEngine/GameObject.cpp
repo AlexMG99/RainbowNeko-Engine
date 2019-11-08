@@ -2,6 +2,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentCamera.h"
 
 GameObject::~GameObject()
 {
@@ -41,6 +42,9 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		break;
 	case COMPONENT_TEXTURE:
 		comp = new ComponentTexture(comp_type, act, this);
+		break;
+	case COMPONENT_CAMERA:
+		comp = new ComponentCamera(comp_type, act, this);
 		break;
 	case COMPONENT_NONE:
 		break;
