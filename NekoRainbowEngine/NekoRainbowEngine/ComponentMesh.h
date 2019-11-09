@@ -28,7 +28,7 @@ public:
 	OBB GetOBB();
 
 	void DrawBB();
-	void UpdateOBB();
+	void UpdateBB();
 
 	void RenderFill();
 	void RenderWireframe();

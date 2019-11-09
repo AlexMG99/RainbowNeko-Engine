@@ -100,17 +100,54 @@ ComponentCamera* GameObject::GetComponentCamera()
 	return nullptr;
 }
 
-void GameObject::AddChildren(GameObject* obj)
-{
-	children.push_back(obj);
-}
-
 bool GameObject::HasChildren() const
 {
 	if (children.empty())
 		return false;
 	else
 		return true;
+}
+
+bool GameObject::IsChild(GameObject * obj) const
+{
+	bool ret = false;
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		if ((*it_child) == obj)
+			return true;
+
+		ret = (*it_child)->IsChild(obj);
+	}
+	return ret;
+}
+
+bool GameObject::IsDirectChild(GameObject * obj) const
+{
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		if ((*it_child) == obj)
+			return true;
+	}
+	return false;
+}
+
+void GameObject::AddChild(GameObject * obj)
+{
+	children.push_back(obj);
+}
+
+void GameObject::RemoveChild(GameObject * obj)
+{
+	for (auto it_child = children.begin(); it_child != children.end();)
+	{
+		if ((*it_child) == obj)
+		{
+			it_child = children.erase(it_child);
+		}
+		else
+			it_child++;
+			
+	}
 }
 
 void GameObject::AddParent(GameObject * obj)

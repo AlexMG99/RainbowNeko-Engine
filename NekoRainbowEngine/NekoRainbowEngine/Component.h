@@ -50,6 +50,8 @@ public:
 	float4x4 GetGlobalTransformMatrix();
 	void CalculateGlobalAxis();
 
+	void UpdateComponents();
+
 public:
 	//Global
 	float4x4 global_matrix;

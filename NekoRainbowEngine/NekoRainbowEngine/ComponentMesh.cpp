@@ -187,7 +187,7 @@ void ComponentMesh::DrawBB()
 	glLineWidth(1);
 }
 
-void ComponentMesh::UpdateOBB()
+void ComponentMesh::UpdateBB()
 {
 	for (int i = 0; i < vertices_AABB.size();)
 	{
@@ -208,6 +208,7 @@ void ComponentMesh::UpdateOBB()
 	glDeleteBuffers(1, &id_vertexOBB);
 
 	GenerateBoundingBuffers();
+
 }
 
 void ComponentMesh::RenderFill()

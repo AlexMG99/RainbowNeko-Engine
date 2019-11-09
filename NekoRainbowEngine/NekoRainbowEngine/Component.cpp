@@ -1,6 +1,8 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "glmath.h"
+#include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 Component::Component(component_type comp_type, bool act, GameObject * obj)
 {
@@ -49,4 +51,20 @@ void ComponentTransform::CalculateGlobalAxis()
 	X = matrix * X;
 	Y = matrix * Y;
 	Z = matrix * Z;
+}
+
+void ComponentTransform::UpdateComponents()
+{
+	for (auto it_child = my_go->children.begin(); it_child != my_go->children.end(); it_child++)
+	{
+		(*it_child)->GetComponentTransform()->UpdateComponents();
+	}
+
+	ComponentMesh* mesh = my_go->GetComponentMesh();
+	if (mesh)
+		mesh->UpdateBB();
+
+	ComponentCamera* camera = my_go->GetComponentCamera();
+	if (camera)
+		camera->UpdateFrustum();
 }

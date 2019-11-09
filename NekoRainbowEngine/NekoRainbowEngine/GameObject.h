@@ -32,8 +32,12 @@ public:
 	ComponentTexture* GetComponentTexture();
 	ComponentCamera* GetComponentCamera();
 
-	void AddChildren(GameObject* obj);
 	bool HasChildren() const;
+	bool IsChild(GameObject* obj) const;
+	bool IsDirectChild(GameObject * obj) const;
+	void AddChild(GameObject* obj);
+	void RemoveChild(GameObject* obj);
+
 	void AddParent(GameObject* obj);
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);
