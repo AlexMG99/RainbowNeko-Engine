@@ -326,7 +326,6 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 		break;
 	}
 
-	name += std::to_string(App->viewport->shape_num);
 	obj = App->viewport->CreateGameObject(name.c_str());
 	obj->SetType(OBJECT_PARSHAPE);
 
@@ -364,9 +363,9 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	mesh->UV_num = 2;
 	mesh->transform = trans;
 
+	mesh->CreateLocalAABB();
+	mesh->GetGlobalAABB();
 	mesh->GenerateBuffers();
-
-	App->viewport->shape_num++;
 
 	par_shapes_free_mesh(shape);
 }

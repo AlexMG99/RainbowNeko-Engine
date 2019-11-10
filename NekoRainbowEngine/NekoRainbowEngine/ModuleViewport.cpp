@@ -132,8 +132,6 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 void ModuleViewport::DeleteGameObject()
 {
 	//Check ID
-	if (selected_object->GetType() == OBJECT_PARSHAPE && shape_num > 0)
-		shape_num--;
 
 	GameObject* parent = selected_object->GetParent();
 

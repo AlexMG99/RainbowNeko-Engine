@@ -22,7 +22,7 @@ public:
 	void ReloadFrustum();
 	void ChangePosition();
 	void GenerateFrustumBuffers();
-	void UpdateFrustum();
+	void UpdateFrustum(bool camera);
 	void DrawFrustum();
 
 	update_status Load();

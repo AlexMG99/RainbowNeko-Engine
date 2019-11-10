@@ -66,5 +66,5 @@ void ComponentTransform::UpdateComponents()
 
 	ComponentCamera* camera = my_go->GetComponentCamera();
 	if (camera)
-		camera->UpdateFrustum();
+		camera->UpdateFrustum(false);
 }

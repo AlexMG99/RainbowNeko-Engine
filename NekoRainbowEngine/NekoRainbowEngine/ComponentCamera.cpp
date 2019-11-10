@@ -91,7 +91,7 @@ void ComponentCamera::GenerateFrustumBuffers()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_frustum.size(), &index_frustum[0], GL_STATIC_DRAW);
 }
 
-void ComponentCamera::UpdateFrustum()
+void ComponentCamera::UpdateFrustum(bool camera)
 {
 	for (int i = 0; i < vertices_frustum.size();)
 	{
@@ -99,7 +99,8 @@ void ComponentCamera::UpdateFrustum()
 	}
 	vertices_frustum.clear();
 
-	ChangePosition();
+	if(!camera)
+		ChangePosition();
 	ReloadFrustum();
 
 	glDeleteBuffers(1, &id_vertices_frustum);

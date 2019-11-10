@@ -29,25 +29,24 @@ update_status PanelInspector::Draw()
 
 		//Transform
 		ImGui::PushID("Transform");
-		ImGui::Checkbox("Active", &object->active);
-		ImGui::PopID();
-		ImGui::Text("Name: %s		", object->GetName().c_str());
-		ImGui::Text("ID: %u", object->GetId());
+		ImGui::Checkbox("", &object->active); ImGui::SameLine();
+		ImGui::Text("%s		", object->GetName().c_str());
 		ImGui::Separator();
 
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) || ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2) || ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)) 
+			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) ||
+				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
+				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
 			{
 				comp_trans->UpdateComponents();
-				if (comp_camera)
-					comp_camera->UpdateFrustum();
 			}
 
 			ImGui::Separator();
 		}
 
+		ImGui::PopID();
 		//Mesh
 		if (comp_mesh && ImGui::CollapsingHeader("Mesh"))
 		{
@@ -97,6 +96,30 @@ update_status PanelInspector::Draw()
 				ImGui::Text("Id texture: %i", comp_texture->image_id);
 				ImGui::Text("W: %i		H: %i", comp_texture->width, comp_texture->height);
 				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
+				ImGui::PopID();
+				ImGui::Separator();
+			}
+		}
+
+		if (comp_camera)
+		{
+			if (ImGui::CollapsingHeader("Camera"))
+			{
+				ImGui::PushID("Camera");
+
+				ImGui::Text("Transform:");
+				if (ImGui::InputFloat3("Position", (float*)&comp_camera->camera_frustum.pos, 2))
+				{
+					comp_camera->UpdateFrustum(true);
+				}
+				ImGui::Separator();
+
+				if (ImGui::InputFloat("Near Plane", &comp_camera->camera_frustum.nearPlaneDistance, 5) ||
+					ImGui::InputFloat("Far Plane", &comp_camera->camera_frustum.farPlaneDistance, 5) ||
+					ImGui::InputFloat("FOV", &comp_camera->camera_frustum.verticalFov, 0.1))
+				{
+					comp_camera->UpdateFrustum(false);
+				}
 				ImGui::PopID();
 				ImGui::Separator();
 			}
