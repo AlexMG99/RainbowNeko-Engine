@@ -7,6 +7,7 @@
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
 #include "PanelShape.h"
+#include "PanelImporter.h"
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
 
@@ -56,6 +57,7 @@ update_status PanelTopbar::Draw()
 		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
 		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
 		ImGui::MenuItem("Panel Shape ", NULL, &App->editor->panel_shape->enabled);
+		ImGui::MenuItem("Assets", NULL, &App->editor->panel_importer->enabled);
 
 		ImGui::EndMenu();
 	}

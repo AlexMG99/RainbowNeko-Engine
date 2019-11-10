@@ -103,6 +103,10 @@
     <ClInclude Include="glmath.h" />
     <ClInclude Include="GL\include\glew.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="imGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="imGuizmo\ImGradient.h" />
+    <ClInclude Include="imGuizmo\ImGuizmo.h" />
+    <ClInclude Include="imGuizmo\ImSequencer.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleFileSystem.h" />
@@ -113,6 +117,7 @@
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="PanelHierarchy.h" />
+    <ClInclude Include="PanelImporter.h" />
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelShape.h" />
     <ClInclude Include="PanelTopbar.h" />
@@ -199,6 +204,7 @@
     <ClInclude Include="PCG\pcg_uint128.hpp" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +218,10 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="imGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="imGuizmo\ImGradient.cpp" />
+    <ClCompile Include="imGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="imGuizmo\ImSequencer.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -266,6 +276,7 @@
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelGame.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
+    <ClCompile Include="PanelImporter.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelShape.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />

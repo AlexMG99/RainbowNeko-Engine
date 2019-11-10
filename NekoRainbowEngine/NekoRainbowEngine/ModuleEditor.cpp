@@ -8,6 +8,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelShape.h"
+#include "PanelImporter.h"
 
 #include "SDL/include/SDL_opengl.h"
 #include "SDL/include/SDL.h"
@@ -54,6 +55,7 @@ bool ModuleEditor::Start()
 	panel_inspector = new PanelInspector("Inspector");
 	panel_game = new PanelGame("Game");
 	panel_shape = new PanelShape("Shape Creator");
+	panel_importer = new PanelImporter("Assets");
 
 	//Start Panels
 	panel_topbar->Start();
@@ -63,6 +65,9 @@ bool ModuleEditor::Start()
 	panel_inspector->Start();
 	panel_game->Start();
 	panel_shape->Start();
+	panel_importer->Start();
+
+	
 
 	return ret;
 }
@@ -95,7 +100,7 @@ update_status ModuleEditor::Update(float dt)
 	ret = panel_topbar->Draw();
 
 	DrawPanels();
-
+	/*ImGui::ShowDemoWindow();*/
 	return ret;
 }
 
@@ -121,6 +126,7 @@ bool ModuleEditor::CleanUp()
 	RELEASE(panel_console);
 	RELEASE(panel_topbar);
 	RELEASE(panel_shape);
+	RELEASE(panel_importer);
 
 	return true;
 }
@@ -162,6 +168,8 @@ void ModuleEditor::DrawPanels()
 		panel_game->Draw();
 	if (panel_shape->IsEnabled())
 		panel_shape->Draw();
+	if (panel_importer->IsEnabled())
+		panel_importer->Draw();
 
 	ImGui::End();
 }
