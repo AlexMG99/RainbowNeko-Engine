@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class ComponentCamera;
 class GameObject;
 
 class ModuleCamera3D : public Module
@@ -22,21 +23,9 @@ public:
 	void Move(const vec3 &Movement);
 	void MoveTo(const vec3 & Position);
 	void SetCameraToCenter();
-	float* GetViewMatrix();
 
-	void FocusObject(GameObject* obj);
-	void FocusObjectImport(GameObject * obj);
-
-private:
-
-	void CalculateViewMatrix();
+	void FocusObject(GameObject * obj);
 
 public:
-	
-	vec3 X, Y, Z, Position, Reference;
-	float base_speed = 1.0f;
-
-private:
-
-	mat4x4 ViewMatrix, ViewMatrixInverse;
+	ComponentCamera* actual_camera = nullptr;
 };

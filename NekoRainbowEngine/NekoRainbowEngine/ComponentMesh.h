@@ -28,7 +28,7 @@ public:
 	OBB GetOBB();
 
 	void DrawBB();
-	void UpdateOBB();
+	void UpdateBB();
 
 	void RenderFill();
 	void RenderWireframe();
@@ -69,6 +69,9 @@ public:
 	bool par_shape = false;
 	bool normal_show = false;
 	bool normal_face_show = false;
+	bool show_aabb = false;
+	bool show_obb = false;
+	bool camera_culling = false;
 
 	//Color Wireframe
 	vec4 wireframe_color;

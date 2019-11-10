@@ -215,6 +215,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="PanelImporter.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
@@ -604,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PanelImporter.h">
       <Filter>Sources\Panel</Filter>

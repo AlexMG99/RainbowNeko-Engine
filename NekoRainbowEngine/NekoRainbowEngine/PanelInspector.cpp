@@ -4,6 +4,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"
 #include "Brofiler/Brofiler.h"
@@ -24,6 +25,7 @@ update_status PanelInspector::Draw()
 		ComponentTransform* comp_trans = object->GetComponentTransform();
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
 		ComponentTexture* comp_texture = object->GetComponentTexture();
+		ComponentCamera* comp_camera = object->GetComponentCamera();
 
 		//Transform
 		ImGui::PushID("Transform");
@@ -38,8 +40,9 @@ update_status PanelInspector::Draw()
 			//Position / Rotation / Scale
 			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) || ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2) || ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)) 
 			{
-				if(comp_mesh)
-					comp_mesh->UpdateOBB();
+				comp_trans->UpdateComponents();
+				if (comp_camera)
+					comp_camera->UpdateFrustum();
 			}
 
 			ImGui::Separator();
@@ -58,7 +61,11 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Num indices: %i", comp_mesh->index.size());
 			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
 			
-
+			ImGui::Separator();
+			ImGui::Text("Bounding Boxes:");
+			ImGui::Checkbox("Show AABB", &comp_mesh->show_aabb);
+			ImGui::Checkbox("Show OBB", &comp_mesh->show_obb);
+			ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
 			ImGui::Separator();
 
 			ImGui::Text("Mode: ");

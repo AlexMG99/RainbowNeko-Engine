@@ -101,7 +101,7 @@ bool ModuleImporter::ImportFBX(char* path_fbx)
 
 	aiReleaseImport(scene);
 
-	App->camera->FocusObjectImport(*(fbx_obj->children.begin()));
+	App->camera->FocusObject(*(fbx_obj->children.begin()));
 
 	return ret;
 }

@@ -14,7 +14,8 @@ enum component_type {
 	COMPONENT_TRANSFORM,
 	COMPONENT_MESH,
 	COMPONENT_TEXTURE,
-	COMPONENT_LIGHT
+	COMPONENT_LIGHT,
+	COMPONENT_CAMERA
 };
 
 //-------------- Component --------------
@@ -47,6 +48,9 @@ public:
 	void Disable() {};
 
 	float4x4 GetGlobalTransformMatrix();
+	void CalculateGlobalAxis();
+
+	void UpdateComponents();
 
 public:
 	//Global
@@ -61,6 +65,9 @@ public:
 	float3 local_scale;
 	float3 local_rotation_euler;
 	Quat local_rotation;
+
+	//Axis
+	float3 X, Y, Z;
 };
 
 

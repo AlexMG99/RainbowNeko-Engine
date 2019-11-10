@@ -2,6 +2,8 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 GameObject::~GameObject()
 {
@@ -41,6 +43,9 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		break;
 	case COMPONENT_TEXTURE:
 		comp = new ComponentTexture(comp_type, act, this);
+		break;
+	case COMPONENT_CAMERA:
+		comp = new ComponentCamera(comp_type, act, this);
 		break;
 	case COMPONENT_NONE:
 		break;
@@ -84,9 +89,15 @@ ComponentTexture* GameObject::GetComponentTexture()
 	return nullptr;
 }
 
-void GameObject::AddChildren(GameObject* obj)
+ComponentCamera* GameObject::GetComponentCamera()
 {
-	children.push_back(obj);
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_CAMERA)
+			return (ComponentCamera*)(*it_comp);
+	}
+
+	return nullptr;
 }
 
 bool GameObject::HasChildren() const
@@ -95,6 +106,48 @@ bool GameObject::HasChildren() const
 		return false;
 	else
 		return true;
+}
+
+bool GameObject::IsChild(GameObject * obj) const
+{
+	bool ret = false;
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		if ((*it_child) == obj)
+			return true;
+
+		ret = (*it_child)->IsChild(obj);
+	}
+	return ret;
+}
+
+bool GameObject::IsDirectChild(GameObject * obj) const
+{
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		if ((*it_child) == obj)
+			return true;
+	}
+	return false;
+}
+
+void GameObject::AddChild(GameObject * obj)
+{
+	children.push_back(obj);
+}
+
+void GameObject::RemoveChild(GameObject * obj)
+{
+	for (auto it_child = children.begin(); it_child != children.end();)
+	{
+		if ((*it_child) == obj)
+		{
+			it_child = children.erase(it_child);
+		}
+		else
+			it_child++;
+			
+	}
 }
 
 void GameObject::AddParent(GameObject * obj)
@@ -157,6 +210,7 @@ void GameObject::SetName(const char * name_)
 	std::string str = temp_str.substr(pos + 1);
 	name = str.c_str();
 }
+
 
 float3 GameObject::GetScale(const float3 scale) const
 {

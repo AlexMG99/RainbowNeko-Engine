@@ -3,17 +3,20 @@
 #include "ModuleViewport.h"
 #include "PanelHierarchy.h"
 #include "GameObject.h"
+#include "ComponentMesh.h"
+
+#include "imgui/imgui_internal.h"
 
 update_status PanelHierarchy::Draw()
 {
 	BROFILER_CATEGORY("Draw_PanelHierarchy", Profiler::Color::GoldenRod);
 
-	if (ImGui::Begin("Game Ojects", &enabled, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::Begin("Panel Hierarchy", &enabled, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		node_it = 0;
 
-		for(auto it_obj = App->viewport->root_object->children.begin(); it_obj != App->viewport->root_object->children.end(); it_obj++)
-			TreeObject(*it_obj);
+		for (int i = 0; i < App->viewport->root_object->children.size(); i++)
+			TreeObject(App->viewport->root_object->children[i]);
 
 		ImGui::End();
 	}
@@ -37,6 +40,11 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	if (obj->HasChildren())
 	{	
 		bool node_open = ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
+
+		BeginDragDropSource(obj);
+		BeginDragDropTarget(obj);
+		BeginDragDropTargetRoot(obj);
+
 		if (ImGui::IsItemClicked() && !is_selected) {
 			node_num = node_it;
 			App->viewport->selected_object = obj;
@@ -46,13 +54,14 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 			selection_mask = (1 << 2);
 			App->viewport->selected_object = nullptr;
 		}
+
 		ImGui::PopID();
+
 		if (node_open)
 		{
-			for (auto it_obj = obj->children.begin(); it_obj < obj->children.end(); it_obj++)
-			{
-				TreeObject(*it_obj);
-			}
+			for (int i = 0; i < obj->children.size(); i++)
+				TreeObject(obj->children[i]);
+
 			ImGui::TreePop();
 		}
 	}
@@ -60,6 +69,10 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 	{
 		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 		ImGui::TreeNodeEx(obj->GetName().c_str(), node_flags, obj->GetName().c_str());
+
+		BeginDragDropSource(obj);
+		BeginDragDropTarget(obj);
+
 		if (ImGui::IsItemClicked() && !is_selected) {
 			node_num = node_it;
 			App->viewport->selected_object = obj;
@@ -77,4 +90,59 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 		selection_mask = (1 << node_num);
 	}
 }
+
+void PanelHierarchy::BeginDragDropSource(GameObject* obj)
+{
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+	{
+		ImGui::SetDragDropPayload("HierarchyD&D", &obj, sizeof(GameObject));
+		ImGui::EndDragDropSource();
+	}
+}
+
+void PanelHierarchy::BeginDragDropTarget(GameObject* obj)
+{
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("HierarchyD&D"))
+		{
+			GameObject* new_obj = *(GameObject**)payload->Data;
+
+			if (!new_obj->IsChild(obj) && (new_obj != obj))
+			{
+				new_obj->GetParent()->RemoveChild(new_obj);
+				new_obj->SetParent(obj);
+
+				ComponentTransform* trans = new_obj->GetComponentTransform();
+				if (trans)
+					trans->UpdateComponents();
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+}
+
+void PanelHierarchy::BeginDragDropTargetRoot(GameObject* obj)
+{
+	if (ImGui::BeginDragDropTargetCustom(ImGui::GetCurrentWindow()->Rect(), (ImGuiID)"Panel Hierarchy"))
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("HierarchyD&D"))
+		{
+			GameObject* new_obj = *(GameObject**)payload->Data;
+
+			if (!App->viewport->root_object->IsDirectChild(new_obj))
+			{
+				new_obj->GetParent()->RemoveChild(new_obj);
+				new_obj->SetParent(App->viewport->root_object);
+
+				ComponentTransform* trans = new_obj->GetComponentTransform();
+				if (trans)
+					trans->UpdateComponents();
+				
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+}
+
 
