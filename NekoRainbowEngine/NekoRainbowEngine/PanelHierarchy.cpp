@@ -108,7 +108,7 @@ void PanelHierarchy::BeginDragDropTarget(GameObject* obj)
 		{
 			GameObject* new_obj = *(GameObject**)payload->Data;
 
-			if (!new_obj->IsChild(obj))
+			if (!new_obj->IsChild(obj) && (new_obj != obj))
 			{
 				new_obj->GetParent()->RemoveChild(new_obj);
 				new_obj->SetParent(obj);
