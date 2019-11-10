@@ -15,7 +15,7 @@ Application::Application()
 	editor = new ModuleEditor(this);
 	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
+	camera = new ModuleEditorCamera(this);
 	importer = new ModuleImporter(this);
 
 	// The order of calls is very important!

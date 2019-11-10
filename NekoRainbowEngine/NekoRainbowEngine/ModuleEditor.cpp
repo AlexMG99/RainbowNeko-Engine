@@ -36,7 +36,7 @@ bool ModuleEditor::Start()
 	LOG("Loading Editor Scene");
 	bool ret = true;
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	App->camera->MoveTo(vec3(7.0f, 7.0f, 7.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	//Create Context
