@@ -22,6 +22,8 @@ public:
 	void UpdateFrustum(bool camera);
 	void DrawFrustum();
 
+	void Look(const float3 position);
+
 	float3 GetCameraPosition() const;
 	float* GetViewMatrix();
 
@@ -29,7 +31,7 @@ public:
 	update_status Save() { return UPDATE_CONTINUE; };
 
 public:
-	Frustum c_frustum;
+	Frustum frustum;
 
 private:
 	std::vector<float3> vertices_frustum;

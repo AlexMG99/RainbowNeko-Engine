@@ -25,6 +25,8 @@ public:
 	void FocusObject(GameObject * obj);
 
 	void MoveTo(const vec3 & Pos);
+
+	void LookAt(float dx, float dy);
 	void LookAt(const vec3 &Spot);
 
 private:
@@ -35,10 +37,10 @@ private:
 
 public:
 	float move_speed = 1.5f;
-	float rot_speed = 1.0f;
-	float zoom_speed = 1.5f;
+	float rot_speed = 0.1f;
+	float zoom_speed = 150.0f;
 
 private:
-	float3 looking_at;
+	float3 looking_point;
 	ComponentCamera* camera = nullptr;
 };
