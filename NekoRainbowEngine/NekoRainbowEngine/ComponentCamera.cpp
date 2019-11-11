@@ -31,7 +31,7 @@ float* ComponentCamera::GetViewMatrix()
 {
 	vec3 X = { frustum.WorldRight().x, frustum.WorldRight().y, frustum.WorldRight().z };
 	vec3 Y = { frustum.up.x, frustum.up.y, frustum.up.z };
-	vec3 Z = { frustum.front.x, frustum.front.y, frustum.front.z };
+	vec3 Z = { -frustum.front.x, -frustum.front.y, -frustum.front.z };
 	vec3 Position = { frustum.pos.x, frustum.pos.y, frustum.pos.z };
 
 	mat4x4 ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
@@ -128,7 +128,7 @@ void ComponentCamera::Look(const float3 &position)
 {
 	float3 dir = position - frustum.pos;
 
-	float3x3 m = float3x3::LookAt(frustum.front, dir.Normalized(), frustum.up, float3::unitY);
+	float3x3 m = float3x3::LookAt(-frustum.front, dir.Normalized(), frustum.up, float3::unitY);
 
 	frustum.front = -m.MulDir(frustum.front).Normalized();
 	frustum.up = m.MulDir(frustum.up).Normalized();
