@@ -26,9 +26,10 @@ bool TextureImporter::Import(const char* path)
 
 	if (App->viewport->selected_object) {
 		ComponentMesh* mesh = App->viewport->selected_object->GetComponentMesh();
-		App->viewport->selected_object->DeleteComponent(App->viewport->selected_object->GetComponentTexture());
-
-		ComponentTexture* texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
+		ComponentTexture* texture = App->viewport->selected_object->GetComponentTexture();
+		App->viewport->selected_object->DeleteComponent(texture);
+		
+		texture = new ComponentTexture(COMPONENT_TEXTURE, true, nullptr);
 
 		//Load Texture
 		std::string output_file, file, extension, texture_path = path;
