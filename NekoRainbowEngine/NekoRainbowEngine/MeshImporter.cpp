@@ -1,6 +1,10 @@
 #include "Globals.h"
+#include "Application.h"
 #include "ComponentMesh.h"
+#include "GameObject.h"
 #include "MeshImporter.h"
+
+#include <string>
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -98,10 +102,89 @@ void MeshImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, 
 
 bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 {
+	// amount of indices / vertices / colors / normals / texture_coords / AABB
+	uint ranges[2] = { mesh->index.size(), mesh->vertices.size()};
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->index.size() + sizeof(float3) * mesh->vertices.size();
+
+	// Allocate
+	char* data = new char[size];
+	char* cursor = data;
+
+	// First store ranges
+	uint bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+	cursor += bytes;
+
+	// Store indices
+	bytes = sizeof(uint) * mesh->index.size();
+	memcpy(cursor, &mesh->index[0], bytes);
+	cursor += bytes;
+
+	// Store vertices
+	bytes = sizeof(float3) * mesh->vertices.size();
+	memcpy(cursor, &mesh->vertices[0], bytes);
+	cursor += bytes;
+
+	std::string mesh_name = LIBRARY_MESH_FOLDER;
+	mesh_name += mesh->my_go->GetName().c_str();
+	uint ret = App->fs->Save(std::string(mesh_name + ".neko").c_str(), data, size);
+	RELEASE_ARRAY(data);
+
 	return true;
 }
 
 ComponentMesh * MeshImporter::Load(const char * exported_file)
 {
-	return nullptr;
+	GameObject* obj = App->viewport->CreateGameObject(exported_file);
+	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+
+	std::string normalized_path = exported_file;
+	App->fs->NormalizePath(normalized_path);
+
+	std::string extension, file;
+	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
+
+	std::string path = LIBRARY_MESH_FOLDER;
+	path.append(file.c_str());
+
+	char* buffer;
+	uint size = App->fs->Load(path.c_str(), &buffer);
+
+	char* cursor = buffer;
+	// amount of indices / vertices / colors / normals / texture_coords
+	uint ranges[2];
+	uint bytes = sizeof(ranges);
+	memcpy(ranges, cursor, bytes);
+	mesh->index.resize(0);
+	mesh->vertices.resize(0);
+	cursor += bytes;
+
+	// Load indices
+	bytes = sizeof(uint) * mesh->index.size();
+	uint* index = new uint[mesh->index.size()];
+	memcpy(index, cursor, bytes);
+	for(int i = 0; i < ranges[0]; i++)
+	{
+		mesh->index.push_back(index[i]);
+	}
+	cursor += bytes;
+
+	// Load vertices
+	bytes = sizeof(float3) * mesh->vertices.size();
+	float3* vertex = new float3[mesh->vertices.size()];
+	memcpy(vertex, cursor, bytes);
+	for (int i = 0; i < ranges[1]; i++)
+	{
+		mesh->vertices.push_back(vertex[i]);
+	}
+	cursor += bytes;
+
+	mesh->transform = mesh->my_go->GetComponentTransform();
+	mesh->CreateLocalAABB();
+	mesh->GetGlobalAABB();
+	mesh->GenerateBuffers();
+
+	RELEASE_ARRAY(buffer);
+
+	return mesh;
 }

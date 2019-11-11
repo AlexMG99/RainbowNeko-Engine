@@ -50,11 +50,13 @@ bool ModuleImporter::ImportFile(const char* path)
 	App->fs->NormalizePath(normalized_path);
 
 	std::string extension, file;
-	App->fs->SplitFilePath(path, nullptr, &file, &extension);
+	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
 
 	if (extension == "fbx" || extension == "FBX")
 		scene->Import(path);
 
+	if (extension == "neko")
+		mesh->Load(path);
 
 	return ret;
 }

@@ -115,6 +115,8 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				mesh->image_id = texture->image_id;
 			}
 		}
+
+		App->importer->mesh->SaveMesh(mesh);
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
