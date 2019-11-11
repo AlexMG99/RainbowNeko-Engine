@@ -51,10 +51,12 @@ public:
 
 	//Mesh Properties
 	uint id_index = 0;
-	std::vector<uint> index;
+	uint* index;
+	uint index_size;
 
 	uint id_vertex = 0;
-	std::vector<float3> vertices;
+	float3* vertices;
+	uint vertices_size;
 
 	//UVs
 	float* UV_coord = nullptr;

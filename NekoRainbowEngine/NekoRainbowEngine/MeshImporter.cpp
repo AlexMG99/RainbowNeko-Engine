@@ -28,27 +28,24 @@ ComponentMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh
 	ComponentMesh* aux_mesh = new ComponentMesh(COMPONENT_MESH, true, nullptr);
 
 	//Vertices Load
-	for (uint i = 0; i < aimesh->mNumVertices; i++)
-	{
-		aux_mesh->vertices.push_back(float3(aimesh->mVertices[i].x, aimesh->mVertices[i].y, aimesh->mVertices[i].z));
-	}
-	LOG("New mesh with %d vertices", aux_mesh->vertices.size());
+	aux_mesh->vertices_size = aimesh->mNumVertices;
+	aux_mesh->vertices = new float3[aimesh->mNumVertices];
+	memcpy(aux_mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
+	LOG("New mesh with %d vertices", aux_mesh->vertices_size);
 
 	//Index Load
 	if (aimesh->HasFaces())
 	{
+		aux_mesh->index_size = aimesh->mNumFaces * 3;
+		aux_mesh->index = new uint[aux_mesh->index_size];
 		for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
 		{
-			aiFace aiface = aimesh->mFaces[i];
-			for (uint j = 0; j < aiface.mNumIndices; j++)
-			{
-				aux_mesh->index.push_back(aiface.mIndices[j]);
-			}
+			memcpy(&aux_mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
 	}
 
 	//Load Normals
-	if (aimesh->HasNormals())
+	/*if (aimesh->HasNormals())
 	{
 		aux_mesh->normals = new float3[aimesh->mNumVertices];
 		memcpy(aux_mesh->normals, aimesh->mNormals, sizeof(aiVector3D) * aux_mesh->vertices.size());
@@ -65,15 +62,15 @@ ComponentMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh
 			vec3 vertex2(aux_mesh->vertices.at(index).x, aux_mesh->vertices.at(index).y, aux_mesh->vertices.at(index).z);
 			CalculateNormalTriangle(aux_mesh, vertex0, vertex1, vertex2);
 		}
-	}
+	}*/
 
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
 	{
 		aux_mesh->UV_num = aimesh->mNumUVComponents[0];
-		aux_mesh->UV_coord = new float[aux_mesh->vertices.size() * aux_mesh->UV_num];
+		aux_mesh->UV_coord = new float[aux_mesh->vertices_size * aux_mesh->UV_num];
 
-		for (uint i = 0; i < aux_mesh->vertices.size(); i++)
+		for (uint i = 0; i < aux_mesh->vertices_size; i++)
 		{
 			memcpy(&aux_mesh->UV_coord[i * aux_mesh->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * aux_mesh->UV_num);
 		}
@@ -103,8 +100,8 @@ void MeshImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, 
 bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
-	uint ranges[2] = { mesh->index.size(), mesh->vertices.size()};
-	uint size = sizeof(ranges) + sizeof(uint) * mesh->index.size() + sizeof(float3) * mesh->vertices.size();
+	uint ranges[2] = { mesh->index_size, mesh->vertices_size };
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->index_size + sizeof(float3) * mesh->vertices_size;
 
 	// Allocate
 	char* data = new char[size];
@@ -116,12 +113,12 @@ bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 	cursor += bytes;
 
 	// Store indices
-	bytes = sizeof(uint) * mesh->index.size();
+	bytes = sizeof(uint) * mesh->index_size;
 	memcpy(cursor, &mesh->index[0], bytes);
 	cursor += bytes;
 
 	// Store vertices
-	bytes = sizeof(float3) * mesh->vertices.size();
+	bytes = sizeof(float3) * mesh->vertices_size;
 	memcpy(cursor, &mesh->vertices[0], bytes);
 	cursor += bytes;
 
@@ -155,28 +152,18 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 	uint ranges[2];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
-	mesh->index.resize(0);
-	mesh->vertices.resize(0);
 	cursor += bytes;
 
 	// Load indices
-	bytes = sizeof(uint) * mesh->index.size();
-	uint* index = new uint[mesh->index.size()];
-	memcpy(index, cursor, bytes);
-	for(int i = 0; i < ranges[0]; i++)
-	{
-		mesh->index.push_back(index[i]);
-	}
+	bytes = sizeof(uint) * mesh->index_size;
+	mesh->index = new uint[mesh->index_size];
+	memcpy(mesh->index, cursor, bytes);
 	cursor += bytes;
 
 	// Load vertices
-	bytes = sizeof(float3) * mesh->vertices.size();
-	float3* vertex = new float3[mesh->vertices.size()];
-	memcpy(vertex, cursor, bytes);
-	for (int i = 0; i < ranges[1]; i++)
-	{
-		mesh->vertices.push_back(vertex[i]);
-	}
+	bytes = sizeof(float3) * mesh->vertices_size;
+	mesh->vertices = new float3[mesh->vertices_size];
+	memcpy(mesh->vertices, cursor, bytes);
 	cursor += bytes;
 
 	mesh->transform = mesh->my_go->GetComponentTransform();

@@ -132,7 +132,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	for (uint i = 0; i < shape->npoints * 3;)
+	/*for (uint i = 0; i < shape->npoints * 3;)
 	{
 		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
 		if (shape->normals)
@@ -140,7 +140,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 		i += 3;
 	}
 
-	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);
+	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);*/
 	
 	mesh->par_shape = true;
 	mesh->UV_coord = shape->tcoords;
