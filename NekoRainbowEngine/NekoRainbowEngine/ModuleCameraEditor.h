@@ -26,6 +26,9 @@ public:
 	void MoveTo(const vec3 & Pos);
 	void LookAt(const float3 &Spot);
 
+	void ChangeCamera(ComponentCamera* camera);
+	void SetSceneCamera();
+
 private:
 	void Move(float dt);
 	void Move(float motion_x, float motion_y);
@@ -41,4 +44,5 @@ public:
 private:
 	float3 looking_point;
 	ComponentCamera* camera = nullptr;
+	ComponentCamera* scene_camera = nullptr;
 };

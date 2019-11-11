@@ -20,8 +20,10 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject*
 
 	frustum.nearPlaneDistance = 10.0f;
 	frustum.farPlaneDistance = 100.0f;
-	frustum.verticalFov = 60.0f * DEGTORAD;
+	frustum.verticalFov = 20.0f * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
+
+	Reference = float3(0, 0, 0);
 
 	ReloadFrustum();
 	GenerateFrustumBuffers();
@@ -128,9 +130,9 @@ void ComponentCamera::Look(const float3 &position)
 {
 	float3 dir = position - frustum.pos;
 
-	float3x3 m = float3x3::LookAt(-frustum.front, dir.Normalized(), frustum.up, float3::unitY);
+	float3x3 m = float3x3::LookAt(frustum.front, dir.Normalized(), frustum.up, float3::unitY);
 
-	frustum.front = -m.MulDir(frustum.front).Normalized();
+	frustum.front = m.MulDir(frustum.front).Normalized();
 	frustum.up = m.MulDir(frustum.up).Normalized();
 }
 

@@ -21,7 +21,7 @@ bool ModuleEditorCamera::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
-	camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr);
+	camera = scene_camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr);
 
 	return ret;
 }
@@ -85,14 +85,28 @@ update_status ModuleEditorCamera::Update(float dt)
 	if(wheel != 0)
 		Zoom(wheel * zoom_speed * dt);
 
+	camera->UpdateFrustum(true);
+
 	return UPDATE_CONTINUE;
 }
 
 // -----------------------------------------------------------------
 void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
-	camera->Reference = Spot;
+	camera->Reference = -Spot;
 	camera->Look(Spot);
+}
+
+void ModuleEditorCamera::ChangeCamera(ComponentCamera* camera)
+{
+	if(!this->camera->my_go)
+		scene_camera = this->camera;
+	this->camera = camera;
+}
+
+void ModuleEditorCamera::SetSceneCamera()
+{
+	camera = scene_camera;
 }
 
 void ModuleEditorCamera::Zoom(float zoom)
@@ -176,7 +190,7 @@ void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 			camera->frustum.up = float3(cross_vec.x, cross_vec.y, cross_vec.z);
 		}
 	}
-	camera->frustum.pos = camera->Reference + camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
+	camera->frustum.pos = camera->Reference - camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
 
 }
 
