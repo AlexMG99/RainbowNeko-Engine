@@ -34,6 +34,7 @@ private:
 
 public:
 	float move_speed = 10.0f;
+	float move_mouse_speed = 5.0f;
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
 

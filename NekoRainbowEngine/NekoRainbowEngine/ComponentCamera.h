@@ -32,6 +32,7 @@ public:
 
 public:
 	Frustum frustum;
+	float3 Reference;
 
 private:
 	std::vector<float3> vertices_frustum;

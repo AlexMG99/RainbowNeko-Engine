@@ -58,7 +58,7 @@ update_status ModuleEditorCamera::Update(float dt)
 	// Mouse
 	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
-		//FocusObject(App->viewport->selected_object);
+		FocusObject(App->viewport->selected_object);
 
 		int motion_x = App->input->GetMouseXMotion();
 		int motion_y = App->input->GetMouseYMotion();
@@ -70,11 +70,13 @@ update_status ModuleEditorCamera::Update(float dt)
 
 			Orbit(dx, dy);
 		}
+
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Eye);
 	}
 
 	//Movement Middle button
 	else if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
-		float2 mouse_motion = { App->input->GetMouseXMotion() * move_speed * dt,App->input->GetMouseYMotion() * move_speed * dt };
+		float2 mouse_motion = { App->input->GetMouseXMotion() * move_mouse_speed * dt,App->input->GetMouseYMotion() * move_mouse_speed * dt };
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
@@ -89,6 +91,7 @@ update_status ModuleEditorCamera::Update(float dt)
 // -----------------------------------------------------------------
 void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
+	camera->Reference = Spot;
 	camera->Look(Spot);
 }
 
@@ -97,8 +100,9 @@ void ModuleEditorCamera::Zoom(float zoom)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		zoom *= 2.0f;
 
-	float3 zoom_movement = camera->frustum.front;
-	camera->frustum.pos -= zoom_movement * zoom;
+	float3 zoom_movement = camera->frustum.front * zoom;
+	camera->frustum.pos -= zoom_movement;
+	camera->Reference -= zoom_movement;
 }
 
 
@@ -120,13 +124,17 @@ void ModuleEditorCamera::Move(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement += front;
 
 	if (!movement.Equals(float3::zero))
+	{
 		frustrum->Translate(movement * final_move_speed * dt);
+		camera->Reference += movement * final_move_speed * dt;
+	}
 }
 
 void ModuleEditorCamera::Move(float motion_x, float motion_y)
 {
 	Frustum* frustrum = &camera->frustum;
-	frustrum->pos += frustrum->front * motion_y + frustrum->WorldRight()*motion_x;
+	frustrum->pos += -frustrum->up * motion_y + frustrum->WorldRight()*motion_x;
+	camera->Reference += -frustrum->up * motion_y + frustrum->WorldRight()*motion_x;
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
 }
@@ -135,10 +143,13 @@ void ModuleEditorCamera::Move(float motion_x, float motion_y)
 void ModuleEditorCamera::MoveTo(const vec3 &Pos)
 {
 	camera->frustum.pos = float3(Pos.x, Pos.y, Pos.z);
+	camera->Reference = float3(Pos.x, Pos.y, Pos.z);
 }
 
 void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 {
+	camera->frustum.pos -= camera->Reference;
+
 	if (motion_x != 0)
 	{
 		vec3 rot_Y = rotate(vec3(camera->frustum.up.x, camera->frustum.up.y, camera->frustum.up.z), motion_x, vec3(0.0f, 1.0f, 0.0f));
@@ -163,8 +174,7 @@ void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 			camera->frustum.up = float3(cross_vec.x, cross_vec.y, cross_vec.z);
 		}
 	}
-	ImGui::SetMouseCursor(ImGuiMouseCursor_Eye);
-	camera->frustum.pos = camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
+	camera->frustum.pos = camera->Reference + camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
 
 }
 
@@ -181,7 +191,7 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 	if (obj)
 	{
 		ComponentTransform* trans = obj->GetComponentTransform();
-		float3 obj_pos = float3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
-		LookAt(obj_pos);
+		camera->Reference = float3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
+		LookAt(camera->Reference);
 	}
 }
