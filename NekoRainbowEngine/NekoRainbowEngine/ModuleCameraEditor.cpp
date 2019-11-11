@@ -82,8 +82,12 @@ update_status ModuleEditorCamera::Update(float dt)
 
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
-	if(wheel != 0)
-		Zoom(wheel * zoom_speed * dt);
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+	{
+		if(wheel != 0)
+			Zoom(wheel * zoom_speed * dt);
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
+	}
 
 	return UPDATE_CONTINUE;
 }
