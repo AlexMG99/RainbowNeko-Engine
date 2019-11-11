@@ -19,14 +19,11 @@ public:
 	bool CleanUp();
 
 	ComponentCamera* GetCamera() const;
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void SetCameraToCenter();
 
 	void FocusObject(GameObject * obj);
 
 	void MoveTo(const vec3 & Pos);
-
-	void LookAt(float dx, float dy);
 	void LookAt(const float3 &Spot);
 
 private:
@@ -37,7 +34,7 @@ private:
 
 public:
 	float move_speed = 10.0f;
-	float rot_speed = 0.1f;
+	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
 
 private:

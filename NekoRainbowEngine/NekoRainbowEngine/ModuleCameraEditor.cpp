@@ -58,7 +58,7 @@ update_status ModuleEditorCamera::Update(float dt)
 	// Mouse
 	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
-		FocusObject(App->viewport->selected_object);
+		//FocusObject(App->viewport->selected_object);
 
 		int motion_x = App->input->GetMouseXMotion();
 		int motion_y = App->input->GetMouseYMotion();
@@ -86,40 +86,9 @@ update_status ModuleEditorCamera::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleEditorCamera::LookAt(float dx, float dy)
-{
-	//// x motion make the camera rotate in Y absolute axis (0,1,0) (not local)
-	//if (dx != 0.f)
-	//{
-	//	Quat q = Quat::RotateY(dx);
-	//	dummy->frustum.front = q.Mul(dummy->frustum.front).Normalized();
-	//	// would not need this is we were rotating in the local Y, but that is too disorienting
-	//	dummy->frustum.up = q.Mul(dummy->frustum.up).Normalized();
-	//}
-
-	//// y motion makes the camera rotate in X local axis, with tops
-	//if (dy != 0.f)
-	//{
-	//	Quat q = Quat::RotateAxisAngle(dummy->frustum.WorldRight(), dy);
-
-	//	float3 new_up = q.Mul(dummy->frustum.up).Normalized();
-
-	//	if (new_up.y > 0.0f)
-	//	{
-	//		dummy->frustum.up = new_up;
-	//		dummy->frustum.front = q.Mul(dummy->frustum.front).Normalized();
-	//	}
-	//}
-}
-
 // -----------------------------------------------------------------
 void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
-	/*vec3 Z = normalize(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z) - Spot);
-	vec3 X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	vec3 Y = cross(Z, X);
-	camera->frustum.front = { Z.x,Z.y,Z.z };
-	camera->frustum.up = { Y.x,Y.y,Y.z };*/
 	camera->Look(Spot);
 }
 
@@ -157,8 +126,6 @@ void ModuleEditorCamera::Move(float dt)
 void ModuleEditorCamera::Move(float motion_x, float motion_y)
 {
 	Frustum* frustrum = &camera->frustum;
-	float3 front = frustrum->front;
-	float3 right = frustrum->WorldRight();
 	frustrum->pos += frustrum->front * motion_y + frustrum->WorldRight()*motion_x;
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
@@ -172,6 +139,32 @@ void ModuleEditorCamera::MoveTo(const vec3 &Pos)
 
 void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 {
+	if (motion_x != 0)
+	{
+		vec3 rot_Y = rotate(vec3(camera->frustum.up.x, camera->frustum.up.y, camera->frustum.up.z), motion_x, vec3(0.0f, 1.0f, 0.0f));
+		vec3 rot_Z = rotate(vec3(camera->frustum.front.x, camera->frustum.front.y, camera->frustum.front.z), motion_x, vec3(0.0f, 1.0f, 0.0f));
+
+		camera->frustum.up = float3(rot_Y.x, rot_Y.y, rot_Y.z);
+		camera->frustum.front = float3(rot_Z.x, rot_Z.y, rot_Z.z);
+	}
+
+	if (motion_y != 0)
+	{
+		vec3 rot_Y = rotate(vec3(camera->frustum.up.x, camera->frustum.up.y, camera->frustum.up.z), motion_y, vec3(camera->frustum.WorldRight().x, camera->frustum.WorldRight().y, camera->frustum.WorldRight().z));
+		vec3 rot_Z = rotate(vec3(camera->frustum.front.x, camera->frustum.front.y, camera->frustum.front.z), motion_y, vec3(camera->frustum.WorldRight().x, camera->frustum.WorldRight().y, camera->frustum.WorldRight().z));
+
+		camera->frustum.up = float3(rot_Y.x, rot_Y.y, rot_Y.z);
+		camera->frustum.front = float3(rot_Z.x, rot_Z.y, rot_Z.z);
+
+		if (camera->frustum.up.y < 0.0f)
+		{
+			camera->frustum.front = float3(0.0f, camera->frustum.front.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+			vec3 cross_vec = cross(vec3(camera->frustum.front.x, camera->frustum.front.y, camera->frustum.front.z), vec3(camera->frustum.WorldRight().x, camera->frustum.WorldRight().y, camera->frustum.WorldRight().z));
+			camera->frustum.up = float3(cross_vec.x, cross_vec.y, cross_vec.z);
+		}
+	}
+	ImGui::SetMouseCursor(ImGuiMouseCursor_Eye);
+	camera->frustum.pos = camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
 
 }
 
