@@ -21,8 +21,6 @@ public:
 
 private:
 	void LoadNode(const aiNode * node, const aiScene * scene, const char * path_fbx, GameObject * parent);
-	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
-
 };
 
 void LogCallback(const char * text, char * data);

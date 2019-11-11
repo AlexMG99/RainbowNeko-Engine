@@ -7,6 +7,7 @@
 #include "MathGeoLib/include/Geometry/OBB.h"
 #include "glmath.h"
 
+#include <vector>
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {

@@ -1,12 +1,16 @@
 #include "Application.h"
+#include "ModuleImporter.h"
 #include "SceneImporter.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "MeshImporter.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
+#include "Assimp/include/cfileio.h"
+#include "Assimp/include/mesh.h"
 
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
@@ -25,7 +29,6 @@ bool SceneImporter::Init()
 bool SceneImporter::CleanUp()
 {
 	aiDetachAllLogStreams();
-
 	return true;
 }
 
@@ -45,7 +48,6 @@ bool SceneImporter::Import(const char * path)
 	}
 
 	//Create gameObject that contains FBX parts
-
 	GameObject* fbx_obj = App->viewport->CreateGameObject(path);
 	if (scene && scene->HasMeshes())
 	{
@@ -85,30 +87,17 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 
 	if (node->mNumMeshes > 0)
 	{
-		//Load Mesh 
-		ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
+		ComponentMesh* mesh;
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
 
-		m->transform = aux_obj->GetComponentTransform();
+		mesh = App->importer->mesh->Import(scene, aimesh); 
 
-		for (uint i = 0; i < aimesh->mNumVertices; i++)
-		{
-			m->vertices.push_back(float3(aimesh->mVertices[i].x, aimesh->mVertices[i].y, aimesh->mVertices[i].z));
-		}
+		aux_obj->AddComponent(mesh);
 
-		LOG("New mesh with %d vertices", m->vertices.size());
-
-		if (aimesh->HasFaces())
-		{
-			for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
-			{
-				aiFace aiface = aimesh->mFaces[i];
-				for (uint j = 0; j < aiface.mNumIndices; j++)
-				{
-					m->index.push_back(aiface.mIndices[j]);
-				}
-			}
-		}
+		mesh->transform = aux_obj->GetComponentTransform();
+		mesh->CreateLocalAABB();
+		mesh->GetGlobalAABB();
+		mesh->GenerateBuffers();
 
 		//Load Material
 		if (aimesh->mMaterialIndex >= 0)
@@ -123,68 +112,15 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				//Import(path_fbx, path_texture, );
 				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 				texture->LoadTexture(file.c_str());
-				m->image_id = texture->image_id;
+				mesh->image_id = texture->image_id;
 			}
 		}
-		//Load Normals
-		if (aimesh->HasNormals())
-		{
-			m->normals = new float3[aimesh->mNumVertices];
-			memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->vertices.size());
-
-			for (uint i = 0; i < m->index.size(); i += 3)
-			{
-				uint index = m->index[i];
-				vec3 vertex0(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-
-				index = m->index[i + 1];
-				vec3 vertex1(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-
-				index = m->index[i + 2];
-				vec3 vertex2(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-				CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
-			}
-		}
-
-		//Load UVs
-		if (aimesh->HasTextureCoords(0))
-		{
-			m->UV_num = aimesh->mNumUVComponents[0];
-			m->UV_coord = new float[m->vertices.size() * m->UV_num];
-
-			for (uint i = 0; i < m->vertices.size(); i++)
-			{
-				memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
-			}
-
-		}
-		m->CreateLocalAABB();
-		m->GetGlobalAABB();
-		m->GenerateBuffers();
-
-		LOG("Loaded mesh file succesfully!");
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
 		LoadNode(node->mChildren[i], scene, path_fbx, aux_obj);
 	}
-}
-
-void SceneImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
-{
-	//Calculate center of the triangle
-	vec3 center = (triangle_p1 + triangle_p2 + triangle_p3) / 3;
-
-	vec3 vec_v = triangle_p1 - triangle_p3;
-	vec3 vec_w = triangle_p2 - triangle_p3;
-
-	vec3 norm_v = cross(vec_v, vec_w);
-	norm_v = normalize(norm_v);
-
-	m->normals_face.push_back(float3(center.x, center.y, center.z));
-	m->normals_face.push_back(float3(norm_v.x, norm_v.y, norm_v.z));
-
 }
 
 void LogCallback(const char* text, char* data)

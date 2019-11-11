@@ -27,6 +27,8 @@ public:
 
 	Component* CreateComponent(component_type comp_type, bool active = true);
 
+	void AddComponent(Component* comp);
+
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();

@@ -4,7 +4,7 @@
 #include "Importer.h"
 
 class ComponentMesh;
-class aiScene;
+struct aiScene;
 class aiMesh;
 
 class MeshImporter:public Importer 
@@ -16,11 +16,13 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	ComponentMesh* Import(const aiScene* scene, const aiMesh* mesh);
+	ComponentMesh* Import(const aiScene* scene, const aiMesh* aimesh);
 	bool SaveMesh(ComponentMesh* mesh);
 
 	ComponentMesh* Load(const char* exported_file);
 	//ComponentMesh* LoadPrimitive(PRIMITIVE_TYPE type);
+
+	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
 
 };
 
