@@ -233,6 +233,15 @@
     <ClCompile Include="ModuleCameraEditor.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="MeshImporter.cpp">
+      <Filter>Sources\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneImporter.cpp">
+      <Filter>Sources\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureImporter.cpp">
+      <Filter>Sources\Importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -629,6 +638,18 @@
     <ClInclude Include="ModuleCameraEditor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="MeshImporter.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneImporter.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureImporter.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Importer.h">
+      <Filter>Sources\Importer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -702,6 +723,9 @@
     </Filter>
     <Filter Include="Sources\Assets">
       <UniqueIdentifier>{c365a43d-db68-47ed-9a3c-b2e21c5f84d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Importer">
+      <UniqueIdentifier>{63961e0b-24d4-4289-a953-cbd497be5e8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

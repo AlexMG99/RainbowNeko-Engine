@@ -107,6 +107,8 @@
     <ClInclude Include="imGuizmo\ImGradient.h" />
     <ClInclude Include="imGuizmo\ImGuizmo.h" />
     <ClInclude Include="imGuizmo\ImSequencer.h" />
+    <ClInclude Include="Importer.h" />
+    <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleFileSystem.h" />
@@ -204,7 +206,9 @@
     <ClInclude Include="PCG\pcg_uint128.hpp" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="SceneImporter.h" />
     <ClInclude Include="TextureAsset.h" />
+    <ClInclude Include="TextureImporter.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +267,7 @@
     <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCameraEditor.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
@@ -285,6 +290,8 @@
     <ClCompile Include="par\par_shapes.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="SceneImporter.cpp" />
+    <ClCompile Include="TextureImporter.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
