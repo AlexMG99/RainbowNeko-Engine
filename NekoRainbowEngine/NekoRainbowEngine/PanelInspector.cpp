@@ -108,15 +108,15 @@ update_status PanelInspector::Draw()
 				ImGui::PushID("Camera");
 
 				ImGui::Text("Transform:");
-				if (ImGui::InputFloat3("Position", (float*)&comp_camera->camera_frustum.pos, 2))
+				if (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2))
 				{
 					comp_camera->UpdateFrustum(true);
 				}
 				ImGui::Separator();
 
-				if (ImGui::InputFloat("Near Plane", &comp_camera->camera_frustum.nearPlaneDistance, 5) ||
-					ImGui::InputFloat("Far Plane", &comp_camera->camera_frustum.farPlaneDistance, 5) ||
-					ImGui::InputFloat("FOV", &comp_camera->camera_frustum.verticalFov, 0.1))
+				if (ImGui::InputFloat("Near Plane", &comp_camera->frustum.nearPlaneDistance, 5) ||
+					ImGui::InputFloat("Far Plane", &comp_camera->frustum.farPlaneDistance, 5) ||
+					ImGui::InputFloat("FOV", &comp_camera->frustum.verticalFov, 0.1))
 				{
 					comp_camera->UpdateFrustum(false);
 				}

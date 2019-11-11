@@ -45,6 +45,12 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		App->camera->FocusObject(selected_object);
 
+	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+		App->camera->ChangeCamera(camera_test->GetComponentCamera());
+
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+		App->camera->SetSceneCamera();
+
 
 	return UPDATE_CONTINUE;
 }

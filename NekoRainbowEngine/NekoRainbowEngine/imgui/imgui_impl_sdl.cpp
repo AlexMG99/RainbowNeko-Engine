@@ -235,6 +235,7 @@ static bool ImGui_ImplSDL2_Init(SDL_Window* window, void* sdl_gl_context)
     g_MouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
     g_MouseCursors[ImGuiMouseCursor_Move] = CreateCursorFromImage(arrow_move);
     g_MouseCursors[ImGuiMouseCursor_Eye] = CreateCursorFromImage(arrow_eye);
+    g_MouseCursors[ImGuiMouseCursor_Zoom] = CreateCursorFromImage(arrow_zoom);
 
     // Our mouse update function expect PlatformHandle to be filled for the main viewport
     ImGuiViewport* main_viewport = ImGui::GetMainViewport();

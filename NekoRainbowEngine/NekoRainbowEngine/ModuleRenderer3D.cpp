@@ -119,10 +119,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->actual_camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->GetCamera()->GetViewMatrix());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->actual_camera->Position.x, App->camera->actual_camera->Position.y, App->camera->actual_camera->Position.z);
+	lights[0].SetPos(App->camera->GetCamera()->GetCameraPosition().x, App->camera->GetCamera()->GetCameraPosition().y, App->camera->GetCamera()->GetCameraPosition().z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();

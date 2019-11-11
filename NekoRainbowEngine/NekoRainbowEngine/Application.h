@@ -9,7 +9,7 @@
 #include "ModuleInput.h"
 #include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
+#include "ModuleCameraEditor.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
@@ -26,7 +26,7 @@ public:
 	ModuleEditor* editor;
 	ModuleViewport* viewport;
 	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
+	ModuleEditorCamera* camera;
 	ModuleImporter* importer;
 
 	int					capped_ms = -1;

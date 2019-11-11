@@ -85,3 +85,46 @@ static const char *arrow_eye[] = {
 	"                                ",
 	"0,0"
 };
+
+static const char *arrow_zoom[] = {
+	/* width height num_colors chars_per_pixel */
+	"    32    32        3            1",
+	/* colors */
+	"X c #000000",
+	". c #ffffff",
+	"  c None",
+	/* pixels */
+	"                                ",
+	"                                ",
+	"                                ",
+	"      XXX                       ",
+	"    XX...XX                     ",
+	"   X.......X                    ",
+	"  X..XXXXX..X                   ",
+	" X..X.....X..X                  ",
+	" X..X..X..X..X                  ",
+	"X..X...X...X..X                 ",
+	"X..X.XXXXX.X..X                 ",
+	"X..X...X...X..X                 ",
+	" X..X..X..X..X                  ",
+	" X..X.....X..X                  ",
+	"  X..XXXXX..X.X                 ",
+	"   X.......X...X                ",
+	"    XX...XX X...X               ",
+	"      XXX    X...X              ",
+	"              X...X             ",
+	"               X...X            ",
+	"                X..X            ",
+	"                 XX             ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"                                ",
+	"0,0"
+};

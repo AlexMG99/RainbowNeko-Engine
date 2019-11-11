@@ -44,7 +44,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	if (!App->viewport->camera_test->GetComponentCamera()->camera_frustum.Intersects(global_AABB) && camera_culling)
+	if (!App->viewport->camera_test->GetComponentCamera()->frustum.Intersects(global_AABB) && camera_culling)
 		return false;
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());

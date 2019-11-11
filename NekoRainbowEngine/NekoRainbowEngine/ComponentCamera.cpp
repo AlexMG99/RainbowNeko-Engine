@@ -12,39 +12,33 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject*
 		transform->position = float3::zero;
 		transform->local_position = float3::zero;
 	}
-	camera_frustum.type = FrustumType::PerspectiveFrustum;
+	frustum.type = FrustumType::PerspectiveFrustum;
 
-	camera_frustum.pos = float3::zero;
-	camera_frustum.front = float3::unitZ;
-	camera_frustum.up = float3::unitY;
+	frustum.pos = float3::zero;
+	frustum.front = float3::unitZ;
+	frustum.up = float3::unitY;
 
-	camera_frustum.nearPlaneDistance = 10.0f;
-	camera_frustum.farPlaneDistance = 100.0f;
-	camera_frustum.verticalFov = 60.0f * DEGTORAD;
-	camera_frustum.horizontalFov = 2.0f * atanf(tanf(camera_frustum.verticalFov / 2.0f) * 1.3f);
+	frustum.nearPlaneDistance = 10.0f;
+	frustum.farPlaneDistance = 100.0f;
+	frustum.verticalFov = 20.0f * DEGTORAD;
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
+
+	Reference = float3(0, 0, 0);
 
 	ReloadFrustum();
 	GenerateFrustumBuffers();
-
-	CalculateViewMatrix();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
-float * ComponentCamera::GetViewMatrix()
+float* ComponentCamera::GetViewMatrix()
 {
+	vec3 X = { frustum.WorldRight().x, frustum.WorldRight().y, frustum.WorldRight().z };
+	vec3 Y = { frustum.up.x, frustum.up.y, frustum.up.z };
+	vec3 Z = { -frustum.front.x, -frustum.front.y, -frustum.front.z };
+	vec3 Position = { frustum.pos.x, frustum.pos.y, frustum.pos.z };
+
+	mat4x4 ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
+
 	return &ViewMatrix;
-}
-
-void ComponentCamera::CalculateViewMatrix()
-{
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
 }
 
 bool ComponentCamera::Update()
@@ -57,7 +51,7 @@ bool ComponentCamera::Update()
 void ComponentCamera::ReloadFrustum()
 {
 	float3 corners[8];
-	camera_frustum.GetCornerPoints(corners);
+	frustum.GetCornerPoints(corners);
 	for (int i = 0; i < 8; i++)
 	{
 		vertices_frustum.push_back(corners[i]);
@@ -72,10 +66,10 @@ void ComponentCamera::ReloadFrustum()
 void ComponentCamera::ChangePosition()
 {
 	transform->GetGlobalTransformMatrix();
-	camera_frustum.pos = transform->position;
+	frustum.pos = transform->position;
 	transform->CalculateGlobalAxis();
-	camera_frustum.front = transform->Z;
-	camera_frustum.up = transform->Y;
+	frustum.front = transform->Z;
+	frustum.up = transform->Y;
 }
 
 void ComponentCamera::GenerateFrustumBuffers()
@@ -130,6 +124,21 @@ void ComponentCamera::DrawFrustum()
 	glVertex3f(vertices_frustum[1].x, vertices_frustum[1].y, vertices_frustum[1].z);
 	glEnd();
 
+}
+
+void ComponentCamera::Look(const float3 &position)
+{
+	float3 dir = position - frustum.pos;
+
+	float3x3 m = float3x3::LookAt(frustum.front, dir.Normalized(), frustum.up, float3::unitY);
+
+	frustum.front = m.MulDir(frustum.front).Normalized();
+	frustum.up = m.MulDir(frustum.up).Normalized();
+}
+
+float3 ComponentCamera::GetCameraPosition() const
+{
+	return frustum.pos;
 }
 
 update_status ComponentCamera::Load()
