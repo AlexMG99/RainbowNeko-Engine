@@ -95,7 +95,6 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	void LoadTexture(const char* path);
 	void GenerateTexture();
 
 public:

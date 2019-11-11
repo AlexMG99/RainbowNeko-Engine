@@ -53,6 +53,8 @@ bool ModuleImporter::ImportFile(const char* path)
 	std::string extension, file;
 	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
 
+	std::string output_file;
+
 	if (extension == "fbx" || extension == "FBX")
 		scene->Import(path);
 	else if (extension == "neko")

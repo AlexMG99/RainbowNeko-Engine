@@ -158,7 +158,7 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 	uint size = App->fs->Load(path.c_str(), &buffer);
 
 	char* cursor = buffer;
-	// amount of indices / vertices / colors / normals / texture_coords
+	// Amount of Index/Vertices/UVs
 	uint ranges[3];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);

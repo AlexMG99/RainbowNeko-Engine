@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "MeshImporter.h"
+#include "TextureImporter.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -83,8 +84,8 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 
 	if (node->mNumMeshes > 0)
 	{
-		ComponentMesh* mesh;
-		ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
+		ComponentMesh* mesh = nullptr;
+		ComponentTexture* tex = nullptr;
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
 
 		mesh = App->importer->mesh->Import(scene, aimesh); 
@@ -103,12 +104,13 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 			scene->mMaterials[aimesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
 			if (texture_path.length > 0)
 			{
-				std::string file, extension;
+				std::string output_file, file, extension;
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
 
-				//Import(path_fbx, path_texture, );
-				texture->LoadTexture(file.c_str());
-				mesh->image_id = texture->image_id;
+				App->importer->texture->ImportTexture(file.c_str(), output_file);
+				tex = App->importer->texture->Load(std::string("." + output_file).c_str());
+				mesh->image_id = tex->image_id;
+				aux_obj->AddComponent(tex);
 			}
 		}
 		App->importer->mesh->SaveMesh(mesh);

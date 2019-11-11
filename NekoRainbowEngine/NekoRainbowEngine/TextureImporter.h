@@ -3,6 +3,8 @@
 
 #include "Importer.h"
 
+class ComponentTexture;
+
 class TextureImporter :public Importer {
 public:
 	TextureImporter() {};
@@ -11,8 +13,9 @@ public:
 	bool Init();
 
 	bool Import(const char* path);
+	void ImportTexture(const char* path, std::string &output_file);
+	ComponentTexture* Load(const char* file);
 
-private:
 
 };
 

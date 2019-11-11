@@ -317,41 +317,6 @@ void ComponentMesh::RenderPoint()
 	glColor3f(1, 1, 1);
 }
 
-void ComponentTexture::LoadTexture(const char* path)
-{
-	bool ret = true;
-	std::string file_path = ASSETS_FOLDER + std::string(path);
-
-	if (path != "") {
-		ILuint devil_id = 0;
-
-		ilGenImages(1, &devil_id);
-		ilBindImage(devil_id);
-		ilutRenderer(ILUT_OPENGL);
-
-		if (!ilLoadImage(file_path.c_str())) {
-			auto error = ilGetError();
-			LOG("Failed to load texture with path: %s. Error: %s", file_path.c_str(), ilGetString(error));
-			ret = false;
-		}
-		else {
-			image_id = ilutGLBindTexImage();
-			height = ilGetInteger(IL_IMAGE_HEIGHT) / 2;
-			width = ilGetInteger(IL_IMAGE_WIDTH) / 2;
-		
-			GenerateTexture();
-			LOG("Loaded with path: %s succesfully!", file_path.c_str());
-		}
-
-		ilDeleteImages(1, &devil_id);
-		this->path = path;
-	}
-	else
-	{
-		LOG("The FBX doesn't have a texture path or path %s is incorrect", path);
-	}
-}
-
 void ComponentTexture::GenerateTexture()
 {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
