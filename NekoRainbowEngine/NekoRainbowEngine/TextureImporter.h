@@ -10,7 +10,8 @@ public:
 
 	bool Init();
 
-	bool ImportTexture(const char* path);
+	bool Import(const char* path);
+
 private:
 
 };

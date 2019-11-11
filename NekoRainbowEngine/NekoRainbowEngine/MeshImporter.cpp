@@ -11,6 +11,7 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
+#include "MathGeoLib/include/Math/float2.h"
 
 bool MeshImporter::Init()
 {
@@ -67,12 +68,13 @@ ComponentMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
 	{
-		aux_mesh->UV_num = aimesh->mNumUVComponents[0];
-		aux_mesh->UV_coord = new float[aux_mesh->vertices_size * aux_mesh->UV_num];
+		aux_mesh->UV_size = aux_mesh->vertices_size;
+		aux_mesh->UV_coord = new float2[aux_mesh->UV_size];
 
-		for (uint i = 0; i < aux_mesh->vertices_size; i++)
+		for (uint i = 0; i < aux_mesh->UV_size; i++)
 		{
-			memcpy(&aux_mesh->UV_coord[i * aux_mesh->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * aux_mesh->UV_num);
+			float2 uv = float2(aimesh->mTextureCoords[0][i].x, aimesh->mTextureCoords[0][i].y);
+			aux_mesh->UV_coord[i] = uv;
 		}
 
 	}
@@ -100,8 +102,8 @@ void MeshImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, 
 bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
-	uint ranges[2] = { mesh->index_size, mesh->vertices_size };
-	uint size = sizeof(ranges) + sizeof(uint) * mesh->index_size + sizeof(float3) * mesh->vertices_size;
+	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->index_size + sizeof(float3) * mesh->vertices_size + sizeof(float2)*mesh->UV_size;
 
 	// Allocate
 	char* data = new char[size];
@@ -114,19 +116,27 @@ bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 
 	// Store indices
 	bytes = sizeof(uint) * mesh->index_size;
-	memcpy(cursor, &mesh->index[0], bytes);
+	memcpy(cursor, mesh->index, bytes);
 	cursor += bytes;
 
 	// Store vertices
 	bytes = sizeof(float3) * mesh->vertices_size;
-	memcpy(cursor, &mesh->vertices[0], bytes);
+	memcpy(cursor, mesh->vertices, bytes);
 	cursor += bytes;
+
+	if (mesh->UV_size > 0) 
+	{
+		// Store UV
+		bytes = sizeof(float2) * mesh->UV_size;
+		memcpy(cursor, mesh->UV_coord, bytes);
+		cursor += bytes;
+	}
 
 	std::string mesh_name = LIBRARY_MESH_FOLDER;
 	mesh_name += mesh->my_go->GetName().c_str();
 	uint ret = App->fs->Save(std::string(mesh_name + ".neko").c_str(), data, size);
-	RELEASE_ARRAY(data);
 
+	RELEASE_ARRAY(data);
 	return true;
 }
 
@@ -149,11 +159,12 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 
 	char* cursor = buffer;
 	// amount of indices / vertices / colors / normals / texture_coords
-	uint ranges[2];
+	uint ranges[3];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
 	mesh->index_size = ranges[0];
 	mesh->vertices_size = ranges[1];
+	mesh->UV_size = ranges[2];
 	cursor += bytes;
 
 	// Load indices
@@ -167,6 +178,15 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 	mesh->vertices = new float3[mesh->vertices_size];
 	memcpy(mesh->vertices, cursor, bytes);
 	cursor += bytes;
+
+	//Load UV
+	if (mesh->UV_size > 0)
+	{
+		bytes = sizeof(float2) * mesh->UV_size;
+		mesh->UV_coord = new float2[mesh->UV_size];
+		memcpy(mesh->UV_coord, cursor, bytes);
+		cursor += bytes;
+	}
 
 	mesh->transform = mesh->my_go->GetComponentTransform();
 	mesh->CreateLocalAABB();

@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "PanelConsole.h"
+#include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
 #include <list>
 #include <string>
@@ -54,9 +55,10 @@ bool ModuleImporter::ImportFile(const char* path)
 
 	if (extension == "fbx" || extension == "FBX")
 		scene->Import(path);
-
-	if (extension == "neko")
+	else if (extension == "neko")
 		mesh->Load(path);
+	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
+		texture->Import(path);
 
 	return ret;
 }
@@ -132,19 +134,21 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	/*for (uint i = 0; i < shape->npoints * 3;)
+
+	//Load Normals
+	if (shape->normals)
 	{
-		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
-		if (shape->normals)
-			mesh->normals_face.push_back(float3(shape->normals[i], shape->normals[i + 1], shape->normals[i + 2]));
-		i += 3;
+		mesh->normals = new float3[shape->npoints];
+		memcpy(mesh->normals, shape->normals, sizeof(float3) * shape->npoints);
 	}
 
-	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);*/
-	
-	mesh->par_shape = true;
-	mesh->UV_coord = shape->tcoords;
-	mesh->UV_num = 2;
+	//Load UVs
+	if (shape->tcoords)
+	{
+		mesh->UV_size = shape->npoints;
+		mesh->UV_coord = new float2[mesh->UV_size];
+		memcpy(mesh->UV_coord, shape->tcoords, sizeof(float2) * mesh->UV_size);
+	}
 	mesh->transform = trans;
 
 	mesh->CreateLocalAABB();

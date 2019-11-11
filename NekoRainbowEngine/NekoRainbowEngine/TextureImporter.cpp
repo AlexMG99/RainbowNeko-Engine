@@ -21,7 +21,7 @@ bool TextureImporter::Init()
 	return true;
 }
 
-bool TextureImporter::ImportTexture(const char* path)
+bool TextureImporter::Import(const char* path)
 {
 	//BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
 

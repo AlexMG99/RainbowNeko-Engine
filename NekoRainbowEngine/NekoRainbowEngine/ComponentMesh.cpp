@@ -68,19 +68,19 @@ void ComponentMesh::GenerateBuffers()
 	//Cube Vertex
 	glGenBuffers(1, &id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_size, &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_size, vertices, GL_STATIC_DRAW);
 
 	//Cube Vertex definition
 	glGenBuffers(1, &id_index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_size, &index[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_size, index, GL_STATIC_DRAW);
 
 	//UVs definition
-	if (UV_coord)
+	if (UV_size > 0)
 	{
 		glGenBuffers(1, &uv_id);
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * vertices_size, &UV_coord[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float2)*UV_size, UV_coord, GL_STATIC_DRAW);
 	}
 
 	//Normal Definition
@@ -231,16 +231,15 @@ void ComponentMesh::RenderFill()
 	}
 
 	//UVs
-	if (UV_coord && my_go->GetComponentTexture())
+	if (UV_size > 0)
 	{
-		if (my_go->GetComponentTexture()->active) 
-		{
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindTexture(GL_TEXTURE_2D, image_id);
 			glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-			glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
-		}
+			glTexCoordPointer(2, GL_FLOAT, 0, (void*)0);
 	}
+
+	if(my_go->GetComponentTexture())
+		glBindTexture(GL_TEXTURE_2D, image_id);
 
 	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
 

@@ -57,14 +57,10 @@ bool SceneImporter::Import(const char * path)
 		}
 	}
 	else
-	{
 		LOG("Error loading FBX with path: %s", path);
-	}
 
 	aiReleaseImport(scene);
-
 	App->camera->FocusObject(*(fbx_obj->children.begin()));
-
 	return ret;
 }
 
@@ -88,6 +84,7 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 	if (node->mNumMeshes > 0)
 	{
 		ComponentMesh* mesh;
+		ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
 
 		mesh = App->importer->mesh->Import(scene, aimesh); 
@@ -110,12 +107,10 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
 
 				//Import(path_fbx, path_texture, );
-				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 				texture->LoadTexture(file.c_str());
 				mesh->image_id = texture->image_id;
 			}
 		}
-
 		App->importer->mesh->SaveMesh(mesh);
 	}
 
