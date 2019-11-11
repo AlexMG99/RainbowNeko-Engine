@@ -37,7 +37,7 @@ bool ModuleEditor::Start()
 	bool ret = true;
 
 	App->camera->MoveTo(vec3(7.0f, 7.0f, 7.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->LookAt(float3(0, 0, 0));
 
 	//Create Context
 	IMGUI_CHECKVERSION();
@@ -66,8 +66,6 @@ bool ModuleEditor::Start()
 	panel_game->Start();
 	panel_shape->Start();
 	panel_importer->Start();
-
-	
 
 	return ret;
 }

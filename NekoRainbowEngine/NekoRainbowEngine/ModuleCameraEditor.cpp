@@ -52,7 +52,7 @@ update_status ModuleEditorCamera::Update(float dt)
 	BROFILER_CATEGORY("Update_ModuleCamera3D", Profiler::Color::DeepSkyBlue);
 
 	//Keyboard Movement
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == SDL_KEYDOWN)
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		Move(dt);
 
 	// Mouse
@@ -113,14 +113,14 @@ void ModuleEditorCamera::LookAt(float dx, float dy)
 }
 
 // -----------------------------------------------------------------
-void ModuleEditorCamera::LookAt(const vec3 &Spot)
+void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
-	vec3 Z = normalize(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z) - Spot);
+	/*vec3 Z = normalize(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z) - Spot);
 	vec3 X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
 	vec3 Y = cross(Z, X);
-
 	camera->frustum.front = { Z.x,Z.y,Z.z };
-	camera->frustum.up = { Y.x,Y.y,Y.z };
+	camera->frustum.up = { Y.x,Y.y,Y.z };*/
+	camera->Look(Spot);
 }
 
 void ModuleEditorCamera::Zoom(float zoom)
@@ -147,8 +147,8 @@ void ModuleEditorCamera::Move(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= right;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += right;
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += front;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= front;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement -= front;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement += front;
 
 	if (!movement.Equals(float3::zero))
 		frustrum->Translate(movement * final_move_speed * dt);
@@ -157,7 +157,9 @@ void ModuleEditorCamera::Move(float dt)
 void ModuleEditorCamera::Move(float motion_x, float motion_y)
 {
 	Frustum* frustrum = &camera->frustum;
-	frustrum->pos += float3(motion_x, motion_y, 0) * frustrum->WorldRight();
+	float3 front = frustrum->front;
+	float3 right = frustrum->WorldRight();
+	frustrum->pos += frustrum->front * motion_y + frustrum->WorldRight()*motion_x;
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
 }
@@ -178,7 +180,7 @@ void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 void ModuleEditorCamera::SetCameraToCenter()
 {
 	App->camera->MoveTo(vec3(7.0f, 7.0f, 7.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->LookAt(float3(0, 0, 0));
 }
 
 void ModuleEditorCamera::FocusObject(GameObject* obj)
@@ -186,7 +188,7 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 	if (obj)
 	{
 		ComponentTransform* trans = obj->GetComponentTransform();
-		vec3 obj_pos = vec3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
+		float3 obj_pos = float3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
 		LookAt(obj_pos);
 	}
 }

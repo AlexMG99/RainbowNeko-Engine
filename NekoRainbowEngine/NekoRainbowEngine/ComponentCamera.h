@@ -22,7 +22,7 @@ public:
 	void UpdateFrustum(bool camera);
 	void DrawFrustum();
 
-	void Look(const float3 position);
+	void Look(const float3 &position);
 
 	float3 GetCameraPosition() const;
 	float* GetViewMatrix();

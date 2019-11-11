@@ -27,7 +27,7 @@ public:
 	void MoveTo(const vec3 & Pos);
 
 	void LookAt(float dx, float dy);
-	void LookAt(const vec3 &Spot);
+	void LookAt(const float3 &Spot);
 
 private:
 	void Move(float dt);
@@ -36,7 +36,7 @@ private:
 	void Zoom(float zoom);
 
 public:
-	float move_speed = 1.5f;
+	float move_speed = 10.0f;
 	float rot_speed = 0.1f;
 	float zoom_speed = 150.0f;
 

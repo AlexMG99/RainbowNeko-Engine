@@ -124,13 +124,13 @@ void ComponentCamera::DrawFrustum()
 
 }
 
-void ComponentCamera::Look(const float3 position)
+void ComponentCamera::Look(const float3 &position)
 {
 	float3 dir = position - frustum.pos;
 
 	float3x3 m = float3x3::LookAt(frustum.front, dir.Normalized(), frustum.up, float3::unitY);
 
-	frustum.front = m.MulDir(frustum.front).Normalized();
+	frustum.front = -m.MulDir(frustum.front).Normalized();
 	frustum.up = m.MulDir(frustum.up).Normalized();
 }
 
