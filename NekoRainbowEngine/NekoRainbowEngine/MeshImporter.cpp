@@ -45,24 +45,24 @@ ComponentMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh
 	}
 
 	//Load Normals
-	/*if (aimesh->HasNormals())
+	if (aimesh->HasNormals())
 	{
 		aux_mesh->normals = new float3[aimesh->mNumVertices];
-		memcpy(aux_mesh->normals, aimesh->mNormals, sizeof(aiVector3D) * aux_mesh->vertices.size());
+		memcpy(aux_mesh->normals, aimesh->mNormals, sizeof(aiVector3D) * aux_mesh->vertices_size);
 
-		for (uint i = 0; i < aux_mesh->index.size(); i += 3)
+		for (uint i = 0; i < aux_mesh->vertices_size; i += 3)
 		{
 			uint index = aux_mesh->index[i];
-			vec3 vertex0(aux_mesh->vertices.at(index).x, aux_mesh->vertices.at(index).y, aux_mesh->vertices.at(index).z);
+			vec3 vertex0(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
 
 			index = aux_mesh->index[i + 1];
-			vec3 vertex1(aux_mesh->vertices.at(index).x, aux_mesh->vertices.at(index).y, aux_mesh->vertices.at(index).z);
+			vec3 vertex1(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
 
 			index = aux_mesh->index[i + 2];
-			vec3 vertex2(aux_mesh->vertices.at(index).x, aux_mesh->vertices.at(index).y, aux_mesh->vertices.at(index).z);
+			vec3 vertex2(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
 			CalculateNormalTriangle(aux_mesh, vertex0, vertex1, vertex2);
 		}
-	}*/
+	}
 
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
@@ -152,6 +152,8 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 	uint ranges[2];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
+	mesh->index_size = ranges[0];
+	mesh->vertices_size = ranges[1];
 	cursor += bytes;
 
 	// Load indices

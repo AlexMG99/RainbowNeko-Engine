@@ -265,7 +265,7 @@ void ComponentMesh::RenderFill()
 	if (normals_face.size() > 0 && normal_face_show) {
 		glColor3f(0, 0, 255);
 		glBegin(GL_LINES);
-		for (int i = 0; i < vertices_size - 1; i += 2) {
+		for (int i = 0; i < normals_face.size(); i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
 		}
