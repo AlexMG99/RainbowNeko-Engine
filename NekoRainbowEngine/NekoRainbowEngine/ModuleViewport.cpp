@@ -149,6 +149,7 @@ void ModuleViewport::DeleteGameObject()
 		if (selected_object == (*it_obj)) {
 			RELEASE(*it_obj);
 			it_obj = parent->children.erase(it_obj);
+			App->viewport->selected_object->SetSelected(false);
 			selected_object = nullptr;
 		}
 		else

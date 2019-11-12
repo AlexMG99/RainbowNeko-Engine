@@ -53,6 +53,7 @@ public:
 	std::string GetName() const;
 	void SetName(const char* name_);
 
+	void SetSelected(bool select);
 
 	float3 GetScale(const float3 scale) const;
 

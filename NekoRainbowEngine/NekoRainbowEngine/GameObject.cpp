@@ -217,6 +217,15 @@ void GameObject::SetName(const char * name_)
 	name = str.c_str();
 }
 
+void GameObject::SetSelected(bool select)
+{
+	selected = select;
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		(*it_child)->SetSelected(select);
+	}
+}
+
 
 float3 GameObject::GetScale(const float3 scale) const
 {

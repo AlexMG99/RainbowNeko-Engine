@@ -59,7 +59,7 @@ bool ComponentMesh::Update()
 	if (App->viewport->point_on)
 		RenderPoint();
 
-	if (App->viewport->selected_object && App->viewport->selected_object == my_go)
+	if (App->viewport->selected_object && my_go->selected)
 		DrawSelectedOutline();
 
 	glPopMatrix();
