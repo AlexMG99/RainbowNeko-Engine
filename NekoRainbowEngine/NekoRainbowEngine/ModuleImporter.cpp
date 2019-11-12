@@ -6,28 +6,16 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "PanelConsole.h"
+#include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
 #include <list>
 #include <string>
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/mesh.h"
-
 #include"Brofiler/Brofiler.h"
 
-//-------------- Devil --------------
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
-
-#pragma comment(lib, "Devil/libx86/DevIL.lib")
-#pragma comment(lib, "Devil/libx86/ILU.lib")
-#pragma comment(lib, "Devil/libx86/ILUT.lib")
-
-#pragma comment(lib, "Assimp/libx86/assimp.lib")
+#include "SceneImporter.h"
+#include "MeshImporter.h"
+#include "TextureImporter.h"
 
 //----------------- ModuleImporter -----------------//
 
@@ -41,244 +29,44 @@ ModuleImporter::~ModuleImporter()
 
 bool ModuleImporter::Init()
 {
-
 	BROFILER_CATEGORY("Init_ModuleImporter", Profiler::Color::Crimson);
 
-	struct aiLogStream stream;
-	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	stream.callback = LogCallback;
-	aiAttachLogStream(&stream);
+	scene = new SceneImporter();
+	mesh = new MeshImporter();
+	texture = new TextureImporter();
 
-	ilInit();
-	iluInit();
-	ilutInit();
-	ilutRenderer(ILUT_OPENGL);
+	scene->Init();
+	mesh->Init();
+	texture->Init();
 
 	return true;
 }
 
-bool ModuleImporter::Start()
+bool ModuleImporter::ImportFile(const char* path)
 {
-	BROFILER_CATEGORY("Start_ModuleImporter", Profiler::Color::LimeGreen);
-
-	bool ret = true;
-
-	return ret;
-}
-
-bool ModuleImporter::ImportFBX(char* path_fbx)
-{
-
 	BROFILER_CATEGORY("ImportFBX_ModuleImporter", Profiler::Color::Yellow);
-
 	bool ret = true;
 
-	const aiScene* scene = aiImportFile(path_fbx, aiProcessPreset_TargetRealtime_MaxQuality);
-	const aiNode* node;
+	std::string normalized_path = path;
+	App->fs->NormalizePath(normalized_path);
 
-	if (scene)
-		node = scene->mRootNode;
-	else
-	{
-		LOG("The Object does not have an scene. It won't be load");
-		ret = false;
-	}
+	std::string extension, file;
+	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
 
-	//Create gameObject that contains FBX parts
+	std::string output_file;
 
-	GameObject* fbx_obj = App->viewport->CreateGameObject(path_fbx);
-	if (scene && scene->HasMeshes())
-	{
-		for (int i = 0; i < node->mNumChildren; i++)
-		{
-			LoadNode(scene->mRootNode->mChildren[i], scene, path_fbx, fbx_obj);
-		}
-	}
-	else
-	{
-		LOG("Error loading FBX with path: %s", path_fbx);
-	}
+	if (extension == "fbx" || extension == "FBX")
+		scene->Import(path);
+	else if (extension == "neko")
+		mesh->Load(path);
+	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
+		texture->Import(path);
 
-	aiReleaseImport(scene);
-
-	App->camera->FocusObject(*(fbx_obj->children.begin()));
-
-	return ret;
-}
-
-void ModuleImporter::LoadNode(const aiNode * node, const aiScene * scene, char * path_fbx, GameObject* parent)
-{
-	BROFILER_CATEGORY("LoadNode_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
-
-	//Get Component transform
-	aiVector3D translation, scaling;
-	aiQuaternion rotation;
-
-	node->mTransformation.Decompose(scaling, rotation, translation);
-
-	float3 pos(translation.x, translation.y, translation.z);
-	float3 scale(scaling.x, scaling.y, scaling.z);
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-
-	//Create aux_obj
-	GameObject* aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale, rot);
-
-	if (node->mNumMeshes > 0)
-	{
-		//Load Mesh 
-		ComponentMesh* m = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
-		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-
-		m->transform = aux_obj->GetComponentTransform();
-
-		for (uint i = 0; i < aimesh->mNumVertices; i++)
-		{
-			m->vertices.push_back(float3(aimesh->mVertices[i].x, aimesh->mVertices[i].y, aimesh->mVertices[i].z));
-		}
-
-		LOG("New mesh with %d vertices", m->vertices.size());
-
-		if (aimesh->HasFaces())
-		{
-			for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
-			{
-				aiFace aiface = aimesh->mFaces[i];
-				for (uint j = 0; j < aiface.mNumIndices; j++)
-				{
-					m->index.push_back(aiface.mIndices[j]);
-				}
-			}
-			
-		}
-
-		//Load Material
-		if (aimesh->mMaterialIndex >= 0)
-		{
-			aiString texture_path;
-			scene->mMaterials[aimesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-			if (texture_path.length > 0)
-			{
-				std::string file, extension;
-				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
-
-				//Import(path_fbx, path_texture, );
-				ComponentTexture* texture = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
-				texture->LoadTexture(file.c_str());
-				m->image_id = texture->image_id;
-			}
-		}
-		//Load Normals
-		if (aimesh->HasNormals())
-		{
-			m->normals = new float3[aimesh->mNumVertices];
-			memcpy(m->normals, aimesh->mNormals, sizeof(aiVector3D) * m->vertices.size());
-
-			for (uint i = 0; i < m->index.size(); i += 3)
-			{
-				uint index = m->index[i];
-				vec3 vertex0(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-
-				index = m->index[i + 1];
-				vec3 vertex1(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-
-				index = m->index[i + 2];
-				vec3 vertex2(m->vertices.at(index).x, m->vertices.at(index).y, m->vertices.at(index).z);
-				CalculateNormalTriangle(m, vertex0, vertex1, vertex2);
-			}
-		}
-
-		//Load UVs
-		if (aimesh->HasTextureCoords(0))
-		{
-			m->UV_num = aimesh->mNumUVComponents[0];
-			m->UV_coord = new float[m->vertices.size() * m->UV_num];
-
-			for (uint i = 0; i < m->vertices.size(); i++)
-			{
-				memcpy(&m->UV_coord[i * m->UV_num], &aimesh->mTextureCoords[0][i], sizeof(float) * m->UV_num);
-			}
-
-		}
-		m->CreateLocalAABB();
-		m->GetGlobalAABB();
-		m->GenerateBuffers();
-
-		LOG("Loaded mesh file succesfully!");
-	}
-
-	for (int i = 0; i < node->mNumChildren; i++)
-	{
-		LoadNode(node->mChildren[i], scene, path_fbx, aux_obj);
-	}
-}
-
-void ModuleImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
-{
-	//Calculate center of the triangle
-	vec3 center = (triangle_p1 + triangle_p2 + triangle_p3) / 3;
-
-	vec3 vec_v = triangle_p1 - triangle_p3;
-	vec3 vec_w = triangle_p2 - triangle_p3;
-
-	vec3 norm_v = cross(vec_v, vec_w);
-	norm_v = normalize(norm_v);
-
-	m->normals_face.push_back(float3(center.x, center.y, center.z));
-	m->normals_face.push_back(float3(norm_v.x, norm_v.y, norm_v.z));
-
-}
-
-bool ModuleImporter::ImportTexture(char * path_texture)
-{
-	BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
-
-	if (App->viewport->selected_object) {
-		ComponentTexture* texture = App->viewport->selected_object->GetComponentTexture();
-		ComponentMesh* mesh = App->viewport->selected_object->GetComponentMesh();
-
-		if (!texture)
-			texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
-
-		//Load Texture
-		std::string file, extension, texture_path = path_texture;
-		App->fs->SplitFilePath(texture_path.c_str(), nullptr, &file, &extension);
-
-		texture->LoadTexture(file.c_str());
-		if (mesh)
-			mesh->image_id = texture->image_id;
-		else
-		{
-			LOG("The object does not have a MESH! Create one or select another object.");
-			App->viewport->selected_object->DeleteComponent(texture);
-		}
-	}
-	else
-	{
-		C_WARNING("Warning! Object no selected. Please, select an object.");
-	}
-	return true;
-}
-
-bool ModuleImporter::Import(const char * file, const char * path, std::string & output_file)
-{
-	bool ret = true;
-
-	ILuint size;
-	ILubyte *data;
-	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
-	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
-	if (size > 0) {
-		data = new ILubyte[size]; // allocate data buffer
-		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
-			ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
-		RELEASE_ARRAY(data);
-	}
 	return ret;
 }
 
 bool ModuleImporter::CleanUp()
 {
-	aiDetachAllLogStreams();
 	return true;
 }
 
@@ -348,19 +136,21 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	for (uint i = 0; i < shape->npoints * 3;)
+
+	//Load Normals
+	if (shape->normals)
 	{
-		mesh->vertices.push_back(float3(shape->points[i], shape->points[i + 1], shape->points[i + 2]));
-		if (shape->normals)
-			mesh->normals_face.push_back(float3(shape->normals[i], shape->normals[i + 1], shape->normals[i + 2]));
-		i += 3;
+		mesh->normals = new float3[shape->npoints];
+		memcpy(mesh->normals, shape->normals, sizeof(float3) * shape->npoints);
 	}
 
-	mesh->index.insert(mesh->index.end(), &shape->triangles[0], &shape->triangles[shape->ntriangles * 3]);
-	
-	mesh->par_shape = true;
-	mesh->UV_coord = shape->tcoords;
-	mesh->UV_num = 2;
+	//Load UVs
+	if (shape->tcoords)
+	{
+		mesh->UV_size = shape->npoints;
+		mesh->UV_coord = new float2[mesh->UV_size];
+		memcpy(mesh->UV_coord, shape->tcoords, sizeof(float2) * mesh->UV_size);
+	}
 	mesh->transform = trans;
 
 	mesh->CreateLocalAABB();
@@ -368,22 +158,4 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	mesh->GenerateBuffers();
 
 	par_shapes_free_mesh(shape);
-}
-
-void LogCallback(const char* text, char* data)
-{
-	std::string temp_string = text;
-	std::size_t pos = temp_string.find(",");
-	std::string temp_string2 = temp_string.substr(0,4);
-	temp_string.erase(std::remove(temp_string.begin(), temp_string.end(), '%'), temp_string.end());
-	if (temp_string2 == "Info")
-	{
-		temp_string2 = temp_string.substr(pos + 1);
-		C_INFO(temp_string2.c_str());
-	}
-	else if (temp_string2 == "Warn")
-	{
-		temp_string2 = temp_string.substr(pos + 1);
-		C_WARNING(temp_string2.c_str());
-	}
 }

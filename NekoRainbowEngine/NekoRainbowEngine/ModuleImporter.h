@@ -7,6 +7,9 @@
 struct aiScene;
 struct aiNode;
 class GameObject;
+class SceneImporter;
+class MeshImporter;
+class TextureImporter;
 class vec3;
 
 typedef struct par_shapes_mesh_s par_shapes_mesh;
@@ -32,19 +35,14 @@ public:
 	~ModuleImporter();
 
 	bool Init();
-	bool Start();
 	bool CleanUp();
 
 	void CreateShape(shape_type type, uint sl, uint st);
 
-	bool ImportFBX(char* path_fbx);
-	bool ImportTexture(char* path_texture);
+	bool ImportFile(const char* path_fbx);
 
-	bool Import(const char* file, const char* path, std::string& output_file);
-
-private:
-	void LoadNode(const aiNode * node, const aiScene * scene, char * path_fbx, GameObject* parent = nullptr);
-	void CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3);
+public:
+	SceneImporter* scene;
+	MeshImporter* mesh;
+	TextureImporter* texture;
 };
-
-void LogCallback(const char * text, char * data);

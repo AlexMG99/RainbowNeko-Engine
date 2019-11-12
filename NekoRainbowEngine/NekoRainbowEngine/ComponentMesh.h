@@ -3,10 +3,12 @@
 
 #include "Component.h"
 #include <string>
+#include "MathGeoLib/include/Math/float2.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
 #include "glmath.h"
 
+#include <vector>
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
@@ -50,23 +52,24 @@ public:
 
 	//Mesh Properties
 	uint id_index = 0;
-	std::vector<uint> index;
+	uint* index;
+	uint index_size;
 
 	uint id_vertex = 0;
-	std::vector<float3> vertices;
+	float3* vertices;
+	uint vertices_size;
 
 	//UVs
-	float* UV_coord = nullptr;
+	float2* UV_coord = nullptr;
 	uint image_id = -1;
 	uint uv_id = 0;
-	uint UV_num = 0;
+	uint UV_size = 0;
 
 	//Normals
 	float3* normals = nullptr;
 	std::vector<float3> normals_face;
 	uint normal_id = -1;
 
-	bool par_shape = false;
 	bool normal_show = false;
 	bool normal_face_show = false;
 	bool show_aabb = false;
@@ -92,7 +95,6 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	void LoadTexture(const char* path);
 	void GenerateTexture();
 
 public:

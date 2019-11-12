@@ -13,7 +13,6 @@ class PanelGame;
 class PanelShape;
 class PanelImporter;
 
-
 class ModuleEditor : public Module
 {
 public:

@@ -27,8 +27,8 @@ ComponentMesh::~ComponentMesh()
 {
 	RELEASE_ARRAY(UV_coord);
 	RELEASE_ARRAY(normals);
-	RELEASE_LIST(vertices);
-	RELEASE_LIST(index);
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(index);
 	RELEASE_LIST(normals_face);
 
 	RELEASE(transform);
@@ -68,19 +68,19 @@ void ComponentMesh::GenerateBuffers()
 	//Cube Vertex
 	glGenBuffers(1, &id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices.size(), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_size, vertices, GL_STATIC_DRAW);
 
 	//Cube Vertex definition
 	glGenBuffers(1, &id_index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index.size(), &index[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_size, index, GL_STATIC_DRAW);
 
 	//UVs definition
-	if (UV_coord)
+	if (UV_size > 0)
 	{
 		glGenBuffers(1, &uv_id);
 		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*UV_num * vertices.size(), &UV_coord[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float2)*UV_size, UV_coord, GL_STATIC_DRAW);
 	}
 
 	//Normal Definition
@@ -116,7 +116,7 @@ void ComponentMesh::GenerateBoundingBuffers()
 //------------ Bounding Boxes -------------------------//
 AABB ComponentMesh::CreateLocalAABB()
 {
-	local_AABB.Enclose(vertices.data(), vertices.size());
+	local_AABB.Enclose(vertices, vertices_size);
 
 	return local_AABB;
 }
@@ -231,18 +231,17 @@ void ComponentMesh::RenderFill()
 	}
 
 	//UVs
-	if (UV_coord && my_go->GetComponentTexture())
+	if (UV_size > 0)
 	{
-		if (my_go->GetComponentTexture()->active) 
-		{
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindTexture(GL_TEXTURE_2D, image_id);
 			glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-			glTexCoordPointer(UV_num, GL_FLOAT, 0, (void*)0);
-		}
+			glTexCoordPointer(2, GL_FLOAT, 0, (void*)0);
 	}
 
-	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+	if(my_go->GetComponentTexture())
+		glBindTexture(GL_TEXTURE_2D, image_id);
+
+	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -251,7 +250,7 @@ void ComponentMesh::RenderFill()
 
 	//Render Vertex Normals
 	if (normals && normal_show) {
-		for (uint i = 0; i < vertices.size(); i++)
+		for (uint i = 0; i < vertices_size; i++)
 		{
 			glColor3f(255, 0, 0);
 			glBegin(GL_LINES);
@@ -265,7 +264,7 @@ void ComponentMesh::RenderFill()
 	if (normals_face.size() > 0 && normal_face_show) {
 		glColor3f(0, 0, 255);
 		glBegin(GL_LINES);
-		for (int i = 0; i < vertices.size() - 1; i += 2) {
+		for (int i = 0; i < normals_face.size(); i += 2) {
 			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
 			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
 		}
@@ -288,7 +287,7 @@ void ComponentMesh::RenderWireframe()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
-	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glLineWidth(1.0);
@@ -309,48 +308,13 @@ void ComponentMesh::RenderPoint()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
-	glDrawElements(GL_TRIANGLES, index.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_POINT_SMOOTH);
 	glPointSize(1.0f);
 
 	glColor3f(1, 1, 1);
-}
-
-void ComponentTexture::LoadTexture(const char* path)
-{
-	bool ret = true;
-	std::string file_path = ASSETS_FOLDER + std::string(path);
-
-	if (path != "") {
-		ILuint devil_id = 0;
-
-		ilGenImages(1, &devil_id);
-		ilBindImage(devil_id);
-		ilutRenderer(ILUT_OPENGL);
-
-		if (!ilLoadImage(file_path.c_str())) {
-			auto error = ilGetError();
-			LOG("Failed to load texture with path: %s. Error: %s", file_path.c_str(), ilGetString(error));
-			ret = false;
-		}
-		else {
-			image_id = ilutGLBindTexImage();
-			height = ilGetInteger(IL_IMAGE_HEIGHT) / 2;
-			width = ilGetInteger(IL_IMAGE_WIDTH) / 2;
-		
-			GenerateTexture();
-			LOG("Loaded with path: %s succesfully!", file_path.c_str());
-		}
-
-		ilDeleteImages(1, &devil_id);
-		this->path = path;
-	}
-	else
-	{
-		LOG("The FBX doesn't have a texture path or path %s is incorrect", path);
-	}
 }
 
 void ComponentTexture::GenerateTexture()
