@@ -20,12 +20,12 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	bool LoadScene();
+	bool LoadScene() { return true; };
 
 	bool SaveScene(GameObject * obj);
 	bool SaveGameObject(GameObject* obj);
 
-	bool ResetScene();
+	bool ResetScene() { return true; };
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();
@@ -34,7 +34,7 @@ private:
 	void DrawGrid(uint separation, uint lines);
 
 public:
-	Scene* actual_scene = nullptr;
+	Scene* scene = nullptr;
 	GameObject* root_object = nullptr;
 	GameObject* camera_test = nullptr;
 	GameObject* selected_object = nullptr;

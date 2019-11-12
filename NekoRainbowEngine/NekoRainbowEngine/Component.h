@@ -7,6 +7,7 @@
 #include "MathGeoLib/include/Math/Quat.h"
 
 class GameObject;
+class Scene;
 
 enum component_type {
 	COMPONENT_NONE = -1,
@@ -30,6 +31,8 @@ public:
 	virtual void Enable() {};
 	virtual void Disable() {};
 
+	virtual bool OnSave(Scene& scene) const { return true; };
+
 public:
 	component_type type = COMPONENT_NONE;
 	bool active = true;
@@ -46,6 +49,8 @@ public:
 
 	void Enable() {};
 	void Disable() {};
+
+	bool OnSave(Scene& scene) const;
 
 	float4x4 GetGlobalTransformMatrix();
 	void CalculateGlobalAxis();

@@ -19,17 +19,22 @@ class Scene
 public:
 	Scene();
 	Scene(const char* name);
+	Scene(JSON_Object* section);
 	~Scene();
 
 	bool AddUint(const char* field, uint value);
 	bool AddFloat(const char* field, float value);
+	bool AddFloat3(const char* field, float3 value);
 
 	Scene GetSection(const char* name) const;
 	Scene AddSection(const char* name);
 
+	bool Save(const char* name);
+
 private:
 	JSON_Value* vroot = nullptr;
 	JSON_Object* root = nullptr;
+	JSON_Array* array = nullptr;
 	std::string scene_name;
 };
 

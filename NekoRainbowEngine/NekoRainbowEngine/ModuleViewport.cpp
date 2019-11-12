@@ -29,6 +29,7 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	camera_test = CreateGameObject("Camera", root_object);
 	camera_test->CreateComponent(COMPONENT_CAMERA);
+	scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -143,8 +144,9 @@ bool ModuleViewport::SaveScene(GameObject * obj)
 
 bool ModuleViewport::SaveGameObject(GameObject * obj)
 {
+	obj->GetComponentTransform()->OnSave(*scene);
 
-	Save()
+	scene->Save("scene_test");
 	return true;
 }
 

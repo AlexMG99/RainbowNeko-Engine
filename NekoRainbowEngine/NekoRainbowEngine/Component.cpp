@@ -3,6 +3,7 @@
 #include "glmath.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "Scene.h"
 
 Component::Component(component_type comp_type, bool act, GameObject * obj)
 {
@@ -23,6 +24,12 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 	local_rotation_euler = { 0,0,0 };
 	local_rotation = rotation = Quat::identity;
 	local_matrix = global_matrix = float4x4::identity;
+}
+
+bool ComponentTransform::OnSave(Scene & scene) const
+{
+	scene.AddFloat3("Position", local_position);
+	return true;
 }
 
 float4x4 ComponentTransform::GetGlobalTransformMatrix()
