@@ -206,6 +206,7 @@
     <ClInclude Include="PCG\pcg_uint128.hpp" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneImporter.h" />
     <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="TextureImporter.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="par\par_shapes.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneImporter.cpp" />
     <ClCompile Include="TextureImporter.cpp" />
     <ClCompile Include="Timer.cpp" />

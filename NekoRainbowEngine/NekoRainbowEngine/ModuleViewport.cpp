@@ -1,11 +1,13 @@
 #include "Globals.h"
 #include "GL/include/glew.h"
+#include "par/par_shapes.h"
 
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
-#include "par/par_shapes.h"
+#include "GameObject.h"
 #include "Component.h"
+#include "Scene.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -50,6 +52,9 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		App->camera->SetSceneCamera();
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		SaveScene(root_object);
 
 
 	return UPDATE_CONTINUE;
@@ -123,6 +128,24 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 	glEnd();
 
+}
+
+bool ModuleViewport::SaveScene(GameObject * obj)
+{
+	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
+	{
+		SaveGameObject(*it_child);
+		SaveScene(*it_child);
+	}
+
+	return true;
+}
+
+bool ModuleViewport::SaveGameObject(GameObject * obj)
+{
+
+	Save()
+	return true;
 }
 
 GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)
