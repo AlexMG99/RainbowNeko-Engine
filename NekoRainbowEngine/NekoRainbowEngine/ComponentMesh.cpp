@@ -59,7 +59,7 @@ bool ComponentMesh::Update()
 	if (App->viewport->point_on)
 		RenderPoint();
 
-	if (App->viewport->selected_object && my_go->selected)
+	if (my_go->selected)
 		DrawSelectedOutline();
 
 	glPopMatrix();
@@ -221,7 +221,7 @@ void ComponentMesh::RenderFill()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
-	if (App->viewport->selected_object) {
+	if (my_go->selected) {
 		glEnable(GL_STENCIL_TEST);
 		glStencilFunc(GL_ALWAYS, 1, -1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);

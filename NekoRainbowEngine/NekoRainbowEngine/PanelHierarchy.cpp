@@ -55,7 +55,8 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 		else if (ImGui::IsItemClicked() && is_selected) {
 			node_num = -10;
 			selection_mask = (1 << 2);
-			App->viewport->selected_object->SetSelected(false);
+			if (App->viewport->selected_object)
+				App->viewport->selected_object->SetSelected(false);
 			App->viewport->selected_object = nullptr;
 		}
 
@@ -87,7 +88,8 @@ void PanelHierarchy::TreeObject(GameObject* obj)
 		else if (ImGui::IsItemClicked() && is_selected) {
 			node_num = -10;
 			selection_mask = (1 << 2);
-			App->viewport->selected_object->SetSelected(false);
+			if (App->viewport->selected_object)
+				App->viewport->selected_object->SetSelected(false);
 			App->viewport->selected_object = nullptr;
 		}
 		ImGui::PopID();
