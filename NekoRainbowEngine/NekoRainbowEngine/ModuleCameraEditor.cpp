@@ -85,8 +85,6 @@ update_status ModuleEditorCamera::Update(float dt)
 	if(wheel != 0)
 		Zoom(wheel * zoom_speed * dt);
 
-	camera->UpdateFrustum(true);
-
 	return UPDATE_CONTINUE;
 }
 
@@ -118,6 +116,8 @@ void ModuleEditorCamera::Zoom(float zoom)
 	camera->frustum.pos += zoom_movement;
 	camera->Reference += zoom_movement;
 
+	camera->UpdateFrustum(true);
+
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
 
@@ -144,6 +144,8 @@ void ModuleEditorCamera::Move(float dt)
 		frustrum->Translate(movement * final_move_speed * dt);
 		camera->Reference += movement * final_move_speed * dt;
 	}
+
+	camera->UpdateFrustum(true);
 }
 
 void ModuleEditorCamera::Move(float motion_x, float motion_y)
@@ -151,6 +153,8 @@ void ModuleEditorCamera::Move(float motion_x, float motion_y)
 	Frustum* frustrum = &camera->frustum;
 	frustrum->pos += -frustrum->up * motion_y + frustrum->WorldRight()*motion_x;
 	camera->Reference += -frustrum->up * motion_y + frustrum->WorldRight()*motion_x;
+
+	camera->UpdateFrustum(true);
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Move);
 }
@@ -160,6 +164,9 @@ void ModuleEditorCamera::MoveTo(const vec3 &Pos)
 {
 	camera->frustum.pos = float3(Pos.x, Pos.y, Pos.z);
 	camera->Reference = float3(Pos.x, Pos.y, Pos.z);
+
+	camera->UpdateFrustum(true);
+
 }
 
 void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
@@ -192,6 +199,7 @@ void ModuleEditorCamera::Orbit(float motion_x, float motion_y)
 	}
 	camera->frustum.pos = camera->Reference - camera->frustum.front * length(vec3(camera->frustum.pos.x, camera->frustum.pos.y, camera->frustum.pos.z));
 
+	camera->UpdateFrustum(true);
 }
 
 
@@ -200,6 +208,8 @@ void ModuleEditorCamera::SetCameraToCenter()
 {
 	App->camera->MoveTo(vec3(7.0f, 7.0f, 7.0f));
 	App->camera->LookAt(float3(0, 0, 0));
+
+	camera->UpdateFrustum(true);
 }
 
 void ModuleEditorCamera::FocusObject(GameObject* obj)
@@ -210,4 +220,6 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 		camera->Reference = float3(trans->local_position[0], trans->local_position[1], trans->local_position[2]);
 		LookAt(camera->Reference);
 	}
+
+	camera->UpdateFrustum(true);
 }

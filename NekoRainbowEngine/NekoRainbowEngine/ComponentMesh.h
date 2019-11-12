@@ -36,6 +36,8 @@ public:
 	void RenderWireframe();
 	void RenderPoint();
 
+	void DrawSelectedOutline();
+
 public:
 	//AABB
 	AABB local_AABB;
@@ -79,8 +81,10 @@ public:
 	//Color Wireframe
 	vec4 wireframe_color;
 	vec4 vertex_color;
+	vec4 outline_color;
 	int point_size;
 	int line_width;
+	int outline_width;
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;

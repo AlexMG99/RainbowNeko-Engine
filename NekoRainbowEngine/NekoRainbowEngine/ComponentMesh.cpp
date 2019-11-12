@@ -15,10 +15,12 @@
 
 ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj)
 {
-	wireframe_color = vec4(0, 255, 0, 1);
-	vertex_color = vec4(255, 0, 0, 1);
+	wireframe_color = vec4(0, 1, 0, 1);
+	vertex_color = vec4(1, 0, 0, 1);
+	outline_color = vec4(0.54, 0.16, 0.9, 0);
 	point_size = 1;
 	line_width = 1;
+	outline_width = 7;
 
 	local_AABB.SetNegativeInfinity();
 }
@@ -44,8 +46,9 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	if (!App->viewport->camera_test->GetComponentCamera()->frustum.Intersects(global_AABB) && camera_culling)
+	if (camera_culling && !App->viewport->camera_test->GetComponentCamera()->frustum.Intersects(global_AABB))
 		return false;
+
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 
@@ -55,6 +58,9 @@ bool ComponentMesh::Update()
 		RenderWireframe();
 	if (App->viewport->point_on)
 		RenderPoint();
+
+	if (App->viewport->selected_object && App->viewport->selected_object == my_go)
+		DrawSelectedOutline();
 
 	glPopMatrix();
 
@@ -215,6 +221,12 @@ void ComponentMesh::RenderFill()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
+	if (App->viewport->selected_object) {
+		glEnable(GL_STENCIL_TEST);
+		glStencilFunc(GL_ALWAYS, 1, -1);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	}
+
 	//Render FBX Mesh
 	glColor3f(1, 1, 1);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -315,6 +327,35 @@ void ComponentMesh::RenderPoint()
 	glPointSize(1.0f);
 
 	glColor3f(1, 1, 1);
+}
+
+void ComponentMesh::DrawSelectedOutline()
+{
+	if (!glIsEnabled(GL_STENCIL_TEST))
+		return;
+
+	glColor3f(outline_color.r, outline_color.g, outline_color.b);
+	glLineWidth(outline_width);
+
+	glStencilFunc(GL_NOTEQUAL, 1, -1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+	glPolygonMode(GL_FRONT, GL_LINE);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	glDrawElements(GL_TRIANGLES, index_size * 3, GL_UNSIGNED_INT, 0);
+
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_POLYGON_OFFSET_FILL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(1);
+
 }
 
 void ComponentTexture::GenerateTexture()

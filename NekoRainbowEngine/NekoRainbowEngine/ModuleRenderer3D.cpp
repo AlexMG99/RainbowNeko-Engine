@@ -136,7 +136,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	BROFILER_CATEGORY("PostUpdate_ModuleRenderer3D", Profiler::Color::DarkBlue);
 
 	fbo->Unbind();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	App->editor->DrawImGui();
 	SDL_GL_SwapWindow(App->window->window);

@@ -59,10 +59,14 @@ update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
 	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClearStencil(0);
+
 	if(draw_grid)
 		DrawGrid(2,100);
 
 	root_object->Update();
+
 	return UPDATE_CONTINUE;
 }
 
