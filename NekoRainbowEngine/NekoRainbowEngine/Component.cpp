@@ -81,8 +81,9 @@ void ComponentTransform::UpdateComponents()
 	}
 
 	ComponentMesh* mesh = my_go->GetComponentMesh();
-	if (mesh)
-		mesh->UpdateBB();
+	
+	if(mesh)
+		my_go->UpdateBB();
 
 	ComponentCamera* camera = my_go->GetComponentCamera();
 	if (camera)

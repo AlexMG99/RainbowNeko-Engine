@@ -6,6 +6,13 @@
 #include "ComponentCamera.h"
 #include "Scene.h"
 
+#include "GL/include/glew.h"
+
+GameObject::GameObject()
+{
+	local_AABB.SetNegativeInfinity();
+}
+
 GameObject::~GameObject()
 {
 	RELEASE_ARRAY_LIST(children);
@@ -27,6 +34,9 @@ bool GameObject::Update()
 		if((*it_comp)->active)
 			(*it_comp)->Update();
 	}
+
+	DrawBB();
+
 	return true;
 }
 
@@ -246,7 +256,7 @@ void GameObject::SetSelected(bool select)
 }
 
 
-float3 GameObject::GetScale(const float3 scale) const
+float3 GameObject::CorrectScale(const float3 scale) const
 {
 	float3 scale_;
 
@@ -272,5 +282,77 @@ void GameObject::DeleteComponent(Component * comp)
 			++it_comp;
 
 	}
+}
+
+//--------------------- Bounding Box --------------------------//
+
+void GameObject::GenerateBoundingBuffers()
+{
+	//Global AABB vertices
+	glGenBuffers(1, &id_vertexAABB);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_AABB.size(), &vertices_AABB[0], GL_STATIC_DRAW);
+
+	//Global OBB vertices
+	glGenBuffers(1, &id_vertexOBB);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_OBB.size(), &vertices_OBB[0], GL_STATIC_DRAW);
+
+	//Global BB vertices index
+	glGenBuffers(1, &id_indexBB);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_BB.size(), &index_BB[0], GL_STATIC_DRAW);
+}
+
+void GameObject::DrawBB()
+{
+	glColor3f(125, 125, 0);
+	glLineWidth(2.0);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	//Draw Global AABB
+	if (show_aabb)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	}
+
+	//Draw OBB
+	glColor3f(0, 200, 150);
+	if (show_obb)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	}
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glLineWidth(1);
+}
+
+void GameObject::UpdateBB()
+{
+	for (int i = 0; i < vertices_AABB.size();)
+	{
+		vertices_AABB.pop_back();
+	}
+	vertices_AABB.clear();
+
+	for (int i = 0; i < vertices_OBB.size();)
+	{
+		vertices_OBB.pop_back();
+	}
+	vertices_OBB.clear();
+
+	GetComponentMesh()->GetGlobalAABB();
+
+	glDeleteBuffers(1, &id_vertexAABB);
+	glDeleteBuffers(1, &id_indexBB);
+	glDeleteBuffers(1, &id_vertexOBB);
+
+	GenerateBoundingBuffers();
 }
 

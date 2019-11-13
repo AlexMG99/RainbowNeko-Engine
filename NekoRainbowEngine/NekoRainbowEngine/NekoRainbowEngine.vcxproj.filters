@@ -247,6 +247,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">

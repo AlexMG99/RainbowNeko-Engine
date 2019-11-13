@@ -12,6 +12,7 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 #include "MathGeoLib/include/Math/float2.h"
+#include "Mesh.h"
 
 bool MeshImporter::Init()
 {
@@ -24,82 +25,90 @@ bool MeshImporter::CleanUp()
 	return true;
 }
 
-ComponentMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
+Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
 {
-	ComponentMesh* aux_mesh = new ComponentMesh(COMPONENT_MESH, true, nullptr);
+	Mesh* mesh = new Mesh();
 
 	//Vertices Load
-	aux_mesh->vertices_size = aimesh->mNumVertices;
-	aux_mesh->vertices = new float3[aimesh->mNumVertices];
-	memcpy(aux_mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
-	LOG("New mesh with %d vertices", aux_mesh->vertices_size);
+	mesh->vertices_size = aimesh->mNumVertices;
+	mesh->vertices = new float3[aimesh->mNumVertices];
+	memcpy(mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
+	LOG("New mesh with %d vertices", mesh->vertices_size);
 
 	//Index Load
 	if (aimesh->HasFaces())
 	{
-		aux_mesh->index_size = aimesh->mNumFaces * 3;
-		aux_mesh->index = new uint[aux_mesh->index_size];
+		mesh->index_size = aimesh->mNumFaces * 3;
+		mesh->index = new uint[mesh->index_size];
 		for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
 		{
-			memcpy(&aux_mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			memcpy(&mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
 	}
 
 	//Load Normals
 	if (aimesh->HasNormals())
 	{
-		aux_mesh->normals = new float3[aimesh->mNumVertices];
-		memcpy(aux_mesh->normals, aimesh->mNormals, sizeof(aiVector3D) * aux_mesh->vertices_size);
-
-		for (uint i = 0; i < aux_mesh->vertices_size; i += 3)
-		{
-			uint index = aux_mesh->index[i];
-			vec3 vertex0(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
-
-			index = aux_mesh->index[i + 1];
-			vec3 vertex1(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
-
-			index = aux_mesh->index[i + 2];
-			vec3 vertex2(aux_mesh->vertices[index].x, aux_mesh->vertices[index].y, aux_mesh->vertices[index].z);
-			CalculateNormalTriangle(aux_mesh, vertex0, vertex1, vertex2);
-		}
+		CalculateNormalFace(mesh, aimesh);
 	}
 
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
 	{
-		aux_mesh->UV_size = aux_mesh->vertices_size;
-		aux_mesh->UV_coord = new float2[aux_mesh->UV_size];
+		mesh->UV_size = mesh->vertices_size;
+		mesh->UV_coord = new float2[mesh->UV_size];
 
-		for (uint i = 0; i < aux_mesh->UV_size; i++)
+		for (uint i = 0; i < mesh->UV_size; i++)
 		{
 			float2 uv = float2(aimesh->mTextureCoords[0][i].x, aimesh->mTextureCoords[0][i].y);
-			aux_mesh->UV_coord[i] = uv;
+			mesh->UV_coord[i] = uv;
 		}
 
 	}
+
+	mesh->GenerateBuffers();
+
 	LOG("Loaded mesh file succesfully!");
 
-	return aux_mesh;
+	return mesh;
 }
 
-void MeshImporter::CalculateNormalTriangle(ComponentMesh * m, vec3 triangle_p1, vec3 triangle_p2, vec3 triangle_p3)
+void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 {
-	//Calculate center of the triangle
-	vec3 center = (triangle_p1 + triangle_p2 + triangle_p3) / 3;
+	mesh->normals_vertex = new float3[aimesh->mNumVertices];
+	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
 
-	vec3 vec_v = triangle_p1 - triangle_p3;
-	vec3 vec_w = triangle_p2 - triangle_p3;
+	std::vector<float3> normal_face;
+	for (uint i = 0; i < mesh->vertices_size; i += 3)
+	{
+		uint index = mesh->index[i];
+		vec3 vertex0(mesh->vertices[index].x, mesh->vertices[index].y, mesh->vertices[index].z);
 
-	vec3 norm_v = cross(vec_v, vec_w);
-	norm_v = normalize(norm_v);
+		index = mesh->index[i + 1];
+		vec3 vertex1(mesh->vertices[index].x, mesh->vertices[index].y, mesh->vertices[index].z);
 
-	m->normals_face.push_back(float3(center.x, center.y, center.z));
-	m->normals_face.push_back(float3(norm_v.x, norm_v.y, norm_v.z));
+		index = mesh->index[i + 2];
+		vec3 vertex2(mesh->vertices[index].x, mesh->vertices[index].y, mesh->vertices[index].z);
 
+		vec3 center = (vertex0 + vertex1 + vertex2) / 3;
+
+		vec3 vec_v = vertex0 - vertex2;
+		vec3 vec_w = vertex1 - vertex2;
+
+		vec3 norm_v = cross(vec_v, vec_w);
+		norm_v = normalize(norm_v);
+
+		normal_face.push_back(float3(center.x, center.y, center.z));
+		normal_face.push_back(float3(norm_v.x, norm_v.y, norm_v.z));
+
+		mesh->norm_face_size += 2;
+	}
+
+	mesh->normals_vertex = new float3[mesh->norm_face_size];
+	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);
 }
 
-bool MeshImporter::SaveMesh(ComponentMesh * mesh)
+bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
 	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
@@ -133,17 +142,18 @@ bool MeshImporter::SaveMesh(ComponentMesh * mesh)
 	}
 
 	std::string mesh_name = LIBRARY_MESH_FOLDER;
-	mesh_name += mesh->my_go->GetName().c_str();
+	mesh_name += name;
 	uint ret = App->fs->Save(std::string(mesh_name + ".neko").c_str(), data, size);
 
 	RELEASE_ARRAY(data);
 	return true;
 }
 
-ComponentMesh * MeshImporter::Load(const char * exported_file)
+ComponentMesh* MeshImporter::Load(const char * exported_file)
 {
 	GameObject* obj = App->viewport->CreateGameObject(exported_file);
-	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+	ComponentMesh* comp_mesh= (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+	Mesh* mesh = new Mesh();
 
 	std::string normalized_path = exported_file;
 	App->fs->NormalizePath(normalized_path);
@@ -188,12 +198,12 @@ ComponentMesh * MeshImporter::Load(const char * exported_file)
 		cursor += bytes;
 	}
 
-	mesh->transform = mesh->my_go->GetComponentTransform();
-	mesh->CreateLocalAABB();
-	mesh->GetGlobalAABB();
 	mesh->GenerateBuffers();
+	comp_mesh->transform = comp_mesh->my_go->GetComponentTransform();
+	comp_mesh->CreateLocalAABB();
+	comp_mesh->GetGlobalAABB();
+	comp_mesh->AddMesh(mesh);
 
 	RELEASE_ARRAY(buffer);
-
-	return mesh;
+	return comp_mesh;
 }
