@@ -20,7 +20,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	bool LoadScene() { return true; };
+	bool LoadScene(Scene* scn);
+	bool LoadGameObject(Scene* scn);
 
 	bool SaveScene(GameObject * obj);
 	bool SaveGameObject(GameObject* obj);

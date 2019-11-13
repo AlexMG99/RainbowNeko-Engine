@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "GL/include/glew.h"
 #include "par/par_shapes.h"
+#include "Parson/parson.h"
 
 #include "Application.h"
 #include "ModuleViewport.h"
@@ -27,8 +28,8 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	camera_test = CreateGameObject("Camera", root_object);
-	camera_test->CreateComponent(COMPONENT_CAMERA);
+	//camera_test = CreateGameObject("Camera", root_object);
+	//camera_test->CreateComponent(COMPONENT_CAMERA);
 	scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
@@ -56,6 +57,9 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		SaveScene(root_object);
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		LoadScene(scene);
 
 
 	return UPDATE_CONTINUE;
@@ -131,6 +135,23 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 }
 
+bool ModuleViewport::LoadScene(Scene* scn)
+{
+	LoadGameObject(scn);
+	return true;
+}
+
+bool ModuleViewport::LoadGameObject(Scene * scn)
+{
+	GameObject* new_obj = CreateGameObject(scn->GetName().c_str(),
+		root_object,
+		scn->GetFloat3("Position"),
+		scn->GetFloat3("Scale"),
+		scn->GetQuat("Rotation"));
+	return true;
+}
+
+
 bool ModuleViewport::SaveScene(GameObject * obj)
 {
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
@@ -144,9 +165,12 @@ bool ModuleViewport::SaveScene(GameObject * obj)
 
 bool ModuleViewport::SaveGameObject(GameObject * obj)
 {
-	obj->GetComponentTransform()->OnSave(*scene);
+	Scene s_obj = scene->AddSection(obj->GetName().c_str());
+	s_obj.AddUint("ID", obj->GetId());
+	s_obj.AddUint("ParentID", obj->GetParent()->GetId());
+	obj->GetComponentTransform()->OnSave(s_obj);
 
-	scene->Save("scene_test");
+	scene->Save("scene_test.json");
 	return true;
 }
 

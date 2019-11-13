@@ -28,8 +28,11 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::OnSave(Scene & scene) const
 {
-	scene.AddFloat3("Position", local_position);
-	return true;
+	bool ret = true;
+	ret = scene.AddFloat3("Position", local_position);
+	ret = scene.AddQuat("Rotation", local_rotation);
+	ret = scene.AddFloat3("Scale", local_scale);
+	return ret;
 }
 
 float4x4 ComponentTransform::GetGlobalTransformMatrix()
