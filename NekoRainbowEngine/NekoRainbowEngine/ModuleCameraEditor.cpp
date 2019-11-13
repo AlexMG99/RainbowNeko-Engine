@@ -81,6 +81,14 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
+	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
+		LOG("Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
+		mouse_pos = normalize(mouse_pos);
+		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
+		CreatingRay(mouse_pos.x, mouse_pos.y);
+	}
+
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
 	if(wheel != 0)
@@ -122,27 +130,13 @@ void ModuleEditorCamera::Zoom(float zoom)
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
 
-void ModuleEditorCamera::MouseEvent()
+
+
+void ModuleEditorCamera::CreatingRay(float mouse_x, float mouse_y)
 {
 	Frustum* frustum = &camera->frustum;
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-		float2 mouse_pos = {(float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
-		LOG("lMDONPNHP`ND+PNGP+mao: %f", mouse_pos);
-
-	/*	LineSegment picking = frustum->UnProjectLineSegment(mouse_pos.x, mouse_pos.y);*/
-		
-	}
-	
+	LineSegment picking = frustum->UnProjectLineSegment(mouse_x,mouse_y);
 }
-
-//void ModuleEditorCamera::CreatingRay(float mouse_x, float mouse_y)
-//{
-//	
-//	
-//
-//	Frustum* frustum = &camera->frustum;
-//	LineSegment picking = frustum->UnProjectLineSegment(norm_x,norm_y);
-//}
 
 
 // -----------------------------------------------------------------
