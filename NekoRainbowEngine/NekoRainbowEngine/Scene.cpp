@@ -37,6 +37,11 @@ bool Scene::AddUint(const char* field, uint value)
 	return json_object_set_number(root, field, (double)value) == JSONSuccess;
 }
 
+bool Scene::AddInt(const char * field, int value)
+{
+	return json_object_set_number(root, field, (double)value) == JSONSuccess;
+}
+
 bool Scene::AddFloat3(const char * field, float3 value)
 {
 	JSON_Value* va = json_value_init_array();

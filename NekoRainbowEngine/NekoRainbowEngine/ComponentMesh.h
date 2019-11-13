@@ -21,6 +21,9 @@ public:
 	void Enable() {};
 	void Disable() {};
 
+	bool OnSave(Scene& scene) const;
+	//bool OnLoad(Scene& scene) const;
+
 	void GenerateBuffers();
 
 	//----- Bounding box -----//

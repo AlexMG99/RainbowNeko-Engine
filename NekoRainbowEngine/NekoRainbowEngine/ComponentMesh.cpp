@@ -68,6 +68,11 @@ bool ComponentMesh::Update()
 	return true;
 }
 
+bool ComponentMesh::OnSave(Scene & scene) const
+{
+	return true;
+}
+
 //--------------------- Mesh --------------------------//
 void ComponentMesh::GenerateBuffers()
 {

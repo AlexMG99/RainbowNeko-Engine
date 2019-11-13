@@ -150,13 +150,17 @@ bool ModuleViewport::LoadGameObject(Scene * scn)
 
 bool ModuleViewport::SaveScene()
 {
+	bool ret = true;
+
 	Scene go_scene = scene->AddSection("GameObjects");
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
-		SaveGameObject(go_scene, *it_child);
+		ret = SaveGameObject(go_scene, *it_child);
 	}
 
-	return true;
+	ret = scene->Save("scene_test.json");
+
+	return ret;
 }
 
 bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
@@ -167,9 +171,9 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
 	ret = s_obj.AddUint("ID", obj->GetId());
 	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
 
+	Scene s_comp = s_obj.AddSection("Components");
 	ret = obj->SaveComponents(s_obj);
-	ret = scene->Save("scene_test.json");
-
+	
 	//Iterate Childrens
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
 	{

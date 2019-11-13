@@ -663,6 +663,9 @@
     <ClInclude Include="Globals.h">
       <Filter>Sources\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">

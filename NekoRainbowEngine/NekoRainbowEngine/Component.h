@@ -52,6 +52,7 @@ public:
 	void Disable() {};
 
 	bool OnSave(Scene& scene) const;
+	bool OnLoad(Scene& scene) const;
 
 	float4x4 GetGlobalTransformMatrix();
 	void CalculateGlobalAxis();

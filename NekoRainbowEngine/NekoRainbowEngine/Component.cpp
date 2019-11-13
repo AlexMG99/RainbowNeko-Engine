@@ -29,9 +29,19 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 bool ComponentTransform::OnSave(Scene & scene) const
 {
 	bool ret = true;
+
+	ret = scene.AddInt("Type", type);
 	ret = scene.AddFloat3("Position", local_position);
-	ret = scene.AddQuat("Rotation", local_rotation);
+	ret = scene.AddFloat3("Rotation", local_rotation_euler);
 	ret = scene.AddFloat3("Scale", local_scale);
+
+	return ret;
+}
+
+bool ComponentTransform::OnLoad(Scene & scene) const
+{
+	bool ret = true;
+
 	return ret;
 }
 

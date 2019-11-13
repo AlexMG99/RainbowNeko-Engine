@@ -26,11 +26,11 @@ public:
 
 	bool AddUint(const char* field, uint value);
 	bool AddInt(const char* field, int value);
-	bool AddFloat(const char* field, float value);
+	//bool AddFloat(const char* field, float value);
 	bool AddFloat3(const char* field, float3 value);
 	bool AddQuat(const char * field, Quat value);
 
-	bool GetInt(const char* field, int& value);
+	//bool GetInt(const char* field, int& value);
 	float3 GetFloat3(const char* field);
 
 	Scene GetSection(const char* name) const;
