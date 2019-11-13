@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "Scene.h"
 
 GameObject::~GameObject()
 {
@@ -60,6 +61,24 @@ void GameObject::AddComponent(Component* comp)
 {
 	comp->my_go = this;
 	components.push_back(comp);
+}
+
+bool GameObject::SaveComponents(Scene scene)
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		(*it_comp)->OnSave(scene);
+	}
+	return true;
+}
+
+bool GameObject::LoadComponents(Scene scene)
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		(*it_comp)->OnLoad(scene);
+	}
+	return true;
 }
 
 ComponentTransform * GameObject::GetComponentTransform()

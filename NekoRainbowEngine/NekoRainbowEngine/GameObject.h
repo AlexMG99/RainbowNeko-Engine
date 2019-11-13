@@ -10,6 +10,7 @@
 class ComponentMesh;
 class ComponentTexture;
 class ComponentCamera;
+class Scene;
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -26,8 +27,10 @@ public:
 	bool Update();
 
 	Component* CreateComponent(component_type comp_type, bool active = true);
-
 	void AddComponent(Component* comp);
+
+	bool SaveComponents(Scene scene);
+	bool LoadComponents(Scene scene);
 
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();

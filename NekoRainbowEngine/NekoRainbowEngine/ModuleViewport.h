@@ -23,8 +23,8 @@ public:
 	bool LoadScene(Scene* scn);
 	bool LoadGameObject(Scene* scn);
 
-	bool SaveScene(GameObject * obj);
-	bool SaveGameObject(GameObject* obj);
+	bool SaveScene();
+	bool SaveGameObject(Scene go_scene, GameObject* obj);
 
 	bool ResetScene() { return true; };
 

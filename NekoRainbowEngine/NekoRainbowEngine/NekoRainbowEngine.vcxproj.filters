@@ -157,9 +157,6 @@
     <ClCompile Include="ModuleViewport.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="par\par_shapes.cpp">
       <Filter>Sources\3rdPartyLibrary\imGUI\Helpers</Filter>
     </ClCompile>
@@ -167,9 +164,6 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PanelConfiguration.cpp">
@@ -184,7 +178,6 @@
     <ClCompile Include="PanelHierarchy.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="FBO.cpp" />
     <ClCompile Include="PanelGame.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
@@ -193,9 +186,6 @@
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentMesh.cpp">
-      <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PanelShape.cpp">
       <Filter>Sources\Panel</Filter>
@@ -208,12 +198,6 @@
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Random.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentCamera.cpp">
-      <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PanelImporter.cpp">
       <Filter>Sources\Panel</Filter>
@@ -242,7 +226,27 @@
     <ClCompile Include="TextureImporter.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMesh.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="FBO.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Sources\Importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -536,9 +540,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="PanelConfiguration.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
@@ -578,7 +579,6 @@
     <ClInclude Include="Assimp\include\cfileio.h">
       <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="FBO.h" />
     <ClInclude Include="PanelGame.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
@@ -587,9 +587,6 @@
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentMesh.h">
-      <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PanelShape.h">
       <Filter>Sources\Panel</Filter>
@@ -606,17 +603,8 @@
     <ClInclude Include="Deviceld\dxgi1_4.h">
       <Filter>Sources\3rdPartyLibrary\DeviceId</Filter>
     </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Random.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentCamera.h">
-      <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PanelImporter.h">
       <Filter>Sources\Panel</Filter>
@@ -653,6 +641,27 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Sources\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMesh.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Sources\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -730,6 +739,12 @@
     </Filter>
     <Filter Include="Sources\Importer">
       <UniqueIdentifier>{63961e0b-24d4-4289-a953-cbd497be5e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Components">
+      <UniqueIdentifier>{97fc2eb4-7513-44d6-863d-95084597aa82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Helpers">
+      <UniqueIdentifier>{a86ec934-f6d1-414a-a684-72aab5f5cc68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

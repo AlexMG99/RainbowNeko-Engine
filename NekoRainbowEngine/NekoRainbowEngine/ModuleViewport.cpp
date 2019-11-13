@@ -44,7 +44,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 		App->camera->SetCameraToCenter();
 
 	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && selected_object)
-			DeleteGameObject();
+		DeleteGameObject();
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		App->camera->FocusObject(selected_object);
@@ -56,7 +56,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 		App->camera->SetSceneCamera();
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		SaveScene(root_object);
+		SaveScene();
 
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		LoadScene(scene);
@@ -143,34 +143,39 @@ bool ModuleViewport::LoadScene(Scene* scn)
 
 bool ModuleViewport::LoadGameObject(Scene * scn)
 {
-	GameObject* new_obj = CreateGameObject(scn->GetName().c_str(),
-		root_object,
-		scn->GetFloat3("Position"),
-		scn->GetFloat3("Scale"),
-		scn->GetQuat("Rotation"));
+	GameObject* new_obj = CreateGameObject(scn->GetName().c_str());
 	return true;
 }
 
 
-bool ModuleViewport::SaveScene(GameObject * obj)
+bool ModuleViewport::SaveScene()
 {
-	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
+	Scene go_scene = scene->AddSection("GameObjects");
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
-		SaveGameObject(*it_child);
-		SaveScene(*it_child);
+		SaveGameObject(go_scene, *it_child);
 	}
 
 	return true;
 }
 
-bool ModuleViewport::SaveGameObject(GameObject * obj)
+bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
 {
-	Scene s_obj = scene->AddSection(obj->GetName().c_str());
-	s_obj.AddUint("ID", obj->GetId());
-	s_obj.AddUint("ParentID", obj->GetParent()->GetId());
-	obj->GetComponentTransform()->OnSave(s_obj);
+	bool ret = true;
+	Scene s_obj = scn.AddSection(obj->GetName().c_str());
 
-	scene->Save("scene_test.json");
+	ret = s_obj.AddUint("ID", obj->GetId());
+	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
+
+	ret = obj->SaveComponents(s_obj);
+	ret = scene->Save("scene_test.json");
+
+	//Iterate Childrens
+	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
+	{
+		SaveGameObject(scn, *it_child);
+	}
+
 	return true;
 }
 
@@ -196,10 +201,10 @@ void ModuleViewport::DeleteGameObject()
 
 	for (auto it_obj = parent->children.begin(); it_obj < parent->children.end();) {
 		if (selected_object == (*it_obj)) {
-			RELEASE(*it_obj);
-			it_obj = parent->children.erase(it_obj);
 			App->viewport->selected_object->SetSelected(false);
 			selected_object = nullptr;
+			RELEASE(*it_obj);
+			it_obj = parent->children.erase(it_obj);
 		}
 		else
 			it_obj++;

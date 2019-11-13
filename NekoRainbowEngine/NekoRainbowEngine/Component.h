@@ -32,6 +32,7 @@ public:
 	virtual void Disable() {};
 
 	virtual bool OnSave(Scene& scene) const { return true; };
+	virtual bool OnLoad(Scene& scene) const { return true; };
 
 public:
 	component_type type = COMPONENT_NONE;

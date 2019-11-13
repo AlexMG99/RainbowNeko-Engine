@@ -17,7 +17,8 @@ Scene::Scene(const char* name)
 		vroot = json_parse_string(name);
 		if (vroot != nullptr) {
 			root = json_value_get_object(vroot);
-			//needs_removal = true;
+			json_object_set_value(root, name, json_value_init_object());
+			scene_name = name;
 		}
 	}
 }
