@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
+#include "MathGeoLib/include/Geometry/Ray.h"
+#include "MathGeoLib/include/Geometry/Triangle.h"
 
 class ComponentCamera;
 class GameObject;
@@ -41,10 +43,13 @@ public:
 	float move_mouse_speed = 5.0f;
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
-	float norm_x;
-	float norm_y;
+
+	Ray my_ray;
+	Ray local_ray;
+	Triangle tri;
 
 private:
+	GameObject* obj_list;
 	float3 looking_point;
 	ComponentCamera* camera = nullptr;
 	ComponentCamera* scene_camera = nullptr;

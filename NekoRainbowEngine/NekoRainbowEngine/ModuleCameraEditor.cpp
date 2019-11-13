@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+#include "GL/include/glew.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleCameraEditor.h"
 #include "GameObject.h"
@@ -82,11 +83,21 @@ update_status ModuleEditorCamera::Update(float dt)
 	}
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		
 		vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
 		LOG("Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
 		mouse_pos = normalize(mouse_pos);
 		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
+
+		/*GameObject* pick; 
+
+		if (pick != nullptr) {
+
+			App->viewport->selected_object == pick;
+		}*/
+
 		CreatingRay(mouse_pos.x, mouse_pos.y);
+
 	}
 
 	// Wheel Movement
@@ -133,9 +144,18 @@ void ModuleEditorCamera::Zoom(float zoom)
 
 
 void ModuleEditorCamera::CreatingRay(float mouse_x, float mouse_y)
+
 {
 	Frustum* frustum = &camera->frustum;
 	LineSegment picking = frustum->UnProjectLineSegment(mouse_x,mouse_y);
+
+	
+	/*bool hit = my_ray.Intersects(App->viewport->selected_object->global_AABB);*/
+
+	
+	/*bool hit = local_ray.Intersects(tri,);*/
+
+
 }
 
 
