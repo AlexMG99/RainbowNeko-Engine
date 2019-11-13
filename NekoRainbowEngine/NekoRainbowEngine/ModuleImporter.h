@@ -42,7 +42,7 @@ public:
 	bool ImportFile(const char* path_fbx);
 
 public:
-	SceneImporter* scene;
-	MeshImporter* mesh;
-	TextureImporter* texture;
+	SceneImporter* scene_imp;
+	MeshImporter* mesh_imp;
+	TextureImporter* texture_imp;
 };

@@ -5,6 +5,7 @@
 #include "ComponentMesh.h"
 #include "MeshImporter.h"
 #include "TextureImporter.h"
+#include "Mesh.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -67,8 +68,6 @@ bool SceneImporter::Import(const char * path)
 
 void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const char * path_fbx, GameObject* parent)
 {
-	//BROFILER_CATEGORY("LoadNode_ModuleImporter", Profiler::Color::LightGoldenRodYellow);
-
 	//Get Component transform
 	aiVector3D translation, scaling;
 	aiQuaternion rotation;
@@ -84,18 +83,10 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 
 	if (node->mNumMeshes > 0)
 	{
-		ComponentMesh* mesh = nullptr;
+		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
 		ComponentTexture* tex = nullptr;
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-
-		mesh = App->importer->mesh->Import(scene, aimesh); 
-
-		aux_obj->AddComponent(mesh);
-
-		mesh->transform = aux_obj->GetComponentTransform();
-		mesh->CreateLocalAABB();
-		mesh->GetGlobalAABB();
-		mesh->GenerateBuffers();
+		Mesh* mesh = App->importer->mesh_imp->Import(scene, aimesh); 
 
 		//Load Material
 		if (aimesh->mMaterialIndex >= 0)
@@ -107,13 +98,18 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				std::string output_file, file, extension;
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
 
-				App->importer->texture->ImportTexture(file.c_str(), output_file);
-				tex = App->importer->texture->Load(std::string("." + output_file).c_str());
-				mesh->image_id = tex->image_id;
+				App->importer->texture_imp->ImportTexture(file.c_str(), output_file);
+				tex = App->importer->texture_imp->Load(std::string("." + output_file).c_str());
+				comp_mesh->image_id = tex->image_id;
 				aux_obj->AddComponent(tex);
 			}
 		}
-		App->importer->mesh->SaveMesh(mesh);
+		App->importer->mesh_imp->SaveMesh(mesh);
+
+		comp_mesh->transform = aux_obj->GetComponentTransform();
+		comp_mesh->AddMesh(mesh);
+		comp_mesh->CreateLocalAABB();
+		comp_mesh->GetGlobalAABB();
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)

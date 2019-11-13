@@ -3,12 +3,13 @@
 
 #include "Component.h"
 #include <string>
-#include "MathGeoLib/include/Math/float2.h"
+#include "glmath.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
-#include "glmath.h"
 
 #include <vector>
+
+class Mesh;
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
@@ -21,7 +22,10 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	void GenerateBuffers();
+	bool OnSave(Scene& scene) const;
+	//bool OnLoad(Scene& scene) const;
+
+	void AddMesh(Mesh* mesh);
 
 	//----- Bounding box -----//
 	void GenerateBoundingBuffers();
@@ -29,9 +33,7 @@ public:
 	AABB GetGlobalAABB();
 	OBB GetOBB();
 
-	void DrawBB();
-	void UpdateBB();
-
+	//-------- Render--------//
 	void RenderFill();
 	void RenderWireframe();
 	void RenderPoint();
@@ -39,43 +41,12 @@ public:
 	void DrawSelectedOutline();
 
 public:
-	//AABB
-	AABB local_AABB;
-	AABB global_AABB;
-	OBB global_OBB;
+	Mesh* mesh = nullptr;
 
-	uint id_vertexAABB = 0;
-	uint id_vertexOBB = 0;
-	uint id_indexBB = 0;
-
-	std::vector<float3> vertices_AABB;
-	std::vector<float3> vertices_OBB;
-	std::vector<uint> index_BB;
-
-	//Mesh Properties
-	uint id_index = 0;
-	uint* index;
-	uint index_size;
-
-	uint id_vertex = 0;
-	float3* vertices;
-	uint vertices_size;
-
-	//UVs
-	float2* UV_coord = nullptr;
 	uint image_id = -1;
-	uint uv_id = 0;
-	uint UV_size = 0;
-
-	//Normals
-	float3* normals = nullptr;
-	std::vector<float3> normals_face;
-	uint normal_id = -1;
 
 	bool normal_show = false;
 	bool normal_face_show = false;
-	bool show_aabb = false;
-	bool show_obb = false;
 	bool camera_culling = false;
 
 	//Color Wireframe

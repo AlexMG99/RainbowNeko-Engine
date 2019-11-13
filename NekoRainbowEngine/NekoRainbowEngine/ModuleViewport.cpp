@@ -1,11 +1,14 @@
 #include "Globals.h"
 #include "GL/include/glew.h"
+#include "par/par_shapes.h"
+#include "Parson/parson.h"
 
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
-#include "par/par_shapes.h"
+#include "GameObject.h"
 #include "Component.h"
+#include "Scene.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -25,8 +28,9 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	camera_test = CreateGameObject("Camera", root_object);
-	camera_test->CreateComponent(COMPONENT_CAMERA);
+	//camera_test = CreateGameObject("Camera", root_object);
+	//camera_test->CreateComponent(COMPONENT_CAMERA);
+	scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -40,7 +44,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 		App->camera->SetCameraToCenter();
 
 	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && selected_object)
-			DeleteGameObject();
+		DeleteGameObject();
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		App->camera->FocusObject(selected_object);
@@ -50,6 +54,12 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		App->camera->SetSceneCamera();
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		SaveScene();
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		LoadScene(scene);
 
 
 	return UPDATE_CONTINUE;
@@ -125,6 +135,54 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 }
 
+bool ModuleViewport::LoadScene(Scene* scn)
+{
+	LoadGameObject(scn);
+	return true;
+}
+
+bool ModuleViewport::LoadGameObject(Scene * scn)
+{
+	GameObject* new_obj = CreateGameObject(scn->GetName().c_str());
+	return true;
+}
+
+
+bool ModuleViewport::SaveScene()
+{
+	bool ret = true;
+
+	Scene go_scene = scene->AddSection("GameObjects");
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
+	{
+		ret = SaveGameObject(go_scene, *it_child);
+	}
+
+	ret = scene->Save("scene_test.json");
+
+	return ret;
+}
+
+bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
+{
+	bool ret = true;
+	Scene s_obj = scn.AddSection(obj->GetName().c_str());
+
+	ret = s_obj.AddUint("ID", obj->GetId());
+	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
+
+	Scene s_comp = s_obj.AddSection("Components");
+	ret = obj->SaveComponents(s_obj);
+	
+	//Iterate Childrens
+	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
+	{
+		SaveGameObject(scn, *it_child);
+	}
+
+	return true;
+}
+
 GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)
 {
 	GameObject* object = new GameObject();
@@ -132,7 +190,7 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	object->SetName(name.c_str());
 	trans->local_position = position;
 	trans->local_rotation = rotation;
-	trans->local_scale = object->GetScale(scale);
+	trans->local_scale = object->CorrectScale(scale);
 	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
 	object->SetParent(parent);
 	object->SetId();
@@ -147,10 +205,10 @@ void ModuleViewport::DeleteGameObject()
 
 	for (auto it_obj = parent->children.begin(); it_obj < parent->children.end();) {
 		if (selected_object == (*it_obj)) {
-			RELEASE(*it_obj);
-			it_obj = parent->children.erase(it_obj);
 			App->viewport->selected_object->SetSelected(false);
 			selected_object = nullptr;
+			RELEASE(*it_obj);
+			it_obj = parent->children.erase(it_obj);
 		}
 		else
 			it_obj++;

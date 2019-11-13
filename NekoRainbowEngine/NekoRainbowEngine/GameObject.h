@@ -5,11 +5,14 @@
 #include <vector>
 
 #include "Component.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Geometry/OBB.h"
 #include "Random.h"
 
 class ComponentMesh;
 class ComponentTexture;
 class ComponentCamera;
+class Scene;
 
 enum object_type {
 	OBJECT_NONE = -1,
@@ -20,20 +23,26 @@ enum object_type {
 
 class GameObject {
 public:
-	GameObject() {};
+	GameObject();
 	~GameObject();
 
 	bool Update();
 
+	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true);
-
 	void AddComponent(Component* comp);
+
+	bool SaveComponents(Scene scene);
+	bool LoadComponents(Scene scene);
 
 	ComponentTransform* GetComponentTransform();
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
 	ComponentCamera* GetComponentCamera();
 
+	void DeleteComponent(Component* comp);
+
+	//--------------- Childrens ---------------//
 	bool HasChildren() const;
 	bool IsChild(GameObject* obj) const;
 	bool IsDirectChild(GameObject * obj) const;
@@ -54,10 +63,12 @@ public:
 	void SetName(const char* name_);
 
 	void SetSelected(bool select);
+	float3 CorrectScale(const float3 scale) const;
 
-	float3 GetScale(const float3 scale) const;
-
-	void DeleteComponent(Component* comp);
+	//Bounding Box
+	void GenerateBoundingBuffers();
+	void DrawBB();
+	void UpdateBB();
 
 private:
 	object_type type = OBJECT_NONE;
@@ -67,7 +78,21 @@ private:
 	GameObject*					parent = nullptr;
 	std::vector<Component*>		components;
 
+	uint id_vertexAABB = 0;
+	uint id_vertexOBB = 0;
+	uint id_indexBB = 0;
+
 public:
+	//AABB
+	AABB local_AABB;
+	AABB global_AABB;
+	OBB global_OBB;
+	std::vector<float3> vertices_AABB;
+	std::vector<float3> vertices_OBB;
+	std::vector<uint> index_BB;
+	bool show_aabb = false;
+	bool show_obb = false;
+
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;

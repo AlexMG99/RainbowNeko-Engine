@@ -4,6 +4,7 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "PanelConfiguration.h"
+#include "Mesh.h"
 
 #include "GL/include/glew.h"
 #include <string>
@@ -21,33 +22,16 @@ ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * ob
 	point_size = 1;
 	line_width = 1;
 	outline_width = 7;
-
-	local_AABB.SetNegativeInfinity();
 }
 
 ComponentMesh::~ComponentMesh()
 {
-	RELEASE_ARRAY(UV_coord);
-	RELEASE_ARRAY(normals);
-	RELEASE_ARRAY(vertices);
-	RELEASE_ARRAY(index);
-	RELEASE_LIST(normals_face);
-
 	RELEASE(transform);
-
-	glDeleteBuffers(1, &id_vertex);
-	glDeleteBuffers(1, &id_index);
-	glDeleteBuffers(1, &uv_id);
-	glDeleteBuffers(1, &normal_id);
-	glDeleteBuffers(1, &id_vertexAABB);
-	glDeleteBuffers(1, &id_indexBB);
-	glDeleteBuffers(1, &id_vertexOBB);
+	RELEASE(mesh);
 }
 
 bool ComponentMesh::Update()
 {
-	if (camera_culling && !App->viewport->camera_test->GetComponentCamera()->frustum.Intersects(global_AABB))
-		return false;
 
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
@@ -63,73 +47,35 @@ bool ComponentMesh::Update()
 		DrawSelectedOutline();
 
 	glPopMatrix();
-
-	DrawBB();
 	return true;
 }
 
-//--------------------- Mesh --------------------------//
-void ComponentMesh::GenerateBuffers()
+bool ComponentMesh::OnSave(Scene & scene) const
 {
-	//Cube Vertex
-	glGenBuffers(1, &id_vertex);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_size, vertices, GL_STATIC_DRAW);
-
-	//Cube Vertex definition
-	glGenBuffers(1, &id_index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*index_size, index, GL_STATIC_DRAW);
-
-	//UVs definition
-	if (UV_size > 0)
-	{
-		glGenBuffers(1, &uv_id);
-		glBindBuffer(GL_ARRAY_BUFFER, uv_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float2)*UV_size, UV_coord, GL_STATIC_DRAW);
-	}
-
-	//Normal Definition
-	if (normals_face.size() > 0)
-	{
-		glGenBuffers(1, &normal_id);
-		glBindBuffer(GL_ARRAY_BUFFER, normal_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * normals_face.size(), &normals[0], GL_STATIC_DRAW);
-	}
-
-	GenerateBoundingBuffers();
-	LOG("Generated mesh with id vertex: %i and id index: %i", id_vertex, id_index);
+	return true;
 }
 
-void ComponentMesh::GenerateBoundingBuffers()
+void ComponentMesh::AddMesh(Mesh * mesh)
 {
-	//Global AABB vertices
-	glGenBuffers(1, &id_vertexAABB);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_AABB.size(), &vertices_AABB[0], GL_STATIC_DRAW);
+	this->mesh = mesh;
+	CreateLocalAABB();
+	my_go->global_OBB = GetOBB();
+	my_go->global_AABB = GetGlobalAABB();
+	my_go->GenerateBoundingBuffers();
 
-	//Global OBB vertices
-	glGenBuffers(1, &id_vertexOBB);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_OBB.size(), &vertices_OBB[0], GL_STATIC_DRAW);
-
-	//Global BB vertices index
-	glGenBuffers(1, &id_indexBB);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_BB.size(), &index_BB[0], GL_STATIC_DRAW);
 }
 
 //------------ Bounding Boxes -------------------------//
 AABB ComponentMesh::CreateLocalAABB()
 {
-	local_AABB.Enclose(vertices, vertices_size);
+	my_go->local_AABB.Enclose(mesh->vertices, mesh->vertices_size);
 
-	return local_AABB;
+	return my_go->local_AABB;
 }
 
 OBB ComponentMesh::GetOBB()
 {
-	global_OBB = local_AABB;
+	OBB global_OBB = my_go->local_AABB;
 	global_OBB.Transform(transform->GetGlobalTransformMatrix());
 
 	//Get Vertex and Index
@@ -137,7 +83,7 @@ OBB ComponentMesh::GetOBB()
 	global_OBB.GetCornerPoints(aux_vertices);
 	for (int i = 0; i < 8; i++)
 	{
-		vertices_OBB.push_back(aux_vertices[i]);
+		my_go->vertices_OBB.push_back(aux_vertices[i]);
 	}
 
 	return global_OBB;
@@ -145,6 +91,7 @@ OBB ComponentMesh::GetOBB()
 
 AABB ComponentMesh::GetGlobalAABB()
 {
+	AABB global_AABB;
 	global_AABB.SetNegativeInfinity();
 	global_AABB.Enclose(GetOBB());
 
@@ -153,68 +100,15 @@ AABB ComponentMesh::GetGlobalAABB()
 	global_AABB.GetCornerPoints(aux_vertices);
 	for (int i = 0; i < 8; i++)
 	{
-		vertices_AABB.push_back(aux_vertices[i]);
+		my_go->vertices_AABB.push_back(aux_vertices[i]);
 	}
-	index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
+	my_go->index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
 	3,2, 2,0, 0,1, 1,3,
 	7,6, 6,2, 2,3, 3,7,
 	6,4, 2,0,
 	7,5, 3,1 };
 
 	return global_AABB;
-}
-
-void ComponentMesh::DrawBB()
-{
-	glColor3f(125, 125, 0);
-	glLineWidth(2.0);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	//Draw Global AABB
-	if (show_aabb) 
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
-	}
-
-	//Draw OBB
-	glColor3f(0, 200, 150);
-	if (show_obb)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
-	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glLineWidth(1);
-}
-
-void ComponentMesh::UpdateBB()
-{
-	for (int i = 0; i < vertices_AABB.size();)
-	{
-		vertices_AABB.pop_back();
-	}
-	vertices_AABB.clear();
-
-	for (int i = 0; i < vertices_OBB.size();)
-	{
-		vertices_OBB.pop_back();
-	}
-	vertices_OBB.clear();
-
-	GetGlobalAABB();
-
-	glDeleteBuffers(1, &id_vertexAABB);
-	glDeleteBuffers(1, &id_indexBB);
-	glDeleteBuffers(1, &id_vertexOBB);
-
-	GenerateBoundingBuffers();
-
 }
 
 void ComponentMesh::RenderFill()
@@ -230,30 +124,30 @@ void ComponentMesh::RenderFill()
 	//Render FBX Mesh
 	glColor3f(1, 1, 1);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 
 	//Normal
-	if (normals_face.size() > 0)
+	if (mesh->norm_face_size > 0)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, normal_id);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_NORMAL_FACE]);
 		glNormalPointer(GL_FLOAT, 0, nullptr);
 	}
 
 	//UVs
-	if (UV_size > 0)
+	if (mesh->UV_size > 0)
 	{
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, uv_id);
+			glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_UV]);
 			glTexCoordPointer(2, GL_FLOAT, 0, (void*)0);
 	}
 
 	if(my_go->GetComponentTexture())
 		glBindTexture(GL_TEXTURE_2D, image_id);
 
-	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, mesh->index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -261,28 +155,28 @@ void ComponentMesh::RenderFill()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//Render Vertex Normals
-	if (normals && normal_show) {
-		for (uint i = 0; i < vertices_size; i++)
-		{
-			glColor3f(255, 0, 0);
-			glBegin(GL_LINES);
-			glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
-			glVertex3f(vertices[i].x + normals[i].x, vertices[i].y + normals[i].y, vertices[i].z + normals[i].z);
-			glEnd();
-		}
-	}
+	//if (normals && normal_show) {
+	//	for (uint i = 0; i < vertices_size; i++)
+	//	{
+	//		glColor3f(255, 0, 0);
+	//		glBegin(GL_LINES);
+	//		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
+	//		glVertex3f(vertices[i].x + normals[i].x, vertices[i].y + normals[i].y, vertices[i].z + normals[i].z);
+	//		glEnd();
+	//	}
+	//}
 
-	//Render Face Normals
-	if (normals_face.size() > 0 && normal_face_show) {
-		glColor3f(0, 0, 255);
-		glBegin(GL_LINES);
-		for (int i = 0; i < normals_face.size(); i += 2) {
-			glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
-			glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
-		}
+	////Render Face Normals
+	//if (normals_face.size() > 0 && normal_face_show) {
+	//	glColor3f(0, 0, 255);
+	//	glBegin(GL_LINES);
+	//	for (int i = 0; i < normals_face.size(); i += 2) {
+	//		glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
+	//		glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
+	//	}
 
-		glEnd();
-	}
+	//	glEnd();
+	//}
 
 }
 
@@ -294,12 +188,12 @@ void ComponentMesh::RenderWireframe()
 	//Render FBX Mesh
 	glColor3f(wireframe_color.x, wireframe_color.y, wireframe_color.z);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 
-	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, mesh->index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glLineWidth(1.0);
@@ -315,12 +209,12 @@ void ComponentMesh::RenderPoint()
 	//Render FBX Mesh
 	glColor3f(vertex_color.x, vertex_color.y, vertex_color.z);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 
-	glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, mesh->index_size, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_POINT_SMOOTH);
@@ -344,11 +238,11 @@ void ComponentMesh::DrawSelectedOutline()
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 
-	glDrawElements(GL_TRIANGLES, index_size * 3, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh->index_size * 3, GL_UNSIGNED_INT, 0);
 
 	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_POLYGON_OFFSET_FILL);

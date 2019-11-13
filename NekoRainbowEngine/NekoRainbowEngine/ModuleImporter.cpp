@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "Mesh.h"
 #include "PanelConsole.h"
 #include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
@@ -31,13 +32,13 @@ bool ModuleImporter::Init()
 {
 	BROFILER_CATEGORY("Init_ModuleImporter", Profiler::Color::Crimson);
 
-	scene = new SceneImporter();
-	mesh = new MeshImporter();
-	texture = new TextureImporter();
+	scene_imp = new SceneImporter();
+	mesh_imp = new MeshImporter();
+	texture_imp = new TextureImporter();
 
-	scene->Init();
-	mesh->Init();
-	texture->Init();
+	scene_imp->Init();
+	mesh_imp->Init();
+	texture_imp->Init();
 
 	return true;
 }
@@ -56,11 +57,11 @@ bool ModuleImporter::ImportFile(const char* path)
 	std::string output_file;
 
 	if (extension == "fbx" || extension == "FBX")
-		scene->Import(path);
+		scene_imp->Import(path);
 	else if (extension == "neko")
-		mesh->Load(path);
+		mesh_imp->Load(path);
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
-		texture->Import(path);
+		texture_imp->Import(path);
 
 	return ret;
 }
@@ -135,13 +136,14 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 	trans->local_rotation_euler = trans->local_rotation.ToEulerXYZ() * RADTODEG;
 
 	//Create Component Mesh
-	ComponentMesh* mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+	ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+	Mesh* mesh = new Mesh();
 
 	//Load Normals
 	if (shape->normals)
 	{
-		mesh->normals = new float3[shape->npoints];
-		memcpy(mesh->normals, shape->normals, sizeof(float3) * shape->npoints);
+		mesh->normals_face = new float3[shape->npoints];
+		memcpy(mesh->normals_face, shape->normals, sizeof(float3) * shape->npoints);
 	}
 
 	//Load UVs
@@ -151,11 +153,12 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 		mesh->UV_coord = new float2[mesh->UV_size];
 		memcpy(mesh->UV_coord, shape->tcoords, sizeof(float2) * mesh->UV_size);
 	}
-	mesh->transform = trans;
-
-	mesh->CreateLocalAABB();
-	mesh->GetGlobalAABB();
 	mesh->GenerateBuffers();
+
+	comp_mesh->transform = trans;
+	comp_mesh->CreateLocalAABB();
+	comp_mesh->GetGlobalAABB();
+	comp_mesh->AddMesh(mesh);
 
 	par_shapes_free_mesh(shape);
 }

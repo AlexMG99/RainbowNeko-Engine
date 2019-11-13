@@ -4,6 +4,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "Mesh.h"
 #include "ComponentCamera.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"
@@ -54,16 +55,16 @@ update_status PanelInspector::Draw()
 			ImGui::Checkbox("Active", &comp_mesh->active);
 			ImGui::Checkbox("Normal Vertex", &comp_mesh->normal_show); ImGui::SameLine();
 			ImGui::Checkbox("Normal Face", &comp_mesh->normal_face_show);
-			ImGui::Text("Id vertices: %i", comp_mesh->id_vertex);
-			ImGui::Text("Num vertices: %i", comp_mesh->vertices_size);
-			ImGui::Text("Id indices: %i", comp_mesh->id_index);
-			ImGui::Text("Num indices: %i", comp_mesh->index_size);
-			ImGui::Text("Id uv: %i", comp_mesh->uv_id);
+			ImGui::Text("Id vertices: %i", comp_mesh->mesh->buffers[BUFF_VERTICES]);
+			ImGui::Text("Num vertices: %i", comp_mesh->mesh->vertices_size);
+			ImGui::Text("Id indices: %i", comp_mesh->mesh->buffers[BUFF_INDEX]);
+			ImGui::Text("Num indices: %i", comp_mesh->mesh->index_size);
+			ImGui::Text("Id uv: %i", comp_mesh->mesh->buffers[BUFF_UV]);
 			
 			ImGui::Separator();
 			ImGui::Text("Bounding Boxes:");
-			ImGui::Checkbox("Show AABB", &comp_mesh->show_aabb);
-			ImGui::Checkbox("Show OBB", &comp_mesh->show_obb);
+			ImGui::Checkbox("Show AABB", &object->show_aabb);
+			ImGui::Checkbox("Show OBB", &object->show_obb);
 			ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
 			ImGui::Separator();
 
