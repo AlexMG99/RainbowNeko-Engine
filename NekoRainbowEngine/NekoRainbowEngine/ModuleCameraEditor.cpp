@@ -4,6 +4,7 @@
 #include "ModuleCameraEditor.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 
 ModuleEditorCamera::ModuleEditorCamera(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -120,6 +121,28 @@ void ModuleEditorCamera::Zoom(float zoom)
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
+
+void ModuleEditorCamera::MouseEvent()
+{
+	Frustum* frustum = &camera->frustum;
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+		float2 mouse_pos = {(float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
+		LOG("lMDONPNHP`ND+PNGP+mao: %f", mouse_pos);
+
+	/*	LineSegment picking = frustum->UnProjectLineSegment(mouse_pos.x, mouse_pos.y);*/
+		
+	}
+	
+}
+
+//void ModuleEditorCamera::CreatingRay(float mouse_x, float mouse_y)
+//{
+//	
+//	
+//
+//	Frustum* frustum = &camera->frustum;
+//	LineSegment picking = frustum->UnProjectLineSegment(norm_x,norm_y);
+//}
 
 
 // -----------------------------------------------------------------

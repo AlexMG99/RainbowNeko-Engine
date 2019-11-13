@@ -1,4 +1,5 @@
 
+
 -------------- Application Init --------------
 Init SDL window & surface
 Init SDL input event system

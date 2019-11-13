@@ -34,12 +34,16 @@ private:
 	void Move(float motion_x, float motion_y);
 	void Orbit(float motion_x, float motion_y);
 	void Zoom(float zoom);
+	void MouseEvent();
+	void CreatingRay(float norm_x, float norm_y);
 
 public:
 	float move_speed = 10.0f;
 	float move_mouse_speed = 5.0f;
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
+	float norm_x;
+	float norm_y;
 
 private:
 	float3 looking_point;
