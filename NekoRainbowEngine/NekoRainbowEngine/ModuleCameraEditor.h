@@ -4,6 +4,7 @@
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Geometry/Ray.h"
 #include "MathGeoLib/include/Geometry/Triangle.h"
+#include "MathGeoLib/include/Geometry/LineSegment.h"
 
 class ComponentCamera;
 class GameObject;
@@ -44,12 +45,9 @@ public:
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
 
-	Ray my_ray;
-	Ray local_ray;
-	Triangle tri;
+	LineSegment picking;
 
 private:
-	GameObject* obj_list;
 	float3 looking_point;
 	ComponentCamera* camera = nullptr;
 	ComponentCamera* scene_camera = nullptr;

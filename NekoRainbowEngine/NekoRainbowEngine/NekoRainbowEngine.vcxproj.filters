@@ -669,6 +669,9 @@
     <ClInclude Include="Mesh.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="RayCast.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">

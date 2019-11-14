@@ -89,14 +89,11 @@ update_status ModuleEditorCamera::Update(float dt)
 		mouse_pos = normalize(mouse_pos);
 		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
 
-		/*GameObject* pick; 
 
-		if (pick != nullptr) {
+		picking = camera->frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
+		
 
-			App->viewport->selected_object == pick;
-		}*/
-
-		CreatingRay(mouse_pos.x, mouse_pos.y);
+		
 
 	}
 
@@ -140,24 +137,6 @@ void ModuleEditorCamera::Zoom(float zoom)
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
-
-
-
-void ModuleEditorCamera::CreatingRay(float mouse_x, float mouse_y)
-
-{
-	Frustum* frustum = &camera->frustum;
-	LineSegment picking = frustum->UnProjectLineSegment(mouse_x,mouse_y);
-
-	
-	/*bool hit = my_ray.Intersects(App->viewport->selected_object->global_AABB);*/
-
-	
-	/*bool hit = local_ray.Intersects(tri,);*/
-
-
-}
-
 
 // -----------------------------------------------------------------
 void ModuleEditorCamera::Move(float dt)
