@@ -28,7 +28,7 @@ public:
 
 	void ReorganizeHierarchy();
 
-	bool ResetScene() { return true; };
+	bool ResetScene();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();

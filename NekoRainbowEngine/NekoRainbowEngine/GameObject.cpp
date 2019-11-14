@@ -62,7 +62,8 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		break;
 	}
 
-	components.push_back(comp);
+	if(comp)
+		components.push_back(comp);
 
 	return comp;
 }
@@ -83,7 +84,7 @@ bool GameObject::LoadComponents(Scene scene)
 	for (int i = 1; i < COMPONENT_TOTAL; i++)
 	{
 		if (comp_scene.IsArraySection(i))
-			CreateComponent((component_type)i);
+			CreateComponent((component_type)(i));
 	}
 	
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)

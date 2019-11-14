@@ -12,25 +12,25 @@ GLSL: 4.60 NVIDIA
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T10632: Load ./Assets/BakerHouse.fbx
+  T11224: Load ./Assets/BakerHouse.fbx
 
-  T10632: Found a matching importer for this file format: Autodesk FBX Importer.
+  T11224: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T10632: Import root directory is './Assets\'
+  T11224: Import root directory is './Assets\'
 
-  T10632: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T11224: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T10632: Entering post processing pipeline
+  T11224: Entering post processing pipeline
 
-  T10632: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T11224: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T10632: CalcTangentsProcess finished. Tangents have been calculated
+  T11224: CalcTangentsProcess finished. Tangents have been calculated
 
-  T10632: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T11224: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T10632: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T11224: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T10632: Leaving post processing pipeline
+  T11224: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 3 and id index: 4
@@ -46,4 +46,16 @@ Loading Editor Scene
 Generated mesh with id vertex: 19 and id index: 20
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Generated mesh with id vertex: 25 and id index: 26
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 31 and id index: 32
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 37 and id index: 38
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 45 and id index: 46
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 53 and id index: 54
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 61 and id index: 62
+Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+Generated mesh with id vertex: 69 and id index: 70
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!

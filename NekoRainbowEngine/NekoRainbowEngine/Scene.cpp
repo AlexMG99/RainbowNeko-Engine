@@ -14,10 +14,9 @@ Scene::Scene(const char* name)
 {
 	if (name != nullptr)
 	{
-		vroot = json_parse_string(name);
+		vroot = json_parse_file(name);
 		if (vroot != nullptr) {
 			root = json_value_get_object(vroot);
-			json_object_set_value(root, name, json_value_init_object());
 			scene_name = name;
 		}
 	}

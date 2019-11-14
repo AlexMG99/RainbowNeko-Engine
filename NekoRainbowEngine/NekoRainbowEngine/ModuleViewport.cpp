@@ -30,7 +30,7 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	//camera_test = CreateGameObject("Camera", root_object);
 	//camera_test->CreateComponent(COMPONENT_CAMERA);
-	scene = new Scene();
+	scene = new Scene("scene_test.json");
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -140,6 +140,8 @@ bool ModuleViewport::LoadScene(Scene* scn)
 	Scene go_scene = scn->GetArray("GameObjects");
 	int i = 0;
 
+	ResetScene();
+
 	while (i !=-1)
 	{ 
 		if (go_scene.IsArraySection(i))
@@ -152,7 +154,8 @@ bool ModuleViewport::LoadScene(Scene* scn)
 		
 	}
 
-	ReorganizeHierarchy();
+	if(!root_object->children.empty())
+		ReorganizeHierarchy();
 	
 	return true;
 }
@@ -219,6 +222,18 @@ void ModuleViewport::ReorganizeHierarchy()
 		else
 			it_child++;
 	}
+}
+
+bool ModuleViewport::ResetScene()
+{
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); ++it_child)
+	{
+		RELEASE(*it_child);
+	}
+
+	root_object->children.clear();
+	
+	return true;
 }
 
 GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)
