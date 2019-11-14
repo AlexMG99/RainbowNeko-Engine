@@ -20,6 +20,8 @@ ModuleViewport::ModuleViewport(Application* app, bool start_enabled) : Module(ap
 ModuleViewport::~ModuleViewport()
 {
 	RELEASE(root_object);
+	RELEASE(scene);
+	RELEASE(camera_test);
 }
 
 bool ModuleViewport::Start()

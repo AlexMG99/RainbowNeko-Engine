@@ -1,15 +1,36 @@
 
-  T448: Entering post processing pipeline
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
+GLSL: 4.60 NVIDIA
 
-  T448: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+Framebuffer created succesfully!
+-------------- Application Start --------------
+Setting up the camera
+  T3688: Load ./Assets/BakerHouse.fbx
 
-  T448: CalcTangentsProcess finished. Tangents have been calculated
+  T3688: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T448: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T3688: Import root directory is './Assets\'
 
-  T448: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T3688: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T448: Leaving post processing pipeline
+  T3688: Entering post processing pipeline
+
+  T3688: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+
+  T3688: CalcTangentsProcess finished. Tangents have been calculated
+
+  T3688: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+
+  T3688: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+
+  T3688: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 3 and id index: 4
@@ -29,100 +50,4 @@ Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Generated mesh with id vertex: 31 and id index: 32
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Generated mesh with id vertex: 37 and id index: 38
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 43 and id index: 44
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 49 and id index: 50
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 55 and id index: 56
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 61 and id index: 62
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 67 and id index: 68
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 73 and id index: 74
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 79 and id index: 80
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 85 and id index: 86
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 91 and id index: 92
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 97 and id index: 98
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 103 and id index: 104
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 109 and id index: 110
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 115 and id index: 116
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 121 and id index: 122
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 127 and id index: 128
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 133 and id index: 134
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 139 and id index: 140
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 145 and id index: 146
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 151 and id index: 152
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 157 and id index: 158
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 163 and id index: 164
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 169 and id index: 170
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 175 and id index: 176
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 181 and id index: 182
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 187 and id index: 188
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 193 and id index: 194
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 199 and id index: 200
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 205 and id index: 206
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 211 and id index: 212
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 217 and id index: 218
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 223 and id index: 224
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 229 and id index: 230
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 235 and id index: 236
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 241 and id index: 242
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 247 and id index: 248
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 253 and id index: 254
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 259 and id index: 260
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 265 and id index: 266
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 271 and id index: 272
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 277 and id index: 278
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 283 and id index: 284
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 289 and id index: 290
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 295 and id index: 296
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 301 and id index: 302
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 307 and id index: 308
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 313 and id index: 314
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 319 and id index: 320
-Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 325 and id index: 326
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
