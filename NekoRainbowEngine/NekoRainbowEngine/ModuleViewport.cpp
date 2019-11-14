@@ -152,22 +152,28 @@ bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
 
-	Scene go_scene = scene->AddSection("GameObjects");
+	Scene go_scene = scene->AddArray("GameObjects");
+	
+	int num = 0;
+
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
-		ret = SaveGameObject(go_scene, *it_child);
+		ret = SaveGameObject(go_scene, *it_child, &num);
 	}
+
+	num = 0;
 
 	ret = scene->Save("scene_test.json");
 
 	return ret;
 }
 
-bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
+bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 {
 	bool ret = true;
-	Scene s_obj = scn.AddSection(obj->GetName().c_str());
+	Scene s_obj = scn.AddSectionArray(obj->GetName().c_str(), *num);
 
+	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddUint("ID", obj->GetId());
 	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
 
@@ -177,10 +183,11 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
 	//Iterate Childrens
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
 	{
-		SaveGameObject(scn, *it_child);
+		(*num)++;
+		ret = SaveGameObject(scn, *it_child, num);
 	}
 
-	return true;
+	return ret;
 }
 
 GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)

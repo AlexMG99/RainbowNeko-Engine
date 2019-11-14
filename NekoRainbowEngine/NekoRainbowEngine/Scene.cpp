@@ -27,6 +27,10 @@ Scene::Scene(JSON_Object* section) : root(section)
 {
 }
 
+Scene::Scene(JSON_Object* section, JSON_Array* va) : root(section), array(va)
+{
+}
+
 Scene::~Scene()
 {
 	json_value_free(vroot);
@@ -69,6 +73,11 @@ bool Scene::AddQuat(const char * field, Quat value)
 	return true;
 }
 
+bool Scene::AddString(const char * field, std::string value)
+{
+	return json_object_set_string(root, field, value.c_str()) == JSONSuccess;
+}
+
 float3 Scene::GetFloat3(const char * field)
 {
 	float3 value;
@@ -106,6 +115,26 @@ Scene Scene::AddSection(const char * name)
 	json_object_set_value(root, name, json_value_init_object());
 	scene_name = name;
 	return GetSection(name);
+}
+
+Scene Scene::AddSectionArray(const char * name, int num)
+{
+	JSON_Value *leaf_value = json_value_init_object();
+	JSON_Object* leaf_obj = json_value_get_object(leaf_value);
+	json_array_append_value(array, leaf_value);
+
+	json_object_set_value(leaf_obj, name, leaf_value);
+
+	return Scene(json_value_get_object(json_array_get_value(array, num)));
+}
+
+Scene Scene::AddArray(const char* name)
+{
+	JSON_Value* va = json_value_init_array();
+	array = json_value_get_array(va);
+	json_object_set_value(root, name, va);
+
+	return Scene(json_value_get_object(vroot), array);
 }
 
 bool Scene::Save(const char * name)

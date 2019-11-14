@@ -22,6 +22,7 @@ public:
 	Scene();
 	Scene(const char* name);
 	Scene(JSON_Object* section);
+	Scene(JSON_Object* section, JSON_Array* va);
 	~Scene();
 
 	bool AddUint(const char* field, uint value);
@@ -29,13 +30,17 @@ public:
 	//bool AddFloat(const char* field, float value);
 	bool AddFloat3(const char* field, float3 value);
 	bool AddQuat(const char * field, Quat value);
+	bool AddString(const char * field, std::string value);
 
 	//bool GetInt(const char* field, int& value);
 	float3 GetFloat3(const char* field);
+	Quat GetQuat(const char * field);
 
 	Scene GetSection(const char* name) const;
 	Scene AddSection(const char* name);
-	Quat GetQuat(const char * field);
+
+	Scene AddSectionArray(const char * name, int num);
+	Scene AddArray(const char* name);
 
 	bool Save(const char* name);
 
