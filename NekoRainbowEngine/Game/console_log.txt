@@ -1,4 +1,5 @@
 
+
 -------------- Application Init --------------
 Init SDL window & surface
 Init SDL input event system
@@ -51,3 +52,4 @@ Generated mesh with id vertex: 31 and id index: 32
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Generated mesh with id vertex: 37 and id index: 38
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
+
