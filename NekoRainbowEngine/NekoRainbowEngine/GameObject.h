@@ -30,7 +30,6 @@ public:
 
 	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true);
-	void AddComponent(Component* comp);
 
 	bool SaveComponents(Scene scene);
 	bool LoadComponents(Scene scene);

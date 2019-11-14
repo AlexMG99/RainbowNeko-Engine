@@ -6,6 +6,7 @@
 #include "MeshImporter.h"
 #include "TextureImporter.h"
 #include "Mesh.h"
+#include "Texture.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -84,7 +85,7 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 	if (node->mNumMeshes > 0)
 	{
 		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
-		ComponentTexture* tex = nullptr;
+		ComponentTexture* comp_text = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
 		Mesh* mesh = App->importer->mesh_imp->Import(scene, aimesh); 
 
@@ -99,9 +100,8 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
 
 				App->importer->texture_imp->ImportTexture(std::string(file + "." + extension).c_str(), output_file);
-				tex = App->importer->texture_imp->Load(std::string("." + output_file).c_str());
-				comp_mesh->image_id = tex->image_id;
-				aux_obj->AddComponent(tex);
+				comp_text->AddTexture(App->importer->texture_imp->Load(std::string("." + output_file).c_str()));
+				comp_mesh->image_id = comp_text->texture->image_id;
 			}
 		}
 		App->importer->mesh_imp->SaveMesh(mesh);

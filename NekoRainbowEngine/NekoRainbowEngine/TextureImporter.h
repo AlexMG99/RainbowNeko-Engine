@@ -4,6 +4,7 @@
 #include "Importer.h"
 
 class ComponentTexture;
+class Texture;
 
 class TextureImporter :public Importer {
 public:
@@ -14,7 +15,7 @@ public:
 
 	bool Import(const char* path);
 	void ImportTexture(const char* path, std::string &output_file);
-	ComponentTexture* Load(const char* file);
+	Texture* Load(const char* file);
 
 
 };

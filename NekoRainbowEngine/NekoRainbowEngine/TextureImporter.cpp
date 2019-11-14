@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "TextureImporter.h"
 #include "ComponentMesh.h"
+#include "Texture.h"
 
 //-------------- Devil --------------
 #include "Devil/include/il.h"
@@ -25,11 +26,12 @@ bool TextureImporter::Import(const char* path)
 	//BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
 
 	if (App->viewport->selected_object) {
-		ComponentMesh* mesh = App->viewport->selected_object->GetComponentMesh();
-		ComponentTexture* texture = App->viewport->selected_object->GetComponentTexture();
-		App->viewport->selected_object->DeleteComponent(texture);
+		ComponentMesh* comp_mesh = App->viewport->selected_object->GetComponentMesh();
+		ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
+		Texture* texture;
 		
-		texture = new ComponentTexture(COMPONENT_TEXTURE, true, nullptr);
+		if(!comp_texture)
+			comp_texture = new ComponentTexture(COMPONENT_TEXTURE, true, App->viewport->selected_object);
 
 		//Load Texture
 		std::string output_file, file, extension, texture_path = path;
@@ -39,18 +41,19 @@ bool TextureImporter::Import(const char* path)
 			texture = Load(path);
 		else
 		{
+			App->fs->SplitFilePath(texture_path.c_str(), nullptr, &file, &extension);
 			ImportTexture(std::string(file + "." + extension).c_str(), output_file);
 			texture = Load(std::string("." + output_file).c_str());
 		}
 
-		App->viewport->selected_object->AddComponent(texture);
+		comp_texture->AddTexture(texture);
 
-		if (mesh)
-			mesh->image_id = texture->image_id;
+		if (comp_mesh)
+			comp_mesh->image_id = texture->image_id;
 		else
 		{
 			LOG("The object does not have a MESH! Create one or select another object.");
-			App->viewport->selected_object->DeleteComponent(texture);
+			App->viewport->selected_object->DeleteComponent(comp_texture);
 		}
 	}
 	else
@@ -80,8 +83,8 @@ void TextureImporter::ImportTexture(const char* path, std::string& output_file)
 		data = new ILubyte[size]; // allocate data buffer
 		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
 		{
-			std::string file;
-			App->fs->SplitFilePath(path, nullptr, &file, nullptr);
+			std::string file, extension;
+			App->fs->SplitFilePath(path, nullptr, &file, &extension);
 			output_file = LIBRARY_TEXTURES_FOLDER + file + ".dds";
 			App->fs->Save(output_file.c_str(), data, size);
 		}
@@ -92,10 +95,10 @@ void TextureImporter::ImportTexture(const char* path, std::string& output_file)
 }
 
 
-ComponentTexture* TextureImporter::Load(const char * file)
+Texture* TextureImporter::Load(const char * file)
 {
 	bool ret = true;
-	ComponentTexture* texture = new ComponentTexture(COMPONENT_TEXTURE, true, nullptr);
+	Texture* texture = new Texture();
 	ILuint devil_id = 0;
 
 	ilGenImages(1, &devil_id);

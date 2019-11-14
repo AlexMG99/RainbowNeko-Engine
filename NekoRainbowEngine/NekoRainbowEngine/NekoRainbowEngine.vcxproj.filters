@@ -250,6 +250,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -667,6 +670,9 @@
       <Filter>Sources\Core</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
