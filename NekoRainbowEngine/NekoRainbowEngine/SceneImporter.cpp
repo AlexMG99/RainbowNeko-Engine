@@ -80,14 +80,16 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
 	//Create aux_obj
-	GameObject* aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale, rot);
+	GameObject* aux_obj;
 
 	if (node->mNumMeshes > 0)
 	{
+		aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale, rot);
 		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
 		ComponentTexture* comp_text = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-		Mesh* mesh = App->importer->mesh_imp->Import(scene, aimesh); 
+		Mesh* mesh = App->importer->mesh_imp->Import(scene, aimesh);
+		mesh->name = aux_obj->GetName();
 
 		//Load Material
 		if (aimesh->mMaterialIndex >= 0)
@@ -98,7 +100,6 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 			{
 				std::string output_file, file, extension;
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
-				mesh->name = aux_obj->GetName();
 
 				App->importer->texture_imp->ImportTexture(texture_path.C_Str(), output_file);
 				comp_text->AddTexture(App->importer->texture_imp->Load(std::string("." + output_file).c_str()));
@@ -117,6 +118,8 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 		comp_mesh->CreateLocalAABB();
 		comp_mesh->GetGlobalAABB();
 	}
+	else
+		aux_obj = parent;
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
