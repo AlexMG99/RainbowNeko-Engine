@@ -21,3 +21,8 @@ void Texture::GenerateTexture()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+Texture::Texture()
+{
+	path = "";
+}

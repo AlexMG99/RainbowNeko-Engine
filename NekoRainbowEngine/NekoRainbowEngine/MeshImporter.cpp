@@ -75,7 +75,7 @@ Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
 
 void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 {
-	mesh->normals_vertex = new float3[aimesh->mNumVertices];
+	/*mesh->normals_vertex = new float3[aimesh->mNumVertices];
 	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
 
 	std::vector<float3> normal_face;
@@ -105,7 +105,7 @@ void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 	}
 
 	mesh->normals_vertex = new float3[mesh->norm_face_size];
-	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);
+	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
 }
 
 bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)

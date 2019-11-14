@@ -60,20 +60,20 @@ bool TextureImporter::Import(const char* path)
 void TextureImporter::ImportTexture(const char* path, std::string& output_file)
 {
 	bool ret = true;
-	std::string file, extension, file_path, normalized;
+	std::string file, extension;
 	App->fs->SplitFilePath(path, nullptr, &file, &extension);
 	ILuint devil_id = 0;
 
 	App->fs->NormalizePath((char*)path);
 	
-	file_path = ASSETS_FOLDER;
-
-	if (App->fs->IsInDirectory("c:", path))
-		file_path = "";
 
 	ilGenImages(1, &devil_id);
 	ilBindImage(devil_id);
-	ilLoadImage(std::string(file_path + file + "." + extension).c_str());
+
+	if (App->fs->IsInDirectory("c:", path))
+		ret = ilLoadImage(path);
+	else
+		ilLoadImage(std::string(ASSETS_FOLDER + file + "." + extension).c_str());
 
 	ILuint size;
 	ILubyte *data;

@@ -104,7 +104,12 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				comp_text->AddTexture(App->importer->texture_imp->Load(std::string("." + output_file).c_str()));
 				comp_mesh->image_id = comp_text->texture->image_id;
 			}
+			else
+				aux_obj->DeleteComponent(comp_text);
 		}
+		else
+			aux_obj->DeleteComponent(comp_text);
+
 		App->importer->mesh_imp->SaveMesh(mesh, mesh->name.c_str());
 
 		comp_mesh->transform = aux_obj->GetComponentTransform();
