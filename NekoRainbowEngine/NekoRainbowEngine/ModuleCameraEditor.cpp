@@ -5,6 +5,7 @@
 #include "ModuleCameraEditor.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
+#include "RayCast.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
 
@@ -92,6 +93,8 @@ update_status ModuleEditorCamera::Update(float dt)
 
 		picking = camera->frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
 		
+		RayCast ray;
+		/*if(App->viewport->)*/
 
 		
 

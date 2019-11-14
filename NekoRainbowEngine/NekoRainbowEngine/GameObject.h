@@ -93,6 +93,8 @@ public:
 	bool show_aabb = false;
 	bool show_obb = false;
 
+	ComponentTransform* transfrom;
+
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;

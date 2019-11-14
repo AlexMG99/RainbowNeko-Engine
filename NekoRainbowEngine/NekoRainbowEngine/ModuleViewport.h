@@ -6,6 +6,8 @@
 #include "ModuleImporter.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/Quat.h"
+#include "MathGeoLib/include/Geometry/LineSegment.h"
+#include "RayCast.h"
 
 class Scene;
 
@@ -19,6 +21,15 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+	//----Intersections----//
+	bool CompareRayCast(RayCast& a, RayCast & b);
+	bool MyRayCastIntersection(LineSegment* ray, RayCast& hit);
+
+	void BoxIntersection(ComponentTransform* obj, LineSegment* ray, std::vector<RayCast>& scene_obj);
+	bool TriangleTest(LineSegment* ray, std::vector<RayCast>& scene_obj, RayCast& point );
+
+	
 
 	bool LoadScene(Scene* scn);
 	bool LoadGameObject(Scene* scn);
@@ -39,6 +50,8 @@ public:
 	GameObject* root_object = nullptr;
 	GameObject* camera_test = nullptr;
 	GameObject* selected_object = nullptr;
+	LineSegment ray;
+
 
 	bool draw_grid = true;
 	bool wireframe_on = false;

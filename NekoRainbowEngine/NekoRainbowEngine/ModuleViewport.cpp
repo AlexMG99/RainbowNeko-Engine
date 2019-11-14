@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Scene.h"
+#include "RayCast.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -84,6 +85,31 @@ bool ModuleViewport::CleanUp()
 {
 
 	return true;
+}
+
+bool ModuleViewport::CompareRayCast(RayCast & a, RayCast & b)
+{
+	return a.distance < b.distance;
+}
+
+bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
+{
+	this->ray = (*my_ray);
+
+	std::vector<RayCast> scene_obj;
+	BoxIntersection(root_object->transfrom, my_ray, scene_obj);
+
+
+	return false;
+}
+
+void ModuleViewport::BoxIntersection(ComponentTransform * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
+{
+}
+
+bool ModuleViewport::TriangleTest(LineSegment * ray, std::vector<RayCast>& scene_obj, RayCast & point)
+{
+	return false;
 }
 
 void ModuleViewport::DrawGrid(uint separation, uint lines)
