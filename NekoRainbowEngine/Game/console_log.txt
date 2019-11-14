@@ -1,121 +1,121 @@
 
-Generated mesh with id vertex: 58 and id index: 59
-Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 64 and id index: 65
+Generated mesh with id vertex: 474 and id index: 475
 Loaded with path: ./Library/Textures/building_016_c.dds succesfully!
-Generated mesh with id vertex: 70 and id index: 71
-Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 76 and id index: 77
-Loaded with path: ./Library/Textures/building03_c.dds succesfully!
-Generated mesh with id vertex: 82 and id index: 83
-Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 88 and id index: 89
-Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 94 and id index: 95
-Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 100 and id index: 101
-Loaded with path: ./Library/Textures/building_016_c.dds succesfully!
-Generated mesh with id vertex: 106 and id index: 107
+Generated mesh with id vertex: 480 and id index: 481
 Loaded with path: ./Library/Textures/building_025_c.dds succesfully!
-Generated mesh with id vertex: 112 and id index: 113
+Generated mesh with id vertex: 486 and id index: 487
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 118 and id index: 119
+Generated mesh with id vertex: 492 and id index: 493
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 124 and id index: 125
-Generated mesh with id vertex: 129 and id index: 130
+Generated mesh with id vertex: 498 and id index: 499
+Generated mesh with id vertex: 503 and id index: 504
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 135 and id index: 136
+Generated mesh with id vertex: 509 and id index: 510
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 141 and id index: 142
+Generated mesh with id vertex: 515 and id index: 516
 Loaded with path: ./Library/Textures/building03_c.dds succesfully!
-Generated mesh with id vertex: 147 and id index: 148
+Generated mesh with id vertex: 521 and id index: 522
 Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 153 and id index: 154
+Generated mesh with id vertex: 527 and id index: 528
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 159 and id index: 160
+Generated mesh with id vertex: 533 and id index: 534
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 165 and id index: 166
+Generated mesh with id vertex: 539 and id index: 540
 Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 171 and id index: 172
+Generated mesh with id vertex: 545 and id index: 546
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 177 and id index: 178
+Generated mesh with id vertex: 551 and id index: 552
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 183 and id index: 184
+Generated mesh with id vertex: 557 and id index: 558
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 189 and id index: 190
+Generated mesh with id vertex: 563 and id index: 564
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 195 and id index: 196
+Generated mesh with id vertex: 569 and id index: 570
 Loaded with path: ./Library/Textures/building_v02_c.dds succesfully!
-Mouse Pos: 408.000000, 122.000000
-Normalized Mouse Pos: 0.958084, 0.286486
-Mouse Pos: 334.000000, 76.000000
-Normalized Mouse Pos: 0.975075, 0.221873
-Mouse Pos: 331.000000, 79.000000
-Normalized Mouse Pos: 0.972680, 0.232150
-Mouse Pos: 1571.000000, 96.000000
-Normalized Mouse Pos: 0.998138, 0.060994
-Mouse Pos: 1549.000000, 106.000000
-Normalized Mouse Pos: 0.997667, 0.068272
-Mouse Pos: 1274.000000, 317.000000
-Normalized Mouse Pos: 0.970411, 0.241460
-Generated mesh with id vertex: 201 and id index: 202
+Mouse Pos: 833.000000, 391.000000
+Normalized Mouse Pos: 0.905237, 0.424907
+Mouse Pos: 319.000000, 52.000000
+Normalized Mouse Pos: 0.986973, 0.160886
+Mouse Pos: 318.000000, 54.000000
+Normalized Mouse Pos: 0.985887, 0.167415
+Mouse Pos: 1124.000000, 326.000000
+Normalized Mouse Pos: 0.960420, 0.278556
+Mouse Pos: 1106.000000, 355.000000
+Normalized Mouse Pos: 0.952154, 0.305619
+Mouse Pos: 951.000000, 487.000000
+Normalized Mouse Pos: 0.890080, 0.455804
+Mouse Pos: 367.000000, 68.000000
+Normalized Mouse Pos: 0.983264, 0.182185
+Mouse Pos: 357.000000, 81.000000
+Normalized Mouse Pos: 0.975213, 0.221267
+Mouse Pos: 1568.000000, 125.000000
+Normalized Mouse Pos: 0.996837, 0.079467
+Mouse Pos: 1566.000000, 111.000000
+Normalized Mouse Pos: 0.997497, 0.070704
+Mouse Pos: 1044.000000, 349.000000
+Normalized Mouse Pos: 0.948410, 0.317045
+Generated mesh with id vertex: 577 and id index: 578
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
-Generated mesh with id vertex: 207 and id index: 208
+Generated mesh with id vertex: 585 and id index: 586
 Loaded with path: ./Library/Textures/building03_c.dds succesfully!
-Generated mesh with id vertex: 213 and id index: 214
+Generated mesh with id vertex: 593 and id index: 594
 Loaded with path: ./Library/Textures/building_v02_c.dds succesfully!
-Generated mesh with id vertex: 219 and id index: 220
+Generated mesh with id vertex: 601 and id index: 602
 Loaded with path: ./Library/Textures/building_016_c.dds succesfully!
-Generated mesh with id vertex: 225 and id index: 226
+Generated mesh with id vertex: 609 and id index: 610
 Loaded with path: ./Library/Textures/building_025_c.dds succesfully!
-Generated mesh with id vertex: 231 and id index: 232
-Generated mesh with id vertex: 236 and id index: 237
-Generated mesh with id vertex: 242 and id index: 243
+Generated mesh with id vertex: 615 and id index: 616
+Generated mesh with id vertex: 620 and id index: 621
+Generated mesh with id vertex: 628 and id index: 629
 Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 248 and id index: 249
+Generated mesh with id vertex: 636 and id index: 637
 Loaded with path: ./Library/Textures/building_016_c.dds succesfully!
-Generated mesh with id vertex: 254 and id index: 255
+Generated mesh with id vertex: 644 and id index: 645
 Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 260 and id index: 261
+Generated mesh with id vertex: 652 and id index: 653
 Loaded with path: ./Library/Textures/building03_c.dds succesfully!
-Generated mesh with id vertex: 266 and id index: 267
+Generated mesh with id vertex: 660 and id index: 661
 Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 272 and id index: 273
+Generated mesh with id vertex: 668 and id index: 669
 Loaded with path: ./Library/Textures/building 01_c.dds succesfully!
-Generated mesh with id vertex: 278 and id index: 279
+Generated mesh with id vertex: 676 and id index: 677
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 284 and id index: 285
+Generated mesh with id vertex: 684 and id index: 685
 Loaded with path: ./Library/Textures/building_016_c.dds succesfully!
-Generated mesh with id vertex: 290 and id index: 291
+Generated mesh with id vertex: 692 and id index: 693
 Loaded with path: ./Library/Textures/building_025_c.dds succesfully!
-Generated mesh with id vertex: 296 and id index: 297
+Generated mesh with id vertex: 700 and id index: 701
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 302 and id index: 303
+Generated mesh with id vertex: 708 and id index: 709
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 308 and id index: 309
-Generated mesh with id vertex: 313 and id index: 314
+Generated mesh with id vertex: 714 and id index: 715
+Generated mesh with id vertex: 721 and id index: 722
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 319 and id index: 320
+Generated mesh with id vertex: 729 and id index: 730
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 325 and id index: 326
+Generated mesh with id vertex: 737 and id index: 738
 Loaded with path: ./Library/Textures/building03_c.dds succesfully!
-Generated mesh with id vertex: 331 and id index: 332
+Generated mesh with id vertex: 745 and id index: 746
 Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 337 and id index: 338
+Generated mesh with id vertex: 753 and id index: 754
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 343 and id index: 344
+Generated mesh with id vertex: 761 and id index: 762
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 349 and id index: 350
+Generated mesh with id vertex: 769 and id index: 770
 Loaded with path: ./Library/Textures/building 06_ c.dds succesfully!
-Generated mesh with id vertex: 355 and id index: 356
+Generated mesh with id vertex: 777 and id index: 778
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 361 and id index: 362
+Generated mesh with id vertex: 785 and id index: 786
 Loaded with path: ./Library/Textures/building05 _c.dds succesfully!
-Generated mesh with id vertex: 367 and id index: 368
+Generated mesh with id vertex: 793 and id index: 794
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 373 and id index: 374
+Generated mesh with id vertex: 801 and id index: 802
 Loaded with path: ./Library/Textures/building_v01_c.dds succesfully!
-Generated mesh with id vertex: 379 and id index: 380
+Generated mesh with id vertex: 809 and id index: 810
 Loaded with path: ./Library/Textures/building_v02_c.dds succesfully!
-Mouse Pos: 1125.000000, 314.000000
-Normalized Mouse Pos: 0.963186, 0.268836
+Mouse Pos: 1140.000000, 300.000000
+Normalized Mouse Pos: 0.967075, 0.254493
+Mouse Pos: 640.000000, 272.000000
+Normalized Mouse Pos: 0.920331, 0.391141
+Mouse Pos: 642.000000, 273.000000
+Normalized Mouse Pos: 0.920254, 0.391323

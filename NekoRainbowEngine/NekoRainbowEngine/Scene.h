@@ -38,6 +38,8 @@ public:
 	Quat GetQuat(const char * field);
 	std::string GetString(const char * field);
 
+	bool IsString(const char* name) const;
+
 	Scene GetSection(const char* name) const;
 	Scene AddSection(const char* name);
 

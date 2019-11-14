@@ -119,6 +119,11 @@ std::string Scene::GetString(const char * field)
 	return json_object_get_string(root, field);
 }
 
+bool Scene::IsString(const char * name) const
+{
+	return json_object_has_value_of_type(root, name, JSONString);
+}
+
 Scene Scene::GetSection(const char * name) const
 {
 	return Scene(json_object_get_object(root, name));

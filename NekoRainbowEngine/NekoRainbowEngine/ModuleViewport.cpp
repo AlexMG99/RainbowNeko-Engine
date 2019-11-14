@@ -165,6 +165,8 @@ bool ModuleViewport::LoadScene(Scene* scn)
 
 bool ModuleViewport::LoadGameObject(Scene scn)
 {
+	if (!scn.IsString("Name"))
+		return false;
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
 
 	new_obj->SetId(scn.GetDouble("ID"));
