@@ -62,15 +62,10 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		break;
 	}
 
-	components.push_back(comp);
+	if(comp)
+		components.push_back(comp);
 
 	return comp;
-}
-
-void GameObject::AddComponent(Component* comp)
-{
-	comp->my_go = this;
-	components.push_back(comp);
 }
 
 bool GameObject::SaveComponents(Scene scene)
@@ -84,9 +79,17 @@ bool GameObject::SaveComponents(Scene scene)
 
 bool GameObject::LoadComponents(Scene scene)
 {
+	Scene comp_scene = scene.GetArray("Components");
+
+	for (int i = 1; i < COMPONENT_TOTAL; i++)
+	{
+		if (comp_scene.IsArraySection(i))
+			CreateComponent((component_type)(i));
+	}
+	
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
 	{
-		(*it_comp)->OnLoad(scene);
+		(*it_comp)->OnLoad(comp_scene);
 	}
 	return true;
 }
@@ -168,7 +171,7 @@ bool GameObject::IsDirectChild(GameObject * obj) const
 
 void GameObject::AddChild(GameObject * obj)
 {
-	children.push_back(obj);
+	obj->SetParent(this);
 }
 
 void GameObject::RemoveChild(GameObject * obj)
@@ -209,6 +212,11 @@ void GameObject::SetParent(GameObject* par)
 	}
 }
 
+bool GameObject::IsParentID(uint32 id)
+{
+	return (this->id.GetNumber() == id);
+}
+
 object_type GameObject::GetType()
 {
 	return type;
@@ -227,6 +235,11 @@ uint32 GameObject::GetId() const
 void GameObject::SetId()
 {
 	id.GenerateRandomInt();
+}
+
+void GameObject::SetId(double id)
+{
+	this->id.SetNumber(id);
 }
 
 std::string GameObject::GetName() const

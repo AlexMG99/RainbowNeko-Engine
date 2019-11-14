@@ -21,12 +21,14 @@ public:
 	bool CleanUp();
 
 	bool LoadScene(Scene* scn);
-	bool LoadGameObject(Scene* scn);
+	bool LoadGameObject(Scene scn);
 
 	bool SaveScene();
-	bool SaveGameObject(Scene go_scene, GameObject* obj);
+	bool SaveGameObject(Scene go_scene, GameObject* obj, int* i);
 
-	bool ResetScene() { return true; };
+	void ReorganizeHierarchy();
+
+	bool ResetScene();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
 	void DeleteGameObject();

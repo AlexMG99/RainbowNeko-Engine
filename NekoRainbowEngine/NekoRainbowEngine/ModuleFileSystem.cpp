@@ -193,7 +193,11 @@ void ModuleFileSystem::SplitFilePath(const char * full_path, std::string * path,
 		if (extension != nullptr)
 		{
 			if (pos_dot < full.length())
+			{
 				*extension = full.substr(pos_dot + 1);
+				if (file != nullptr)
+					file->resize(file->length() - extension->length() - 1);
+			}
 			else
 				extension->clear();
 		}

@@ -30,7 +30,7 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	//camera_test = CreateGameObject("Camera", root_object);
 	//camera_test->CreateComponent(COMPONENT_CAMERA);
-	scene = new Scene();
+	scene = new Scene("scene_test.json");
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -58,7 +58,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		SaveScene();
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && !App->is_loaded)
 		LoadScene(scene);
 
 
@@ -137,13 +137,38 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 bool ModuleViewport::LoadScene(Scene* scn)
 {
-	LoadGameObject(scn);
+	Scene go_scene = scn->GetArray("GameObjects");
+	int i = 0;
+	App->is_loaded = true;
+
+	ResetScene();
+
+	while (i !=-1)
+	{ 
+		if (go_scene.IsArraySection(i))
+		{
+			LoadGameObject(go_scene.GetSectionArray(i));
+			i++;
+		}
+		else
+			i = -1;
+		
+	}
+
+	if(!root_object->children.empty())
+		ReorganizeHierarchy();
+	
 	return true;
 }
 
-bool ModuleViewport::LoadGameObject(Scene * scn)
+bool ModuleViewport::LoadGameObject(Scene scn)
 {
-	GameObject* new_obj = CreateGameObject(scn->GetName().c_str());
+	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
+
+	new_obj->SetId(scn.GetDouble("ID"));
+	new_obj->parent_id = scn.GetDouble("ParentID");
+	new_obj->LoadComponents(scn);
+
 	return true;
 }
 
@@ -151,35 +176,67 @@ bool ModuleViewport::LoadGameObject(Scene * scn)
 bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
-
-	Scene go_scene = scene->AddSection("GameObjects");
+	Scene go_scene = scene->AddArray("GameObjects");
+	App->is_loaded = false;
+	
+	int num = 0;
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
-		ret = SaveGameObject(go_scene, *it_child);
+		ret = SaveGameObject(go_scene, *it_child, &num);
 	}
+	num = 0;
 
 	ret = scene->Save("scene_test.json");
-
 	return ret;
 }
 
-bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj)
+bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 {
 	bool ret = true;
-	Scene s_obj = scn.AddSection(obj->GetName().c_str());
+	Scene s_obj = scn.AddSectionArray(*num);
 
-	ret = s_obj.AddUint("ID", obj->GetId());
-	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
+	ret = s_obj.AddString("Name", obj->GetName());
+	ret = s_obj.AddDouble("ID", obj->GetId());
+	ret = s_obj.AddDouble("ParentID", obj->GetParent()->GetId());
 
-	Scene s_comp = s_obj.AddSection("Components");
-	ret = obj->SaveComponents(s_obj);
+	Scene s_comp = s_obj.AddArray("Components");
+	ret = obj->SaveComponents(s_comp);
 	
 	//Iterate Childrens
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
 	{
-		SaveGameObject(scn, *it_child);
+		(*num)++;
+		ret = SaveGameObject(scn, *it_child, num);
 	}
 
+	return ret;
+}
+
+void ModuleViewport::ReorganizeHierarchy()
+{
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end() - 1;)
+	{
+		if ((*it_child)->IsParentID((*(it_child + 1))->parent_id))
+		{
+			(*(it_child + 1))->SetParent(*it_child);
+			root_object->RemoveChild(*(it_child + 1));
+		}
+		else
+			it_child++;
+	}
+}
+
+bool ModuleViewport::ResetScene()
+{
+	selected_object = nullptr;
+
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); ++it_child)
+	{
+		RELEASE(*it_child);
+	}
+
+	root_object->children.clear();
+	
 	return true;
 }
 

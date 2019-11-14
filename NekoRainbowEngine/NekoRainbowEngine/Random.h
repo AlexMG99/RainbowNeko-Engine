@@ -11,6 +11,8 @@ public:
 	uint32 GenerateRandomInt();
 	uint32 GetNumber() const;
 
+	void SetNumber(double num);
+
 private:
 	uint32 number;
 

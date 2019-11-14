@@ -10,6 +10,7 @@
 #include <vector>
 
 class Mesh;
+class Texture;
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
@@ -23,12 +24,11 @@ public:
 	void Disable() {};
 
 	bool OnSave(Scene& scene) const;
-	//bool OnLoad(Scene& scene) const;
+	bool OnLoad(Scene& scene);
 
 	void AddMesh(Mesh* mesh);
 
 	//----- Bounding box -----//
-	void GenerateBoundingBuffers();
 	AABB CreateLocalAABB();
 	AABB GetGlobalAABB();
 	OBB GetOBB();
@@ -70,12 +70,13 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	void GenerateTexture();
+	bool OnSave(Scene& scene) const;
+	bool OnLoad(Scene& scene);
+
+	void AddTexture(Texture* text);
 
 public:
-	uint width = 0, height = 0;
-	uint image_id = 0;
-	std::string path = "";
+	Texture* texture = nullptr;
 };
 
 #endif // !COMPONENTMESH_H_
