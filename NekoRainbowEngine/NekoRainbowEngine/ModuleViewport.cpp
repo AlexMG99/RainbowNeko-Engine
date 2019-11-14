@@ -58,7 +58,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		SaveScene();
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && !App->is_loaded)
 		LoadScene(scene);
 
 
@@ -139,6 +139,7 @@ bool ModuleViewport::LoadScene(Scene* scn)
 {
 	Scene go_scene = scn->GetArray("GameObjects");
 	int i = 0;
+	App->is_loaded = true;
 
 	ResetScene();
 
@@ -176,6 +177,7 @@ bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
 	Scene go_scene = scene->AddArray("GameObjects");
+	App->is_loaded = false;
 	
 	int num = 0;
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
@@ -226,6 +228,8 @@ void ModuleViewport::ReorganizeHierarchy()
 
 bool ModuleViewport::ResetScene()
 {
+	selected_object = nullptr;
+
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); ++it_child)
 	{
 		RELEASE(*it_child);

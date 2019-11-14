@@ -32,6 +32,7 @@ public:
 	int					capped_ms = -1;
 	JSON_Value* settings_doc = nullptr;
 	JSON_Value* credits_doc = nullptr;
+	bool is_loaded = false;
 
 private:
 
