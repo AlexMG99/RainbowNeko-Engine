@@ -117,13 +117,11 @@ Scene Scene::AddSection(const char * name)
 	return GetSection(name);
 }
 
-Scene Scene::AddSectionArray(const char * name, int num)
+Scene Scene::AddSectionArray(int num)
 {
 	JSON_Value *leaf_value = json_value_init_object();
 	JSON_Object* leaf_obj = json_value_get_object(leaf_value);
 	json_array_append_value(array, leaf_value);
-
-	json_object_set_value(leaf_obj, name, leaf_value);
 
 	return Scene(json_value_get_object(json_array_get_value(array, num)));
 }

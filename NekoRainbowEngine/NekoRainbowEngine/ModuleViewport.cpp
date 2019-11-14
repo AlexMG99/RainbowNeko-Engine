@@ -171,14 +171,14 @@ bool ModuleViewport::SaveScene()
 bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 {
 	bool ret = true;
-	Scene s_obj = scn.AddSectionArray(obj->GetName().c_str(), *num);
+	Scene s_obj = scn.AddSectionArray(*num);
 
 	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddUint("ID", obj->GetId());
 	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
 
-	Scene s_comp = s_obj.AddSection("Components");
-	ret = obj->SaveComponents(s_obj);
+	Scene s_comp = s_obj.AddArray("Components");
+	ret = obj->SaveComponents(s_comp);
 	
 	//Iterate Childrens
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)

@@ -39,7 +39,7 @@ public:
 	Scene GetSection(const char* name) const;
 	Scene AddSection(const char* name);
 
-	Scene AddSectionArray(const char * name, int num);
+	Scene AddSectionArray(int num);
 	Scene AddArray(const char* name);
 
 	bool Save(const char* name);
