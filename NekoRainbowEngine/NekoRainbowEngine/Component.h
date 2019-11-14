@@ -16,7 +16,8 @@ enum component_type {
 	COMPONENT_MESH,
 	COMPONENT_TEXTURE,
 	COMPONENT_LIGHT,
-	COMPONENT_CAMERA
+	COMPONENT_CAMERA,
+	COMPONENT_TOTAL
 };
 
 //-------------- Component --------------

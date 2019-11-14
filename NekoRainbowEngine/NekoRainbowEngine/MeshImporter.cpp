@@ -149,11 +149,10 @@ bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 	return true;
 }
 
-ComponentMesh* MeshImporter::Load(const char * exported_file)
+Mesh* MeshImporter::Load(const char * exported_file)
 {
-	GameObject* obj = App->viewport->CreateGameObject(exported_file);
-	ComponentMesh* comp_mesh= (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 	Mesh* mesh = new Mesh();
+	mesh->name = exported_file;
 
 	std::string normalized_path = exported_file;
 	App->fs->NormalizePath(normalized_path);
@@ -199,11 +198,7 @@ ComponentMesh* MeshImporter::Load(const char * exported_file)
 	}
 
 	mesh->GenerateBuffers();
-	comp_mesh->transform = comp_mesh->my_go->GetComponentTransform();
-	comp_mesh->CreateLocalAABB();
-	comp_mesh->GetGlobalAABB();
-	comp_mesh->AddMesh(mesh);
 
 	RELEASE_ARRAY(buffer);
-	return comp_mesh;
+	return mesh;
 }

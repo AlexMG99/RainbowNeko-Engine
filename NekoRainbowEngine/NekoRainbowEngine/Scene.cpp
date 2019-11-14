@@ -146,6 +146,18 @@ Scene Scene::GetSectionArray(int num)
 	return Scene(json_value_get_object(json_array_get_value(array, num)), array);
 }
 
+bool Scene::IsArraySection(int num)
+{
+	bool ret = true;
+	JSON_Value* obj = json_array_get_value(array, num);
+	if (obj)
+		ret = true;
+	else
+		ret = false;
+
+	return ret;
+}
+
 Scene Scene::AddArray(const char* name)
 {
 	JSON_Value* va = json_value_init_array();

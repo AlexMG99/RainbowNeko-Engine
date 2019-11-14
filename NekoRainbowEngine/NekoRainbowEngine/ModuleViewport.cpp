@@ -156,6 +156,7 @@ bool ModuleViewport::LoadScene(Scene* scn)
 bool ModuleViewport::LoadGameObject(Scene scn)
 {
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
+
 	new_obj->SetId(scn.GetDouble("ID"));
 	new_obj->parent_id = scn.GetDouble("ParentID");
 	new_obj->LoadComponents(scn);

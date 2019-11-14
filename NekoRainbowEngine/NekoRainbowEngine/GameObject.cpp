@@ -85,6 +85,13 @@ bool GameObject::SaveComponents(Scene scene)
 bool GameObject::LoadComponents(Scene scene)
 {
 	Scene comp_scene = scene.GetArray("Components");
+
+	for (int i = 1; i < COMPONENT_TOTAL; i++)
+	{
+		if (comp_scene.IsArraySection(i))
+			CreateComponent((component_type)i);
+	}
+	
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
 	{
 		(*it_comp)->OnLoad(comp_scene);

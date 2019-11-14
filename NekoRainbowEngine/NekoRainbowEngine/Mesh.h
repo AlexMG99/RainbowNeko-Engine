@@ -4,6 +4,8 @@
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
 
+class string;
+
 enum buffer_type
 {
 	BUFF_VERTICES,
@@ -35,6 +37,7 @@ public:
 	uint norm_face_size = 0;
 
 	uint buffers[BUFF_TOTAL];
+	std::string name;
 
 	void GenerateBuffers();
 

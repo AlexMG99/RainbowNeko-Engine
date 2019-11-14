@@ -23,12 +23,11 @@ public:
 	void Disable() {};
 
 	bool OnSave(Scene& scene) const;
-	//bool OnLoad(Scene& scene) const;
+	bool OnLoad(Scene& scene);
 
 	void AddMesh(Mesh* mesh);
 
 	//----- Bounding box -----//
-	void GenerateBoundingBuffers();
 	AABB CreateLocalAABB();
 	AABB GetGlobalAABB();
 	OBB GetOBB();

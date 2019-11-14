@@ -43,6 +43,8 @@ public:
 
 	Scene AddSectionArray(int num);
 	Scene GetSectionArray(int num);
+	bool IsArraySection(int num);
+
 	Scene AddArray(const char* name);
 	Scene GetArray(const char* name);
 

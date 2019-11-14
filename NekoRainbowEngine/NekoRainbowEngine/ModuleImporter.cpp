@@ -58,8 +58,14 @@ bool ModuleImporter::ImportFile(const char* path)
 
 	if (extension == "fbx" || extension == "FBX")
 		scene_imp->Import(path);
-	else if (extension == "neko")
-		mesh_imp->Load(path);
+	else if (extension == "neko") 
+	{
+		Mesh* mesh = mesh_imp->Load(path);
+		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
+		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+		comp_mesh->transform = obj->GetComponentTransform();
+		comp_mesh->AddMesh(mesh);
+	}
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
 		texture_imp->Import(path);
 

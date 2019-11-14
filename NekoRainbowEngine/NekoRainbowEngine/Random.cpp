@@ -5,7 +5,6 @@
 
 uint32 Random::GenerateRandomInt()
 {
-
 	pcg_extras::seed_seq_from<std::random_device> seed_source;
 	pcg32 rng(seed_source);
 

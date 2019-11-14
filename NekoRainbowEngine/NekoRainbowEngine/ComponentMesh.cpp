@@ -4,7 +4,9 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "PanelConfiguration.h"
+#include "MeshImporter.h"
 #include "Mesh.h"
+#include "Scene.h"
 
 #include "GL/include/glew.h"
 #include <string>
@@ -32,7 +34,6 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 
@@ -52,6 +53,23 @@ bool ComponentMesh::Update()
 
 bool ComponentMesh::OnSave(Scene & scene) const
 {
+	bool ret = true;
+	Scene mesh_scene = scene.AddSectionArray(1);
+
+	mesh_scene.AddInt("Type", type);
+	mesh_scene.AddString("Mesh", my_go->GetName());
+
+	return ret;
+}
+
+bool ComponentMesh::OnLoad(Scene & scene)
+{
+	Scene mesh_scene = scene.GetSectionArray(1);
+
+	std::string mesh = mesh_scene.GetString("Mesh") + ".neko";
+	transform = my_go->GetComponentTransform();
+	AddMesh(App->importer->mesh_imp->Load(mesh.c_str()));
+
 	return true;
 }
 
