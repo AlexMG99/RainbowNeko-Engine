@@ -33,18 +33,11 @@ bool TextureImporter::Import(const char* path)
 		if(!comp_texture)
 			comp_texture = new ComponentTexture(COMPONENT_TEXTURE, true, App->viewport->selected_object);
 
-		//Load Texture
-		std::string output_file, file, extension, texture_path = path;
-		App->fs->SplitFilePath(texture_path.c_str(), nullptr, &file, &extension);
+		std::string output_file;
 
-		if (extension == "dds" || extension == "DDS")
-			texture = Load(path);
-		else
-		{
-			App->fs->SplitFilePath(texture_path.c_str(), nullptr, &file, &extension);
-			ImportTexture(std::string(file + "." + extension).c_str(), output_file);
-			texture = Load(std::string("." + output_file).c_str());
-		}
+		//Load Texture
+		ImportTexture(path, output_file);
+		texture = Load(std::string("." + output_file).c_str());
 
 		comp_texture->AddTexture(texture);
 
@@ -67,13 +60,20 @@ bool TextureImporter::Import(const char* path)
 void TextureImporter::ImportTexture(const char* path, std::string& output_file)
 {
 	bool ret = true;
-	std::string file_path = ASSETS_FOLDER + std::string(path);
-
+	std::string file, extension, file_path, normalized;
+	App->fs->SplitFilePath(path, nullptr, &file, &extension);
 	ILuint devil_id = 0;
+
+	App->fs->NormalizePath((char*)path);
+	
+	file_path = ASSETS_FOLDER;
+
+	if (App->fs->IsInDirectory("c:", path))
+		file_path = "";
 
 	ilGenImages(1, &devil_id);
 	ilBindImage(devil_id);
-	ilLoadImage(file_path.c_str());
+	ilLoadImage(std::string(file_path + file + "." + extension).c_str());
 
 	ILuint size;
 	ILubyte *data;

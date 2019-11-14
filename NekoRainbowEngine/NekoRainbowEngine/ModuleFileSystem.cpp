@@ -34,7 +34,7 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const c
 
 	// Make sure standard paths exist
 	const char* dirs[] = {
-		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER
+		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER
 	};
 
 	for (uint i = 0; i < sizeof(dirs)/sizeof(const char*); ++i)
@@ -233,6 +233,21 @@ void ModuleFileSystem::NormalizePath(std::string & full_path) const
 		else
 			*it = tolower(*it);
 	}
+}
+
+bool ModuleFileSystem::IsInDirectory(const char * directory, const char * p)
+{
+	bool ret = true;
+	std::string dir = directory;
+	std::string path = p;
+
+	std::size_t found = path.find(dir);
+	if (found != std::string::npos)
+		ret = true;
+	else
+		ret = false;
+
+	return ret;
 }
 
 unsigned int ModuleFileSystem::Load(const char * path, const char * file, char ** buffer) const

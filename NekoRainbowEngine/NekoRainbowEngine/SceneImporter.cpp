@@ -98,13 +98,14 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 			{
 				std::string output_file, file, extension;
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
+				mesh->name = aux_obj->GetName();
 
-				App->importer->texture_imp->ImportTexture(std::string(file + "." + extension).c_str(), output_file);
+				App->importer->texture_imp->ImportTexture(texture_path.C_Str(), output_file);
 				comp_text->AddTexture(App->importer->texture_imp->Load(std::string("." + output_file).c_str()));
 				comp_mesh->image_id = comp_text->texture->image_id;
 			}
 		}
-		App->importer->mesh_imp->SaveMesh(mesh);
+		App->importer->mesh_imp->SaveMesh(mesh, mesh->name.c_str());
 
 		comp_mesh->transform = aux_obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);

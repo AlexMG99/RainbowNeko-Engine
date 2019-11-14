@@ -63,7 +63,7 @@ bool ModuleImporter::ImportFile(const char* path)
 		comp_mesh->transform = obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);
 	}
-	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
+	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
 		texture_imp->Import(path);
 
 	return ret;
