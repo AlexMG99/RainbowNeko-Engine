@@ -10,6 +10,7 @@
 #include "Component.h"
 #include "Scene.h"
 #include "RayCast.h"
+#include "Assimp/include/anim.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -87,7 +88,7 @@ bool ModuleViewport::CleanUp()
 	return true;
 }
 
-bool ModuleViewport::CompareRayCast(RayCast & a, RayCast & b)
+bool CompareRayCast(RayCast & a, RayCast & b)
 {
 	return a.distance < b.distance;
 }
@@ -97,18 +98,47 @@ bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 	this->ray = (*my_ray);
 
 	std::vector<RayCast> scene_obj;
-	BoxIntersection(root_object->transfrom, my_ray, scene_obj);
+	BoxIntersection(root_object, my_ray, scene_obj);
 
+	//It takes the first value, and the last and with them two does the function compare
+	std::sort(scene_obj.begin(), scene_obj.end(), CompareRayCast);
 
-	return false;
+	return TriangleTest(my_ray, scene_obj, hit);
 }
 
-void ModuleViewport::BoxIntersection(ComponentTransform * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
+void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
 {
+	if (obj->active)
+	{
+		if (obj->transfrom->ItIntersect(*ray))
+		{
+			RayCast hit(obj->transfrom);
+			float near_hit, far_hit;
+			if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
+			{
+				hit.distance = near_hit;
+				scene_obj.push_back(hit);
+			}
+		}
+		for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
+		{
+			BoxIntersection((*iter), ray, scene_obj);
+		}
+
+	}
 }
 
 bool ModuleViewport::TriangleTest(LineSegment * ray, std::vector<RayCast>& scene_obj, RayCast & point)
 {
+	/*for (std::vector<RayCast>::iterator iter = scene_obj.begin(); iter != scene_obj.end(); ++iter)
+	{
+		GameObject* mesh = (*iter).trans->my_go->GetComponentMesh();
+		if(mesh)
+		{
+			RayCast hit;
+			if(mesh->)
+		}
+	}*/
 	return false;
 }
 

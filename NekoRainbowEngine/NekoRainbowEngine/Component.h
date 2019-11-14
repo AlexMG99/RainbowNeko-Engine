@@ -5,6 +5,7 @@
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "MathGeoLib/include/Math/Quat.h"
+#include "MathGeoLib/include/Geometry/LineSegment.h"
 
 class GameObject;
 class Scene;
@@ -51,6 +52,8 @@ public:
 	void Enable() {};
 	void Disable() {};
 
+	bool ItIntersect(LineSegment ray);
+
 	bool OnSave(Scene& scene) const;
 	bool OnLoad(Scene& scene) const;
 
@@ -75,6 +78,8 @@ public:
 
 	//Axis
 	float3 X, Y, Z;
+
+	
 };
 
 

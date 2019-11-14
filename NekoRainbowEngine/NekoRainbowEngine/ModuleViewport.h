@@ -23,10 +23,10 @@ public:
 	bool CleanUp();
 
 	//----Intersections----//
-	bool CompareRayCast(RayCast& a, RayCast & b);
+	//bool CompareRayCast(RayCast& a, RayCast & b);
 	bool MyRayCastIntersection(LineSegment* ray, RayCast& hit);
 
-	void BoxIntersection(ComponentTransform* obj, LineSegment* ray, std::vector<RayCast>& scene_obj);
+	void BoxIntersection(GameObject* obj, LineSegment* ray, std::vector<RayCast>& scene_obj);
 	bool TriangleTest(LineSegment* ray, std::vector<RayCast>& scene_obj, RayCast& point );
 
 	
