@@ -21,7 +21,7 @@ public:
 	bool CleanUp();
 
 	bool LoadScene(Scene* scn);
-	bool LoadGameObject(Scene* scn);
+	bool LoadGameObject(Scene scn);
 
 	bool SaveScene();
 	bool SaveGameObject(Scene go_scene, GameObject* obj, int* i);

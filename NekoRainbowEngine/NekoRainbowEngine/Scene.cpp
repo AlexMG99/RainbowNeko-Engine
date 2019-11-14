@@ -36,12 +36,12 @@ Scene::~Scene()
 	json_value_free(vroot);
 }
 
-bool Scene::AddUint(const char* field, uint value)
+bool Scene::AddInt(const char * field, int value)
 {
 	return json_object_set_number(root, field, (double)value) == JSONSuccess;
 }
 
-bool Scene::AddInt(const char * field, int value)
+bool Scene::AddDouble(const char * field, double value)
 {
 	return json_object_set_number(root, field, (double)value) == JSONSuccess;
 }
@@ -52,9 +52,9 @@ bool Scene::AddFloat3(const char * field, float3 value)
 	array = json_value_get_array(va);
 	json_object_set_value(root, field, va);
 
-	json_array_append_number(array, value.x);
-	json_array_append_number(array, value.y);
-	json_array_append_number(array, value.z);
+	json_array_append_number(array, (float)value.x);
+	json_array_append_number(array, (float)value.y);
+	json_array_append_number(array, (float)value.z);
 
 	return true;
 }
@@ -78,15 +78,25 @@ bool Scene::AddString(const char * field, std::string value)
 	return json_object_set_string(root, field, value.c_str()) == JSONSuccess;
 }
 
+int Scene::GetInt(const char * field)
+{
+	return int(json_object_get_number(root, field));
+}
+
+double Scene::GetDouble(const char * field)
+{
+	return double(json_object_get_number(root, field));
+}
+
 float3 Scene::GetFloat3(const char * field)
 {
 	float3 value;
 
-	array = json_object_get_array(root, field);
+	aux_array = json_object_get_array(root, field);
 
-	value.x = json_array_get_number(array, 1);
-	value.y = json_array_get_number(array, 2);
-	value.z = json_array_get_number(array, 3);
+	value.x = (float)json_array_get_number(aux_array, 0);
+	value.y = (float)json_array_get_number(aux_array, 1);
+	value.z = (float)json_array_get_number(aux_array, 2);
 
 	return value;
 }
@@ -95,14 +105,19 @@ Quat Scene::GetQuat(const char * field)
 {
 	Quat value;
 
-	array = json_object_get_array(root, field);
+	aux_array = json_object_get_array(root, field);
 
-	value.x = json_array_get_number(array, 1);
-	value.y = json_array_get_number(array, 2);
-	value.z = json_array_get_number(array, 3);
-	value.w = json_array_get_number(array, 4);
+	value.x = json_array_get_number(aux_array, 0);
+	value.y = json_array_get_number(aux_array, 1);
+	value.z = json_array_get_number(aux_array, 2);
+	value.w = json_array_get_number(aux_array, 3);
 
 	return value;
+}
+
+std::string Scene::GetString(const char * field)
+{
+	return json_object_get_string(root, field);
 }
 
 Scene Scene::GetSection(const char * name) const
@@ -126,12 +141,23 @@ Scene Scene::AddSectionArray(int num)
 	return Scene(json_value_get_object(json_array_get_value(array, num)));
 }
 
+Scene Scene::GetSectionArray(int num)
+{
+	return Scene(json_value_get_object(json_array_get_value(array, num)), array);
+}
+
 Scene Scene::AddArray(const char* name)
 {
 	JSON_Value* va = json_value_init_array();
 	array = json_value_get_array(va);
 	json_object_set_value(root, name, va);
 
+	return Scene(json_value_get_object(vroot), array);
+}
+
+Scene Scene::GetArray(const char * name)
+{
+	array = json_object_get_array(root, name);
 	return Scene(json_value_get_object(vroot), array);
 }
 

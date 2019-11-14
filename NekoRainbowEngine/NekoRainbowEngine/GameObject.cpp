@@ -84,9 +84,10 @@ bool GameObject::SaveComponents(Scene scene)
 
 bool GameObject::LoadComponents(Scene scene)
 {
+	Scene comp_scene = scene.GetArray("Components");
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
 	{
-		(*it_comp)->OnLoad(scene);
+		(*it_comp)->OnLoad(comp_scene);
 	}
 	return true;
 }
@@ -227,6 +228,11 @@ uint32 GameObject::GetId() const
 void GameObject::SetId()
 {
 	id.GenerateRandomInt();
+}
+
+void GameObject::SetId(double id)
+{
+	this->id.SetNumber(id);
 }
 
 std::string GameObject::GetName() const

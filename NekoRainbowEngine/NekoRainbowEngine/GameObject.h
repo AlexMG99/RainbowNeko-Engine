@@ -58,6 +58,7 @@ public:
 
 	uint32 GetId() const;
 	void SetId();
+	void SetId(double id);
 
 	std::string GetName() const;
 	void SetName(const char* name_);
@@ -96,6 +97,8 @@ public:
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;
+
+	uint32 parent_id;
 };
 
 #endif // !_GAMEOBJECT_H_

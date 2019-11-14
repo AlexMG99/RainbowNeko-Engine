@@ -20,3 +20,8 @@ uint32 Random::GetNumber() const
 	return number;
 }
 
+void Random::SetNumber(double num)
+{
+	number = (uint32)num;
+}
+

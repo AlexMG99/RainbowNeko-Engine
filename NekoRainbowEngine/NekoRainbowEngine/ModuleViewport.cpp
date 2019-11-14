@@ -137,13 +137,28 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 bool ModuleViewport::LoadScene(Scene* scn)
 {
-	LoadGameObject(scn);
+	Scene go_scene = scn->GetArray("GameObjects");
+	Scene go;
+	int i = 0;
+
+	while (i !=-1)
+	{ 
+		go = go_scene.GetSectionArray(i);
+		LoadGameObject(go);
+		go = go_scene.GetSectionArray(i+1);
+		LoadGameObject(go);
+		i = -1;
+	}
+	
 	return true;
 }
 
-bool ModuleViewport::LoadGameObject(Scene * scn)
+bool ModuleViewport::LoadGameObject(Scene scn)
 {
-	GameObject* new_obj = CreateGameObject(scn->GetName().c_str());
+	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
+	new_obj->SetId(scn.GetDouble("ID"));
+	new_obj->parent_id = scn.GetDouble("ParentID");
+	new_obj->LoadComponents(scn);
 	return true;
 }
 
@@ -174,8 +189,8 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 	Scene s_obj = scn.AddSectionArray(*num);
 
 	ret = s_obj.AddString("Name", obj->GetName());
-	ret = s_obj.AddUint("ID", obj->GetId());
-	ret = s_obj.AddUint("ParentID", obj->GetParent()->GetId());
+	ret = s_obj.AddDouble("ID", obj->GetId());
+	ret = s_obj.AddDouble("ParentID", obj->GetParent()->GetId());
 
 	Scene s_comp = s_obj.AddArray("Components");
 	ret = obj->SaveComponents(s_comp);

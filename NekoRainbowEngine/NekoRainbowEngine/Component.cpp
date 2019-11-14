@@ -38,9 +38,15 @@ bool ComponentTransform::OnSave(Scene & scene) const
 	return ret;
 }
 
-bool ComponentTransform::OnLoad(Scene & scene) const
+bool ComponentTransform::OnLoad(Scene & scene)
 {
 	bool ret = true;
+	Scene trans_scene = scene.GetSectionArray(0);
+
+	type = (component_type)trans_scene.GetInt("Type");
+	local_position = trans_scene.GetFloat3("Position");
+	local_rotation_euler = trans_scene.GetFloat3("Rotation");
+	local_scale = trans_scene.GetFloat3("Scale");
 
 	return ret;
 }
