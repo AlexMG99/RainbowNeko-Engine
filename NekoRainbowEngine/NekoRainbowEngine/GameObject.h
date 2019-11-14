@@ -52,6 +52,7 @@ public:
 	void AddParent(GameObject* obj);
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);
+	bool IsParentID(uint32 id);
 
 	object_type GetType();
 	void SetType(object_type ty_);

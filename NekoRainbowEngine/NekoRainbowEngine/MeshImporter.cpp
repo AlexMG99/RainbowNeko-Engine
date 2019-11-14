@@ -152,16 +152,13 @@ bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 Mesh* MeshImporter::Load(const char * exported_file)
 {
 	Mesh* mesh = new Mesh();
-	mesh->name = exported_file;
-
-	std::string normalized_path = exported_file;
-	App->fs->NormalizePath(normalized_path);
 
 	std::string extension, file;
-	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
+	App->fs->SplitFilePath(exported_file, nullptr, &file, &extension);
+	mesh->name = file.c_str();
 
 	std::string path = LIBRARY_MESH_FOLDER;
-	path.append(file.c_str());
+	path.append(std::string(file + "." + extension).c_str());
 
 	char* buffer;
 	uint size = App->fs->Load(path.c_str(), &buffer);

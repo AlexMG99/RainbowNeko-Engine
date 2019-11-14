@@ -98,7 +98,7 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 				std::string output_file, file, extension;
 				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
 
-				App->importer->texture_imp->ImportTexture(file.c_str(), output_file);
+				App->importer->texture_imp->ImportTexture(std::string(file + "." + extension).c_str(), output_file);
 				tex = App->importer->texture_imp->Load(std::string("." + output_file).c_str());
 				comp_mesh->image_id = tex->image_id;
 				aux_obj->AddComponent(tex);

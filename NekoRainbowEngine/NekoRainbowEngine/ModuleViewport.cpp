@@ -138,17 +138,21 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 bool ModuleViewport::LoadScene(Scene* scn)
 {
 	Scene go_scene = scn->GetArray("GameObjects");
-	Scene go;
 	int i = 0;
 
 	while (i !=-1)
 	{ 
-		go = go_scene.GetSectionArray(i);
-		LoadGameObject(go);
-		go = go_scene.GetSectionArray(i+1);
-		LoadGameObject(go);
-		i = -1;
+		if (go_scene.IsArraySection(i))
+		{
+			LoadGameObject(go_scene.GetSectionArray(i));
+			i++;
+		}
+		else
+			i = -1;
+		
 	}
+
+	ReorganizeHierarchy();
 	
 	return true;
 }
@@ -160,6 +164,7 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	new_obj->SetId(scn.GetDouble("ID"));
 	new_obj->parent_id = scn.GetDouble("ParentID");
 	new_obj->LoadComponents(scn);
+
 	return true;
 }
 
@@ -167,20 +172,16 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
-
 	Scene go_scene = scene->AddArray("GameObjects");
 	
 	int num = 0;
-
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
 		ret = SaveGameObject(go_scene, *it_child, &num);
 	}
-
 	num = 0;
 
 	ret = scene->Save("scene_test.json");
-
 	return ret;
 }
 
@@ -204,6 +205,20 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 	}
 
 	return ret;
+}
+
+void ModuleViewport::ReorganizeHierarchy()
+{
+	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end() - 1;)
+	{
+		if ((*it_child)->IsParentID((*(it_child + 1))->parent_id))
+		{
+			(*(it_child + 1))->SetParent(*it_child);
+			root_object->RemoveChild(*(it_child + 1));
+		}
+		else
+			it_child++;
+	}
 }
 
 GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* parent, float3 position, float3 scale, Quat rotation)

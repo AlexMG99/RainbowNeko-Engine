@@ -176,7 +176,7 @@ bool GameObject::IsDirectChild(GameObject * obj) const
 
 void GameObject::AddChild(GameObject * obj)
 {
-	children.push_back(obj);
+	obj->SetParent(this);
 }
 
 void GameObject::RemoveChild(GameObject * obj)
@@ -215,6 +215,11 @@ void GameObject::SetParent(GameObject* par)
 		parent = App->viewport->root_object;
 		App->viewport->root_object->children.push_back(this);
 	}
+}
+
+bool GameObject::IsParentID(uint32 id)
+{
+	return (this->id.GetNumber() == id);
 }
 
 object_type GameObject::GetType()

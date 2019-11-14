@@ -39,7 +39,7 @@ bool TextureImporter::Import(const char* path)
 			texture = Load(path);
 		else
 		{
-			ImportTexture(file.c_str(), output_file);
+			ImportTexture(std::string(file + "." + extension).c_str(), output_file);
 			texture = Load(std::string("." + output_file).c_str());
 		}
 
@@ -82,7 +82,6 @@ void TextureImporter::ImportTexture(const char* path, std::string& output_file)
 		{
 			std::string file;
 			App->fs->SplitFilePath(path, nullptr, &file, nullptr);
-			file.erase(file.end() - 4, file.end());
 			output_file = LIBRARY_TEXTURES_FOLDER + file + ".dds";
 			App->fs->Save(output_file.c_str(), data, size);
 		}

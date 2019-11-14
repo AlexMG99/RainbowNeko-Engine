@@ -48,11 +48,8 @@ bool ModuleImporter::ImportFile(const char* path)
 	BROFILER_CATEGORY("ImportFBX_ModuleImporter", Profiler::Color::Yellow);
 	bool ret = true;
 
-	std::string normalized_path = path;
-	App->fs->NormalizePath(normalized_path);
-
-	std::string extension, file;
-	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
+	std::string extension;
+	App->fs->SplitFilePath(path, nullptr, nullptr, &extension);
 
 	std::string output_file;
 
