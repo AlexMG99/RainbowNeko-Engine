@@ -31,6 +31,7 @@ public:
 	void GenerateBoundingBuffers();
 	AABB CreateLocalAABB();
 	AABB GetGlobalAABB();
+	AABB GetAABB();
 	OBB GetOBB();
 
 	//-------- Render--------//
@@ -59,6 +60,10 @@ public:
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
+
+private:
+	AABB aabb;
+	
 
 };
 

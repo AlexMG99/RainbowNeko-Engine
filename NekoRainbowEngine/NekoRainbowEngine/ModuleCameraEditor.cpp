@@ -94,7 +94,11 @@ update_status ModuleEditorCamera::Update(float dt)
 		picking = camera->frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
 		
 		RayCast ray;
-		/*if(App->viewport->)*/
+
+		if (App->viewport->MyRayCastIntersection(&picking, ray))
+		{
+			lul->SetSelected(ray.trans);
+		}
 
 		
 

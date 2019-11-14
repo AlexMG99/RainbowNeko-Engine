@@ -89,6 +89,10 @@ OBB ComponentMesh::GetOBB()
 	return global_OBB;
 }
 
+
+
+
+
 AABB ComponentMesh::GetGlobalAABB()
 {
 	AABB global_AABB;
@@ -109,6 +113,11 @@ AABB ComponentMesh::GetGlobalAABB()
 	7,5, 3,1 };
 
 	return global_AABB;
+}
+
+AABB ComponentMesh::GetAABB()
+{
+	return aabb;
 }
 
 void ComponentMesh::RenderFill()

@@ -94,6 +94,7 @@ public:
 	bool show_obb = false;
 
 	ComponentTransform* transfrom;
+	ComponentMesh *mesh;
 
 	std::vector<GameObject*>	children;
 	bool selected = false;

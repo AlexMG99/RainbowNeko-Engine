@@ -37,7 +37,7 @@ private:
 	void Move(float motion_x, float motion_y);
 	void Orbit(float motion_x, float motion_y);
 	void Zoom(float zoom);
-	void CreatingRay(float norm_x, float norm_y);
+	
 
 public:
 	float move_speed = 10.0f;
@@ -46,6 +46,7 @@ public:
 	float zoom_speed = 150.0f;
 
 	LineSegment picking;
+	GameObject* lul;
 
 private:
 	float3 looking_point;
