@@ -74,7 +74,6 @@ void ComponentMesh::AddMesh(Mesh * mesh)
 {
 	this->mesh = mesh;
 	CreateLocalAABB();
-	my_go->global_OBB = my_go->GetOBB();
 	my_go->global_AABB = my_go->GetGlobalAABB();
 	my_go->GenerateBoundingBuffers();
 

@@ -76,6 +76,8 @@ public:
 
 	void CreateTransformAABB();
 
+	void CleanVertices();
+
 private:
 	object_type type = OBJECT_NONE;
 	std::string name = "Object Null";

@@ -349,7 +349,7 @@ void GameObject::DrawBB()
 
 OBB GameObject::GetOBB()
 {
-	OBB global_OBB = local_AABB;
+	global_OBB = local_AABB;
 	global_OBB.Transform(GetComponentTransform()->GetGlobalTransformMatrix());
 
 	//Get Vertex and Index
@@ -365,7 +365,6 @@ OBB GameObject::GetOBB()
 
 AABB GameObject::GetGlobalAABB()
 {
-	AABB global_AABB;
 	global_AABB.SetNegativeInfinity();
 	global_AABB.Enclose(GetOBB());
 
@@ -387,6 +386,40 @@ AABB GameObject::GetGlobalAABB()
 
 void GameObject::UpdateBB()
 {
+	CleanVertices();
+
+	glDeleteBuffers(1, &id_vertexAABB);
+	glDeleteBuffers(1, &id_indexBB);
+	glDeleteBuffers(1, &id_vertexOBB);
+
+	GetGlobalAABB();
+
+	if (parent && parent != App->viewport->root_object)
+	{
+		parent->CreateTransformAABB();
+	}
+
+	GenerateBoundingBuffers();
+}
+
+void GameObject::CreateTransformAABB()
+{
+	local_AABB.SetNegativeInfinity();
+
+	for (auto it_child = children.rbegin(); it_child != children.rend(); it_child++)
+	{
+		local_AABB.Enclose((*it_child)->global_AABB);
+	}
+
+	CleanVertices();
+
+	GetGlobalAABB();
+	GenerateBoundingBuffers();
+
+}
+
+void GameObject::CleanVertices()
+{
 	for (int i = 0; i < vertices_AABB.size();)
 	{
 		vertices_AABB.pop_back();
@@ -398,26 +431,6 @@ void GameObject::UpdateBB()
 		vertices_OBB.pop_back();
 	}
 	vertices_OBB.clear();
-
-	GetGlobalAABB();
-
-	glDeleteBuffers(1, &id_vertexAABB);
-	glDeleteBuffers(1, &id_indexBB);
-	glDeleteBuffers(1, &id_vertexOBB);
-
-	GenerateBoundingBuffers();
-}
-
-void GameObject::CreateTransformAABB()
-{
-	for (auto it_child = children.rbegin(); it_child != children.rend(); it_child++)
-	{
-		local_AABB.Enclose((*it_child)->global_AABB);
-	}
-
-	GetGlobalAABB();
-	GenerateBoundingBuffers();
-
 }
 
 

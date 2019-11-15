@@ -117,8 +117,6 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 
 		comp_mesh->transform = aux_obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);
-		comp_mesh->CreateLocalAABB();
-		aux_obj->GetGlobalAABB();
 	}
 	else
 		aux_obj = parent;
