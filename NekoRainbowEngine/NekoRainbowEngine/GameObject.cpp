@@ -35,7 +35,8 @@ bool GameObject::Update()
 			(*it_comp)->Update();
 	}
 
-	DrawBB();
+	if (show_aabb || show_obb)
+		DrawBB();
 
 	return true;
 }
@@ -346,6 +347,44 @@ void GameObject::DrawBB()
 	glLineWidth(1);
 }
 
+OBB GameObject::GetOBB()
+{
+	OBB global_OBB = local_AABB;
+	global_OBB.Transform(GetComponentTransform()->GetGlobalTransformMatrix());
+
+	//Get Vertex and Index
+	float3* aux_vertices = new float3[8];
+	global_OBB.GetCornerPoints(aux_vertices);
+	for (int i = 0; i < 8; i++)
+	{
+		vertices_OBB.push_back(aux_vertices[i]);
+	}
+
+	return global_OBB;
+}
+
+AABB GameObject::GetGlobalAABB()
+{
+	AABB global_AABB;
+	global_AABB.SetNegativeInfinity();
+	global_AABB.Enclose(GetOBB());
+
+	//Get Vertex and Index
+	float3* aux_vertices = new float3[8];
+	global_AABB.GetCornerPoints(aux_vertices);
+	for (int i = 0; i < 8; i++)
+	{
+		vertices_AABB.push_back(aux_vertices[i]);
+	}
+	index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
+	3,2, 2,0, 0,1, 1,3,
+	7,6, 6,2, 2,3, 3,7,
+	6,4, 2,0,
+	7,5, 3,1 };
+
+	return global_AABB;
+}
+
 void GameObject::UpdateBB()
 {
 	for (int i = 0; i < vertices_AABB.size();)
@@ -360,7 +399,7 @@ void GameObject::UpdateBB()
 	}
 	vertices_OBB.clear();
 
-	GetComponentMesh()->GetGlobalAABB();
+	GetGlobalAABB();
 
 	glDeleteBuffers(1, &id_vertexAABB);
 	glDeleteBuffers(1, &id_indexBB);
@@ -368,4 +407,17 @@ void GameObject::UpdateBB()
 
 	GenerateBoundingBuffers();
 }
+
+void GameObject::CreateTransformAABB()
+{
+	for (auto it_child = children.rbegin(); it_child != children.rend(); it_child++)
+	{
+		local_AABB.Enclose((*it_child)->global_AABB);
+	}
+
+	GetGlobalAABB();
+	GenerateBoundingBuffers();
+
+}
+
 

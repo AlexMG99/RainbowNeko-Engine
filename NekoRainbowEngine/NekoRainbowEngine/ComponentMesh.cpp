@@ -74,8 +74,8 @@ void ComponentMesh::AddMesh(Mesh * mesh)
 {
 	this->mesh = mesh;
 	CreateLocalAABB();
-	my_go->global_OBB = GetOBB();
-	my_go->global_AABB = GetGlobalAABB();
+	my_go->global_OBB = my_go->GetOBB();
+	my_go->global_AABB = my_go->GetGlobalAABB();
 	my_go->GenerateBoundingBuffers();
 
 }
@@ -88,52 +88,6 @@ AABB ComponentMesh::CreateLocalAABB()
 	return my_go->local_AABB;
 }
 
-OBB ComponentMesh::GetOBB()
-{
-	OBB global_OBB = my_go->local_AABB;
-	global_OBB.Transform(transform->GetGlobalTransformMatrix());
-
-	//Get Vertex and Index
-	float3* aux_vertices = new float3[8];
-	global_OBB.GetCornerPoints(aux_vertices);
-	for (int i = 0; i < 8; i++)
-	{
-		my_go->vertices_OBB.push_back(aux_vertices[i]);
-	}
-
-	return global_OBB;
-}
-
-
-
-
-
-AABB ComponentMesh::GetGlobalAABB()
-{
-	AABB global_AABB;
-	global_AABB.SetNegativeInfinity();
-	global_AABB.Enclose(GetOBB());
-
-	//Get Vertex and Index
-	float3* aux_vertices = new float3[8];
-	global_AABB.GetCornerPoints(aux_vertices);
-	for (int i = 0; i < 8; i++)
-	{
-		my_go->vertices_AABB.push_back(aux_vertices[i]);
-	}
-	my_go->index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
-	3,2, 2,0, 0,1, 1,3,
-	7,6, 6,2, 2,3, 3,7,
-	6,4, 2,0,
-	7,5, 3,1 };
-
-	return global_AABB;
-}
-
-AABB ComponentMesh::GetAABB()
-{
-	return aabb;
-}
 
 void ComponentMesh::RenderFill()
 {

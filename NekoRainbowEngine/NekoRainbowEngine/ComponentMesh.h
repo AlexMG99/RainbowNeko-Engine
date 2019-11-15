@@ -30,9 +30,6 @@ public:
 
 	//----- Bounding box -----//
 	AABB CreateLocalAABB();
-	AABB GetGlobalAABB();
-	AABB GetAABB();
-	OBB GetOBB();
 
 	//-------- Render--------//
 	void RenderFill();
@@ -60,10 +57,6 @@ public:
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
-
-private:
-	AABB aabb;
-	
 
 };
 

@@ -97,7 +97,7 @@ update_status ModuleEditorCamera::Update(float dt)
 
 		if (App->viewport->MyRayCastIntersection(&picking, ray))
 		{
-			lul->SetSelected(ray.trans);
+			picked_obj->SetSelected(ray.trans);
 		}
 
 		

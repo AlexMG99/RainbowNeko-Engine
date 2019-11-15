@@ -46,7 +46,7 @@ public:
 	float zoom_speed = 150.0f;
 
 	LineSegment picking;
-	GameObject* lul;
+	GameObject* picked_obj;
 
 private:
 	float3 looking_point;

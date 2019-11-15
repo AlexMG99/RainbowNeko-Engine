@@ -62,6 +62,8 @@ bool SceneImporter::Import(const char * path)
 	else
 		LOG("Error loading FBX with path: %s", path);
 
+	fbx_obj->CreateTransformAABB();
+
 	aiReleaseImport(scene);
 	App->camera->FocusObject(*(fbx_obj->children.begin()));
 	return ret;
@@ -116,7 +118,7 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 		comp_mesh->transform = aux_obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);
 		comp_mesh->CreateLocalAABB();
-		comp_mesh->GetGlobalAABB();
+		aux_obj->GetGlobalAABB();
 	}
 	else
 		aux_obj = parent;

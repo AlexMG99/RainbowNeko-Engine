@@ -69,7 +69,12 @@ public:
 	//Bounding Box
 	void GenerateBoundingBuffers();
 	void DrawBB();
+	OBB GetOBB();
+	AABB GetGlobalAABB();
+
 	void UpdateBB();
+
+	void CreateTransformAABB();
 
 private:
 	object_type type = OBJECT_NONE;

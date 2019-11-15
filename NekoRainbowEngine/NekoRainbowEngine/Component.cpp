@@ -28,7 +28,7 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::ItIntersect(LineSegment ray)
 {
-	AABB inter_box = my_go->mesh->GetAABB();
+	/*AABB inter_box = my_go->local_AABB;
 	if (inter_box.IsFinite())
 	{
 		return ray.Intersects(inter_box);
@@ -36,7 +36,8 @@ bool ComponentTransform::ItIntersect(LineSegment ray)
 	else
 	{
 	return false;
-	}
+	}*/
+	return true;
 }
 
 bool ComponentTransform::OnSave(Scene & scene) const
@@ -100,9 +101,8 @@ void ComponentTransform::UpdateComponents()
 	}
 
 	ComponentMesh* mesh = my_go->GetComponentMesh();
-	
-	if(mesh)
-		my_go->UpdateBB();
+
+	my_go->UpdateBB();
 
 	ComponentCamera* camera = my_go->GetComponentCamera();
 	if (camera)

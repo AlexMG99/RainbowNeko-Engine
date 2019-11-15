@@ -46,6 +46,11 @@ update_status PanelInspector::Draw()
 				comp_trans->UpdateComponents();
 			}
 
+			ImGui::Text("Bounding Boxes:");
+			ImGui::Checkbox("Show AABB", &object->show_aabb);
+			ImGui::Checkbox("Show OBB", &object->show_obb);
+			//ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
+
 			ImGui::Separator();
 		}
 
@@ -63,11 +68,6 @@ update_status PanelInspector::Draw()
 			ImGui::Text("Num indices: %i", comp_mesh->mesh->index_size);
 			ImGui::Text("Id uv: %i", comp_mesh->mesh->buffers[BUFF_UV]);
 			
-			ImGui::Separator();
-			ImGui::Text("Bounding Boxes:");
-			ImGui::Checkbox("Show AABB", &object->show_aabb);
-			ImGui::Checkbox("Show OBB", &object->show_obb);
-			ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
 			ImGui::Separator();
 
 			ImGui::Text("Mode: ");
