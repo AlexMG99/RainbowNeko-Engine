@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "Mesh.h"
+#include "Texture.h"
 #include "ComponentCamera.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"
@@ -41,6 +42,7 @@ update_status PanelInspector::Draw()
 				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
 				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
 			{
+				App->is_loaded = false;
 				comp_trans->UpdateComponents();
 			}
 
@@ -93,10 +95,10 @@ update_status PanelInspector::Draw()
 			{
 				ImGui::PushID("Texture");
 				ImGui::Checkbox("Active", &comp_texture->active);
-				ImGui::Text("Path: %s", comp_texture->path.c_str());
-				ImGui::Text("Id texture: %i", comp_texture->image_id);
-				ImGui::Text("W: %i		H: %i", comp_texture->width, comp_texture->height);
-				ImGui::Image((ImTextureID)comp_texture->image_id, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
+				ImGui::Text("Path: %s", comp_texture->texture->path.c_str());
+				ImGui::Text("Id texture: %i", comp_texture->texture->image_id);
+				ImGui::Text("W: %i		H: %i", comp_texture->texture->width, comp_texture->texture->height);
+				ImGui::Image((ImTextureID)comp_texture->texture->image_id, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
 				ImGui::PopID();
 				ImGui::Separator();
 			}

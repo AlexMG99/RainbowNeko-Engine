@@ -48,19 +48,22 @@ bool ModuleImporter::ImportFile(const char* path)
 	BROFILER_CATEGORY("ImportFBX_ModuleImporter", Profiler::Color::Yellow);
 	bool ret = true;
 
-	std::string normalized_path = path;
-	App->fs->NormalizePath(normalized_path);
-
-	std::string extension, file;
-	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
+	std::string extension;
+	App->fs->SplitFilePath(path, nullptr, nullptr, &extension);
 
 	std::string output_file;
 
 	if (extension == "fbx" || extension == "FBX")
 		scene_imp->Import(path);
-	else if (extension == "neko")
-		mesh_imp->Load(path);
-	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG")
+	else if (extension == "neko") 
+	{
+		Mesh* mesh = mesh_imp->Load(path);
+		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
+		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
+		comp_mesh->transform = obj->GetComponentTransform();
+		comp_mesh->AddMesh(mesh);
+	}
+	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
 		texture_imp->Import(path);
 
 	return ret;

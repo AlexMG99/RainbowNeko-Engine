@@ -17,7 +17,8 @@ enum component_type {
 	COMPONENT_MESH,
 	COMPONENT_TEXTURE,
 	COMPONENT_LIGHT,
-	COMPONENT_CAMERA
+	COMPONENT_CAMERA,
+	COMPONENT_TOTAL
 };
 
 //-------------- Component --------------
@@ -33,7 +34,7 @@ public:
 	virtual void Disable() {};
 
 	virtual bool OnSave(Scene& scene) const { return true; };
-	virtual bool OnLoad(Scene& scene) const { return true; };
+	virtual bool OnLoad(Scene& scene) { return true; };
 
 public:
 	component_type type = COMPONENT_NONE;
@@ -55,7 +56,7 @@ public:
 	bool ItIntersect(LineSegment ray);
 
 	bool OnSave(Scene& scene) const;
-	bool OnLoad(Scene& scene) const;
+	bool OnLoad(Scene& scene);
 
 	float4x4 GetGlobalTransformMatrix();
 	void CalculateGlobalAxis();

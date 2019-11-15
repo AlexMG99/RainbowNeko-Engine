@@ -30,7 +30,6 @@ public:
 
 	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true);
-	void AddComponent(Component* comp);
 
 	bool SaveComponents(Scene scene);
 	bool LoadComponents(Scene scene);
@@ -52,12 +51,14 @@ public:
 	void AddParent(GameObject* obj);
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);
+	bool IsParentID(uint32 id);
 
 	object_type GetType();
 	void SetType(object_type ty_);
 
 	uint32 GetId() const;
 	void SetId();
+	void SetId(double id);
 
 	std::string GetName() const;
 	void SetName(const char* name_);
@@ -99,6 +100,8 @@ public:
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;
+
+	uint32 parent_id;
 };
 
 #endif // !_GAMEOBJECT_H_

@@ -4,15 +4,14 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "PanelConfiguration.h"
+#include "TextureImporter.h"
+#include "MeshImporter.h"
 #include "Mesh.h"
+#include "Texture.h"
+#include "Scene.h"
 
 #include "GL/include/glew.h"
 #include <string>
-
-//-------------- Devil --------------
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
 
 ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj)
 {
@@ -32,7 +31,6 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 
@@ -52,6 +50,23 @@ bool ComponentMesh::Update()
 
 bool ComponentMesh::OnSave(Scene & scene) const
 {
+	bool ret = true;
+	Scene mesh_scene = scene.AddSectionArray(type);
+
+	mesh_scene.AddInt("Type", type);
+	mesh_scene.AddString("Mesh", my_go->GetName());
+
+	return ret;
+}
+
+bool ComponentMesh::OnLoad(Scene & scene)
+{
+	Scene mesh_scene = scene.GetSectionArray(type);
+
+	std::string mesh = mesh_scene.GetString("Mesh") + ".neko";
+	transform = my_go->GetComponentTransform();
+	AddMesh(App->importer->mesh_imp->Load(mesh.c_str()));
+
 	return true;
 }
 
@@ -215,7 +230,7 @@ void ComponentMesh::RenderPoint()
 
 	glEnable(GL_POINT_SMOOTH);
 	glPointSize(point_size);
-	//Render FBX Mesh
+
 	glColor3f(vertex_color.x, vertex_color.y, vertex_color.z);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
@@ -261,19 +276,32 @@ void ComponentMesh::DrawSelectedOutline()
 
 }
 
-void ComponentTexture::GenerateTexture()
+bool ComponentTexture::OnSave(Scene & scene) const
 {
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glBindTexture(GL_TEXTURE_2D, image_id);
+	bool ret = true;
+	Scene texture_scene = scene.AddSectionArray(type);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	ret = texture_scene.AddInt("Type", type);
+	ret = texture_scene.AddString("Path", texture->path.c_str());
 
-	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
-		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
+	return ret;
+}
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+bool ComponentTexture::OnLoad(Scene & scene)
+{
+	bool ret = true;
+	Scene texture_scene = scene.AddSectionArray(type);
+
+	type = (component_type)texture_scene.GetInt("Type");
+
+	AddTexture(App->importer->texture_imp->Load(texture_scene.GetString("Path").c_str()));
+
+	my_go->GetComponentMesh()->image_id = texture->image_id;
+
+	return ret;
+}
+
+void ComponentTexture::AddTexture(Texture * text)
+{
+	texture = text;
 }

@@ -75,7 +75,7 @@ Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
 
 void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 {
-	mesh->normals_vertex = new float3[aimesh->mNumVertices];
+	/*mesh->normals_vertex = new float3[aimesh->mNumVertices];
 	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
 
 	std::vector<float3> normal_face;
@@ -105,7 +105,7 @@ void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 	}
 
 	mesh->normals_vertex = new float3[mesh->norm_face_size];
-	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);
+	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
 }
 
 bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
@@ -149,20 +149,16 @@ bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 	return true;
 }
 
-ComponentMesh* MeshImporter::Load(const char * exported_file)
+Mesh* MeshImporter::Load(const char * exported_file)
 {
-	GameObject* obj = App->viewport->CreateGameObject(exported_file);
-	ComponentMesh* comp_mesh= (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 	Mesh* mesh = new Mesh();
 
-	std::string normalized_path = exported_file;
-	App->fs->NormalizePath(normalized_path);
-
 	std::string extension, file;
-	App->fs->SplitFilePath(normalized_path.c_str(), nullptr, &file, &extension);
+	App->fs->SplitFilePath(exported_file, nullptr, &file, &extension);
+	mesh->name = file.c_str();
 
 	std::string path = LIBRARY_MESH_FOLDER;
-	path.append(file.c_str());
+	path.append(std::string(file + "." + extension).c_str());
 
 	char* buffer;
 	uint size = App->fs->Load(path.c_str(), &buffer);
@@ -199,11 +195,7 @@ ComponentMesh* MeshImporter::Load(const char * exported_file)
 	}
 
 	mesh->GenerateBuffers();
-	comp_mesh->transform = comp_mesh->my_go->GetComponentTransform();
-	comp_mesh->CreateLocalAABB();
-	comp_mesh->GetGlobalAABB();
-	comp_mesh->AddMesh(mesh);
 
 	RELEASE_ARRAY(buffer);
-	return comp_mesh;
+	return mesh;
 }

@@ -20,7 +20,7 @@ public:
 	Mesh* Import(const aiScene* scene, const aiMesh* aimesh);
 	bool SaveMesh(Mesh* mesh, const char* name = "mesh");
 
-	ComponentMesh* Load(const char* exported_file);
+	Mesh* Load(const char* exported_file);
 	//ComponentMesh* LoadPrimitive(PRIMITIVE_TYPE type);
 
 	void CalculateNormalFace(Mesh* mesh, const aiMesh* aimesh);

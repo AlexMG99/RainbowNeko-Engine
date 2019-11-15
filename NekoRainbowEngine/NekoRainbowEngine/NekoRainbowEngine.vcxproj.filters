@@ -250,6 +250,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -671,6 +674,9 @@
     </ClInclude>
     <ClInclude Include="RayCast.h">
       <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Sources\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
