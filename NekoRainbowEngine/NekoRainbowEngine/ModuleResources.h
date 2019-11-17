@@ -7,6 +7,7 @@
 
 typedef unsigned __int32 uint32;
 class Random;
+class ResourceMesh;
 
 class ModuleResources: public Module 
 {
@@ -20,8 +21,10 @@ public:
 	Random ImportFile(const char* file_assets, resource_type type);
 	Random GenerateNewID();
 	const Resource* Get(Random id) const;
-	Resource* Get(Random id);
+	Resource* Get(uint32 id);
 	Resource* CreateNewResource(resource_type type);
+
+	ResourceMesh* ImportMesh(uint32 id, const char* path);
 
 private:
 	std::map<uint32, Resource*> resources;

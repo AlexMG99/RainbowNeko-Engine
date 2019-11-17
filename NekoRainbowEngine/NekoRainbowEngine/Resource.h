@@ -10,12 +10,14 @@ enum resource_type
 {
 	RESOURCE_MESH,
 	RESOURCE_TEXTURE,
-	RESOURCE_SCENE,
+	RESOURCE_MODEL,
 	RESOURCE_TOTAL
 };
 
 class Resource
 {
+	friend class ModuleResources;
+
 public:
 	Resource()
 	{

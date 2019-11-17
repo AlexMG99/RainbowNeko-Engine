@@ -1,7 +1,12 @@
+#include "Application.h"
+#include "ModuleResources.h"
+#include "ModuleImporter.h"
+#include "MeshImporter.h"
 #include "Globals.h"
 #include "ResourceMesh.h"
 
 #include "GL/include/glew.h"
+#include "Assimp/include/mesh.h"                                                                                                 
 #include "MathGeoLib/include/Math/float2.h"
 
 ResourceMesh::ResourceMesh():Resource()
@@ -52,6 +57,34 @@ void ResourceMesh::GenerateBuffers()
 }
 
 ResourceMesh::~ResourceMesh()
+{
+	RELEASE_ARRAY(UV_coord);
+	RELEASE_ARRAY(normals_face);
+	RELEASE_ARRAY(normals_vertex);
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(index);
+
+	glDeleteBuffers(1, &buffers[BUFF_INDEX]);
+	glDeleteBuffers(1, &buffers[BUFF_VERTICES]);
+	glDeleteBuffers(1, &buffers[BUFF_NORMAL]);
+	glDeleteBuffers(1, &buffers[BUFF_NORMAL_FACE]);
+	glDeleteBuffers(1, &buffers[BUFF_UV]);
+}
+
+Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
+{
+	ResourceMesh* resource_mesh = (ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH);
+	
+	resource_mesh->name = mesh->mName.C_Str();
+	resource_mesh = App->importer->mesh_imp->Import(mesh);
+	App->importer->mesh_imp->SaveMesh(resource_mesh);
+	
+	resource_mesh->ReleaseFromMemory();
+
+	return resource_mesh->GetID();
+}
+
+void ResourceMesh::ReleaseFromMemory() 
 {
 	RELEASE_ARRAY(UV_coord);
 	RELEASE_ARRAY(normals_face);

@@ -23,73 +23,57 @@ bool TextureImporter::Init()
 
 bool TextureImporter::Import(const char* path, std::string output_file)
 {
-	//BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
+	bool ret = false;
 
-	if (App->viewport->selected_object) {
-		ComponentMesh* comp_mesh = App->viewport->selected_object->GetComponentMesh();
-		ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
-		Texture* texture;
-		
-		if(!comp_texture)
-			comp_texture = new ComponentTexture(COMPONENT_TEXTURE, true, App->viewport->selected_object);
+	char* buffer = nullptr;
+	uint size = App->fs->Load(path, &buffer);
+
+	if (buffer)
+		ret = ImportTexture(buffer, size, path, output_file);
 
 		//Load Texture
-		ImportTexture(path, output_file);
-		texture = Load(std::string("." + output_file).c_str());
+		ImportTexture(buffer, size, path, output_file);
+		Load(std::string("." + output_file).c_str());
 
-		comp_texture->AddTexture(texture);
 
-		if (comp_mesh)
-			comp_mesh->image_id = texture->image_id;
-		else
-		{
-			LOG("The object does not have a MESH! Create one or select another object.");
-			App->viewport->selected_object->DeleteComponent(comp_texture);
-		}
+
+	return ret;
+}
+
+bool TextureImporter::ImportTexture(const void * buffer, uint size, const char* path, std::string& output_file)
+{
+	bool ret = true;
+
+	std::string file, extension;
+	App->fs->SplitFilePath(path, nullptr, &file, &extension);
+
+	if (extension == "DDS" || extension == "dds")
+	{
+		ret = App->fs->SaveUnique(output_file, buffer, size, LIBRARY_TEXTURES_FOLDER, nullptr, "dds");
 	}
 	else
 	{
-		LOG("Warning! Object no selected. Please, select an object.");
-	}
+		ILuint devil_id = 0;
+		ilGenImages(1, &devil_id);
+		ilBindImage(devil_id);
 
-	return true;
-}
-
-void TextureImporter::ImportTexture(const char* path, std::string& output_file)
-{
-	bool ret = true;
-	std::string file, extension;
-	App->fs->SplitFilePath(path, nullptr, &file, &extension);
-	ILuint devil_id = 0;
-
-	App->fs->NormalizePath((char*)path);
-	
-
-	ilGenImages(1, &devil_id);
-	ilBindImage(devil_id);
-
-	if (App->fs->IsInDirectory("c:", path))
-		ret = ilLoadImage(path);
-	else
-		ilLoadImage(std::string(ASSETS_FOLDER + file + "." + extension).c_str());
-
-	ILuint size;
-	ILubyte *data;
-	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
-	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
-	if (size > 0) {
-		data = new ILubyte[size]; // allocate data buffer
-		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+		if (ilLoadImage(path))
 		{
-			std::string file, extension;
-			App->fs->SplitFilePath(path, nullptr, &file, &extension);
-			output_file = LIBRARY_TEXTURES_FOLDER + file + ".dds";
-			App->fs->Save(output_file.c_str(), data, size);
+			ILuint size;
+			ILubyte *data;
+			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+			size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+			if (size > 0) {
+				data = new ILubyte[size]; // allocate data buffer
+				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+				{
+					ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, nullptr, "dds");
+				}
+				RELEASE_ARRAY(data);
+			}
+			ilDeleteImages(1, &devil_id);
 		}
-		RELEASE_ARRAY(data);
 	}
-
-	ilDeleteImages(1, &devil_id);
 }
 
 

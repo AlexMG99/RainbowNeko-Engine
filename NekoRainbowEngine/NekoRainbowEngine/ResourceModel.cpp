@@ -1,12 +1,6 @@
-#include "Application.h"
-#include "ModuleImporter.h"
-#include "SceneImporter.h"
-#include "GameObject.h"
-#include "ComponentMesh.h"
-#include "MeshImporter.h"
-#include "TextureImporter.h"
+#include "ResourceModel.h"
+#include "ResourceTexture.h"
 #include "ResourceMesh.h"
-#include "Texture.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -19,31 +13,37 @@
 
 #include "MathGeoLib/include/Math/Quat.h"
 
-bool SceneImporter::Init()
-{
-	struct aiLogStream stream;
-	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	stream.callback = LogCallback;
-	aiAttachLogStream(&stream);
+//bool SceneImporter::Init()
+//{
+//	struct aiLogStream stream;
+//	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+//	stream.callback = LogCallback;
+//	aiAttachLogStream(&stream);
+//
+//	return true;
+//}
+//
+//bool SceneImporter::CleanUp()
+//{
+//	aiDetachAllLogStreams();
+//	return true;
+//}
 
-	return true;
-}
-
-bool SceneImporter::CleanUp()
-{
-	aiDetachAllLogStreams();
-	return true;
-}
-
-bool SceneImporter::Import(const char * path, std::string output_file)
+bool ResourceModel::ImportModel(const char * path, std::string output_file)
 {
 	bool ret = true;
 
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
-	const aiNode* node;
 
 	if (scene)
-		node = scene->mRootNode;
+	{
+		ResourceModel model;
+
+		std::vector<Random> materials, meshes;
+
+		model.GenerateTexture(scene, path, materials);
+		model.GenerateMeshes(scene, path, meshes);
+	}
 	else
 	{
 		LOG("The Object does not have an scene. It won't be load");
@@ -90,28 +90,9 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
 		ComponentTexture* comp_text = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-		ResourceMesh* mesh = App->importer->mesh_imp->Import(scene, aimesh);
+		ResourceMesh* mesh = 
 		mesh->name = aux_obj->GetName();
 
-		//Load Material
-		if (aimesh->mMaterialIndex >= 0)
-		{
-			aiString texture_path;
-			scene->mMaterials[aimesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-			if (texture_path.length > 0)
-			{
-				std::string output_file, file, extension;
-				App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file, &extension);
-
-				App->importer->texture_imp->ImportTexture(texture_path.C_Str(), output_file);
-				comp_text->AddTexture(App->importer->texture_imp->Load(std::string("." + output_file).c_str()));
-				comp_mesh->image_id = comp_text->texture->image_id;
-			}
-			else
-				aux_obj->DeleteComponent(comp_text);
-		}
-		else
-			aux_obj->DeleteComponent(comp_text);
 
 		App->importer->mesh_imp->SaveMesh(mesh, mesh->name.c_str());
 
@@ -142,5 +123,25 @@ void LogCallback(const char* text, char* data)
 	{
 		temp_string2 = temp_string.substr(pos + 1);
 		LOG(temp_string2.c_str());
+	}
+}
+
+void ResourceModel::GenerateTexture(const aiScene* scene, const char* file, std::vector<Random>& materials)
+{
+	materials.reserve(scene->mNumMaterials);
+
+	for (unsigned i = 0; i < scene->mNumMaterials; ++i)
+	{
+		materials.push_back(ResourceTexture::Import(scene->mMaterials[i], file));
+	}
+}
+
+void ResourceModel::GenerateMeshes(const aiScene* scene, const char* file, std::vector<Random>& meshes)
+{
+	meshes.reserve(scene->mNumMeshes);
+
+	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+	{
+		meshes.push_back(ResourceMesh::Import(scene->mMeshes[i], file));
 	}
 }

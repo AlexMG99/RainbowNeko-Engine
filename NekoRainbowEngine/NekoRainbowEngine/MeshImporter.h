@@ -17,8 +17,8 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	ResourceMesh* Import(const aiScene* scene, const aiMesh* aimesh);
-	bool SaveMesh(ResourceMesh* mesh, const char* name = "mesh");
+	ResourceMesh* Import(const aiMesh* aimesh);
+	bool SaveMesh(ResourceMesh* mesh);
 
 	ResourceMesh* Load(const char* exported_file);
 	//ComponentMesh* LoadPrimitive(PRIMITIVE_TYPE type);

@@ -25,7 +25,7 @@ bool MeshImporter::CleanUp()
 	return true;
 }
 
-ResourceMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
+ResourceMesh* MeshImporter::Import(const aiMesh * aimesh)
 {
 	ResourceMesh* mesh = new ResourceMesh();
 
@@ -108,7 +108,7 @@ void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimes
 	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
 }
 
-bool MeshImporter::SaveMesh(ResourceMesh * mesh, const char* name)
+bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
 	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
@@ -141,9 +141,7 @@ bool MeshImporter::SaveMesh(ResourceMesh * mesh, const char* name)
 		cursor += bytes;
 	}
 
-	std::string mesh_name = LIBRARY_MESH_FOLDER;
-	mesh_name += name;
-	uint ret = App->fs->Save(std::string(mesh_name + ".neko").c_str(), data, size);
+	uint ret = App->fs->Save(mesh->name.c_str(), data, size);
 
 	RELEASE_ARRAY(data);
 	return true;

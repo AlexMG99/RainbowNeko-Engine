@@ -2,7 +2,10 @@
 #define _RESOURCE_MESH_H_
 
 #include "Resource.h"
+#include "Random.h"
 #include "MathGeoLib/include/Math/float3.h"
+
+class aiMesh;
 
 enum buffer_type
 {
@@ -21,7 +24,11 @@ public:
 	ResourceMesh(Random id);
 	~ResourceMesh();
 
+	Random Import(const aiMesh* mesh, const char* source_file);
 	void GenerateBuffers();
+
+private:
+	void ReleaseFromMemory();
 
 public:
 	//Index

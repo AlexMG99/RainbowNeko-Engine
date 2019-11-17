@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleViewport.h"
+#include "ModuleResources.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
@@ -54,7 +55,9 @@ bool ComponentMesh::OnSave(Scene & scene) const
 	Scene mesh_scene = scene.AddSectionArray(type);
 
 	mesh_scene.AddInt("Type", type);
-	mesh_scene.AddString("Mesh", my_go->GetName());
+	mesh_scene.AddInt("Resource", mesh->ID.GetNumber());
+	mesh_scene.AddString("Mesh", mesh->GetFile());
+	mesh_scene.AddString("Mesh1", mesh->GetImportedFile());
 
 	return ret;
 }
@@ -63,9 +66,9 @@ bool ComponentMesh::OnLoad(Scene & scene)
 {
 	Scene mesh_scene = scene.GetSectionArray(type);
 
-	std::string mesh = mesh_scene.GetString("Mesh") + ".neko";
+	std::string mesh = mesh_scene.GetString("Mesh");
 	transform = my_go->GetComponentTransform();
-	AddMesh(App->importer->mesh_imp->Load(mesh.c_str()));
+	AddMesh(App->resources->ImportMesh(mesh_scene.GetInt("Resource"), mesh_scene.GetString("Mesh").c_str()));
 
 	return true;
 }

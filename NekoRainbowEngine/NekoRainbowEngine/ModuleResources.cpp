@@ -7,7 +7,7 @@
 #include "MeshImporter.h"
 #include "Random.h"
 #include "ResourceMesh.h"
-#include "ResourceScene.h"
+#include "ResourceModel.h"
 
 ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -23,7 +23,6 @@ bool ModuleResources::CleanUp()
 
 uint32 ModuleResources::Find(const char * file)
 {
-
 	std::string file_str(file);
 	App->fs->NormalizePath(file_str);
 
@@ -52,8 +51,8 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	case resource_type::RESOURCE_TEXTURE:
 		import_ok = App->importer->texture_imp->Import(file_assets, output_file);
 		break;
-	case resource_type::RESOURCE_SCENE:
-		import_ok = App->importer->scene_imp->Import(file_assets, output_file);
+	case resource_type::RESOURCE_MODEL:
+		import_ok = ResourceModel::ImportModel(file_assets, output_file);
 		break;
 	case resource_type::RESOURCE_MESH:
 		import_ok = App->importer->mesh_imp->Load(file_assets);
@@ -81,9 +80,9 @@ const Resource * ModuleResources::Get(Random id) const
 	return nullptr;
 }
 
-Resource* ModuleResources::Get(Random id)
+Resource* ModuleResources::Get(uint32 id)
 {
-	std::map<uint32, Resource*>::iterator it_res = resources.find(id.GetNumber());
+	std::map<uint32, Resource*>::iterator it_res = resources.find(id);
 	if (it_res != resources.end())
 		return it_res->second;
 
@@ -104,8 +103,8 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 	case resource_type::RESOURCE_TEXTURE:
 		//res = (Resource*)new ResourceTexture(id);
 		break;
-	case resource_type::RESOURCE_SCENE:
-		res = (Resource*)new ResourceScene(id);
+	case resource_type::RESOURCE_MODEL:
+		res = (Resource*)new ResourceModel(id);
 		break;
 	}
 
@@ -113,4 +112,15 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 		resources[id.GetNumber()] = res;
 
 	return res;
+}
+
+ResourceMesh * ModuleResources::ImportMesh(uint32 id, const char* path)
+{
+	Resource* resource_mesh = Get(id);
+	if(resource_mesh)
+		return (ResourceMesh*)resource_mesh;
+	
+	Random new_id = ImportFile(path, RESOURCE_MESH);
+
+	resource_mesh = Get(new_id.GetNumber());
 }

@@ -15,7 +15,6 @@
 
 #include"Brofiler/Brofiler.h"
 
-#include "SceneImporter.h"
 #include "MeshImporter.h"
 #include "TextureImporter.h"
 
@@ -33,11 +32,9 @@ bool ModuleImporter::Init()
 {
 	BROFILER_CATEGORY("Init_ModuleImporter", Profiler::Color::Crimson);
 
-	scene_imp = new SceneImporter();
 	mesh_imp = new MeshImporter();
 	texture_imp = new TextureImporter();
 
-	scene_imp->Init();
 	mesh_imp->Init();
 	texture_imp->Init();
 
@@ -55,7 +52,7 @@ bool ModuleImporter::ImportFile(const char* path)
 	std::string output_file;
 
 	if (extension == "fbx" || extension == "FBX")
-		App->resources->ImportFile(path, resource_type::RESOURCE_SCENE);
+		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL);
 	else if (extension == "neko")
 	{
 		ResourceMesh* mesh = mesh_imp->Load(path);

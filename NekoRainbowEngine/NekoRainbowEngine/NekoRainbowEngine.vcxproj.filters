@@ -220,9 +220,6 @@
     <ClCompile Include="MeshImporter.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="SceneImporter.cpp">
-      <Filter>Sources\Importer</Filter>
-    </ClCompile>
     <ClCompile Include="TextureImporter.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
@@ -256,6 +253,10 @@
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Sources\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceModel.cpp">
+      <Filter>Sources\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -639,9 +640,6 @@
     <ClInclude Include="MeshImporter.h">
       <Filter>Sources\Importer</Filter>
     </ClInclude>
-    <ClInclude Include="SceneImporter.h">
-      <Filter>Sources\Importer</Filter>
-    </ClInclude>
     <ClInclude Include="TextureImporter.h">
       <Filter>Sources\Importer</Filter>
     </ClInclude>
@@ -687,7 +685,10 @@
     <ClInclude Include="ResourceMesh.h">
       <Filter>Sources\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceScene.h">
+    <ClInclude Include="ResourceModel.h">
+      <Filter>Sources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
       <Filter>Sources\Resource</Filter>
     </ClInclude>
   </ItemGroup>
