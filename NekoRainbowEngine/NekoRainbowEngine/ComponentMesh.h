@@ -6,6 +6,7 @@
 #include "glmath.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
+#include "RayCast.h"
 
 #include <vector>
 
@@ -25,6 +26,7 @@ public:
 
 	bool OnSave(Scene& scene) const;
 	bool OnLoad(Scene& scene);
+	bool Intersect(LineSegment* ray, RayCast& hit);
 
 	void AddMesh(Mesh* mesh);
 

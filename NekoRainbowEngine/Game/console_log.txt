@@ -5,32 +5,32 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: Quadro FX 580/PCIe/SSE2
-OpenGL version supported 3.3.0
-GLSL: 3.30 NVIDIA via Cg compiler
+Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 431.60
+GLSL: 4.60 NVIDIA
 
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T10068: Load ./Assets/BakerHouse.fbx
+  T21476: Load ./Assets/BakerHouse.fbx
 
-  T10068: Found a matching importer for this file format: Autodesk FBX Importer.
+  T21476: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T10068: Import root directory is './Assets\'
+  T21476: Import root directory is './Assets\'
 
-  T10068: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T21476: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T10068: Entering post processing pipeline
+  T21476: Entering post processing pipeline
 
-  T10068: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T21476: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T10068: CalcTangentsProcess finished. Tangents have been calculated
+  T21476: CalcTangentsProcess finished. Tangents have been calculated
 
-  T10068: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T21476: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T10068: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T21476: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T10068: Leaving post processing pipeline
+  T21476: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 3 and id index: 4
@@ -43,83 +43,11 @@ Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Loading Editor Scene
 -------------- Application Update --------------
 
-Mouse Pos: 312.000000, 56.000000
-Normalized Mouse Pos: 0.984271, 0.176664
-Mouse Pos: 1566.000000, 87.000000
-Normalized Mouse Pos: 0.998460, 0.055470
-Mouse Pos: 1546.000000, 203.000000
-Normalized Mouse Pos: 0.991489, 0.130189
-Mouse Pos: 356.000000, 81.000000
-Normalized Mouse Pos: 0.975079, 0.221858
-Mouse Pos: 1531.000000, 208.000000
-Normalized Mouse Pos: 0.990897, 0.134622
-Mouse Pos: 385.000000, 94.000000
-Normalized Mouse Pos: 0.971464, 0.237189
-Mouse Pos: 1561.000000, 206.000000
-Normalized Mouse Pos: 0.991404, 0.130832
-Mouse Pos: 1557.000000, 122.000000
-Normalized Mouse Pos: 0.996944, 0.078116
-Mouse Pos: 1636.000000, 115.000000
-Normalized Mouse Pos: 0.997539, 0.070120
-Mouse Pos: 1710.000000, 117.000000
-Normalized Mouse Pos: 0.997667, 0.068261
-Mouse Pos: 1355.000000, 251.000000
-Normalized Mouse Pos: 0.983272, 0.182141
-Mouse Pos: 1750.000000, 111.000000
-Normalized Mouse Pos: 0.997994, 0.063301
-Mouse Pos: 1631.000000, 115.000000
-Normalized Mouse Pos: 0.997523, 0.070334
-Mouse Pos: 1702.000000, 118.000000
-Normalized Mouse Pos: 0.997605, 0.069164
-Mouse Pos: 1401.000000, 302.000000
-Normalized Mouse Pos: 0.977546, 0.210720
-Mouse Pos: 1735.000000, 122.000000
-Normalized Mouse Pos: 0.997537, 0.070144
-Mouse Pos: 1573.000000, 119.000000
-Normalized Mouse Pos: 0.997151, 0.075436
-Mouse Pos: 1642.000000, 117.000000
-Normalized Mouse Pos: 0.997471, 0.071074
-Mouse Pos: 944.000000, 273.000000
-Normalized Mouse Pos: 0.960636, 0.277811
-Mouse Pos: 345.000000, 93.000000
-Normalized Mouse Pos: 0.965535, 0.260275
-Mouse Pos: 329.000000, 74.000000
-Normalized Mouse Pos: 0.975626, 0.219442
-Mouse Pos: 399.000000, 73.000000
-Normalized Mouse Pos: 0.983672, 0.179970
-Mouse Pos: 401.000000, 65.000000
-Normalized Mouse Pos: 0.987116, 0.160006
-Mouse Pos: 1536.000000, 194.000000
-Normalized Mouse Pos: 0.992118, 0.125307
-Mouse Pos: 1536.000000, 194.000000
-Normalized Mouse Pos: 0.992118, 0.125307
-Mouse Pos: 1536.000000, 194.000000
-Normalized Mouse Pos: 0.992118, 0.125307
-Mouse Pos: 1536.000000, 194.000000
-Normalized Mouse Pos: 0.992118, 0.125307
-Mouse Pos: 387.000000, 97.000000
-Normalized Mouse Pos: 0.969995, 0.243125
-Mouse Pos: 1521.000000, 207.000000
-Normalized Mouse Pos: 0.990866, 0.134852
-Mouse Pos: 1521.000000, 207.000000
-Normalized Mouse Pos: 0.990866, 0.134852
-Mouse Pos: 368.000000, 75.000000
-Normalized Mouse Pos: 0.979857, 0.199699
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
-Mouse Pos: 1530.000000, 204.000000
-Normalized Mouse Pos: 0.991228, 0.132164
+Mouse Pos: 1136.000000, 311.000000
+Normalized Mouse Pos: 0.964509, 0.264051
+Mouse Pos: 1133.000000, 311.000000
+Normalized Mouse Pos: 0.964330, 0.264701
+Mouse Pos: 1115.000000, 384.000000
+Normalized Mouse Pos: 0.945499, 0.325625
+Mouse Pos: 1115.000000, 400.000000
+Normalized Mouse Pos: 0.941263, 0.337673

@@ -28,16 +28,17 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::ItIntersect(LineSegment ray)
 {
-	/*AABB inter_box = my_go->local_AABB;
-	if (inter_box.IsFinite())
-	{
-		return ray.Intersects(inter_box);
-	}
-	else
-	{
-	return false;
-	}*/
-	return true;
+	
+		AABB inter_box = my_go->local_AABB;
+		if (inter_box.IsFinite())
+		{
+			return ray.Intersects(inter_box);
+		}
+		else
+		{
+			return false;
+		}
+	
 }
 
 bool ComponentTransform::OnSave(Scene & scene) const

@@ -8,6 +8,7 @@
 #include "ModuleImporter.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentMesh.h"
 #include "Scene.h"
 #include "RayCast.h"
 #include "Assimp/include/anim.h"
@@ -100,7 +101,7 @@ bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 	this->ray = (*my_ray);
 
 	std::vector<RayCast> scene_obj;
-	BoxIntersection(root_object, my_ray, scene_obj);
+	/*BoxIntersection(root_object, my_ray, scene_obj);*/
 
 	//It takes the first value, and the last and with them two does the function compare
 	std::sort(scene_obj.begin(), scene_obj.end(), CompareRayCast);
@@ -110,16 +111,18 @@ bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 
 void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
 {
-	if (obj->active)
+	/*if (obj->GetComponentTransform() != nullptr)
 	{
-		if (obj->transfrom->ItIntersect(*ray))
-		{
-			RayCast hit(obj->transfrom);
-			float near_hit, far_hit;
-			if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
+		if (obj->GetName() != "Root Object") {
+			if (obj->transfrom->ItIntersect(*ray))
 			{
-				hit.distance = near_hit;
-				scene_obj.push_back(hit);
+				RayCast hit(obj->transfrom);
+				float near_hit, far_hit;
+				if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
+				{
+					hit.distance = near_hit;
+					scene_obj.push_back(hit);
+				}
 			}
 		}
 		for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
@@ -127,20 +130,23 @@ void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::v
 			BoxIntersection((*iter), ray, scene_obj);
 		}
 
-	}
+	}*/
 }
 
 bool ModuleViewport::TriangleTest(LineSegment * ray, std::vector<RayCast>& scene_obj, RayCast & point)
 {
-	/*for (std::vector<RayCast>::iterator iter = scene_obj.begin(); iter != scene_obj.end(); ++iter)
+	for (std::vector<RayCast>::iterator iter = scene_obj.begin(); iter != scene_obj.end(); ++iter)
 	{
-		GameObject* mesh = (*iter).trans->my_go->GetComponentMesh();
+		ComponentMesh* mesh = (*iter).trans->my_go->GetComponentMesh();
 		if(mesh)
 		{
 			RayCast hit;
-			if(mesh->)
+			if (mesh->Intersect(ray, hit)) {
+				point = hit;
+				return true;
+			}
 		}
-	}*/
+	}
 	return false;
 }
 

@@ -70,6 +70,27 @@ bool ComponentMesh::OnLoad(Scene & scene)
 	return true;
 }
 
+bool ComponentMesh::Intersect(LineSegment * ray, RayCast & hit)
+{
+	//Lets see if the ray intersects with the triangle mesh
+	/*bool ret = false;
+	hit.trans = nullptr;
+	LineSegment locray((*ray));
+
+	locray.Transform(my_go->transfrom->GetGlobalTransformMatrix().Inverted());
+
+	for (int i = 0; i < mesh->index_size; i += 3)
+	{
+		Triangle triangle(mesh->vertices[mesh->index[i]], mesh->vertices[mesh->index[i + 1]], mesh->vertices[mesh->index[i + 2]]);
+		RayCast nhit(my_go->transfrom);
+
+
+
+	}*/
+
+	return false;
+}
+
 void ComponentMesh::AddMesh(Mesh * mesh)
 {
 	this->mesh = mesh;
