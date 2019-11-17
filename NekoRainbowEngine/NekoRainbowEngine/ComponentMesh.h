@@ -9,7 +9,7 @@
 
 #include <vector>
 
-class Mesh;
+class ResourceMesh;
 class Texture;
 
 //-------------- Component Mesh --------------
@@ -26,7 +26,7 @@ public:
 	bool OnSave(Scene& scene) const;
 	bool OnLoad(Scene& scene);
 
-	void AddMesh(Mesh* mesh);
+	void AddMesh(ResourceMesh* mesh);
 
 	//----- Bounding box -----//
 	AABB CreateLocalAABB();
@@ -39,7 +39,7 @@ public:
 	void DrawSelectedOutline();
 
 public:
-	Mesh* mesh = nullptr;
+	ResourceMesh* mesh = nullptr;
 
 	uint image_id = -1;
 

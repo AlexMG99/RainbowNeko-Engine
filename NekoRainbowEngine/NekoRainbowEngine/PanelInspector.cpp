@@ -4,7 +4,7 @@
 #include "ModuleViewport.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
 #include "Texture.h"
 #include "ComponentCamera.h"
 #include "imgui/imgui.h"

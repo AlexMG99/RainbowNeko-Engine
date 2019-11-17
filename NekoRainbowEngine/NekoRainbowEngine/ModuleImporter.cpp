@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
 #include "PanelConsole.h"
 #include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
@@ -58,7 +58,7 @@ bool ModuleImporter::ImportFile(const char* path)
 		App->resources->ImportFile(path, resource_type::RESOURCE_SCENE);
 	else if (extension == "neko")
 	{
-		Mesh* mesh = mesh_imp->Load(path);
+		ResourceMesh* mesh = mesh_imp->Load(path);
 		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
 		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 		comp_mesh->transform = obj->GetComponentTransform();
@@ -141,7 +141,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	Mesh* mesh = new Mesh();
+	ResourceMesh* mesh = new ResourceMesh();
 
 	//Load Normals
 	if (shape->normals)

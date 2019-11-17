@@ -3,6 +3,7 @@
 #include "ComponentMesh.h"
 #include "GameObject.h"
 #include "MeshImporter.h"
+#include "ResourceMesh.h"
 
 #include <string>
 
@@ -12,7 +13,6 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 #include "MathGeoLib/include/Math/float2.h"
-#include "Mesh.h"
 
 bool MeshImporter::Init()
 {
@@ -25,9 +25,9 @@ bool MeshImporter::CleanUp()
 	return true;
 }
 
-Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
+ResourceMesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
 {
-	Mesh* mesh = new Mesh();
+	ResourceMesh* mesh = new ResourceMesh();
 
 	//Vertices Load
 	mesh->vertices_size = aimesh->mNumVertices;
@@ -73,7 +73,7 @@ Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
 	return mesh;
 }
 
-void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
+void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimesh)
 {
 	/*mesh->normals_vertex = new float3[aimesh->mNumVertices];
 	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
@@ -108,7 +108,7 @@ void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
 }
 
-bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
+bool MeshImporter::SaveMesh(ResourceMesh * mesh, const char* name)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
 	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
@@ -149,9 +149,9 @@ bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 	return true;
 }
 
-Mesh* MeshImporter::Load(const char * exported_file)
+ResourceMesh* MeshImporter::Load(const char * exported_file)
 {
-	Mesh* mesh = new Mesh();
+	ResourceMesh* mesh = new ResourceMesh();
 
 	std::string extension, file;
 	App->fs->SplitFilePath(exported_file, nullptr, &file, &extension);

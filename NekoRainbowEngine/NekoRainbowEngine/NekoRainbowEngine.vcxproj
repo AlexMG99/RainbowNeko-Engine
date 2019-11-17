@@ -109,7 +109,6 @@
     <ClInclude Include="imGuizmo\ImGuizmo.h" />
     <ClInclude Include="imGuizmo\ImSequencer.h" />
     <ClInclude Include="Importer.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
@@ -212,6 +211,7 @@
     <ClInclude Include="RayCast.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
+    <ClInclude Include="ResourceScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneImporter.h" />
     <ClInclude Include="Texture.h" />
@@ -275,7 +275,6 @@
     <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
-    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCameraEditor.cpp" />

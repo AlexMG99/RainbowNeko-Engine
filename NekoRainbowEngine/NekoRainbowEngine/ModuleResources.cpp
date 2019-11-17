@@ -7,6 +7,7 @@
 #include "MeshImporter.h"
 #include "Random.h"
 #include "ResourceMesh.h"
+#include "ResourceScene.h"
 
 ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -54,18 +55,18 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	case resource_type::RESOURCE_SCENE:
 		import_ok = App->importer->scene_imp->Import(file_assets, output_file);
 		break;
-	/*case resource_type::RESOURCE_MESH:
+	case resource_type::RESOURCE_MESH:
 		import_ok = App->importer->mesh_imp->Load(file_assets);
-		break;*/
+		break;
 	}
 
-	//if (import_ok)
-	//{
-	//	Resource* res = CreateNewResource(type);
-	//	res->file = file_assets;
-	//	res->imported_file = output_file;
-	//	id = res->ID;
-	//}
+	if (import_ok)
+	{
+		Resource* res = CreateNewResource(type);
+		res->file = file_assets;
+		res->imported_file = output_file;
+		id = res->ID;
+	}
 
 	return id;
 }
@@ -104,7 +105,7 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 		//res = (Resource*)new ResourceTexture(id);
 		break;
 	case resource_type::RESOURCE_SCENE:
-		//res = (Resource*)new ResourceScene(id);
+		res = (Resource*)new ResourceScene(id);
 		break;
 	}
 

@@ -6,7 +6,7 @@
 #include "PanelConfiguration.h"
 #include "TextureImporter.h"
 #include "MeshImporter.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
 #include "Texture.h"
 #include "Scene.h"
 
@@ -70,7 +70,7 @@ bool ComponentMesh::OnLoad(Scene & scene)
 	return true;
 }
 
-void ComponentMesh::AddMesh(Mesh * mesh)
+void ComponentMesh::AddMesh(ResourceMesh * mesh)
 {
 	this->mesh = mesh;
 	CreateLocalAABB();

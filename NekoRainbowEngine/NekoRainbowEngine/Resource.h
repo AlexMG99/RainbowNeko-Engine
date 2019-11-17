@@ -17,13 +17,18 @@ enum resource_type
 class Resource
 {
 public:
-	Resource::Resource(Random id, resource_type type)
+	Resource()
 	{
 		ID.GenerateRandomInt();
+	}
+	Resource(Random id, resource_type type)
+	{
+		ID = id;
 		this->type = type;
 	}
 
-	~Resource();
+	~Resource() {};
+
 	resource_type GetType() const
 	{
 		return type;

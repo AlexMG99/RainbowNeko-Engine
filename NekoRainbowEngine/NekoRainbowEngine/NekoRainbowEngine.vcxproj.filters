@@ -247,16 +247,15 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceMesh.cpp" />
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Sources\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -673,9 +672,6 @@
     <ClInclude Include="Globals.h">
       <Filter>Sources\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="RayCast.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
@@ -689,6 +685,9 @@
       <Filter>Sources\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMesh.h">
+      <Filter>Sources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceScene.h">
       <Filter>Sources\Resource</Filter>
     </ClInclude>
   </ItemGroup>

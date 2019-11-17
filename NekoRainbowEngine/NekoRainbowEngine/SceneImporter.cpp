@@ -5,7 +5,7 @@
 #include "ComponentMesh.h"
 #include "MeshImporter.h"
 #include "TextureImporter.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
 #include "Texture.h"
 
 //-------------- Assimp --------------
@@ -90,7 +90,7 @@ void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const c
 		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
 		ComponentTexture* comp_text = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
 		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-		Mesh* mesh = App->importer->mesh_imp->Import(scene, aimesh);
+		ResourceMesh* mesh = App->importer->mesh_imp->Import(scene, aimesh);
 		mesh->name = aux_obj->GetName();
 
 		//Load Material
