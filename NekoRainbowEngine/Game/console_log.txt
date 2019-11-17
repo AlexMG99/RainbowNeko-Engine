@@ -12,25 +12,25 @@ GLSL: 4.60 NVIDIA
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T21476: Load ./Assets/BakerHouse.fbx
+  T7288: Load ./Assets/BakerHouse.fbx
 
-  T21476: Found a matching importer for this file format: Autodesk FBX Importer.
+  T7288: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T21476: Import root directory is './Assets\'
+  T7288: Import root directory is './Assets\'
 
-  T21476: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T7288: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T21476: Entering post processing pipeline
+  T7288: Entering post processing pipeline
 
-  T21476: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T7288: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T21476: CalcTangentsProcess finished. Tangents have been calculated
+  T7288: CalcTangentsProcess finished. Tangents have been calculated
 
-  T21476: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T7288: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T21476: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T7288: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T21476: Leaving post processing pipeline
+  T7288: Leaving post processing pipeline
 
 New mesh with 160 vertices
 Generated mesh with id vertex: 3 and id index: 4
@@ -42,12 +42,3 @@ Loaded mesh file succesfully!
 Loaded with path: ./Library/Textures/baker_house.dds succesfully!
 Loading Editor Scene
 -------------- Application Update --------------
-
-Mouse Pos: 1136.000000, 311.000000
-Normalized Mouse Pos: 0.964509, 0.264051
-Mouse Pos: 1133.000000, 311.000000
-Normalized Mouse Pos: 0.964330, 0.264701
-Mouse Pos: 1115.000000, 384.000000
-Normalized Mouse Pos: 0.945499, 0.325625
-Mouse Pos: 1115.000000, 400.000000
-Normalized Mouse Pos: 0.941263, 0.337673

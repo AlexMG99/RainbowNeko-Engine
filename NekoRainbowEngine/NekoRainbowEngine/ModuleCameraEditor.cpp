@@ -3,6 +3,7 @@
 #include "GL/include/glew.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleCameraEditor.h"
+#include "PanelGame.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "RayCast.h"
@@ -84,15 +85,42 @@ update_status ModuleEditorCamera::Update(float dt)
 	}
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+		/*float width = (float)App->window->GetWinSize().x;
+		float height = (float)App->window->GetWinSize().y;
+
+		int mousex_pos, mousey_pos;
+		mousex_pos = App->input->GetMouseX();
+		mousey_pos = App->input->GetMouseY();
+
+
+		float norm_mouse_x = -(1.0f - (float(mousex_pos)*2.0f) / width);
+		float norm_mouse_y = 1.0 - (float(mousey_pos)*2.0f / height);*/
 		
-		vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
+		float2 dockingpos = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX)/App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY)/ App->editor->panel_game->height );
+
+		dockingpos.x = (dockingpos.x - 0.5F) * 2;
+		dockingpos.y = -(dockingpos.y - 0.5F) * 2;
+
+		/*if (dockingpos.x > 1 || dockingpos.x < -1 || dockingpos.y > 1 || dockingpos.y < -1)
+			return;*/
+		
+	/*	vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
 		LOG("Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
 		mouse_pos = normalize(mouse_pos);
-		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
+		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);*/
 
-
-		picking = camera->frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
+		picking = scene_camera->frustum.UnProjectLineSegment(dockingpos.x, dockingpos.y);
+		/*picking = scene_camera->frustum.UnProjectLineSegment(norm_mouse_x, norm_mouse_y);*/
 		
+		drawraycast = true;
+		
+		/*if (drawraycast)
+		{
+			DrawSegmentRay();
+		}*/
+
+
 		RayCast ray;
 
 		if (App->viewport->MyRayCastIntersection(&picking, ray))
@@ -101,8 +129,10 @@ update_status ModuleEditorCamera::Update(float dt)
 		}
 
 		
-
 	}
+	if (drawraycast)
+		DrawSegmentRay();
+
 
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
@@ -245,4 +275,19 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 	}
 
 	camera->UpdateFrustum(true);
+}
+
+void ModuleEditorCamera::DrawSegmentRay()
+{
+	glLineWidth(805.0f);
+	
+	glBegin(GL_LINES);
+
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
+	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+
+
+	glEnd();
 }
