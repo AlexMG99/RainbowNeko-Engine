@@ -35,7 +35,7 @@ bool SceneImporter::CleanUp()
 	return true;
 }
 
-bool SceneImporter::Import(const char * path)
+bool SceneImporter::Import(const char * path, std::string output_file)
 {
 	bool ret = true;
 

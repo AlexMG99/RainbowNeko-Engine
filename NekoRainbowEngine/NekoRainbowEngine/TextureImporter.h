@@ -13,7 +13,7 @@ public:
 
 	bool Init();
 
-	bool Import(const char* path);
+	bool Import(const char* path, std::string output_file);
 	void ImportTexture(const char* path, std::string &output_file);
 	Texture* Load(const char* file);
 

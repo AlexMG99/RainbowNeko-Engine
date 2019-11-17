@@ -3,6 +3,11 @@
 #include "PCG/pcg_random.hpp"
 #include "PCG/pcg_extras.hpp"
 
+Random::Random(uint32 num)
+{
+	number = num;
+}
+
 uint32 Random::GenerateRandomInt()
 {
 	pcg_extras::seed_seq_from<std::random_device> seed_source;

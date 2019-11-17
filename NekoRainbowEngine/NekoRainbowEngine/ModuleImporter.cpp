@@ -2,6 +2,7 @@
 #include "GL/include/glew.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "ModuleResources.h"
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
@@ -54,8 +55,8 @@ bool ModuleImporter::ImportFile(const char* path)
 	std::string output_file;
 
 	if (extension == "fbx" || extension == "FBX")
-		scene_imp->Import(path);
-	else if (extension == "neko") 
+		App->resources->ImportFile(path, resource_type::RESOURCE_SCENE);
+	else if (extension == "neko")
 	{
 		Mesh* mesh = mesh_imp->Load(path);
 		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
@@ -64,7 +65,7 @@ bool ModuleImporter::ImportFile(const char* path)
 		comp_mesh->AddMesh(mesh);
 	}
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
-		texture_imp->Import(path);
+		App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE);
 
 	return ret;
 }

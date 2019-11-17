@@ -13,6 +13,7 @@
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "ModuleResources.h"
 
 typedef struct json_value_t  JSON_Value;
 struct ConsoleText;
@@ -28,6 +29,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleEditorCamera* camera;
 	ModuleImporter* importer;
+	ModuleResources* resources;
 
 	int					capped_ms = -1;
 	JSON_Value* settings_doc = nullptr;

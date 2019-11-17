@@ -6,6 +6,7 @@
 struct Random {
 public:
 	Random() {};
+	Random(uint32 num);
 	~Random() {};
 
 	uint32 GenerateRandomInt();

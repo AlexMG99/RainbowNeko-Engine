@@ -7,6 +7,7 @@
 class aiNode;
 class aiScene;
 class GameObject;
+class string;
 
 class SceneImporter :public Importer {
 public:
@@ -16,7 +17,7 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	bool Import(const char* path);
+	bool Import(const char* path, std::string output_file);
 	bool Load(const char* exported_file, GameObject* resource) {};
 
 private:

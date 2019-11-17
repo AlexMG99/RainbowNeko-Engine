@@ -1,0 +1,31 @@
+#ifndef _MODULE_RESOURCES_H_
+#define _MODULE_RESOURCES_H_
+
+#include "Module.h"
+#include "Resource.h"
+#include <map>
+
+typedef unsigned __int32 uint32;
+class Random;
+
+class ModuleResources: public Module 
+{
+public:
+	ModuleResources(Application* app, bool start_enabled = true);
+	~ModuleResources();
+
+	bool CleanUp();
+
+	uint32 Find(const char* file);
+	Random ImportFile(const char* file_assets, resource_type type);
+	Random GenerateNewID();
+	const Resource* Get(Random id) const;
+	Resource* Get(Random id);
+	Resource* CreateNewResource(resource_type type);
+
+private:
+	std::map<uint32, Resource*> resources;
+};
+
+
+#endif // !_MODULE_RESOURCES_H_

@@ -21,7 +21,7 @@ bool TextureImporter::Init()
 	return true;
 }
 
-bool TextureImporter::Import(const char* path)
+bool TextureImporter::Import(const char* path, std::string output_file)
 {
 	//BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
 
@@ -32,8 +32,6 @@ bool TextureImporter::Import(const char* path)
 		
 		if(!comp_texture)
 			comp_texture = new ComponentTexture(COMPONENT_TEXTURE, true, App->viewport->selected_object);
-
-		std::string output_file;
 
 		//Load Texture
 		ImportTexture(path, output_file);
