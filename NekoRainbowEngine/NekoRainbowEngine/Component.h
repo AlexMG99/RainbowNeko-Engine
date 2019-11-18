@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "MathGeoLib/include/Math/Quat.h"
 #include "MathGeoLib/include/Geometry/LineSegment.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 class GameObject;
 class Scene;
@@ -59,6 +60,9 @@ public:
 	bool OnLoad(Scene& scene);
 
 	float4x4 GetGlobalTransformMatrix();
+	void RecalculateTransformMatrix();
+
+	void SetLocalTransform(float4x4 & t_matrix);
 	void CalculateGlobalAxis();
 
 	void UpdateComponents();
@@ -76,6 +80,13 @@ public:
 	float3 local_scale;
 	float3 local_rotation_euler;
 	Quat local_rotation;
+
+
+	float4x4 global_transformation = float4x4::identity;
+	float4x4 local_transformation = float4x4::identity;
+
+
+	GameObject* game_item = nullptr;
 
 	//Axis
 	float3 X, Y, Z;

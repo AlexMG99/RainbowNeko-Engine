@@ -68,6 +68,7 @@ public:
 
 	//Bounding Box
 	void GenerateBoundingBuffers();
+	void TransformBoundingBox();
 	void DrawBB();
 	OBB GetOBB();
 	AABB GetGlobalAABB();

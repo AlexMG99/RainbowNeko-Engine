@@ -253,12 +253,12 @@ void ModuleViewport::GuizControls()
 	{
 		guizmo_op = ImGuizmo::OPERATION::SCALE;
 	}
-	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT))
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) 
 	{
 		guizmo_mode = ImGuizmo::MODE::WORLD;
 	}
 
-	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
 	{
 	    guizmo_mode = ImGuizmo::MODE::LOCAL;
 	}
@@ -284,10 +284,10 @@ void ModuleViewport::GuizLogic()
 		ImGuizmo::SetDrawlist();
 		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
 	
-		/*if (ImGuizmo::IsUsing()) 
+		if (ImGuizmo::IsUsing() && !delta_matrix.IsIdentity() )
 		{
-			transform->
-		}*/
+			transform->SetLocalTransform(object_transform_matrix.Transposed());
+		}
 	
 	
 	}
