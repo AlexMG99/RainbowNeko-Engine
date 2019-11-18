@@ -40,11 +40,13 @@ uint32 ModuleResources::Find(const char * file)
 
 Resource* ModuleResources::FindMeta(const char * file)
 {
-	std::string file_name;
+	std::string file_name, path = ".";
+	path += ASSETS_META_FOLDER;
 	App->fs->SplitFilePath(file, nullptr, &file_name);
-	file_name += ".meta";
+	path += file_name.c_str();
+	path += ".meta";
 
-	Scene* meta = new Scene(file_name.c_str());
+	Scene* meta = new Scene(path.c_str());
 
 	if (meta->GetVRoot())
 	{
@@ -91,7 +93,8 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		import_ok = model.ImportModel(file_assets, output_file);
 		break;
 	case resource_type::RESOURCE_MESH:
-		import_ok = App->importer->mesh_imp->Load(file_assets);
+		res = App->importer->mesh_imp->Load(file_assets);
+		return res->ID;
 		break;
 	}
 
@@ -153,7 +156,7 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 	return res;
 }
 
-ResourceMesh * ModuleResources::ImportMesh(uint32 id, const char* path)
+ResourceMesh * ModuleResources::ImportMesh(uint32 id)
 {
 	if (id == 0)
 		return nullptr;
@@ -163,7 +166,12 @@ ResourceMesh * ModuleResources::ImportMesh(uint32 id, const char* path)
 	if(resource_mesh)
 		return (ResourceMesh*)resource_mesh;
 	
-	Random new_id = ImportFile(path, RESOURCE_MESH);
+
+	char str_id[50];
+	sprintf_s(str_id, 50, "%u", id);
+	std::string path = str_id;
+	path += ".neko";
+	Random new_id = ImportFile(path.c_str(), RESOURCE_MESH);
 
 	resource_mesh = Get(new_id.GetNumber());
 
@@ -212,15 +220,17 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 
 				Scene mesh = meshes.AddSectionArray(i);
 				Scene texture = textures.AddSectionArray(i);
-				char id[15];
+				char id[50];
 				char name[10];
 				//Mesh
-				sprintf_s(id, 15, "%u", go.GetDouble("Mesh"));
+				uint32 m_id = go.GetDouble("Mesh");
+				sprintf_s(id, 50, "%u", m_id);
 				sprintf_s(name, 10, "Mesh %i", i);
 				mesh.AddString(name, id);
 
 				//Texture
-				sprintf_s(id, 15, "%u", go.GetDouble("Texture"));
+				uint32 t_id = go.GetDouble("Texture");
+				sprintf_s(id, 50, "%u", t_id);
 				sprintf_s(name, 10, "Texture %i", i);
 				texture.AddString(name, id);
 			}

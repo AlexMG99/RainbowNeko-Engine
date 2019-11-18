@@ -26,7 +26,7 @@ public:
 	Resource* Get(uint32 id);
 	Resource* CreateNewResource(resource_type type);
 
-	ResourceMesh* ImportMesh(uint32 id, const char* path);
+	ResourceMesh* ImportMesh(uint32 id);
 	ResourceTexture * ImportTexture(uint32 id, const char * path);
 
 	void SaveMeta(const char* file, Resource* res);

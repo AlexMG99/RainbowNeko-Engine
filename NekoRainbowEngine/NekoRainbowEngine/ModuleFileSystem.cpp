@@ -14,22 +14,15 @@ using namespace std;
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const char* game_path) : Module (app, start_enabled)
 {
 	// needs to be created before Init so other modules can use it
-	string base_path = SDL_GetBasePath();
-	NormalizePath(base_path);
-	RemovePath(&base_path, "debug");
-
-	if (game_path != nullptr)
-		base_path += game_path;
-
-	PHYSFS_init(base_path.c_str());
-
-	//if (game_path != nullptr)
-	//	AddPath(game_path);
-
-	//SDL_free(&base_path.data);
+	char* base_path = SDL_GetBasePath();
+	PHYSFS_init(base_path);
+	SDL_free(base_path);
 
 	// workaround VS string directory mess
-	//AddPath(".");
+	AddPath(".");
+
+	if (0 && game_path != nullptr)
+		AddPath(game_path);
 
 	// Dump list of paths
 	LOG("FileSystem Operations base is [%s] plus:", GetBasePath());

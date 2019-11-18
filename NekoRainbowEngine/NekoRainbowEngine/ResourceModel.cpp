@@ -100,6 +100,9 @@ bool ResourceModel::Load()
 
 void ResourceModel::ReorganizeHierarchy()
 {
+	if (App->viewport->root_object->children.empty())
+		return;
+
 	for (auto it_child = App->viewport->root_object->children.begin(); it_child != App->viewport->root_object->children.end() - 1;)
 	{
 		auto it_next = (it_child + 1);
@@ -218,18 +221,10 @@ bool ResourceModel::Save(ResourceModel model, std::string & output) const
 		actual_node.AddDouble("Parent", model.nodes[i].parent);
 		actual_node.AddDouble("Mesh", model.nodes[i].mesh.GetNumber());
 		actual_node.AddDouble("Texture", model.nodes[i].texture.GetNumber());
-
-		//std::string path = LIBRARY_MESH_FOLDER;
-		//char name[50];
-		//sprintf_s(name, 50, "&u", model.nodes[i].mesh.GetNumber());
-		//path += name;
-		//path += ".neko";
-		//actual_node.AddString("MeshString", path.c_str());
 	}
 
-	output = model.nodes[0].name + ".model";
+	output = ".";
+	output += LIBRARY_MODELS_FOLDER + model.nodes[0].name + ".model";
 	ret = model_scene->Save(output.c_str());
-	//ret = App->fs->CopyFromOutsideFS(output.c_str(), std::string(LIBRARY_MODELS_FOLDER + output).c_str());
-	//App->fs->Remove(output.c_str());
 	return ret;
 }

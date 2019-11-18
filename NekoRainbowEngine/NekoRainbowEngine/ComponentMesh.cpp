@@ -68,7 +68,7 @@ bool ComponentMesh::OnLoad(Scene & scene)
 
 	std::string mesh = mesh_scene.GetString("Mesh");
 	transform = my_go->GetComponentTransform();
-	AddMesh(App->resources->ImportMesh(mesh_scene.GetInt("Resource"), mesh_scene.GetString("Mesh").c_str()));
+	AddMesh(App->resources->ImportMesh(mesh_scene.GetInt("Resource")));
 
 	return true;
 }

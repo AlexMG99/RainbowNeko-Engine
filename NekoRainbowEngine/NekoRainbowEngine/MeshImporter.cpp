@@ -154,14 +154,14 @@ bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 
 ResourceMesh* MeshImporter::Load(const char * exported_file)
 {
-	ResourceMesh* mesh = new ResourceMesh();
+	ResourceMesh* mesh = (ResourceMesh*)App->resources->CreateNewResource(RESOURCE_MESH);
 
 	std::string extension, file;
 	App->fs->SplitFilePath(exported_file, nullptr, &file, &extension);
 	mesh->name = file.c_str();
 
 	std::string path = LIBRARY_MESH_FOLDER;
-	path.append(std::string(file + "." + extension).c_str());
+	path += file + "." + extension;
 
 	char* buffer;
 	uint size = App->fs->Load(path.c_str(), &buffer);

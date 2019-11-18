@@ -60,7 +60,7 @@ void ResourceMesh::GenerateBuffers()
 
 ResourceMesh* ResourceMesh::Load(Scene& scene)
 {
-	return App->resources->ImportMesh(scene.GetDouble("Mesh"), "");
+	return App->resources->ImportMesh(scene.GetDouble("Mesh"));
 }
 
 ResourceMesh::~ResourceMesh()
