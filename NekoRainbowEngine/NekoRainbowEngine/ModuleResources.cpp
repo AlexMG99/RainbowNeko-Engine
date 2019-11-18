@@ -25,12 +25,12 @@ bool ModuleResources::CleanUp()
 
 uint32 ModuleResources::Find(const char * file)
 {
-	std::string file_str(file);
-	App->fs->NormalizePath(file_str);
+	std::string file_name;
+	App->fs->SplitFilePath(file, nullptr, &file_name);
 
 	for (std::map<uint32, Resource*>::const_iterator it = resources.begin(); it != resources.end(); ++it)
 	{
-		if (it->second->file.compare(file_str) == 0)
+		if (it->second->file.compare(file_name) == 0)
 			return it->first;
 	}
 
@@ -47,7 +47,11 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	id.SetNumber(Find(file_assets));
 
 	if (id.GetNumber() != 0)
+	{
+		Resource* res = Get(id.GetNumber());
+		res->Load();
 		return id;
+	}
 
 	switch (type)
 	{
@@ -65,7 +69,9 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	if (import_ok)
 	{
 		Resource* res = CreateNewResource(type);
-		res->file = file_assets;
+		std::string file_name;
+		App->fs->SplitFilePath(file_assets, nullptr, &file_name);
+		res->file = file_name;
 		res->imported_file = output_file;
 		id = res->ID;
 		res->Load();

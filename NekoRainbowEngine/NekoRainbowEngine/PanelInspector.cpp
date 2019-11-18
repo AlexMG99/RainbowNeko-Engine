@@ -62,6 +62,7 @@ update_status PanelInspector::Draw()
 			ImGui::Checkbox("Active", &comp_mesh->active);
 			ImGui::Checkbox("Normal Vertex", &comp_mesh->normal_show); ImGui::SameLine();
 			ImGui::Checkbox("Normal Face", &comp_mesh->normal_face_show);
+			ImGui::Text("Resource: %u", comp_mesh->mesh->GetID().GetNumber());
 			ImGui::Text("Id vertices: %i", comp_mesh->mesh->buffers[BUFF_VERTICES]);
 			ImGui::Text("Num vertices: %i", comp_mesh->mesh->vertices_size);
 			ImGui::Text("Id indices: %i", comp_mesh->mesh->buffers[BUFF_INDEX]);
@@ -95,7 +96,8 @@ update_status PanelInspector::Draw()
 			{
 				ImGui::PushID("Texture");
 				ImGui::Checkbox("Active", &comp_texture->active);
-				ImGui::Text("Path: %s", comp_texture->texture->path.c_str());
+				ImGui::Text("Resource: %u", comp_texture->texture->GetID().GetNumber());
+				ImGui::Text("Path: %s", comp_texture->texture->imported_file.c_str());
 				ImGui::Text("Id texture: %i", comp_texture->texture->image_id);
 				ImGui::Text("W: %i		H: %i", comp_texture->texture->width, comp_texture->texture->height);
 				ImGui::Image((ImTextureID)comp_texture->texture->image_id, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
