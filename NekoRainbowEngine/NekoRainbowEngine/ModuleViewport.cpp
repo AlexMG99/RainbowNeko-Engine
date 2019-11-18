@@ -11,6 +11,7 @@
 #include "ComponentMesh.h"
 #include "Scene.h"
 #include "RayCast.h"
+#include "Mesh.h"
 #include "Assimp/include/anim.h"
 
 #include "Brofiler/Brofiler.h"
@@ -96,22 +97,30 @@ bool CompareRayCast(RayCast & a, RayCast & b)
 	return a.distance < b.distance;
 }
 
-bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
+GameObject* ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 {
-	this->ray = (*my_ray);
+	std::vector<RayCast> scn_obj;
+	/*BoxIntersection(root_object, my_ray, scn_obj);*/
 
-	std::vector<RayCast> scene_obj;
-	/*BoxIntersection(root_object, my_ray, scene_obj);*/
+	std::sort(scn_obj.begin(), scn_obj.end(), CompareRayCast);
 
-	//It takes the first value, and the last and with them two does the function compare
-	std::sort(scene_obj.begin(), scene_obj.end(), CompareRayCast);
+	GameObject* var = nullptr;
+	GameObject* selec = nullptr;
 
-	return TriangleTest(my_ray, scene_obj, hit);
+	for (std::vector<RayCast>::iterator iter = scn_obj.begin(); iter != scn_obj.end(); ++iter)
+	{
+		var = (*iter).trans->my_go;
+		selec = TriangleTest(*my_ray, var);
+		if (selec != nullptr)
+			break;
+	}
+
+	return selec;
 }
 
 void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
 {
-	/*if (obj->GetComponentTransform() != nullptr)
+	if (obj->GetComponentTransform() != nullptr)
 	{
 		if (obj->GetName() != "Root Object") {
 			if (obj->transfrom->ItIntersect(*ray))
@@ -130,24 +139,51 @@ void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::v
 			BoxIntersection((*iter), ray, scene_obj);
 		}
 
-	}*/
+	}
 }
 
-bool ModuleViewport::TriangleTest(LineSegment * ray, std::vector<RayCast>& scene_obj, RayCast & point)
+GameObject* ModuleViewport::TriangleTest(LineSegment& ray, GameObject* obj)
 {
-	for (std::vector<RayCast>::iterator iter = scene_obj.begin(); iter != scene_obj.end(); ++iter)
+	bool intersected = false;
+	ComponentMesh* mesh = obj->GetComponentMesh();
+
+	if (mesh != nullptr)
 	{
-		ComponentMesh* mesh = (*iter).trans->my_go->GetComponentMesh();
-		if(mesh)
+		ComponentTransform* trans = obj->GetComponentTransform();
+
+		for (uint i = 0; i < mesh->mesh->index_size; i += 3)
 		{
-			RayCast hit;
-			if (mesh->Intersect(ray, hit)) {
-				point = hit;
-				return true;
+			uint index_a, index_b, index_c;
+
+			index_a = mesh->mesh->index[i] * 3;
+			float3 point_a(mesh->mesh->vertices[index_a]);
+
+			index_b = mesh->mesh->index[i + 1] * 3;
+			float3 point_b(mesh->mesh->vertices[index_b]);
+
+			index_c = mesh->mesh->index[i + 2] * 3;
+			float3 point_c(mesh->mesh->vertices[index_c]);
+
+			Triangle triangle_to_check(point_a, point_b, point_c);
+			triangle_to_check.Transform(trans->GetGlobalTransformMatrix());
+
+			if (ray.Intersects(triangle_to_check, nullptr, nullptr))
+			{
+				LOG("DID IT");
+				intersected = true;
+				return obj;
+				break;
 			}
 		}
+
+		if (!intersected)
+			return nullptr;
 	}
-	return false;
+
+	else if (obj->children.empty())
+		return obj;
+	else
+		return nullptr;
 }
 
 void ModuleViewport::DrawGrid(uint separation, uint lines)

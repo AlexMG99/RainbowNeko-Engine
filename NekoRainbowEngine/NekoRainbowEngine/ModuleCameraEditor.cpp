@@ -8,6 +8,7 @@
 #include "ComponentCamera.h"
 #include "RayCast.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "MathGeoLib/include/Geometry/LineSegment.h"
 
 
 ModuleEditorCamera::ModuleEditorCamera(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -86,52 +87,19 @@ update_status ModuleEditorCamera::Update(float dt)
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
 
-		/*float width = (float)App->window->GetWinSize().x;
-		float height = (float)App->window->GetWinSize().y;
 
-		int mousex_pos, mousey_pos;
-		mousex_pos = App->input->GetMouseX();
-		mousey_pos = App->input->GetMouseY();
+		GameObject* pick = Pick();
 
-
-		float norm_mouse_x = -(1.0f - (float(mousex_pos)*2.0f) / width);
-		float norm_mouse_y = 1.0 - (float(mousey_pos)*2.0f / height);*/
-		
-		float2 dockingpos = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX)/App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY)/ App->editor->panel_game->height );
-
-		dockingpos.x = (dockingpos.x - 0.5F) * 2;
-		dockingpos.y = -(dockingpos.y - 0.5F) * 2;
-
-		/*if (dockingpos.x > 1 || dockingpos.x < -1 || dockingpos.y > 1 || dockingpos.y < -1)
-			return;*/
-		
-	/*	vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
-		LOG("Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
-		mouse_pos = normalize(mouse_pos);
-		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);*/
-
-		picking = scene_camera->frustum.UnProjectLineSegment(dockingpos.x, dockingpos.y);
-		/*picking = scene_camera->frustum.UnProjectLineSegment(norm_mouse_x, norm_mouse_y);*/
-		
-		drawraycast = true;
-		
-		/*if (drawraycast)
+		if (pick != nullptr)
 		{
-			DrawSegmentRay();
-		}*/
-
-
-		RayCast ray;
-
-		if (App->viewport->MyRayCastIntersection(&picking, ray))
-		{
-			picked_obj->SetSelected(ray.trans);
+			App->viewport->selected_object = pick;
 		}
 
-		
 	}
 	if (drawraycast)
 		DrawSegmentRay();
+		
+		
 
 
 	// Wheel Movement
@@ -173,6 +141,29 @@ void ModuleEditorCamera::Zoom(float zoom)
 	camera->UpdateFrustum(true);
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
+}
+
+GameObject * ModuleEditorCamera::Pick(float3 * hit_point) 
+{
+	float width = (float)App->editor->panel_game->size.x;
+	float height = (float)App->editor->panel_game->size.y;
+
+	int mousepos_x, mousepos_y;
+
+	mousepos_x = App->input->GetMouseX();
+	mousepos_y = App->input->GetMouseY();
+
+	float normalized_x = -(1.0f - (float(mousepos_x)*2.0) / width);
+	float normlaized_y = 1.0f - (float(mousepos_y)*2.0) / height;
+
+
+	//adal dreta(1,1)
+	picking =  camera->frustum.UnProjectLineSegment(normalized_x, normlaized_y);
+	drawraycast = true;
+
+	RayCast ray;
+
+	return App->viewport->MyRayCastIntersection(&picking ,ray);
 }
 
 // -----------------------------------------------------------------
@@ -279,7 +270,7 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 
 void ModuleEditorCamera::DrawSegmentRay()
 {
-	glLineWidth(805.0f);
+	glLineWidth(5.0f);
 	
 	glBegin(GL_LINES);
 

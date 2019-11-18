@@ -39,7 +39,7 @@ private:
 	void Move(float motion_x, float motion_y);
 	void Orbit(float motion_x, float motion_y);
 	void Zoom(float zoom);
-	
+	GameObject* Pick(float3* hit_point = nullptr);
 
 public:
 	float move_speed = 10.0f;
@@ -52,6 +52,7 @@ public:
 
 private:
 	float3 looking_point;
+	
 	ComponentCamera* camera = nullptr;
 	ComponentCamera* scene_camera = nullptr;
 };

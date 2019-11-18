@@ -32,8 +32,8 @@ void PanelGame::Logic()
 {
 
 	// Get docking cursor values
-	width = ImGui::GetWindowWidth();
-	height = ImGui::GetWindowHeight();
+	/*width = ImGui::GetWindowWidth();
+	height = ImGui::GetWindowHeight();*/
 
 	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
 	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
