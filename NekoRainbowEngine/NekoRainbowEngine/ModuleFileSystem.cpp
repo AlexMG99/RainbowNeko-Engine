@@ -14,15 +14,22 @@ using namespace std;
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const char* game_path) : Module (app, start_enabled)
 {
 	// needs to be created before Init so other modules can use it
-	char* base_path = SDL_GetBasePath();
-	PHYSFS_init(base_path);
-	SDL_free(base_path);
+	string base_path = SDL_GetBasePath();
+	NormalizePath(base_path);
+	RemovePath(&base_path, "debug");
+
+	if (game_path != nullptr)
+		base_path += game_path;
+
+	PHYSFS_init(base_path.c_str());
+
+	//if (game_path != nullptr)
+	//	AddPath(game_path);
+
+	//SDL_free(&base_path.data);
 
 	// workaround VS string directory mess
-	AddPath(".");
-
-	if(0&&game_path != nullptr)
-		AddPath(game_path);
+	//AddPath(".");
 
 	// Dump list of paths
 	LOG("FileSystem Operations base is [%s] plus:", GetBasePath());
@@ -250,6 +257,22 @@ bool ModuleFileSystem::IsInDirectory(const char * directory, const char * p)
 	return ret;
 }
 
+bool ModuleFileSystem::RemovePath(std::string * directory, const char * p)
+{
+	bool ret = true;
+
+	std::size_t found = directory->find(p);
+	if (found != std::string::npos)
+	{
+		directory->erase(found, 6);
+		ret = true;
+	}
+	else
+		ret = false;
+
+	return ret;
+}
+
 unsigned int ModuleFileSystem::Load(const char * path, const char * file, char ** buffer) const
 {
 	string full_path(path);
@@ -261,7 +284,6 @@ unsigned int ModuleFileSystem::Load(const char * path, const char * file, char *
 uint ModuleFileSystem::Load(const char* file, char** buffer) const
 {
 	uint ret = 0;
-
 	PHYSFS_file* fs_file = PHYSFS_openRead(file);
 
 	if(fs_file != nullptr)

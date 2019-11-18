@@ -5,20 +5,23 @@
 
 #include "Assimp/include/material.h"
 #include "Assimp/include/types.h"
+#include <string>
 
 Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 {
 	std::string base_path;
-	App->fs->SplitFilePath(path, &base_path, nullptr, nullptr);
+	App->fs->SplitFilePath(path, &base_path, &file, nullptr);
 
 	ResourceTexture* resource_texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
 
 	aiString texture_path;
 	if(texture->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path) == AI_SUCCESS);
 	{
-		aiString full_path(base_path);
-		full_path.Append(file.data);
+		std::string full_path = base_path.c_str();
+		full_path += texture_path.C_Str();
 
-		resource_texture->ID = App->resources->ImportFile(full_path.C_Str(), resource_type::RESOURCE_TEXTURE);
+		resource_texture->ID = App->resources->ImportFile(full_path.c_str(), resource_type::RESOURCE_TEXTURE);
 	}
+
+	return resource_texture->ID;
 }

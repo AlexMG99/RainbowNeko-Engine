@@ -1,6 +1,9 @@
+#include "Application.h"
+#include "ModuleFileSystem.h"
 #include "ResourceModel.h"
 #include "ResourceTexture.h"
 #include "ResourceMesh.h"
+#include "Scene.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -13,25 +16,14 @@
 
 #include "MathGeoLib/include/Math/Quat.h"
 
-//bool SceneImporter::Init()
-//{
-//	struct aiLogStream stream;
-//	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-//	stream.callback = LogCallback;
-//	aiAttachLogStream(&stream);
-//
-//	return true;
-//}
-//
-//bool SceneImporter::CleanUp()
-//{
-//	aiDetachAllLogStreams();
-//	return true;
-//}
-
 bool ResourceModel::ImportModel(const char * path, std::string output_file)
 {
 	bool ret = true;
+
+	struct aiLogStream stream;
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	stream.callback = LogCallback;
+	aiAttachLogStream(&stream);
 
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -39,10 +31,14 @@ bool ResourceModel::ImportModel(const char * path, std::string output_file)
 	{
 		ResourceModel model;
 
-		std::vector<Random> materials, meshes;
+		std::vector<Random> textures, meshes;
 
-		model.GenerateTexture(scene, path, materials);
+		model.GenerateTexture(scene, path, textures);
 		model.GenerateMeshes(scene, path, meshes);
+		model.GenerateNodes(scene, scene->mRootNode, 0, meshes, textures);
+		aiReleaseImport(scene);
+
+		Save(model, output_file);
 	}
 	else
 	{
@@ -50,62 +46,9 @@ bool ResourceModel::ImportModel(const char * path, std::string output_file)
 		ret = false;
 	}
 
-	//Create gameObject that contains FBX parts
-	GameObject* fbx_obj = App->viewport->CreateGameObject(path);
-	if (scene && scene->HasMeshes())
-	{
-		for (int i = 0; i < node->mNumChildren; i++)
-		{
-			LoadNode(scene->mRootNode->mChildren[i], scene, path, fbx_obj);
-		}
-	}
-	else
-		LOG("Error loading FBX with path: %s", path);
-
-	fbx_obj->CreateTransformAABB();
-
-	aiReleaseImport(scene);
-	App->camera->FocusObject(*(fbx_obj->children.begin()));
+	aiDetachAllLogStreams();
+	
 	return ret;
-}
-
-void SceneImporter::LoadNode(const aiNode * node, const aiScene * scene, const char * path_fbx, GameObject* parent)
-{
-	//Get Component transform
-	aiVector3D translation, scaling;
-	aiQuaternion rotation;
-
-	node->mTransformation.Decompose(scaling, rotation, translation);
-
-	float3 pos(translation.x, translation.y, translation.z);
-	float3 scale(scaling.x, scaling.y, scaling.z);
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-
-	//Create aux_obj
-	GameObject* aux_obj;
-
-	if (node->mNumMeshes > 0)
-	{
-		aux_obj = App->viewport->CreateGameObject(node->mName.C_Str(), parent, pos, scale, rot);
-		ComponentMesh* comp_mesh = (ComponentMesh*)aux_obj->CreateComponent(COMPONENT_MESH);
-		ComponentTexture* comp_text = (ComponentTexture*)aux_obj->CreateComponent(COMPONENT_TEXTURE);
-		const aiMesh* aimesh = scene->mMeshes[node->mMeshes[0]];
-		ResourceMesh* mesh = 
-		mesh->name = aux_obj->GetName();
-
-
-		App->importer->mesh_imp->SaveMesh(mesh, mesh->name.c_str());
-
-		comp_mesh->transform = aux_obj->GetComponentTransform();
-		comp_mesh->AddMesh(mesh);
-	}
-	else
-		aux_obj = parent;
-
-	for (int i = 0; i < node->mNumChildren; i++)
-	{
-		LoadNode(node->mChildren[i], scene, path_fbx, aux_obj);
-	}
 }
 
 void LogCallback(const char* text, char* data)
@@ -130,9 +73,11 @@ void ResourceModel::GenerateTexture(const aiScene* scene, const char* file, std:
 {
 	materials.reserve(scene->mNumMaterials);
 
+	ResourceTexture texture;
+
 	for (unsigned i = 0; i < scene->mNumMaterials; ++i)
 	{
-		materials.push_back(ResourceTexture::Import(scene->mMaterials[i], file));
+		materials.push_back(texture.Import(scene->mMaterials[i], file));
 	}
 }
 
@@ -140,8 +85,67 @@ void ResourceModel::GenerateMeshes(const aiScene* scene, const char* file, std::
 {
 	meshes.reserve(scene->mNumMeshes);
 
+	ResourceMesh mesh;
+
 	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
 	{
-		meshes.push_back(ResourceMesh::Import(scene->mMeshes[i], file));
+		meshes.push_back(mesh.Import(scene->mMeshes[i], file));
 	}
+}
+
+void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, uint parent, const std::vector<Random>& meshes, const std::vector<Random>& textures)
+{
+	uint index = nodes.size();
+	Node dst;
+
+	aiVector3D translation, scaling;
+	aiQuaternion rotation;
+	node->mTransformation.Decompose(scaling, rotation, translation);
+
+	dst.position = float3(translation.x, translation.y, translation.z);
+	dst.rotation = Quat(rotation.x, rotation.y, rotation.z, rotation.w);
+	dst.scale = float3(scaling.x, scaling.y, scaling.z);
+	dst.name = node->mName.C_Str();
+	dst.parent = parent;
+
+	nodes.push_back(dst);
+
+	for (uint i = 0; i < node->mNumChildren; ++i)
+	{
+		GenerateNodes(model, node->mChildren[i], index, meshes, textures);
+	}
+
+
+	if (node->mNumMeshes > 0)
+	{
+		uint mesh_index = node->mMeshes[0];
+
+		nodes[index].mesh = meshes[mesh_index];
+		nodes[index].texture = textures[model->mMeshes[mesh_index]->mMaterialIndex];
+	}
+}
+
+bool ResourceModel::Save(ResourceModel model, std::string & output) const
+{
+	Scene* model_scene = new Scene();
+
+	Scene models = model_scene->AddArray("Model");
+	Scene actual_node;
+
+	//Save
+	for (uint i = 0; i < model.nodes.size(); ++i)
+	{
+		actual_node = models.AddSectionArray(i);
+		actual_node.AddString("Name", model.nodes[i].name);
+		actual_node.AddFloat3("Position", model.nodes[i].position);
+		actual_node.AddQuat("Rotation", model.nodes[i].rotation);
+		actual_node.AddFloat3("Scale", model.nodes[i].scale);
+		actual_node.AddDouble("Parent", model.nodes[i].parent);
+		actual_node.AddDouble("Mesh", model.nodes[i].mesh.GetNumber());
+		actual_node.AddDouble("Texture", model.nodes[i].texture.GetNumber());
+	}
+
+	output = model.nodes[0].name + ".model";
+
+	return model_scene->Save(output.c_str());
 }

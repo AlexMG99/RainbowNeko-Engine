@@ -3,11 +3,11 @@
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
 #include "TextureImporter.h"
-#include "SceneImporter.h"
 #include "MeshImporter.h"
 #include "Random.h"
 #include "ResourceMesh.h"
 #include "ResourceModel.h"
+#include "ResourceTexture.h"
 
 ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -40,6 +40,7 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	Random id;
 	bool import_ok = false;
 	std::string output_file;
+	ResourceModel model;
 
 	id.SetNumber(Find(file_assets));
 
@@ -52,7 +53,7 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		import_ok = App->importer->texture_imp->Import(file_assets, output_file);
 		break;
 	case resource_type::RESOURCE_MODEL:
-		import_ok = ResourceModel::ImportModel(file_assets, output_file);
+		import_ok = model.ImportModel(file_assets, output_file);
 		break;
 	case resource_type::RESOURCE_MESH:
 		import_ok = App->importer->mesh_imp->Load(file_assets);
@@ -101,7 +102,7 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 		res = (Resource*)new ResourceMesh(id);
 		break;
 	case resource_type::RESOURCE_TEXTURE:
-		//res = (Resource*)new ResourceTexture(id);
+		res = (Resource*)new ResourceTexture(id);
 		break;
 	case resource_type::RESOURCE_MODEL:
 		res = (Resource*)new ResourceModel(id);

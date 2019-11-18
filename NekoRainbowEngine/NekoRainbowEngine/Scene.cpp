@@ -179,8 +179,7 @@ Scene Scene::GetArray(const char * name)
 
 bool Scene::Save(const char * name)
 {
-	json_serialize_to_file(vroot, name);
-	return true;
+	return json_serialize_to_file(vroot, name) == JSONSuccess;
 }
 
 std::string Scene::GetName() const

@@ -25,55 +25,45 @@ bool TextureImporter::Import(const char* path, std::string output_file)
 {
 	bool ret = false;
 
-	char* buffer = nullptr;
-	uint size = App->fs->Load(path, &buffer);
+	std::string file, extension;
+	App->fs->SplitFilePath(path, nullptr, &file, &extension);
 
-	if (buffer)
-		ret = ImportTexture(buffer, size, path, output_file);
-
-		//Load Texture
-		ImportTexture(buffer, size, path, output_file);
-		Load(std::string("." + output_file).c_str());
-
-
+	if (extension != "dds" || extension != "DDS")
+		ret = ImportTexture(path, output_file);
 
 	return ret;
 }
 
-bool TextureImporter::ImportTexture(const void * buffer, uint size, const char* path, std::string& output_file)
+bool TextureImporter::ImportTexture(const char* path, std::string& output_file)
 {
 	bool ret = true;
 
 	std::string file, extension;
 	App->fs->SplitFilePath(path, nullptr, &file, &extension);
 
-	if (extension == "DDS" || extension == "dds")
-	{
-		ret = App->fs->SaveUnique(output_file, buffer, size, LIBRARY_TEXTURES_FOLDER, nullptr, "dds");
-	}
-	else
-	{
-		ILuint devil_id = 0;
-		ilGenImages(1, &devil_id);
-		ilBindImage(devil_id);
+	ILuint devil_id = 0;
+	ilGenImages(1, &devil_id);
+	ilBindImage(devil_id);
 
-		if (ilLoadImage(path))
-		{
-			ILuint size;
-			ILubyte *data;
-			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
-			size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
-			if (size > 0) {
-				data = new ILubyte[size]; // allocate data buffer
-				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
-				{
-					ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, nullptr, "dds");
-				}
-				RELEASE_ARRAY(data);
+	if (ilLoadImage(path))
+	{
+		ILuint size;
+		ILubyte *data;
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+		size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+		if (size > 0) {
+			data = new ILubyte[size]; // allocate data buffer
+			if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+			{
+				output_file = LIBRARY_TEXTURES_FOLDER + file + ".dds";
+				ret = App->fs->Save(output_file.c_str(), data, size);
 			}
-			ilDeleteImages(1, &devil_id);
+			RELEASE_ARRAY(data);
 		}
+		ilDeleteImages(1, &devil_id);
 	}
+
+	return ret;
 }
 
 

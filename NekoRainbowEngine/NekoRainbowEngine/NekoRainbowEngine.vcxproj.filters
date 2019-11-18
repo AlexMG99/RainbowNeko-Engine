@@ -256,7 +256,9 @@
     <ClCompile Include="ResourceModel.cpp">
       <Filter>Sources\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceTexture.cpp" />
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Sources\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">

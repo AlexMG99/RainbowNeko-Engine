@@ -14,8 +14,6 @@ public:
 	~ResourceTexture() {};
 
 	Random Import(const aiMaterial* texture, const char* path);
-	//void ImportTexture(const char* path, std::string &output_file);
-	//Texture* Load(const char* file);
 };
 
 #endif // !_RESOURCE_TEXTURE_H_
