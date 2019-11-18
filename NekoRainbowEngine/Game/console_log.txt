@@ -12,45 +12,82 @@ GLSL: 4.60 NVIDIA
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T5568: Load ./Assets/BakerHouse.fbx
+  T14636: Load ./Assets/BakerHouse.fbx
 
-  T5568: Found a matching importer for this file format: Autodesk FBX Importer.
+  T14636: Found a matching importer for this file format: Autodesk FBX Importer.
 
-  T5568: Import root directory is './Assets\'
+  T14636: Import root directory is './Assets\'
 
-  T5568: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+  T14636: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
 
-  T5568: Entering post processing pipeline
+  T14636: Entering post processing pipeline
 
-  T5568: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+  T14636: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
 
-  T5568: CalcTangentsProcess finished. Tangents have been calculated
+  T14636: CalcTangentsProcess finished. Tangents have been calculated
 
-  T5568: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+  T14636: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
 
-  T5568: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+  T14636: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
 
-  T5568: Leaving post processing pipeline
+  T14636: Leaving post processing pipeline
 
 New file created [./Library/Textures/baker_house.dds] of 1048704 bytes
+Loaded with path: /Library/Textures/baker_house.dds succesfully!
 New mesh with 160 vertices
 Generated mesh with id vertex: 3 and id index: 4
 Loaded mesh file succesfully!
-New file created [./Library/Meshes/3249637754.neko] of 4508 bytes
+New file created [./Library/Meshes/1807146420.neko] of 4508 bytes
 New mesh with 1641 vertices
 Generated mesh with id vertex: 6 and id index: 7
 Loaded mesh file succesfully!
-New file created [./Library/Meshes/3614271800.neko] of 43836 bytes
+New file created [./Library/Meshes/42879651.neko] of 43836 bytes
 Loading Editor Scene
 -------------- Application Update --------------
 
-Mouse Pos: 1230.000000, 335.000000
-Normalized Mouse Pos: 0.964854, 0.262785
-Mouse Pos: 957.000000, 418.000000
-Normalized Mouse Pos: 0.916399, 0.400266
-Mouse Pos: 1060.000000, 512.000000
-Normalized Mouse Pos: 0.900460, 0.434939
-Mouse Pos: 1053.000000, 344.000000
-Normalized Mouse Pos: 0.950562, 0.310535
-Mouse Pos: 1183.000000, 280.000000
-Normalized Mouse Pos: 0.973114, 0.230323
+Mouse Pos: 1113.000000, 350.000000
+Normalized Mouse Pos: 0.953945, 0.299983
+Mouse Pos: 357.000000, 84.000000
+Normalized Mouse Pos: 0.973417, 0.229039
+Mouse Pos: 359.000000, 83.000000
+Normalized Mouse Pos: 0.974300, 0.225256
+Mouse Pos: 362.000000, 65.000000
+Normalized Mouse Pos: 0.984259, 0.176732
+Mouse Pos: 371.000000, 74.000000
+Normalized Mouse Pos: 0.980682, 0.195608
+Mouse Pos: 378.000000, 91.000000
+Normalized Mouse Pos: 0.972224, 0.234054
+Mouse Pos: 372.000000, 82.000000
+Normalized Mouse Pos: 0.976556, 0.215262
+Mouse Pos: 1604.000000, 125.000000
+Normalized Mouse Pos: 0.996977, 0.077695
+Mouse Pos: 1603.000000, 132.000000
+Normalized Mouse Pos: 0.996627, 0.082068
+Mouse Pos: 1603.000000, 132.000000
+Normalized Mouse Pos: 0.996627, 0.082068
+Mouse Pos: 1603.000000, 132.000000
+Normalized Mouse Pos: 0.996627, 0.082068
+Mouse Pos: 1571.000000, 122.000000
+Normalized Mouse Pos: 0.996998, 0.077424
+Mouse Pos: 1575.000000, 117.000000
+Normalized Mouse Pos: 0.997252, 0.074082
+Mouse Pos: 1571.000000, 130.000000
+Normalized Mouse Pos: 0.996594, 0.082468
+Mouse Pos: 1571.000000, 130.000000
+Normalized Mouse Pos: 0.996594, 0.082468
+Mouse Pos: 388.000000, 97.000000
+Normalized Mouse Pos: 0.970142, 0.242536
+Mouse Pos: 359.000000, 77.000000
+Normalized Mouse Pos: 0.977763, 0.209715
+Mouse Pos: 358.000000, 88.000000
+Normalized Mouse Pos: 0.971092, 0.238704
+Mouse Pos: 358.000000, 88.000000
+Normalized Mouse Pos: 0.971092, 0.238704
+Mouse Pos: 351.000000, 74.000000
+Normalized Mouse Pos: 0.978491, 0.206291
+Mouse Pos: 345.000000, 96.000000
+Normalized Mouse Pos: 0.963398, 0.268076
+Mouse Pos: 345.000000, 76.000000
+Normalized Mouse Pos: 0.976585, 0.215132
+Mouse Pos: 349.000000, 93.000000
+Normalized Mouse Pos: 0.966281, 0.257490

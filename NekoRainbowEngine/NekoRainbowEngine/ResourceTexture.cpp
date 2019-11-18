@@ -2,6 +2,14 @@
 #include "ModuleFileSystem.h"
 #include "ModuleResources.h"
 #include "ResourceTexture.h"
+#include "TextureImporter.h"
+#include "Scene.h"
+
+#include "GL/include/glew.h"
+
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
 
 #include "Assimp/include/material.h"
 #include "Assimp/include/types.h"
@@ -29,4 +37,33 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 	}
 
 	return resource_texture->ID;
+}
+
+void ResourceTexture::GenerateTexture()
+{
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, image_id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+}
+
+bool ResourceTexture::Load()
+{
+	return App->importer->texture_imp->Load(this);
+}
+
+ResourceTexture* ResourceTexture::Load(Scene& scene)
+{
+	return App->resources->ImportTexture(scene.GetDouble("Texture"), "");
 }

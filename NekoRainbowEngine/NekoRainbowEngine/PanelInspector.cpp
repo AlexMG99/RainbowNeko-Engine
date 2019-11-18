@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
-#include "Texture.h"
+#include "ResourceTexture.h"
 #include "ComponentCamera.h"
 #include "imgui/imgui.h"
 #include "MathGeoLib/include/Math/Quat.h"

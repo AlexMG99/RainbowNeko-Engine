@@ -214,7 +214,6 @@
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="TextureImporter.h" />
     <ClInclude Include="Timer.h" />
@@ -303,7 +302,6 @@
     <ClCompile Include="ResourceModel.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureImporter.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>

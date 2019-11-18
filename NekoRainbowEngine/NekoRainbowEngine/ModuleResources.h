@@ -8,6 +8,7 @@
 typedef unsigned __int32 uint32;
 class Random;
 class ResourceMesh;
+class ResourceTexture;
 
 class ModuleResources: public Module 
 {
@@ -25,6 +26,7 @@ public:
 	Resource* CreateNewResource(resource_type type);
 
 	ResourceMesh* ImportMesh(uint32 id, const char* path);
+	ResourceTexture * ImportTexture(uint32 id, const char * path);
 
 public:
 	std::map<uint32, Resource*> resources;

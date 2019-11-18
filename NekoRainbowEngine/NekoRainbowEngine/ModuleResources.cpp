@@ -132,3 +132,20 @@ ResourceMesh * ModuleResources::ImportMesh(uint32 id, const char* path)
 
 	return (ResourceMesh*)resource_mesh;
 }
+
+ResourceTexture* ModuleResources::ImportTexture(uint32 id, const char* path)
+{
+	if (id == 0)
+		return nullptr;
+
+	Resource* resource_texture = Get(id);
+
+	if (resource_texture)
+		return (ResourceTexture*)resource_texture;
+
+	Random new_id = ImportFile(path, RESOURCE_TEXTURE);
+
+	resource_texture = Get(new_id.GetNumber());
+
+	return (ResourceTexture*)resource_texture;
+}

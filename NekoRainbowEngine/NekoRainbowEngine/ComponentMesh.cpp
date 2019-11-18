@@ -8,7 +8,7 @@
 #include "TextureImporter.h"
 #include "MeshImporter.h"
 #include "ResourceMesh.h"
-#include "Texture.h"
+#include "ResourceTexture.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -239,7 +239,7 @@ bool ComponentTexture::OnSave(Scene & scene) const
 	Scene texture_scene = scene.AddSectionArray(type);
 
 	ret = texture_scene.AddInt("Type", type);
-	ret = texture_scene.AddString("Path", texture->path.c_str());
+	/*ret = texture_scene.AddString("Path", texture->path.c_str());*/
 
 	return ret;
 }
@@ -251,14 +251,14 @@ bool ComponentTexture::OnLoad(Scene & scene)
 
 	type = (component_type)texture_scene.GetInt("Type");
 
-	AddTexture(App->importer->texture_imp->Load(texture_scene.GetString("Path").c_str()));
+	/*AddTexture(App->importer->texture_imp->Load(texture_scene.GetString("Path").c_str()));
 
-	my_go->GetComponentMesh()->image_id = texture->image_id;
+	my_go->GetComponentMesh()->image_id = texture->image_id;*/
 
 	return ret;
 }
 
-void ComponentTexture::AddTexture(Texture * text)
+void ComponentTexture::AddTexture(ResourceTexture* text)
 {
 	texture = text;
 }

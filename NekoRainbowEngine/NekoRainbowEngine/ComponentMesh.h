@@ -10,7 +10,7 @@
 #include <vector>
 
 class ResourceMesh;
-class Texture;
+class ResourceTexture;
 
 //-------------- Component Mesh --------------
 class ComponentMesh : public Component {
@@ -71,10 +71,10 @@ public:
 	bool OnSave(Scene& scene) const;
 	bool OnLoad(Scene& scene);
 
-	void AddTexture(Texture* text);
+	void AddTexture(ResourceTexture* text);
 
 public:
-	Texture* texture = nullptr;
+	ResourceTexture* texture = nullptr;
 };
 
 #endif // !COMPONENTMESH_H_

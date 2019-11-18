@@ -78,6 +78,15 @@ bool ResourceModel::Load()
 				comp_mesh->AddMesh(mesh);
 			}
 			
+			ResourceTexture* texture = new ResourceTexture();
+			texture = texture->Load(go);
+			if (texture)
+			{
+				ComponentTexture* comp_texture = (ComponentTexture*)parent->CreateComponent(COMPONENT_TEXTURE);
+				comp_texture->AddTexture(texture);
+				parent->GetComponentMesh()->image_id = comp_texture->texture->image_id;
+			}
+
 		}
 		else
 			break;
