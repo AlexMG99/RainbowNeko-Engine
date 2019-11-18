@@ -7,6 +7,11 @@
 #include "Assimp/include/types.h"
 #include <string>
 
+ResourceTexture::ResourceTexture() : Resource()
+{
+	this->type = RESOURCE_TEXTURE;
+}
+
 Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 {
 	std::string base_path;

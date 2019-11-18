@@ -76,6 +76,7 @@ bool ComponentMesh::OnLoad(Scene & scene)
 void ComponentMesh::AddMesh(ResourceMesh * mesh)
 {
 	this->mesh = mesh;
+	transform = my_go->GetComponentTransform();
 	CreateLocalAABB();
 	my_go->global_AABB = my_go->GetGlobalAABB();
 	my_go->GenerateBoundingBuffers();

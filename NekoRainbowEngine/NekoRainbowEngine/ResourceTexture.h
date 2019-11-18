@@ -9,7 +9,7 @@ class aiMaterial;
 class ResourceTexture : public Resource
 {
 public:
-	ResourceTexture() :Resource() {};
+	ResourceTexture();
 	ResourceTexture(Random id) :Resource(id, type) {};
 	~ResourceTexture() {};
 

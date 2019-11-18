@@ -32,6 +32,7 @@ void _log(ConsoleTextType type, const char file[], int line, const char * format
 #define LIBRARY_FOLDER "/Library/"
 #define LIBRARY_TEXTURES_FOLDER "/Library/Textures/"
 #define LIBRARY_MESH_FOLDER "/Library/Meshes/"
+#define LIBRARY_MODELS_FOLDER "/Library/Models/"
 
 typedef unsigned int uint;
 typedef unsigned __int64 uint64;

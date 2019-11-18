@@ -15,9 +15,11 @@ ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module
 
 ModuleResources::~ModuleResources()
 {
+
 }
 bool ModuleResources::CleanUp()
 {
+	App->fs->Remove(LIBRARY_MESH_FOLDER);
 	return true;
 }
 
@@ -66,6 +68,7 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		res->file = file_assets;
 		res->imported_file = output_file;
 		id = res->ID;
+		res->Load();
 	}
 
 	return id;
@@ -94,34 +97,38 @@ Resource* ModuleResources::CreateNewResource(resource_type type)
 {
 	Resource* res = nullptr;
 
-	Random id; id.GenerateRandomInt();
-
 	switch (type)
 	{
 	case resource_type::RESOURCE_MESH:
-		res = (Resource*)new ResourceMesh(id);
+		res = (Resource*)new ResourceMesh();
 		break;
 	case resource_type::RESOURCE_TEXTURE:
-		res = (Resource*)new ResourceTexture(id);
+		res = (Resource*)new ResourceTexture();
 		break;
 	case resource_type::RESOURCE_MODEL:
-		res = (Resource*)new ResourceModel(id);
+		res = (Resource*)new ResourceModel();
 		break;
 	}
 
 	if (res)
-		resources[id.GetNumber()] = res;
+		resources[res->GetID().GetNumber()] = res;
 
 	return res;
 }
 
 ResourceMesh * ModuleResources::ImportMesh(uint32 id, const char* path)
 {
+	if (id == 0)
+		return nullptr;
+
 	Resource* resource_mesh = Get(id);
+
 	if(resource_mesh)
 		return (ResourceMesh*)resource_mesh;
 	
 	Random new_id = ImportFile(path, RESOURCE_MESH);
 
 	resource_mesh = Get(new_id.GetNumber());
+
+	return (ResourceMesh*)resource_mesh;
 }

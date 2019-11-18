@@ -11,7 +11,7 @@ Application::Application()
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	fs = new ModuleFileSystem(this, true, "Game/");
+	fs = new ModuleFileSystem(this, true, "Game");
 	editor = new ModuleEditor(this);
 	viewport = new ModuleViewport(this);
 	renderer3D = new ModuleRenderer3D(this);

@@ -10,6 +10,8 @@
 class aiNode;
 class aiScene;
 
+class string;
+
 class ResourceModel : public Resource
 {
 public:
@@ -26,11 +28,12 @@ public:
 	};
 
 public:
-	ResourceModel() :Resource() {};
+	ResourceModel();
 	ResourceModel(Random id) :Resource(id, type) {};
 	~ResourceModel() {};
 
-	bool ImportModel(const char* path, std::string output_file);
+	bool ImportModel(const char* path, std::string& output_file);
+	bool Load();
 private:
 	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials);
 	void GenerateMeshes(const aiScene * scene, const char * file, std::vector<Random>& meshes);

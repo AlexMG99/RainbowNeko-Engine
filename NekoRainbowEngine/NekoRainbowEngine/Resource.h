@@ -31,6 +31,8 @@ public:
 
 	~Resource() {};
 
+	virtual bool Load() { return true; };
+
 	resource_type GetType() const
 	{
 		return type;

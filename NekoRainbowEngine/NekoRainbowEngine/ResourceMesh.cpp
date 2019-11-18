@@ -4,13 +4,15 @@
 #include "MeshImporter.h"
 #include "Globals.h"
 #include "ResourceMesh.h"
+#include "Scene.h"
 
 #include "GL/include/glew.h"
-#include "Assimp/include/mesh.h"                                                                                                 
+#include "Assimp/include/mesh.h"
 #include "MathGeoLib/include/Math/float2.h"
 
 ResourceMesh::ResourceMesh():Resource()
 {
+	this->type = RESOURCE_MESH;
 }
 
 ResourceMesh::ResourceMesh(Random id): Resource(id,type)
@@ -56,6 +58,11 @@ void ResourceMesh::GenerateBuffers()
 	LOG("Generated mesh with id vertex: %i and id index: %i", buffers[BUFF_VERTICES], buffers[BUFF_INDEX]);
 }
 
+ResourceMesh* ResourceMesh::Load(Scene& scene)
+{
+	return App->resources->ImportMesh(scene.GetDouble("Mesh"), "");
+}
+
 ResourceMesh::~ResourceMesh()
 {
 	RELEASE_ARRAY(UV_coord);
@@ -75,11 +82,10 @@ Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
 {
 	ResourceMesh* resource_mesh = (ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH);
 	
-	resource_mesh->name = mesh->mName.C_Str();
-	resource_mesh = App->importer->mesh_imp->Import(mesh);
+	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
 	App->importer->mesh_imp->SaveMesh(resource_mesh);
 	
-	resource_mesh->ReleaseFromMemory();
+	//resource_mesh->ReleaseFromMemory();
 
 	return resource_mesh->GetID();
 }

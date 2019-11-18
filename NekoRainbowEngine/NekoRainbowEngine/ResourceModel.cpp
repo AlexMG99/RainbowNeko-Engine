@@ -1,9 +1,13 @@
+#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ResourceModel.h"
 #include "ResourceTexture.h"
 #include "ResourceMesh.h"
 #include "Scene.h"
+#include "ComponentMesh.h"
+
+#include "MathGeoLib/include/Math/Quat.h"
 
 //-------------- Assimp --------------
 #include "Assimp/include/cimport.h"
@@ -14,9 +18,12 @@
 
 #pragma comment(lib, "Assimp/libx86/assimp.lib")
 
-#include "MathGeoLib/include/Math/Quat.h"
+ResourceModel::ResourceModel():Resource()
+{
+	type = resource_type::RESOURCE_MODEL;
+}
 
-bool ResourceModel::ImportModel(const char * path, std::string output_file)
+bool ResourceModel::ImportModel(const char * path, std::string& output_file)
 {
 	bool ret = true;
 
@@ -38,7 +45,7 @@ bool ResourceModel::ImportModel(const char * path, std::string output_file)
 		model.GenerateNodes(scene, scene->mRootNode, 0, meshes, textures);
 		aiReleaseImport(scene);
 
-		Save(model, output_file);
+		ret = Save(model, output_file);
 	}
 	else
 	{
@@ -49,6 +56,35 @@ bool ResourceModel::ImportModel(const char * path, std::string output_file)
 	aiDetachAllLogStreams();
 	
 	return ret;
+}
+
+bool ResourceModel::Load()
+{
+	Scene* model = new Scene(imported_file.c_str());
+	Scene model_array = model->GetArray("Model");
+
+	for (int i = 0;;i++)
+	{
+		if (model->IsArraySection(i))
+		{
+			Scene go = model_array.GetSectionArray(i);
+			GameObject* parent = App->viewport->CreateGameObject(go.GetString("Name").c_str(), nullptr, go.GetFloat3("Position"), go.GetFloat3("Scale"), go.GetQuat("Rotation"));
+
+			ResourceMesh* mesh = new ResourceMesh();
+			mesh = mesh->Load(go);
+			if (mesh)
+			{
+				ComponentMesh* comp_mesh = (ComponentMesh*)parent->CreateComponent(COMPONENT_MESH);
+				comp_mesh->AddMesh(mesh);
+			}
+			
+		}
+		else
+			break;
+	}
+	
+
+	return true;
 }
 
 void LogCallback(const char* text, char* data)
@@ -127,6 +163,7 @@ void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, ui
 
 bool ResourceModel::Save(ResourceModel model, std::string & output) const
 {
+	bool ret = false;
 	Scene* model_scene = new Scene();
 
 	Scene models = model_scene->AddArray("Model");
@@ -146,6 +183,8 @@ bool ResourceModel::Save(ResourceModel model, std::string & output) const
 	}
 
 	output = model.nodes[0].name + ".model";
-
-	return model_scene->Save(output.c_str());
+	ret = model_scene->Save(output.c_str());
+	//ret = App->fs->CopyFromOutsideFS(output.c_str(), std::string(LIBRARY_MODELS_FOLDER + output).c_str());
+	//App->fs->Remove(output.c_str());
+	return ret;
 }

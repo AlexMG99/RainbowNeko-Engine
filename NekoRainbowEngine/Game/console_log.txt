@@ -1,0 +1,56 @@
+
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
+GLSL: 4.60 NVIDIA
+
+Framebuffer created succesfully!
+-------------- Application Start --------------
+Setting up the camera
+  T5568: Load ./Assets/BakerHouse.fbx
+
+  T5568: Found a matching importer for this file format: Autodesk FBX Importer.
+
+  T5568: Import root directory is './Assets\'
+
+  T5568: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+
+  T5568: Entering post processing pipeline
+
+  T5568: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+
+  T5568: CalcTangentsProcess finished. Tangents have been calculated
+
+  T5568: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+
+  T5568: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+
+  T5568: Leaving post processing pipeline
+
+New file created [./Library/Textures/baker_house.dds] of 1048704 bytes
+New mesh with 160 vertices
+Generated mesh with id vertex: 3 and id index: 4
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3249637754.neko] of 4508 bytes
+New mesh with 1641 vertices
+Generated mesh with id vertex: 6 and id index: 7
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3614271800.neko] of 43836 bytes
+Loading Editor Scene
+-------------- Application Update --------------
+
+Mouse Pos: 1230.000000, 335.000000
+Normalized Mouse Pos: 0.964854, 0.262785
+Mouse Pos: 957.000000, 418.000000
+Normalized Mouse Pos: 0.916399, 0.400266
+Mouse Pos: 1060.000000, 512.000000
+Normalized Mouse Pos: 0.900460, 0.434939
+Mouse Pos: 1053.000000, 344.000000
+Normalized Mouse Pos: 0.950562, 0.310535
+Mouse Pos: 1183.000000, 280.000000
+Normalized Mouse Pos: 0.973114, 0.230323

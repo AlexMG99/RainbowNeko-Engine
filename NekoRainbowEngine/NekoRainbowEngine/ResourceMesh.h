@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/Math/float3.h"
 
 class aiMesh;
+class Scene;
 
 enum buffer_type
 {
@@ -26,6 +27,7 @@ public:
 
 	Random Import(const aiMesh* mesh, const char* source_file);
 	void GenerateBuffers();
+	ResourceMesh* Load(Scene& scene);
 
 private:
 	void ReleaseFromMemory();

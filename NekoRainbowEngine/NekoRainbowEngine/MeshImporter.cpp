@@ -25,52 +25,51 @@ bool MeshImporter::CleanUp()
 	return true;
 }
 
-ResourceMesh* MeshImporter::Import(const aiMesh * aimesh)
+ResourceMesh* MeshImporter::Import(const aiMesh * aimesh, ResourceMesh* res_mesh)
 {
-	ResourceMesh* mesh = new ResourceMesh();
 
 	//Vertices Load
-	mesh->vertices_size = aimesh->mNumVertices;
-	mesh->vertices = new float3[aimesh->mNumVertices];
-	memcpy(mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
-	LOG("New mesh with %d vertices", mesh->vertices_size);
+	res_mesh->vertices_size = aimesh->mNumVertices;
+	res_mesh->vertices = new float3[aimesh->mNumVertices];
+	memcpy(res_mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
+	LOG("New mesh with %d vertices", res_mesh->vertices_size);
 
 	//Index Load
 	if (aimesh->HasFaces())
 	{
-		mesh->index_size = aimesh->mNumFaces * 3;
-		mesh->index = new uint[mesh->index_size];
+		res_mesh->index_size = aimesh->mNumFaces * 3;
+		res_mesh->index = new uint[res_mesh->index_size];
 		for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
 		{
-			memcpy(&mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			memcpy(&res_mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
 	}
 
 	//Load Normals
 	if (aimesh->HasNormals())
 	{
-		CalculateNormalFace(mesh, aimesh);
+		CalculateNormalFace(res_mesh, aimesh);
 	}
 
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
 	{
-		mesh->UV_size = mesh->vertices_size;
-		mesh->UV_coord = new float2[mesh->UV_size];
+		res_mesh->UV_size = res_mesh->vertices_size;
+		res_mesh->UV_coord = new float2[res_mesh->UV_size];
 
-		for (uint i = 0; i < mesh->UV_size; i++)
+		for (uint i = 0; i < res_mesh->UV_size; i++)
 		{
 			float2 uv = float2(aimesh->mTextureCoords[0][i].x, aimesh->mTextureCoords[0][i].y);
-			mesh->UV_coord[i] = uv;
+			res_mesh->UV_coord[i] = uv;
 		}
 
 	}
 
-	mesh->GenerateBuffers();
+	res_mesh->GenerateBuffers();
 
 	LOG("Loaded mesh file succesfully!");
 
-	return mesh;
+	return res_mesh;
 }
 
 void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimesh)
@@ -141,7 +140,13 @@ bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 		cursor += bytes;
 	}
 
-	uint ret = App->fs->Save(mesh->name.c_str(), data, size);
+	std::string name;
+	name.append(LIBRARY_MESH_FOLDER);
+	char file_name[50];
+	sprintf_s(file_name, 50, "%u", mesh->GetID().GetNumber());
+	name += file_name;
+	name += ".neko";
+	uint ret = App->fs->Save(name.c_str(), data, size);
 
 	RELEASE_ARRAY(data);
 	return true;

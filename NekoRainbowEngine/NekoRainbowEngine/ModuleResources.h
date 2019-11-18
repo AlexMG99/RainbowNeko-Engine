@@ -26,7 +26,7 @@ public:
 
 	ResourceMesh* ImportMesh(uint32 id, const char* path);
 
-private:
+public:
 	std::map<uint32, Resource*> resources;
 };
 
