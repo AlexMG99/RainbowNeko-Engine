@@ -36,7 +36,6 @@ public:
 	bool ImportModel(const char* path, std::string& output_file);
 	bool Load();
 	void ReorganizeHierarchy();
-	void Check(std::vector<GameObject*>::iterator it);
 private:
 	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials);
 	void GenerateMeshes(const aiScene * scene, const char * file, std::vector<Random>& meshes);
@@ -44,7 +43,7 @@ private:
 
 	bool Save(ResourceModel model, std::string& output) const;
 
-private:
+public:
 	std::vector<Node> nodes;
 };
 

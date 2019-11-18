@@ -1,0 +1,46 @@
+
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
+GLSL: 4.60 NVIDIA
+
+Framebuffer created succesfully!
+-------------- Application Start --------------
+Setting up the camera
+  T848: Load ./Assets/BakerHouse.fbx
+
+  T848: Found a matching importer for this file format: Autodesk FBX Importer.
+
+  T848: Import root directory is './Assets\'
+
+  T848: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+
+  T848: Entering post processing pipeline
+
+  T848: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+
+  T848: CalcTangentsProcess finished. Tangents have been calculated
+
+  T848: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
+
+  T848: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+
+  T848: Leaving post processing pipeline
+
+New file created [./Library/Textures/baker_house.dds] of 1048704 bytes
+Loaded with path: /Library/Textures/baker_house.dds succesfully!
+New mesh with 160 vertices
+Generated mesh with id vertex: 3 and id index: 4
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3010345607.neko] of 4508 bytes
+New mesh with 1641 vertices
+Generated mesh with id vertex: 6 and id index: 7
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3458452698.neko] of 43836 bytes
+Loading Editor Scene
+-------------- Application Update --------------

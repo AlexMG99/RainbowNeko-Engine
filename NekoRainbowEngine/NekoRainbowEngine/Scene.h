@@ -53,6 +53,7 @@ public:
 	bool Save(const char* name);
 
 	std::string GetName() const;
+	JSON_Value* GetVRoot() const;
 
 private:
 	JSON_Value* vroot = nullptr;

@@ -187,3 +187,8 @@ std::string Scene::GetName() const
 	return scene_name;
 }
 
+JSON_Value * Scene::GetVRoot() const
+{
+	return vroot;
+}
+

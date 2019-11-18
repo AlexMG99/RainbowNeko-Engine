@@ -44,26 +44,20 @@ Resource* ModuleResources::FindMeta(const char * file)
 	App->fs->SplitFilePath(file, nullptr, &file_name);
 	file_name += ".meta";
 
-	std::string output = ".";
-	output += ASSETS_META_FOLDER + file_name;
+	Scene* meta = new Scene(file_name.c_str());
 
-	bool ret = App->fs->CopyFromOutsideFS(output.c_str(), file_name.c_str());
-
-	Resource* res = nullptr;
-
-	if (ret)
+	if (meta->GetVRoot())
 	{
-		Scene* meta = new Scene(file_name.c_str());
-		res = CreateNewResource(resource_type(meta->GetInt("Type")));
+		Resource* res = CreateNewResource(resource_type(meta->GetInt("Type")));
 		res->ID.SetNumber(meta->GetDouble("ID"));
 		res->file = meta->GetString("File");
 		res->imported_file = meta->GetString("ExportedFile");
 		res->Load();
+
+		return res;
 	}
 
-	App->fs->Remove(file_name.c_str());
-
-	return res;
+	return nullptr;
 }
 
 Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
@@ -201,10 +195,43 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 	meta->AddString("ExportedFile", res->imported_file.c_str());
 	meta->AddDouble("ID", res->GetID().GetNumber());
 	meta->AddString("File", res->file.c_str());
+
+	switch (res->type)
+	{
+	case RESOURCE_MODEL:
+		Scene meshes = meta->AddArray("Meshes");
+		Scene textures = meta->AddArray("Textures");
+		Scene* resource_model = new Scene(res->imported_file.c_str());
+		Scene model_array = resource_model->GetArray("Model");
+
+		for (int i = 0;; i++)
+		{
+			if (resource_model->IsArraySection(i))
+			{
+				Scene go = model_array.GetSectionArray(i);
+
+				Scene mesh = meshes.AddSectionArray(i);
+				Scene texture = textures.AddSectionArray(i);
+				char id[15];
+				char name[10];
+				//Mesh
+				sprintf_s(id, 15, "%u", go.GetDouble("Mesh"));
+				sprintf_s(name, 10, "Mesh %i", i);
+				mesh.AddString(name, id);
+
+				//Texture
+				sprintf_s(id, 15, "%u", go.GetDouble("Texture"));
+				sprintf_s(name, 10, "Texture %i", i);
+				texture.AddString(name, id);
+			}
+			else
+				break;
+		}
+	}
 	
 	std::string output = ASSETS_META_FOLDER;
 	output += file;
-	meta->Save(file);
-	bool ret = App->fs->CopyFromOutsideFS(file, output.c_str());
-	App->fs->Remove(file);
+
+	bool ret = meta->Save(file);
+
 }

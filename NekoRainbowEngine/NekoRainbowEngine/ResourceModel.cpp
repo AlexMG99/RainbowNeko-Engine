@@ -218,6 +218,13 @@ bool ResourceModel::Save(ResourceModel model, std::string & output) const
 		actual_node.AddDouble("Parent", model.nodes[i].parent);
 		actual_node.AddDouble("Mesh", model.nodes[i].mesh.GetNumber());
 		actual_node.AddDouble("Texture", model.nodes[i].texture.GetNumber());
+
+		//std::string path = LIBRARY_MESH_FOLDER;
+		//char name[50];
+		//sprintf_s(name, 50, "&u", model.nodes[i].mesh.GetNumber());
+		//path += name;
+		//path += ".neko";
+		//actual_node.AddString("MeshString", path.c_str());
 	}
 
 	output = model.nodes[0].name + ".model";
