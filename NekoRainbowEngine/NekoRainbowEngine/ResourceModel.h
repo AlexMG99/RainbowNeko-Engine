@@ -22,7 +22,7 @@ public:
 		float3			position = float3::zero;
 		Quat			rotation = Quat::identity;
 		float3			scale = float3::zero;
-		uint			parent = 0;
+		int				parent = 0;
 		Random          mesh = 0;
 		Random          texture = 0;
 	};
@@ -34,10 +34,11 @@ public:
 
 	bool ImportModel(const char* path, std::string& output_file);
 	bool Load();
+	void ReorganizeHierarchy();
 private:
 	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials);
 	void GenerateMeshes(const aiScene * scene, const char * file, std::vector<Random>& meshes);
-	void GenerateNodes(const aiScene* model, const aiNode* node, uint parent, const std::vector<Random>& meshes, const std::vector<Random>& materials);
+	void GenerateNodes(const aiScene* model, const aiNode* node, int parent, const std::vector<Random>& meshes, const std::vector<Random>& materials);
 
 	bool Save(ResourceModel model, std::string& output) const;
 

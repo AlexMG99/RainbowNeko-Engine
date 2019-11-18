@@ -69,6 +69,7 @@ bool ResourceModel::Load()
 		{
 			Scene go = model_array.GetSectionArray(i);
 			GameObject* parent = App->viewport->CreateGameObject(go.GetString("Name").c_str(), nullptr, go.GetFloat3("Position"), go.GetFloat3("Scale"), go.GetQuat("Rotation"));
+			parent->parent_id = go.GetInt("Parent");
 
 			ResourceMesh* mesh = new ResourceMesh();
 			mesh = mesh->Load(go);
@@ -91,9 +92,28 @@ bool ResourceModel::Load()
 		else
 			break;
 	}
-	
 
+	ReorganizeHierarchy();
+	
 	return true;
+}
+
+void ResourceModel::ReorganizeHierarchy()
+{
+	for (auto it_child = App->viewport->root_object->children.begin(); it_child != App->viewport->root_object->children.end() - 1;)
+	{
+		auto it_child_next = (it_child + 1);
+
+		if ((*it_child_next)->parent_id == ((*it_child)->parent_id + 1))
+		{
+			(*it_child_next)->SetParent(*it_child);
+			(*it_child_next)->parent_id = (*it_child)->GetId();
+			App->viewport->root_object->RemoveChild(*it_child_next);
+		}
+		else
+			it_child++;
+
+	}
 }
 
 void LogCallback(const char* text, char* data)
@@ -138,7 +158,7 @@ void ResourceModel::GenerateMeshes(const aiScene* scene, const char* file, std::
 	}
 }
 
-void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, uint parent, const std::vector<Random>& meshes, const std::vector<Random>& textures)
+void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, int parent, const std::vector<Random>& meshes, const std::vector<Random>& textures)
 {
 	uint index = nodes.size();
 	Node dst;
@@ -157,7 +177,7 @@ void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, ui
 
 	for (uint i = 0; i < node->mNumChildren; ++i)
 	{
-		GenerateNodes(model, node->mChildren[i], index, meshes, textures);
+		GenerateNodes(model, node->mChildren[i], index + 1, meshes, textures);
 	}
 
 

@@ -1,87 +1,121 @@
 
--------------- Application Init --------------
-Init SDL window & surface
-Init SDL input event system
-Creating 3D Renderer context
-Using Glew 2.1.0
-Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
-GLSL: 4.60 NVIDIA
-
-Framebuffer created succesfully!
--------------- Application Start --------------
-Setting up the camera
-  T12028: Load ./Assets/BakerHouse.fbx
-
-  T12028: Found a matching importer for this file format: Autodesk FBX Importer.
-
-  T12028: Import root directory is './Assets\'
-
-  T12028: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
-
-  T12028: Entering post processing pipeline
-
-  T12028: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
-
-  T12028: CalcTangentsProcess finished. Tangents have been calculated
-
-  T12028: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
-
-  T12028: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
-
-  T12028: Leaving post processing pipeline
-
-New file created [./Library/Textures/baker_house.dds] of 1048704 bytes
-Loaded with path: /Library/Textures/baker_house.dds succesfully!
-New mesh with 160 vertices
-Generated mesh with id vertex: 3 and id index: 4
+Loaded with path: /Library/Textures/building_016_c.dds succesfully!
+New file created [./Library/Textures/building_025_c.dds] of 65664 bytes
+Loaded with path: /Library/Textures/building_025_c.dds succesfully!
+Failed to load texture with path: . Error: (null)
+Failed to load texture with path: . Error: (null)
+New file created [./Library/Textures/building 01_c.dds] of 1048704 bytes
+Loaded with path: /Library/Textures/building 01_c.dds succesfully!
+New file created [./Library/Textures/building 06_ c.dds] of 1048704 bytes
+Loaded with path: /Library/Textures/building 06_ c.dds succesfully!
+New file created [./Library/Textures/building05 _c.dds] of 1048704 bytes
+Loaded with path: /Library/Textures/building05 _c.dds succesfully!
+New file created [./Library/Textures/building_v01_c.dds] of 262272 bytes
+Loaded with path: /Library/Textures/building_v01_c.dds succesfully!
+Failed to load texture with path: . Error: (null)
+New mesh with 3850 vertices
+Generated mesh with id vertex: 23 and id index: 24
 Loaded mesh file succesfully!
-New file created [./Library/Meshes/4064525539.neko] of 4508 bytes
-New mesh with 1641 vertices
-Generated mesh with id vertex: 6 and id index: 7
+New file created [./Library/Meshes/148853663.neko] of 100964 bytes
+New mesh with 2129 vertices
+Generated mesh with id vertex: 26 and id index: 27
 Loaded mesh file succesfully!
-New file created [./Library/Meshes/1585243790.neko] of 43836 bytes
-Loading Editor Scene
--------------- Application Update --------------
-
-Mouse Pos: 365.000000, 141.000000
-Normalized Mouse Pos: 0.932818, 0.360349
-Mouse Pos: 1582.000000, 141.000000
-Normalized Mouse Pos: 0.996052, 0.088776
-Mouse Pos: 342.000000, 99.000000
-Normalized Mouse Pos: 0.960564, 0.278058
-Mouse Pos: 378.000000, 142.000000
-Normalized Mouse Pos: 0.936125, 0.351666
-Mouse Pos: 1574.000000, 117.000000
-Normalized Mouse Pos: 0.997249, 0.074128
-Mouse Pos: 359.000000, 95.000000
-Normalized Mouse Pos: 0.966725, 0.255819
-Mouse Pos: 377.000000, 150.000000
-Normalized Mouse Pos: 0.929155, 0.369690
-Mouse Pos: 375.000000, 99.000000
-Normalized Mouse Pos: 0.966874, 0.255255
-Mouse Pos: 82.000000, 132.000000
-Normalized Mouse Pos: 0.527683, 0.849441
-Mouse Pos: 82.000000, 132.000000
-Normalized Mouse Pos: 0.527683, 0.849441
-Mouse Pos: 372.000000, 146.000000
-Normalized Mouse Pos: 0.930873, 0.365343
-Mouse Pos: 373.000000, 128.000000
-Normalized Mouse Pos: 0.945857, 0.324584
-Mouse Pos: 351.000000, 80.000000
-Normalized Mouse Pos: 0.974996, 0.222221
-Mouse Pos: 361.000000, 97.000000
-Normalized Mouse Pos: 0.965745, 0.259494
-Mouse Pos: 361.000000, 108.000000
-Normalized Mouse Pos: 0.958045, 0.286617
-Mouse Pos: 400.000000, 93.000000
-Normalized Mouse Pos: 0.974020, 0.226460
-Mouse Pos: 358.000000, 77.000000
-Normalized Mouse Pos: 0.977642, 0.210275
-Mouse Pos: 374.000000, 91.000000
-Normalized Mouse Pos: 0.971651, 0.236418
-Mouse Pos: 369.000000, 151.000000
-Normalized Mouse Pos: 0.925507, 0.378731
-Mouse Pos: 355.000000, 132.000000
-Normalized Mouse Pos: 0.937302, 0.348518
+New file created [./Library/Meshes/2537260712.neko] of 59296 bytes
+New mesh with 436 vertices
+Generated mesh with id vertex: 29 and id index: 30
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/235489731.neko] of 11468 bytes
+New mesh with 419 vertices
+Generated mesh with id vertex: 32 and id index: 33
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/1865653667.neko] of 11848 bytes
+New mesh with 4 vertices
+Generated mesh with id vertex: 35 and id index: 36
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/2297346632.neko] of 116 bytes
+New mesh with 3268 vertices
+Generated mesh with id vertex: 38 and id index: 39
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/1841652366.neko] of 85364 bytes
+New mesh with 2452 vertices
+Generated mesh with id vertex: 41 and id index: 42
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/4042688368.neko] of 65840 bytes
+New mesh with 6069 vertices
+Generated mesh with id vertex: 44 and id index: 45
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/568012077.neko] of 154560 bytes
+New mesh with 48 vertices
+Generated mesh with id vertex: 47 and id index: 48
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/939578518.neko] of 876 bytes
+New mesh with 25 vertices
+Generated mesh with id vertex: 49 and id index: 50
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/1972206666.neko] of 896 bytes
+New mesh with 4218 vertices
+Generated mesh with id vertex: 52 and id index: 53
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/2580182173.neko] of 110916 bytes
+New mesh with 4670 vertices
+Generated mesh with id vertex: 55 and id index: 56
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/2950496709.neko] of 127396 bytes
+New mesh with 4523 vertices
+Generated mesh with id vertex: 58 and id index: 59
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/1491233347.neko] of 123400 bytes
+New mesh with 1440 vertices
+Generated mesh with id vertex: 61 and id index: 62
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3422668701.neko] of 25932 bytes
+New mesh with 4772 vertices
+Generated mesh with id vertex: 63 and id index: 64
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/849840373.neko] of 127396 bytes
+New mesh with 3481 vertices
+Generated mesh with id vertex: 66 and id index: 67
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/468668569.neko] of 95144 bytes
+New mesh with 2548 vertices
+Generated mesh with id vertex: 69 and id index: 70
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/3253524804.neko] of 69092 bytes
+New mesh with 3972 vertices
+Generated mesh with id vertex: 72 and id index: 73
+Loaded mesh file succesfully!
+New file created [./Library/Meshes/929141884.neko] of 109020 bytes
+Mouse Pos: 317.000000, 179.000000
+Normalized Mouse Pos: 0.870767, 0.491695
+Mouse Pos: 309.000000, 180.000000
+Normalized Mouse Pos: 0.864083, 0.503349
+Mouse Pos: 315.000000, 232.000000
+Normalized Mouse Pos: 0.805184, 0.593025
+Mouse Pos: 315.000000, 232.000000
+Normalized Mouse Pos: 0.805184, 0.593025
+Mouse Pos: 316.000000, 232.000000
+Normalized Mouse Pos: 0.806080, 0.591806
+Mouse Pos: 316.000000, 232.000000
+Normalized Mouse Pos: 0.806080, 0.591806
+Mouse Pos: 316.000000, 232.000000
+Normalized Mouse Pos: 0.806080, 0.591806
+Mouse Pos: 316.000000, 232.000000
+Normalized Mouse Pos: 0.806080, 0.591806
+Mouse Pos: 313.000000, 182.000000
+Normalized Mouse Pos: 0.864479, 0.502668
+Mouse Pos: 313.000000, 182.000000
+Normalized Mouse Pos: 0.864479, 0.502668
+Mouse Pos: 321.000000, 227.000000
+Normalized Mouse Pos: 0.816474, 0.577382
+Mouse Pos: 321.000000, 227.000000
+Normalized Mouse Pos: 0.816474, 0.577382
+Mouse Pos: 323.000000, 213.000000
+Normalized Mouse Pos: 0.834823, 0.550518
+Mouse Pos: 1568.000000, 86.000000
+Normalized Mouse Pos: 0.998499, 0.054765
+Mouse Pos: 395.000000, 589.000000
+Normalized Mouse Pos: 0.556976, 0.830529
+Mouse Pos: 399.000000, 551.000000
+Normalized Mouse Pos: 0.586510, 0.809942
+Mouse Pos: 400.000000, 484.000000
+Normalized Mouse Pos: 0.637046, 0.770826
