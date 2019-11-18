@@ -96,8 +96,6 @@ update_status ModuleEditorCamera::Update(float dt)
 
 	}
 		
-
-
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
 	if(wheel != 0)

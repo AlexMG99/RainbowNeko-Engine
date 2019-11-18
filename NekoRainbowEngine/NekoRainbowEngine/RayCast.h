@@ -5,18 +5,14 @@
 struct RayCast
 {
 public:
-	ComponentTransform* trans;
+	GameObject* go;
 	float3 h_point;
 	float distance;
 
-
-
-	RayCast() : trans(nullptr), h_point(float3::zero), distance(0)
+	RayCast() : go(nullptr), h_point(float3::zero), distance(0)
 	{};
-	RayCast(ComponentTransform* transform) : trans(transform), h_point(float3::zero), distance(0)
+	RayCast(GameObject* go_) : go(go_), h_point(float3::zero), distance(0)
 	{};
-
-
 
 };
 

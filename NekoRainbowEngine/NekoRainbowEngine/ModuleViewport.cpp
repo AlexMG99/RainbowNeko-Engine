@@ -103,7 +103,7 @@ bool CompareRayCast(RayCast & a, RayCast & b)
 GameObject* ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 {
 	std::vector<RayCast> scn_obj;
-	/*BoxIntersection(root_object, my_ray, scn_obj);*/
+	BoxIntersection(root_object, my_ray, scn_obj);
 
 	std::sort(scn_obj.begin(), scn_obj.end(), CompareRayCast);
 
@@ -112,7 +112,7 @@ GameObject* ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast 
 
 	for (std::vector<RayCast>::iterator iter = scn_obj.begin(); iter != scn_obj.end(); ++iter)
 	{
-		var = (*iter).trans->my_go;
+		var = (*iter).go;
 		selec = TriangleTest(*my_ray, var);
 		if (selec != nullptr)
 			break;
@@ -123,25 +123,22 @@ GameObject* ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast 
 
 void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
 {
-	if (obj->GetComponentTransform() != nullptr)
+	if (obj->GetComponentMesh() != nullptr)
 	{
-		if (obj->GetName() != "Root Object") {
-			if (obj->transfrom->ItIntersect(*ray))
+		if (obj->GetComponentTransform()->ItIntersect(*ray))
+		{
+			RayCast hit(obj);
+			float near_hit, far_hit;
+			if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
 			{
-				RayCast hit(obj->transfrom);
-				float near_hit, far_hit;
-				if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
-				{
-					hit.distance = near_hit;
-					scene_obj.push_back(hit);
-				}
+				hit.distance = near_hit;
+				scene_obj.push_back(hit);
 			}
 		}
-		for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
-		{
-			BoxIntersection((*iter), ray, scene_obj);
-		}
-
+	}
+	for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
+	{
+		BoxIntersection((*iter), ray, scene_obj);
 	}
 }
 
