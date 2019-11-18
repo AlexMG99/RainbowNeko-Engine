@@ -85,9 +85,8 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
-	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
-
-
+	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN) 
+	{
 		GameObject* pick = Pick();
 
 		if (pick != nullptr)
@@ -96,9 +95,6 @@ update_status ModuleEditorCamera::Update(float dt)
 		}
 
 	}
-	if (drawraycast)
-		DrawSegmentRay();
-		
 		
 
 
@@ -276,8 +272,8 @@ void ModuleEditorCamera::DrawSegmentRay()
 
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
 	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
 
 
 	glEnd();

@@ -81,6 +81,9 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if(draw_grid)
 		DrawGrid(2,100);
 
+	if (App->camera->drawraycast)
+		App->camera->DrawSegmentRay();
+
 	root_object->Update();
 
 	return UPDATE_CONTINUE;
