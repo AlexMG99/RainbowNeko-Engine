@@ -218,6 +218,19 @@ bool GameObject::IsParentID(uint32 id)
 	return (this->id.GetNumber() == id);
 }
 
+GameObject* GameObject::GetIteratorChild(uint32 id)
+{
+	for (auto it_child = children.begin(); it_child != children.end();it_child++)
+	{
+		if ((*it_child)->IsParentID(id))
+			return *it_child;
+
+		return (*it_child)->GetIteratorChild(id);
+	}
+
+	return nullptr;
+}
+
 object_type GameObject::GetType()
 {
 	return type;

@@ -38,6 +38,7 @@ update_status PanelInspector::Draw()
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
+			ImGui::Text("ID: %u", object->GetId());
 			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) ||
 				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
 				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
@@ -46,6 +47,7 @@ update_status PanelInspector::Draw()
 				comp_trans->UpdateComponents();
 			}
 
+			ImGui::Text("Parent: %u", object->parent_id);
 			ImGui::Text("Bounding Boxes:");
 			ImGui::Checkbox("Show AABB", &object->show_aabb);
 			ImGui::Checkbox("Show OBB", &object->show_obb);

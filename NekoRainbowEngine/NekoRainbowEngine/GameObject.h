@@ -53,6 +53,8 @@ public:
 	void SetParent(GameObject * par);
 	bool IsParentID(uint32 id);
 
+	GameObject* GetIteratorChild(uint32 id);
+
 	object_type GetType();
 	void SetType(object_type ty_);
 

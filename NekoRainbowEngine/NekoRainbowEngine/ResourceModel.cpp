@@ -69,7 +69,8 @@ bool ResourceModel::Load()
 		{
 			Scene go = model_array.GetSectionArray(i);
 			GameObject* parent = App->viewport->CreateGameObject(go.GetString("Name").c_str(), nullptr, go.GetFloat3("Position"), go.GetFloat3("Scale"), go.GetQuat("Rotation"));
-			parent->parent_id = go.GetInt("Parent");
+			parent->SetId(go.GetDouble("ID"));
+			parent->parent_id = go.GetDouble("Parent");
 
 			ResourceMesh* mesh = new ResourceMesh();
 			mesh = mesh->Load(go);
@@ -87,14 +88,13 @@ bool ResourceModel::Load()
 				comp_texture->AddTexture(texture);
 				parent->GetComponentMesh()->image_id = comp_texture->texture->image_id;
 			}
-
 		}
 		else
 			break;
 	}
-
-	ReorganizeHierarchy();
 	
+	ReorganizeHierarchy();
+
 	return true;
 }
 
@@ -102,17 +102,23 @@ void ResourceModel::ReorganizeHierarchy()
 {
 	for (auto it_child = App->viewport->root_object->children.begin(); it_child != App->viewport->root_object->children.end() - 1;)
 	{
-		auto it_child_next = (it_child + 1);
-
-		if ((*it_child_next)->parent_id == ((*it_child)->parent_id + 1))
+		auto it_next = (it_child + 1);
+		if ((*it_child)->IsParentID((*it_next)->parent_id))
 		{
-			(*it_child_next)->SetParent(*it_child);
-			(*it_child_next)->parent_id = (*it_child)->GetId();
-			App->viewport->root_object->RemoveChild(*it_child_next);
+			(*it_next)->SetParent(*it_child);
+			App->viewport->root_object->RemoveChild(*it_next);
 		}
 		else
-			it_child++;
-
+		{
+			GameObject* it_new = (*it_child)->GetIteratorChild((*it_next)->parent_id);
+			if (it_new) 
+			{
+				(*it_next)->SetParent(it_new);
+				App->viewport->root_object->RemoveChild(*it_next);
+			}
+			else
+				it_child++;
+		}
 	}
 }
 
@@ -165,6 +171,7 @@ void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, in
 
 	aiVector3D translation, scaling;
 	aiQuaternion rotation;
+	Random id;
 	node->mTransformation.Decompose(scaling, rotation, translation);
 
 	dst.position = float3(translation.x, translation.y, translation.z);
@@ -172,12 +179,13 @@ void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, in
 	dst.scale = float3(scaling.x, scaling.y, scaling.z);
 	dst.name = node->mName.C_Str();
 	dst.parent = parent;
+	dst.id = id.GenerateRandomInt();
 
 	nodes.push_back(dst);
 
 	for (uint i = 0; i < node->mNumChildren; ++i)
 	{
-		GenerateNodes(model, node->mChildren[i], index + 1, meshes, textures);
+		GenerateNodes(model, node->mChildren[i], dst.id, meshes, textures);
 	}
 
 
@@ -203,6 +211,7 @@ bool ResourceModel::Save(ResourceModel model, std::string & output) const
 	{
 		actual_node = models.AddSectionArray(i);
 		actual_node.AddString("Name", model.nodes[i].name);
+		actual_node.AddDouble("ID", model.nodes[i].id);
 		actual_node.AddFloat3("Position", model.nodes[i].position);
 		actual_node.AddQuat("Rotation", model.nodes[i].rotation);
 		actual_node.AddFloat3("Scale", model.nodes[i].scale);
