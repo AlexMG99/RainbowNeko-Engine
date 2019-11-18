@@ -8,6 +8,8 @@
 #include "MathGeoLib/include/Math/Quat.h"
 #include "MathGeoLib/include/Geometry/LineSegment.h"
 #include "RayCast.h"
+#include "imGuizmo/ImGuizmo.h"
+
 
 class Scene;
 
@@ -42,10 +44,14 @@ public:
 	bool ResetScene();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
+	
 	void DeleteGameObject();
 
 private:
 	void DrawGrid(uint separation, uint lines);
+	void GuizControls();
+	void GuizLogic();
+	
 
 public:
 	Scene* scene = nullptr;
@@ -59,5 +65,11 @@ public:
 	bool wireframe_on = false;
 	bool fill_on = true;
 	bool point_on = false;
+
+private:
+	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
+	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
+	/*bool                guizmo_useSnap = false;
+	float3              guizmo_snap    = float3(1.0F);*/
 
 };

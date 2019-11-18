@@ -142,10 +142,15 @@ GameObject * ModuleEditorCamera::Pick(float3 * hit_point)
 	float width = (float)App->editor->panel_game->size.x;
 	float height = (float)App->editor->panel_game->size.y;
 
+	/*float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->size.x, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) / App->editor->panel_game->size.y);*/
+
 	int mousepos_x, mousepos_y;
 
-	mousepos_x = App->input->GetMouseX();
-	mousepos_y = App->input->GetMouseY();
+	mousepos_x = App->editor->panel_game->WorldPosX;
+	mousepos_y = App->editor->panel_game->WorldPosX;
+
+	/*origin.x = (origin.x - 0.5F) * 2;
+	origin.y = -(origin.y - 0.5F) * 2;*/
 
 	float normalized_x = -(1.0f - (float(mousepos_x)*2.0) / width);
 	float normlaized_y = 1.0f - (float(mousepos_y)*2.0) / height;

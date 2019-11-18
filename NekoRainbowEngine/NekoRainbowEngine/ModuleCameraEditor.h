@@ -49,10 +49,11 @@ public:
 	bool drawraycast = false;
 	LineSegment picking;
 	GameObject* picked_obj;
+	ComponentCamera* camera = nullptr;
 
 private:
 	float3 looking_point;
 	
-	ComponentCamera* camera = nullptr;
+	/*ComponentCamera* camera = nullptr;*/
 	ComponentCamera* scene_camera = nullptr;
 };

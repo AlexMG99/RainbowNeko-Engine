@@ -6,13 +6,17 @@
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
+#include "ModuleCameraEditor.h"
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 #include "Scene.h"
+#include "PanelGame.h"
 #include "RayCast.h"
 #include "Mesh.h"
 #include "Assimp/include/anim.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -235,6 +239,65 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 }
 
+void ModuleViewport::GuizControls()
+{
+	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT))
+	{
+		guizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		guizmo_op = ImGuizmo::OPERATION::ROTATE;
+	}
+	if(App->input->GetKey(SDL_SCANCODE_R)==KEY_DOWN)
+	{
+		guizmo_op = ImGuizmo::OPERATION::SCALE;
+	}
+	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT))
+	{
+		guizmo_mode = ImGuizmo::MODE::WORLD;
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
+	{
+	    guizmo_mode = ImGuizmo::MODE::LOCAL;
+	}
+}
+
+void ModuleViewport::GuizLogic()
+{
+	if (App->viewport->selected_object != nullptr )
+	{
+		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
+		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
+		view_transposed.Transposed();
+
+		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix();
+		projection_transposed.Transposed();
+
+		float4x4 object_transform_matrix = transform->global_matrix;
+		object_transform_matrix.Transposed();
+
+		float4x4 delta_matrix;
+
+		ImGuizmo::SetRect(App->editor->panel_game->WorldPosX, App->editor->panel_game->WorldPosY, App->editor->panel_game->size.x, App->editor->panel_game->size.y);
+		ImGuizmo::SetDrawlist();
+		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
+	
+		/*if (ImGuizmo::IsUsing()) 
+		{
+			transform->
+		}*/
+	
+	
+	}
+
+
+
+
+
+}
+
 bool ModuleViewport::LoadScene(Scene* scn)
 {
 	Scene go_scene = scn->GetArray("GameObjects");
@@ -355,6 +418,13 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	object->SetId();
 	return object;
 }
+
+//void ModuleViewport::DrawObjGizmoPropierties(GameObject * obj)
+//{
+//	bool local = guizmo_mode == ImGuizmo::LOCAL && guizmo_op != ImGuizmo::SCALE;
+//
+//	float4x4 model = local ? obj->Get
+//}
 
 void ModuleViewport::DeleteGameObject()
 {
