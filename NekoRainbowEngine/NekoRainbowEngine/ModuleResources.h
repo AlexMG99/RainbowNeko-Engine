@@ -19,6 +19,7 @@ public:
 	bool CleanUp();
 
 	uint32 Find(const char* file);
+	Resource* FindMeta(const char* file);
 	Random ImportFile(const char* file_assets, resource_type type);
 	Random GenerateNewID();
 	const Resource* Get(Random id) const;
@@ -27,6 +28,8 @@ public:
 
 	ResourceMesh* ImportMesh(uint32 id, const char* path);
 	ResourceTexture * ImportTexture(uint32 id, const char * path);
+
+	void SaveMeta(const char* file, Resource* res);
 
 public:
 	std::map<uint32, Resource*> resources;

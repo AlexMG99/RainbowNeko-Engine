@@ -8,6 +8,7 @@
 #include "ResourceMesh.h"
 #include "ResourceModel.h"
 #include "ResourceTexture.h"
+#include "Scene.h"
 
 ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -37,12 +38,46 @@ uint32 ModuleResources::Find(const char * file)
 	return 0;
 }
 
+Resource* ModuleResources::FindMeta(const char * file)
+{
+	std::string file_name;
+	App->fs->SplitFilePath(file, nullptr, &file_name);
+	file_name += ".meta";
+
+	std::string output = ".";
+	output += ASSETS_META_FOLDER + file_name;
+
+	bool ret = App->fs->CopyFromOutsideFS(output.c_str(), file_name.c_str());
+
+	Resource* res = nullptr;
+
+	if (ret)
+	{
+		Scene* meta = new Scene(file_name.c_str());
+		res = CreateNewResource(resource_type(meta->GetInt("Type")));
+		res->ID.SetNumber(meta->GetDouble("ID"));
+		res->file = meta->GetString("File");
+		res->imported_file = meta->GetString("ExportedFile");
+		res->Load();
+	}
+
+	App->fs->Remove(file_name.c_str());
+
+	return res;
+}
+
 Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 {
 	Random id;
 	bool import_ok = false;
 	std::string output_file;
 	ResourceModel model;
+
+	Resource* res = FindMeta(file_assets);
+	if (res)
+		return res->GetID();
+	else
+		RELEASE(res);
 
 	id.SetNumber(Find(file_assets));
 
@@ -75,6 +110,8 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		res->imported_file = output_file;
 		id = res->ID;
 		res->Load();
+
+		SaveMeta(std::string(res->file + ".meta").c_str(), res);
 	}
 
 	return id;
@@ -154,4 +191,20 @@ ResourceTexture* ModuleResources::ImportTexture(uint32 id, const char* path)
 	resource_texture = Get(new_id.GetNumber());
 
 	return (ResourceTexture*)resource_texture;
+}
+
+void ModuleResources::SaveMeta(const char * file, Resource* res)
+{
+	Scene* meta = new Scene();
+
+	meta->AddInt("Type", res->type);
+	meta->AddString("ExportedFile", res->imported_file.c_str());
+	meta->AddDouble("ID", res->GetID().GetNumber());
+	meta->AddString("File", res->file.c_str());
+	
+	std::string output = ASSETS_META_FOLDER;
+	output += file;
+	meta->Save(file);
+	bool ret = App->fs->CopyFromOutsideFS(file, output.c_str());
+	App->fs->Remove(file);
 }
