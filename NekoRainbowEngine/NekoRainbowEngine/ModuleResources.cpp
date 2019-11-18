@@ -229,9 +229,11 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 		}
 	}
 	
-	std::string output = ASSETS_META_FOLDER;
-	output += file;
+	std::string file_name, output = ".";
+	output += ASSETS_META_FOLDER;
+	App->fs->SplitFilePath(file, nullptr, &file_name);
+	output += file_name;
 
-	bool ret = meta->Save(file);
+	bool ret = meta->Save(output.c_str());
 
 }

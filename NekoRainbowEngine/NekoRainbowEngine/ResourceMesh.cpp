@@ -84,8 +84,6 @@ Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
 	
 	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
 	App->importer->mesh_imp->SaveMesh(resource_mesh);
-	
-	//resource_mesh->ReleaseFromMemory();
 
 	return resource_mesh->GetID();
 }

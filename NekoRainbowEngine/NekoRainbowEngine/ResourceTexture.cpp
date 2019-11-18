@@ -33,7 +33,16 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 		std::string full_path = base_path.c_str();
 		full_path += texture_path.C_Str();
 
-		resource_texture->ID = App->resources->ImportFile(full_path.c_str(), resource_type::RESOURCE_TEXTURE);
+		char id[15];
+		sprintf_s(id, 15, "%u", resource_texture->GetID().GetNumber());
+		std::string output = id;
+		App->importer->texture_imp->Import(full_path.c_str(), output);
+		resource_texture->imported_file = output;
+
+		resource_texture->Load();
+
+		texture_path.Append(".meta");
+		App->resources->SaveMeta(texture_path.C_Str(), resource_texture);
 	}
 
 	return resource_texture->ID;

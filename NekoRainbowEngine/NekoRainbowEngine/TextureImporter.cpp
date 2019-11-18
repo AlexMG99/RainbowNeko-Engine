@@ -25,11 +25,7 @@ bool TextureImporter::Import(const char* path, std::string& output_file)
 {
 	bool ret = false;
 
-	std::string file, extension;
-	App->fs->SplitFilePath(path, nullptr, &file, &extension);
-
-	if (extension != "dds" || extension != "DDS")
-		ret = ImportTexture(path, output_file);
+	ret = ImportTexture(path, output_file);
 
 	return ret;
 }
@@ -55,7 +51,8 @@ bool TextureImporter::ImportTexture(const char* path, std::string& output_file)
 			data = new ILubyte[size]; // allocate data buffer
 			if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
 			{
-				output_file += LIBRARY_TEXTURES_FOLDER + file + ".dds";
+				std::string path = LIBRARY_TEXTURES_FOLDER + output_file + ".dds";
+				output_file = path;
 				ret = App->fs->Save(output_file.c_str(), data, size);
 			}
 			RELEASE_ARRAY(data);
