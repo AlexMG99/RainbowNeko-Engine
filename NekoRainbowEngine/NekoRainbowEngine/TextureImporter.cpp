@@ -74,8 +74,8 @@ ResourceTexture* TextureImporter::Load(const char * file)
 	ilBindImage(devil_id);
 	ilutRenderer(ILUT_OPENGL);
 
-	std::string path = ".";
-	path.append(file);
+	std::string path = file;
+	App->fs->NormalizePath(path);
 
 	if (!ilLoadImage(path.c_str())) {
 		auto error = ilGetError();

@@ -18,35 +18,43 @@ Generated mesh with id vertex: 9 and id index: 10
 Loading Editor Scene
 -------------- Application Update --------------
 
-Mouse Pos: 1696.000000, 92.000000
-Normalized Mouse Pos: 0.998532, 0.054166
-Generated mesh with id vertex: 17 and id index: 18
-Loaded with path: /Library/Textures/21126047.dds succesfully!
-Generated mesh with id vertex: 23 and id index: 24
-Loaded with path: /Library/Textures/1846820845.dds succesfully!
-Generated mesh with id vertex: 29 and id index: 30
-Loaded with path: /Library/Textures/1154705962.dds succesfully!
-Generated mesh with id vertex: 35 and id index: 36
-Loaded with path: /Library/Textures/2887520369.dds succesfully!
-Generated mesh with id vertex: 41 and id index: 42
-Failed to load texture with path: 1858191833. Error: (null)
-Generated mesh with id vertex: 46 and id index: 47
-Failed to load texture with path: 2602867094. Error: (null)
-Generated mesh with id vertex: 52 and id index: 53
-Loaded with path: /Library/Textures/849677028.dds succesfully!
-Generated mesh with id vertex: 61 and id index: 62
-Loaded with path: /Library/Textures/122992834.dds succesfully!
-Generated mesh with id vertex: 67 and id index: 68
-Generated mesh with id vertex: 79 and id index: 80
-Loaded with path: /Library/Textures/2281231556.dds succesfully!
-Generated mesh with id vertex: 91 and id index: 92
-Generated mesh with id vertex: 97 and id index: 98
-Loaded with path: /Library/Textures/833248155.dds succesfully!
-Generated mesh with id vertex: 103 and id index: 104
-Failed to load texture with path: 2088407891. Error: (null)
-Generated mesh with id vertex: 117 and id index: 118
-Generated mesh with id vertex: 123 and id index: 124
-Generated mesh with id vertex: 135 and id index: 136
-Generated mesh with id vertex: 141 and id index: 142
-Mouse Pos: 1065.000000, 350.000000
-Normalized Mouse Pos: 0.950013, 0.312211
+Mouse Pos: 328.000000, 60.000000
+Normalized Mouse Pos: 0.983677, 0.179941
+Mouse Pos: 318.000000, 63.000000
+Normalized Mouse Pos: 0.980935, 0.194336
+Mouse Pos: 368.000000, 98.000000
+Normalized Mouse Pos: 0.966322, 0.257336
+Loaded with path: C:\Users\Alex\Documents\GitHub\RainbowNeko-Engine\NekoRainbowEngine\Game\Icons\Icon_DDS.png succesfully!
+Load Texture succesfully with name: 
+Mouse Pos: 1291.000000, 401.000000
+Normalized Mouse Pos: 0.954992, 0.296632
+Mouse Pos: 1188.000000, 438.000000
+Normalized Mouse Pos: 0.938262, 0.345925
+Mouse Pos: 1447.000000, 432.000000
+Normalized Mouse Pos: 0.958208, 0.286072
+Mouse Pos: 842.000000, 730.000000
+Normalized Mouse Pos: 0.755571, 0.655067
+Mouse Pos: 1300.000000, 305.000000
+Normalized Mouse Pos: 0.973564, 0.228413
+Mouse Pos: 1199.000000, 470.000000
+Normalized Mouse Pos: 0.931025, 0.364956
+Mouse Pos: 1206.000000, 508.000000
+Normalized Mouse Pos: 0.921578, 0.388194
+Mouse Pos: 1342.000000, 416.000000
+Normalized Mouse Pos: 0.955161, 0.296086
+Mouse Pos: 1175.000000, 519.000000
+Normalized Mouse Pos: 0.914740, 0.404043
+Mouse Pos: 1185.000000, 210.000000
+Normalized Mouse Pos: 0.984658, 0.174496
+Mouse Pos: 1155.000000, 669.000000
+Normalized Mouse Pos: 0.865324, 0.501213
+Mouse Pos: 1140.000000, 264.000000
+Normalized Mouse Pos: 0.974218, 0.225608
+Mouse Pos: 1204.000000, 472.000000
+Normalized Mouse Pos: 0.931014, 0.364982
+Mouse Pos: 969.000000, 217.000000
+Normalized Mouse Pos: 0.975830, 0.218530
+Mouse Pos: 1188.000000, 508.000000
+Normalized Mouse Pos: 0.919465, 0.393172
+Mouse Pos: 987.000000, 221.000000
+Normalized Mouse Pos: 0.975837, 0.218500

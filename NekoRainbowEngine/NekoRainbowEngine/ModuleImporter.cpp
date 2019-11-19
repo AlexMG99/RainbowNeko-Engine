@@ -8,6 +8,7 @@
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
 #include "ResourceModel.h"
+#include "ResourceTexture.h"
 #include "PanelConsole.h"
 #include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
@@ -69,7 +70,31 @@ bool ModuleImporter::ImportFile(const char* path)
 		model->Load();
 	}
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
-		App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE);
+	{
+		if (App->viewport->selected_object)
+		{
+			ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
+			if (comp_texture)
+			{
+				ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
+				if (texture)
+				{
+					comp_texture->AddTexture(texture);
+					App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
+					LOG("Load Texture succesfully with name: %s", texture->file.c_str());
+				}
+				else
+					LOG("Resource not loaded");
+			}
+			else
+				LOG("Object don't found. There's not selected object!");
+
+		}
+
+	}
+	else
+		LOG("Format not allowed");
+		
 
 	return ret;
 }
