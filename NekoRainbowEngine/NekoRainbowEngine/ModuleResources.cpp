@@ -87,7 +87,8 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	switch (type)
 	{
 	case resource_type::RESOURCE_TEXTURE:
-		import_ok = App->importer->texture_imp->Import(file_assets, output_file);
+		res = App->importer->texture_imp->Load(file_assets);
+		return res->ID;
 		break;
 	case resource_type::RESOURCE_MODEL:
 		import_ok = model.ImportModel(file_assets, output_file);
@@ -178,7 +179,7 @@ ResourceMesh * ModuleResources::ImportMesh(uint32 id)
 	return (ResourceMesh*)resource_mesh;
 }
 
-ResourceTexture* ModuleResources::ImportTexture(uint32 id, const char* path)
+ResourceTexture* ModuleResources::ImportTexture(uint32 id)
 {
 	if (id == 0)
 		return nullptr;
@@ -188,7 +189,13 @@ ResourceTexture* ModuleResources::ImportTexture(uint32 id, const char* path)
 	if (resource_texture)
 		return (ResourceTexture*)resource_texture;
 
-	Random new_id = ImportFile(path, RESOURCE_TEXTURE);
+	char str_id[50];
+	sprintf_s(str_id, 50, "%u", id);
+	std::string path = LIBRARY_TEXTURES_FOLDER;
+	path += str_id;
+	path += ".dds";
+
+	Random new_id = ImportFile(path.c_str(), RESOURCE_TEXTURE);
 
 	resource_texture = Get(new_id.GetNumber());
 

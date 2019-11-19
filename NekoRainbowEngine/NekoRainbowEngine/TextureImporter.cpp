@@ -67,7 +67,7 @@ bool TextureImporter::ImportTexture(const char* path, std::string& output_file)
 ResourceTexture* TextureImporter::Load(const char * file)
 {
 	bool ret = true;
-	ResourceTexture* texture = new ResourceTexture();
+	ResourceTexture* texture = (ResourceTexture*)App->resources->CreateNewResource(RESOURCE_TEXTURE);
 	ILuint devil_id = 0;
 
 	ilGenImages(1, &devil_id);

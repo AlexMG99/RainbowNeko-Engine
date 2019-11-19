@@ -74,5 +74,5 @@ bool ResourceTexture::Load()
 
 ResourceTexture* ResourceTexture::Load(Scene& scene)
 {
-	return App->resources->ImportTexture(scene.GetDouble("Texture"), "");
+	return App->resources->ImportTexture(scene.GetDouble("Texture"));
 }

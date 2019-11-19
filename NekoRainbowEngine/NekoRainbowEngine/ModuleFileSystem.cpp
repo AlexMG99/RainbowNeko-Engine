@@ -34,7 +34,7 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const c
 
 	// Make sure standard paths exist
 	const char* dirs[] = {
-		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER
+		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER, ASSETS_META_FOLDER
 	};
 
 	for (uint i = 0; i < sizeof(dirs)/sizeof(const char*); ++i)
