@@ -88,6 +88,9 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if (App->camera->drawraycast)
 		App->camera->DrawSegmentRay();
 
+	GuizControls();
+	GuizLogic();
+
 	root_object->Update();
 
 	return UPDATE_CONTINUE;

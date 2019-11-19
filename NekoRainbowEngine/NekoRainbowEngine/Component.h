@@ -60,7 +60,7 @@ public:
 	bool OnLoad(Scene& scene);
 
 	float4x4 GetGlobalTransformMatrix();
-	void RecalculateTransformMatrix();
+	
 
 	void SetLocalTransform(float4x4 & t_matrix);
 	void CalculateGlobalAxis();

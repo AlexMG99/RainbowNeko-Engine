@@ -82,49 +82,7 @@ float4x4 ComponentTransform::GetGlobalTransformMatrix()
 	return global_matrix;
 }
 
-void ComponentTransform::RecalculateTransformMatrix()
-{
 
-	//Local Transform
-	local_transformation = float4x4::FromTRS(local_position, local_rotation, local_scale);
-
-
-	//Check if GO has parent
-	if (game_item == nullptr)
-		return;
-
-	if (game_item->GetParent() != nullptr)
-	{
-		if (game_item->GetParent()->GetComponentTransform() != nullptr)
-
-			global_transformation = game_item->GetParent()->GetComponentTransform()->global_transformation * local_transformation;
-
-		else
-			global_transformation = local_transformation;
-
-	}
-	else
-		global_transformation = local_transformation;
-
-
-	std::vector<GameObject*>::iterator item = game_item->children.begin();
-	for (; item != game_item->children.end(); ++item)
-	{
-		if ((*item) != nullptr)
-		{
-			if ((*item)->GetComponentTransform() != nullptr)
-			{
-				(*item)->transfrom->RecalculateTransformMatrix();
-			}
-		}
-
-	}
-
-	/*game_item.*/
-
-
-
-}
 
 void ComponentTransform::SetLocalTransform(float4x4 & t_matrix)
 {
@@ -134,6 +92,8 @@ void ComponentTransform::SetLocalTransform(float4x4 & t_matrix)
 	local_rotation_euler.x = RadToDeg(local_rotation_euler.x);
 	local_rotation_euler.y = RadToDeg(local_rotation_euler.y);
 	local_rotation_euler.z = RadToDeg(local_rotation_euler.z);
+
+	GetGlobalTransformMatrix();
 
 }
 
