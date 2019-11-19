@@ -25,7 +25,7 @@ ResourceTexture::ResourceTexture(uint32 id) : Resource(id, type)
 	type = resource_type::RESOURCE_TEXTURE;
 }
 
-Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
+Random ResourceTexture::Import(const aiMaterial* texture, const char* path, bool fromMeta)
 {
 	std::string base_path;
 	App->fs->SplitFilePath(path, &base_path, &file, nullptr);
@@ -49,7 +49,8 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 
 		resource_texture->Load();
 
-		App->resources->SaveMeta(texture_path.C_Str(), resource_texture);
+		if(!fromMeta)
+			App->resources->SaveMeta(texture_path.C_Str(), resource_texture);
 	}
 
 	return resource_texture->ID;

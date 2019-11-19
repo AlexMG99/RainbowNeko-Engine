@@ -21,6 +21,7 @@ public:
 	uint32 Find(const char* file);
 	Resource* FindMeta(const char* file);
 	Random ImportFile(const char* file_assets, resource_type type);
+	bool ImportMeta(const char * file_assets, const char* meta_path, Resource * res);
 	bool ImportAssets(const char * file);
 	Resource* Get(uint32 id);
 	Resource* CreateNewResource(resource_type type, uint32 id = 0);

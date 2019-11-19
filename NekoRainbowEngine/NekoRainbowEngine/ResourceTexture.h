@@ -13,7 +13,7 @@ public:
 	ResourceTexture(uint32 id);
 	~ResourceTexture() {};
 
-	Random Import(const aiMaterial* texture, const char* path);
+	Random Import(const aiMaterial* texture, const char* path, bool fromMeta);
 	void GenerateTexture();
 	bool Load();
 	ResourceTexture* Load(Scene& scene);
