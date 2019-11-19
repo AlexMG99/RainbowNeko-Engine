@@ -92,7 +92,10 @@ update_status ModuleEditorCamera::Update(float dt)
 		if (pick != nullptr)
 		{
 			App->viewport->selected_object = pick;
+			App->viewport->selected_object->SetSelected(true);
 		}
+		else 
+			App->viewport->selected_object->SetSelected(false);
 
 	}
 		
@@ -139,25 +142,25 @@ void ModuleEditorCamera::Zoom(float zoom)
 
 GameObject * ModuleEditorCamera::Pick(float3 * hit_point) 
 {
-	float width = (float)App->editor->panel_game->size.x;
-	float height = (float)App->editor->panel_game->size.y;
+	/*float width = (float)App->editor->panel_game->size.x;
+	float height = (float)App->editor->panel_game->size.y;*/
 
-	/*float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->size.x, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) / App->editor->panel_game->size.y);*/
+	float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) /App->editor->panel_game->height);
 
-	int mousepos_x, mousepos_y;
+	/*int mousepos_x, mousepos_y;
 
 	mousepos_x = App->editor->panel_game->WorldPosX;
-	mousepos_y = App->editor->panel_game->WorldPosX;
+	mousepos_y = App->editor->panel_game->WorldPosX;*/
 
-	/*origin.x = (origin.x - 0.5F) * 2;
-	origin.y = -(origin.y - 0.5F) * 2;*/
+	origin.x = (origin.x - 0.5F) * 2;
+	origin.y = -(origin.y - 0.5F) * 2;
 
-	float normalized_x = -(1.0f - (float(mousepos_x)*2.0) / width);
-	float normlaized_y = 1.0f - (float(mousepos_y)*2.0) / height;
+	/*float normalized_x = -(1.0f - (float(origin.x)*2.0;
+	float normlaized_y = 1.0f - (float(origin.y)*2.0;*/
 
 
-	//adal dreta(1,1)
-	picking =  camera->frustum.UnProjectLineSegment(normalized_x, normlaized_y);
+	//adal dreta-(1,1)
+	picking =  camera->frustum.UnProjectLineSegment(origin.x, origin.y);
 	drawraycast = true;
 
 	RayCast ray;
