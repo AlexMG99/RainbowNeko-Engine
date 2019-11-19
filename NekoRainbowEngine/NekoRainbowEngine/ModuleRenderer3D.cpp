@@ -116,6 +116,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	if (App->camera->GetCamera()->update_proj) {
+		UpdateProjectionMatrix();
+		App->camera->GetCamera()->update_proj = false;
+	}
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
@@ -178,4 +182,15 @@ ImVec2 ModuleRenderer3D::GetTextureSize() const
 uint ModuleRenderer3D::GetWinTexture() const
 {
 	return fbo->GetTexture();
+}
+
+void ModuleRenderer3D::UpdateProjectionMatrix()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glLoadMatrixf((float*)&App->camera->GetCamera()->GetOpenGLProjectionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }

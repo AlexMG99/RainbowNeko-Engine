@@ -12,6 +12,7 @@ class ComponentCamera: public Component
 {
 public:
 	ComponentCamera(component_type comp_type, bool act, GameObject* obj);
+	ComponentCamera(component_type comp_type, bool act, GameObject* obj, float nP, float fP, float FOV);
 	~ComponentCamera() {};
 
 	bool Update();
@@ -28,11 +29,13 @@ public:
 	float* GetViewMatrix();
 
 	update_status Load();
+	float4x4 GetOpenGLProjectionMatrix();
 	update_status Save() { return UPDATE_CONTINUE; };
 
 public:
 	Frustum frustum;
 	float3 Reference;
+	bool update_proj = true;
 
 private:
 	std::vector<float3> vertices_frustum;

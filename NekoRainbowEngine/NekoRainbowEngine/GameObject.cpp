@@ -69,6 +69,14 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 	return comp;
 }
 
+ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV)
+{
+	ComponentCamera* comp = new ComponentCamera(COMPONENT_CAMERA, true, this, nP, fP, FOV);
+	if (comp)
+		components.push_back(comp);
+	return comp;
+}
+
 bool GameObject::SaveComponents(Scene scene)
 {
 	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)

@@ -18,9 +18,34 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject*
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 
-	frustum.nearPlaneDistance = 10.0f;
-	frustum.farPlaneDistance = 100.0f;
-	frustum.verticalFov = 60.0f * DEGTORAD;
+	frustum.nearPlaneDistance = 1.0f;
+	frustum.farPlaneDistance = 1000.0f;
+	frustum.verticalFov = 90.0f * DEGTORAD;
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
+
+	Reference = float3(0, 0, 0);
+
+	ReloadFrustum();
+	GenerateFrustumBuffers();
+}
+
+ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject * obj, float nP, float fP, float FOV) : Component(comp_type, act, obj)
+{
+	if (my_go)
+	{
+		transform = my_go->GetComponentTransform();
+		transform->position = float3::zero;
+		transform->local_position = float3::zero;
+	}
+	frustum.type = FrustumType::PerspectiveFrustum;
+
+	frustum.pos = float3::zero;
+	frustum.front = float3::unitZ;
+	frustum.up = float3::unitY;
+
+	frustum.nearPlaneDistance = nP;
+	frustum.farPlaneDistance = fP;
+	frustum.verticalFov = FOV * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
 	Reference = float3(0, 0, 0);
@@ -154,4 +179,9 @@ update_status ComponentCamera::Load()
 	//	(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Z") };
 
 	return UPDATE_CONTINUE;
+}
+
+float4x4 ComponentCamera::GetOpenGLProjectionMatrix()
+{
+	return frustum.ProjectionMatrix().Transposed();
 }

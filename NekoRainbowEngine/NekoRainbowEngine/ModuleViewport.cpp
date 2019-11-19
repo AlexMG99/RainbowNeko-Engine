@@ -23,7 +23,6 @@ ModuleViewport::~ModuleViewport()
 {
 	RELEASE(root_object);
 	RELEASE(scene);
-	RELEASE(camera_test);
 }
 
 bool ModuleViewport::Start()
@@ -32,8 +31,8 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	//camera_test = CreateGameObject("Camera", root_object);
-	//camera_test->CreateComponent(COMPONENT_CAMERA);
+	camera_test = CreateGameObject("Camera", root_object);
+	camera_test->CreateComponentCamera(1.0f, 600.0f, 90);
 	scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
