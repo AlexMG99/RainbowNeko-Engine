@@ -23,6 +23,11 @@ ResourceModel::ResourceModel():Resource()
 	type = resource_type::RESOURCE_MODEL;
 }
 
+ResourceModel::ResourceModel(uint32 id) : Resource(id, type)
+{
+	type = resource_type::RESOURCE_MODEL;
+}
+
 bool ResourceModel::ImportModel(const char * path, std::string& output_file)
 {
 	bool ret = true;
@@ -60,7 +65,8 @@ bool ResourceModel::ImportModel(const char * path, std::string& output_file)
 
 bool ResourceModel::Load()
 {
-	Scene* model = new Scene(imported_file.c_str());
+	std::string path = "." + imported_file;
+	Scene* model = new Scene(path.c_str());
 	Scene model_array = model->GetArray("Model");
 
 	for (int i = 0;;i++)
@@ -198,6 +204,10 @@ void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, in
 
 		nodes[index].mesh = meshes[mesh_index];
 		nodes[index].texture = textures[model->mMeshes[mesh_index]->mMaterialIndex];
+
+		ResourceMesh* mesh = (ResourceMesh*)App->resources->Get(nodes[index].mesh.GetNumber());
+		mesh->name = node->mName.C_Str();
+		App->resources->SaveMeta(mesh->file.c_str(), mesh);
 	}
 }
 

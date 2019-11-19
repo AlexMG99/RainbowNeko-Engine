@@ -21,6 +21,7 @@ public:
 	bool SaveMesh(ResourceMesh* mesh);
 
 	ResourceMesh* Load(const char* exported_file);
+	bool Load(ResourceMesh * mesh);
 	//ComponentMesh* LoadPrimitive(PRIMITIVE_TYPE type);
 
 	void CalculateNormalFace(ResourceMesh* mesh, const aiMesh* aimesh);

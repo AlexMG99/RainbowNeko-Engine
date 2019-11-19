@@ -55,7 +55,7 @@ bool ModuleImporter::ImportFile(const char* path)
 		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL);
 	else if (extension == "neko")
 	{
-		ResourceMesh* mesh = mesh_imp->Load(path);
+		ResourceMesh* mesh = (ResourceMesh*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MESH).GetNumber());
 		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
 		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 		comp_mesh->transform = obj->GetComponentTransform();

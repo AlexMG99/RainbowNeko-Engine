@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "ResourceMesh.h"
 #include "Scene.h"
+#include "MeshImporter.h"
 
 #include "GL/include/glew.h"
 #include "Assimp/include/mesh.h"
@@ -15,7 +16,7 @@ ResourceMesh::ResourceMesh():Resource()
 	this->type = RESOURCE_MESH;
 }
 
-ResourceMesh::ResourceMesh(Random id): Resource(id,type)
+ResourceMesh::ResourceMesh(uint32 id): Resource(id,type)
 {
 	this->type = RESOURCE_MESH;
 }
@@ -58,6 +59,11 @@ void ResourceMesh::GenerateBuffers()
 	LOG("Generated mesh with id vertex: %i and id index: %i", buffers[BUFF_VERTICES], buffers[BUFF_INDEX]);
 }
 
+bool ResourceMesh::Load()
+{
+	return App->importer->mesh_imp->Load(this);;
+}
+
 ResourceMesh* ResourceMesh::Load(Scene& scene)
 {
 	return App->resources->ImportMesh(scene.GetDouble("Mesh"));
@@ -84,6 +90,7 @@ Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
 	
 	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
 	App->importer->mesh_imp->SaveMesh(resource_mesh);
+	resource_mesh->file = source_file;
 
 	return resource_mesh->GetID();
 }

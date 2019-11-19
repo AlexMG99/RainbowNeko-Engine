@@ -30,7 +30,7 @@ public:
 
 public:
 	ResourceModel();
-	ResourceModel(Random id) :Resource(id, type) {};
+	ResourceModel(uint32 id);
 	~ResourceModel() {};
 
 	bool ImportModel(const char* path, std::string& output_file);

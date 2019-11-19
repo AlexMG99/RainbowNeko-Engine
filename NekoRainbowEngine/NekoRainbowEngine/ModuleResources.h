@@ -22,9 +22,8 @@ public:
 	Resource* FindMeta(const char* file);
 	Random ImportFile(const char* file_assets, resource_type type);
 	Random GenerateNewID();
-	const Resource* Get(Random id) const;
 	Resource* Get(uint32 id);
-	Resource* CreateNewResource(resource_type type);
+	Resource* CreateNewResource(resource_type type, uint32 id = 0);
 
 	ResourceMesh* ImportMesh(uint32 id);
 	ResourceTexture * ImportTexture(uint32 id);

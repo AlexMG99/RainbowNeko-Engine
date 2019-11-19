@@ -40,9 +40,9 @@ uint32 ModuleResources::Find(const char * file)
 
 Resource* ModuleResources::FindMeta(const char * file)
 {
-	std::string file_name, path = ".";
-	path += ASSETS_META_FOLDER;
-	App->fs->SplitFilePath(file, nullptr, &file_name);
+	std::string file_name, extension, path = ".";
+	path += LIBRARY_META_FOLDER;
+	App->fs->SplitFilePath(file, nullptr, &file_name, &extension);
 	path += file_name.c_str();
 	path += ".meta";
 
@@ -50,11 +50,15 @@ Resource* ModuleResources::FindMeta(const char * file)
 
 	if (meta->GetVRoot())
 	{
-		Resource* res = CreateNewResource(resource_type(meta->GetInt("Type")));
-		res->ID.SetNumber(meta->GetDouble("ID"));
+		Resource* res = CreateNewResource(resource_type(meta->GetInt("Type")), meta->GetDouble("ID"));
 		res->file = meta->GetString("File");
 		res->imported_file = meta->GetString("ExportedFile");
-		res->Load();
+		if (res->type == RESOURCE_MESH)
+		{
+			ResourceMesh* mesh = (ResourceMesh*)res;
+			mesh->name=meta->GetString("Name");
+		}
+			res->Load();
 
 		return res;
 	}
@@ -102,14 +106,21 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	if (import_ok)
 	{
 		Resource* res = CreateNewResource(type);
+		char str_id[50];
+		sprintf_s(str_id, 50, "%u", res->GetID().GetNumber());
+		std::string path = LIBRARY_MODELS_FOLDER;
+		path += str_id;
+		path += ".model";
+		App->fs->CopyFromOutsideFS(output_file.c_str(), path.c_str());
+		App->fs->Remove(output_file.c_str());
 		std::string file_name;
 		App->fs->SplitFilePath(file_assets, nullptr, &file_name);
 		res->file = file_name;
-		res->imported_file = output_file;
+		res->imported_file = path;
 		id = res->ID;
 		res->Load();
 
-		SaveMeta(std::string(res->file + ".meta").c_str(), res);
+		SaveMeta(res->file.c_str(), res);
 	}
 
 	return id;
@@ -118,11 +129,6 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 Random ModuleResources::GenerateNewID()
 {
 	return Random();
-}
-
-const Resource * ModuleResources::Get(Random id) const
-{
-	return nullptr;
 }
 
 Resource* ModuleResources::Get(uint32 id)
@@ -134,20 +140,20 @@ Resource* ModuleResources::Get(uint32 id)
 	return nullptr;
 }
 
-Resource* ModuleResources::CreateNewResource(resource_type type)
+Resource* ModuleResources::CreateNewResource(resource_type type, uint32 id)
 {
 	Resource* res = nullptr;
 
 	switch (type)
 	{
 	case resource_type::RESOURCE_MESH:
-		res = (Resource*)new ResourceMesh();
+		res = (Resource*)new ResourceMesh(id);
 		break;
 	case resource_type::RESOURCE_TEXTURE:
-		res = (Resource*)new ResourceTexture();
+		res = (Resource*)new ResourceTexture(id);
 		break;
 	case resource_type::RESOURCE_MODEL:
-		res = (Resource*)new ResourceModel();
+		res = (Resource*)new ResourceModel(id);
 		break;
 	}
 
@@ -211,9 +217,13 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 	meta->AddDouble("ID", res->GetID().GetNumber());
 	meta->AddString("File", res->file.c_str());
 
+	std::string file_name, output = ".";
+	output += LIBRARY_META_FOLDER;
+
 	switch (res->type)
 	{
-	case RESOURCE_MODEL:
+	case RESOURCE_MODEL: 
+	{
 		Scene meshes = meta->AddArray("Meshes");
 		Scene textures = meta->AddArray("Textures");
 		Scene* resource_model = new Scene(res->imported_file.c_str());
@@ -244,12 +254,33 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 			else
 				break;
 		}
+		std::string extension;
+		App->fs->SplitFilePath(file, nullptr, &file_name, &extension);
+		output += file_name;
+	}
+	break;
+	case RESOURCE_MESH:
+	{
+		char id[50];
+		uint32 m_id = res->GetID().GetNumber();
+		sprintf_s(id, 50, "%u", m_id);
+		output += id;
+		ResourceMesh* mesh = (ResourceMesh*)res;
+		meta->AddString("Name", mesh->name);
+	}
+		break;
+
+	case RESOURCE_TEXTURE:
+	{
+		char id[50];
+		uint32 m_id = res->GetID().GetNumber();
+		sprintf_s(id, 50, "%u", m_id);
+		output += id;
+	}
+		break;
 	}
 	
-	std::string file_name, output = ".";
-	output += ASSETS_META_FOLDER;
-	App->fs->SplitFilePath(file, nullptr, &file_name);
-	output += file_name;
+	output +=".meta";
 
 	bool ret = meta->Save(output.c_str());
 

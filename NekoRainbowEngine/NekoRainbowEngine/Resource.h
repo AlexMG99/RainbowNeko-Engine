@@ -23,9 +23,12 @@ public:
 	{
 		ID.GenerateRandomInt();
 	}
-	Resource(Random id, resource_type type)
+	Resource(uint32 id, resource_type type)
 	{
-		ID = id;
+		if (id == 0)
+			ID.GenerateRandomInt();
+		else
+			ID.SetNumber(id);
 		this->type = type;
 	}
 

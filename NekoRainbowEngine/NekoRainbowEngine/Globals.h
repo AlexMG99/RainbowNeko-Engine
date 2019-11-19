@@ -28,7 +28,7 @@ void _log(ConsoleTextType type, const char file[], int line, const char * format
 #define HAVE_M_PI
 
 #define ASSETS_FOLDER "./Assets/"
-#define ASSETS_META_FOLDER "/Assets/Meta/"
+#define LIBRARY_META_FOLDER "/Library/Meta/"
 #define SETTINGS_FOLDER "/Settings/"
 #define LIBRARY_FOLDER "/Library/"
 #define LIBRARY_TEXTURES_FOLDER "/Library/Textures/"

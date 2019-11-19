@@ -20,6 +20,11 @@ ResourceTexture::ResourceTexture() : Resource()
 	this->type = RESOURCE_TEXTURE;
 }
 
+ResourceTexture::ResourceTexture(uint32 id) : Resource(id, type)
+{
+	type = resource_type::RESOURCE_TEXTURE;
+}
+
 Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 {
 	std::string base_path;
@@ -41,7 +46,6 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 
 		resource_texture->Load();
 
-		texture_path.Append(".meta");
 		App->resources->SaveMeta(texture_path.C_Str(), resource_texture);
 	}
 

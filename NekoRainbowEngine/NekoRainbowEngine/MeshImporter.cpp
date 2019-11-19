@@ -202,3 +202,51 @@ ResourceMesh* MeshImporter::Load(const char * exported_file)
 	RELEASE_ARRAY(buffer);
 	return mesh;
 }
+
+bool MeshImporter::Load(ResourceMesh* mesh)
+{
+	std::string path = LIBRARY_MESH_FOLDER;
+	char str_id[50];
+	sprintf_s(str_id, 50, "%u", mesh->GetID().GetNumber());
+	path += str_id;
+	path += ".neko";
+
+	char* buffer;
+	uint size = App->fs->Load(path.c_str(), &buffer);
+
+	char* cursor = buffer;
+	// Amount of Index/Vertices/UVs
+	uint ranges[3];
+	uint bytes = sizeof(ranges);
+	memcpy(ranges, cursor, bytes);
+	mesh->index_size = ranges[0];
+	mesh->vertices_size = ranges[1];
+	mesh->UV_size = ranges[2];
+	cursor += bytes;
+
+	// Load indices
+	bytes = sizeof(uint) * mesh->index_size;
+	mesh->index = new uint[mesh->index_size];
+	memcpy(mesh->index, cursor, bytes);
+	cursor += bytes;
+
+	// Load vertices
+	bytes = sizeof(float3) * mesh->vertices_size;
+	mesh->vertices = new float3[mesh->vertices_size];
+	memcpy(mesh->vertices, cursor, bytes);
+	cursor += bytes;
+
+	//Load UV
+	if (mesh->UV_size > 0)
+	{
+		bytes = sizeof(float2) * mesh->UV_size;
+		mesh->UV_coord = new float2[mesh->UV_size];
+		memcpy(mesh->UV_coord, cursor, bytes);
+		cursor += bytes;
+	}
+
+	mesh->GenerateBuffers();
+
+	RELEASE_ARRAY(buffer);
+	return mesh;
+}

@@ -10,7 +10,7 @@ class ResourceTexture : public Resource
 {
 public:
 	ResourceTexture();
-	ResourceTexture(Random id) :Resource(id, type) {};
+	ResourceTexture(uint32 id);
 	~ResourceTexture() {};
 
 	Random Import(const aiMaterial* texture, const char* path);

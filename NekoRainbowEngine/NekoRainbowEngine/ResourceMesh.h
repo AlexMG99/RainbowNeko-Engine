@@ -22,11 +22,13 @@ class ResourceMesh: public Resource
 {
 public:
 	ResourceMesh();
-	ResourceMesh(Random id);
+	ResourceMesh(uint32 id);
 	~ResourceMesh();
 
 	Random Import(const aiMesh* mesh, const char* source_file);
 	void GenerateBuffers();
+
+	bool Load();
 	ResourceMesh* Load(Scene& scene);
 
 private:
