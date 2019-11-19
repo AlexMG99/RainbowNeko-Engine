@@ -115,7 +115,7 @@ update_status ModuleEditorCamera::Update(float dt)
 // -----------------------------------------------------------------
 void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
-	camera->Reference = -Spot;
+	camera->Reference = Spot;
 	camera->Look(Spot);
 }
 

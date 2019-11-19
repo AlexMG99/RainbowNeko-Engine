@@ -65,9 +65,11 @@ bool ResourceModel::ImportModel(const char * path, std::string& output_file)
 
 bool ResourceModel::Load()
 {
-	std::string path = "." + imported_file;
-	Scene* model = new Scene(path.c_str());
+	Scene* model = new Scene(imported_file.c_str());
 	Scene model_array = model->GetArray("Model");
+
+	Random random;
+	random.GenerateRandomIntRange(0, 65535);
 
 	for (int i = 0;;i++)
 	{
@@ -75,8 +77,8 @@ bool ResourceModel::Load()
 		{
 			Scene go = model_array.GetSectionArray(i);
 			GameObject* parent = App->viewport->CreateGameObject(go.GetString("Name").c_str(), nullptr, go.GetFloat3("Position"), go.GetFloat3("Scale"), go.GetQuat("Rotation"));
-			parent->SetId(go.GetDouble("ID"));
-			parent->parent_id = go.GetDouble("Parent");
+			parent->SetId(go.GetDouble("ID") + random.GetNumber());
+			parent->parent_id = go.GetDouble("Parent") + random.GetNumber();
 
 			ResourceMesh* mesh = new ResourceMesh();
 			mesh = mesh->Load(go);

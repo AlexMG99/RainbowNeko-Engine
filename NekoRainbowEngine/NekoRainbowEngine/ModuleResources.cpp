@@ -106,21 +106,24 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	if (import_ok)
 	{
 		Resource* res = CreateNewResource(type);
+		std::string file_name;
+		App->fs->SplitFilePath(file_assets, nullptr, &file_name);
+		res->file = file_name;
+		res->imported_file = output_file;
+		id = res->ID;
+		res->Load();
+		SaveMeta(res->file.c_str(), res);
+
 		char str_id[50];
 		sprintf_s(str_id, 50, "%u", res->GetID().GetNumber());
 		std::string path = LIBRARY_MODELS_FOLDER;
 		path += str_id;
 		path += ".model";
-		App->fs->CopyFromOutsideFS(output_file.c_str(), path.c_str());
-		App->fs->Remove(output_file.c_str());
-		std::string file_name;
-		App->fs->SplitFilePath(file_assets, nullptr, &file_name);
-		res->file = file_name;
-		res->imported_file = path;
-		id = res->ID;
-		res->Load();
+		bool ret = App->fs->CopyFromOutsideFS(output_file.c_str(), path.c_str());
+		ret = App->fs->Remove(output_file.c_str());
+		res->imported_file = "." + path;
 
-		SaveMeta(res->file.c_str(), res);
+		SaveMeta(res->imported_file.c_str(), res);
 	}
 
 	return id;

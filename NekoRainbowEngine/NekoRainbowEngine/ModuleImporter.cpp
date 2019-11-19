@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
+#include "ResourceModel.h"
 #include "PanelConsole.h"
 #include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
@@ -60,6 +61,12 @@ bool ModuleImporter::ImportFile(const char* path)
 		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 		comp_mesh->transform = obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);
+	}
+	else if (extension == "MODEL" || extension == "model")
+	{
+		ResourceModel* model = (ResourceModel*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MODEL).GetNumber());
+
+		model->Load();
 	}
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
 		App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE);
