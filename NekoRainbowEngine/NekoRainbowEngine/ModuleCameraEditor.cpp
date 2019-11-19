@@ -4,6 +4,7 @@
 #include "Brofiler/Brofiler.h"
 #include "ModuleCameraEditor.h"
 #include "PanelGame.h"
+#include "PanelHierarchy.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "RayCast.h"
@@ -91,12 +92,19 @@ update_status ModuleEditorCamera::Update(float dt)
 
 		if (pick != nullptr)
 		{
-			App->viewport->selected_object = pick;
-			App->viewport->selected_object->SetSelected(true);
-			/*App->viewport->selected_object->selected == true;*/
-			
+			if (App->viewport->selected_object == nullptr)
+			{
+				App->viewport->selected_object = pick;
+				App->viewport->selected_object->SetSelected(true);
+				
+			}
+			else {
+				App->viewport->selected_object->SetSelected(false);
+				App->viewport->selected_object = pick;
+				App->viewport->selected_object->SetSelected(true);
+			}
 		}
-		else 
+		else if (pick == nullptr)
 		{
 			if (App->viewport->selected_object != nullptr) 
 				App->viewport->selected_object->SetSelected(false);
