@@ -28,7 +28,7 @@ ResourceModel::ResourceModel(uint32 id) : Resource(id, type)
 	type = resource_type::RESOURCE_MODEL;
 }
 
-bool ResourceModel::ImportModel(const char * path, std::string& output_file, bool fromMeta)
+bool ResourceModel::ImportModel(const char * path, std::string& output_file, bool fromMeta, std::vector<Random> meshes_, std::vector<Random> textures_)
 {
 	bool ret = true;
 
@@ -44,10 +44,18 @@ bool ResourceModel::ImportModel(const char * path, std::string& output_file, boo
 		ResourceModel model;
 
 		std::vector<Random> textures, meshes;
-
-		model.GenerateTexture(scene, path, textures, fromMeta);
-		model.GenerateMeshes(scene, path, meshes);
-		model.GenerateNodes(scene, scene->mRootNode, 0, meshes, textures, fromMeta);
+		if (fromMeta)
+		{
+			model.GenerateMetaTexture(scene, path, textures_);
+			model.GenerateMetaMeshes(scene, path, meshes_);
+			model.GenerateNodes(scene, scene->mRootNode, 0, meshes_, textures_, fromMeta);
+		}
+		else
+		{
+			model.GenerateTexture(scene, path, textures);
+			model.GenerateMeshes(scene, path, meshes);
+			model.GenerateNodes(scene, scene->mRootNode, 0, meshes, textures, fromMeta);
+		}
 		aiReleaseImport(scene);
 
 		ret = Save(model, output_file);
@@ -155,7 +163,7 @@ void LogCallback(const char* text, char* data)
 	}
 }
 
-void ResourceModel::GenerateTexture(const aiScene* scene, const char* file, std::vector<Random>& materials, bool fromMeta)
+void ResourceModel::GenerateTexture(const aiScene* scene, const char* file, std::vector<Random>& materials)
 {
 	materials.reserve(scene->mNumMaterials);
 
@@ -163,7 +171,17 @@ void ResourceModel::GenerateTexture(const aiScene* scene, const char* file, std:
 
 	for (unsigned i = 0; i < scene->mNumMaterials; ++i)
 	{
-		materials.push_back(texture.Import(scene->mMaterials[i], file, fromMeta));
+		materials.push_back(texture.Import(scene->mMaterials[i], file));
+	}
+}
+
+void ResourceModel::GenerateMetaTexture(const aiScene* scene, const char* file, std::vector<Random> textures)
+{
+	ResourceTexture texture;
+
+	for (unsigned i = 0; i < scene->mNumMaterials; ++i)
+	{
+		texture.Import(scene->mMaterials[i], file, textures[i]);
 	}
 }
 
@@ -177,6 +195,17 @@ void ResourceModel::GenerateMeshes(const aiScene* scene, const char* file, std::
 	{
 		meshes.push_back(mesh.Import(scene->mMeshes[i], file));
 	}
+}
+
+void ResourceModel::GenerateMetaMeshes(const aiScene* scene, const char* file, std::vector<Random> meshes)
+{
+	ResourceMesh mesh;
+
+	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+	{
+		mesh.Import(scene->mMeshes[i], file, meshes[i]);
+	}
+
 }
 
 void ResourceModel::GenerateNodes(const aiScene * model, const aiNode * node, int parent, const std::vector<Random>& meshes, const std::vector<Random>& textures, bool fromMeta)

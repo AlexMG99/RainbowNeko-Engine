@@ -26,6 +26,7 @@ public:
 	~ResourceMesh();
 
 	Random Import(const aiMesh* mesh, const char* source_file);
+	void Import(const aiMesh * mesh, const char * source_file, Random id);
 	void GenerateBuffers();
 
 	bool Load();

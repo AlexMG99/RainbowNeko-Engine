@@ -95,6 +95,15 @@ Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
 	return resource_mesh->GetID();
 }
 
+void ResourceMesh::Import(const aiMesh * mesh, const char * source_file, Random id)
+{
+	ResourceMesh* resource_mesh = (ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH, id.GetNumber());
+
+	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
+	App->importer->mesh_imp->SaveMesh(resource_mesh);
+	resource_mesh->file = source_file;
+}
+
 void ResourceMesh::ReleaseFromMemory() 
 {
 	RELEASE_ARRAY(UV_coord);

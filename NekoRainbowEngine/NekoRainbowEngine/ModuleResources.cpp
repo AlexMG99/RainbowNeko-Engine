@@ -75,6 +75,7 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	Random id;
 	bool import_ok = false;
 	std::string output_file;
+	std::vector<Random> rand_vec;
 	ResourceModel model;
 
 	Resource* res = FindMeta(file_assets);
@@ -100,7 +101,7 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		break;
 	case resource_type::RESOURCE_MODEL:
 		ImportAssets(file_assets);
-		import_ok = model.ImportModel(file_assets, output_file, false);
+		import_ok = model.ImportModel(file_assets, output_file, false, rand_vec, rand_vec);
 		break;
 	case resource_type::RESOURCE_MESH:
 		res = App->importer->mesh_imp->Load(file_assets);
@@ -141,11 +142,36 @@ bool ModuleResources::ImportMeta(const char* file_assets, const char* meta_path,
 	ResourceModel model;
 	std::string output_file;
 
+	Scene* meta = new Scene(meta_path);
+	Scene meta_meshes = meta->GetArray("Meshes");
+	Scene meta_textures = meta->GetArray("Textures");
+
+	std::vector<Random> meshes;
+	std::vector<Random> textures;
+
+	for (uint i = 0;; i++)
+	{
+		if (meta_meshes.IsArraySection(i))
+		{
+			char name[30];
+			sprintf_s(name, 30, "Mesh %i", i);
+			uint32 mesh_id = meta_meshes.GetSectionArray(i).GetDouble(name);
+			if(mesh_id != 0)
+				meshes.push_back(mesh_id);
+
+			sprintf_s(name, 30, "Texture %i", i);
+			uint32 texture_id = meta_textures.GetSectionArray(i).GetDouble(name);
+			if(texture_id != 0)
+				textures.push_back(texture_id);
+		}
+		else
+			break;
+	}
+
 	switch (res->type)
 	{
 	case RESOURCE_MODEL:
-		import_ok = model.ImportModel(file_assets, output_file, true);
-
+		import_ok = model.ImportModel(file_assets, output_file, true, meshes, textures);
 		break;
 	}
 
@@ -160,30 +186,6 @@ bool ModuleResources::ImportMeta(const char* file_assets, const char* meta_path,
 		bool ret = App->fs->CopyFromOutsideFS(output_file.c_str(), path.c_str());
 		std::remove(output_file.c_str());
 		res->imported_file = "." + path;
-
-		Scene* models = new Scene(res->imported_file.c_str());
-		Scene* meta = new Scene(meta_path);
-		Scene model = models->GetArray("Model");
-		Scene meta_meshes = meta->GetArray("Meshes");
-		Scene meta_textures = meta->GetArray("Textures");
-
-		for (int i = 0;; i++)
-		{
-			if (models->IsArraySection(i))
-			{
-				Scene go = model.GetSectionArray(i);
-				char name[30];
-				sprintf_s(name, 30, "Mesh %i", i);
-				go.AddDouble("Mesh", meta_meshes.GetSectionArray(i).GetDouble(name));
-
-				sprintf_s(name, 30, "Texture %i", i);
-				go.AddDouble("Texture", meta_textures.GetSectionArray(i).GetDouble(name));
-			}
-			else
-				break;
-		}
-
-		models->Save(res->imported_file.c_str());
 		res->Load();
 	}
 

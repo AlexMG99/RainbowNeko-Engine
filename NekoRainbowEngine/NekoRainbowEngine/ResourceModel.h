@@ -33,12 +33,16 @@ public:
 	ResourceModel(uint32 id);
 	~ResourceModel() {};
 
-	bool ImportModel(const char* path, std::string& output_file, bool fromMeta);
+	bool ImportModel(const char* path, std::string& output_file, bool fromMeta, std::vector<Random> meshes, std::vector<Random> textures);
 	bool Load();
 	void ReorganizeHierarchy();
 private:
-	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials, bool fromMeta);
+	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials);
+	void GenerateMetaTexture(const aiScene * scene, const char * file, std::vector<Random> textures);
+
 	void GenerateMeshes(const aiScene * scene, const char * file, std::vector<Random>& meshes);
+	void GenerateMetaMeshes(const aiScene * scene, const char * file, std::vector<Random> meshes);
+
 	void GenerateNodes(const aiScene* model, const aiNode* node, int parent, const std::vector<Random>& meshes, const std::vector<Random>& materials, bool fromMeta);
 
 	bool Save(ResourceModel model, std::string& output) const;
