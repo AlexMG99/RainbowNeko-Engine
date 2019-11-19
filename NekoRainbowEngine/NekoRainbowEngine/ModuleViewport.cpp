@@ -88,8 +88,6 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if (App->camera->drawraycast)
 		App->camera->DrawSegmentRay();
 
-	GuizControls();
-	GuizLogic();
 
 	root_object->Update();
 
@@ -283,7 +281,7 @@ void ModuleViewport::GuizLogic()
 
 		float4x4 delta_matrix;
 
-		ImGuizmo::SetRect(App->editor->panel_game->WorldPosX, App->editor->panel_game->WorldPosY, App->editor->panel_game->size.x, App->editor->panel_game->size.y);
+		ImGuizmo::SetRect(App->editor->panel_game->WorldPosX, App->editor->panel_game->WorldPosY, App->editor->panel_game->width, App->editor->panel_game->height);
 		ImGuizmo::SetDrawlist();
 		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
 	

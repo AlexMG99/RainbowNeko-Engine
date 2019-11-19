@@ -47,7 +47,7 @@ public:
 	
 	void DeleteGameObject();
 
-private:
+public:
 	void DrawGrid(uint separation, uint lines);
 	void GuizControls();
 	void GuizLogic();
@@ -69,7 +69,6 @@ public:
 private:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
 	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
-	/*bool                guizmo_useSnap = false;
-	float3              guizmo_snap    = float3(1.0F);*/
+	
 
 };

@@ -93,10 +93,17 @@ update_status ModuleEditorCamera::Update(float dt)
 		{
 			App->viewport->selected_object = pick;
 			App->viewport->selected_object->SetSelected(true);
+			/*App->viewport->selected_object->selected == true;*/
+			
 		}
 		else 
-			App->viewport->selected_object->SetSelected(false);
-
+		{
+			if (App->viewport->selected_object != nullptr) 
+				App->viewport->selected_object->SetSelected(false);
+			
+			
+			App->viewport->selected_object = nullptr;
+		}
 	}
 		
 	// Wheel Movement
