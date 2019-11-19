@@ -88,6 +88,8 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		return id;
 	}
 
+	ImportAssets(file_assets);
+
 	switch (type)
 	{
 	case resource_type::RESOURCE_TEXTURE:
@@ -130,9 +132,23 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 	return id;
 }
 
-Random ModuleResources::GenerateNewID()
+bool ModuleResources::ImportAssets(const char* file)
 {
-	return Random();
+	bool ret = false;
+
+	std::string file_name;
+	App->fs->SplitFilePath(file, nullptr, &file_name);
+
+	if (!App->fs->IsInDirectory("/Assets/", file))
+	{
+		std::string dst = "/Assets/";
+		dst += file_name;
+		ret = App->fs->CopyFromOutsideFS(file, dst.c_str());
+	}
+	else
+		ret = true;
+
+	return ret;
 }
 
 Resource* ModuleResources::Get(uint32 id)

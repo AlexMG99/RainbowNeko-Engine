@@ -79,6 +79,7 @@ bool ModuleImporter::ImportFile(const char* path)
 				ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
 				if (texture)
 				{
+					App->resources->ImportAssets(path);
 					comp_texture->AddTexture(texture);
 					App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
 					LOG("Load Texture succesfully with name: %s", texture->file.c_str());
