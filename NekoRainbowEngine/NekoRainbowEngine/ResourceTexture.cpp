@@ -35,8 +35,9 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 	aiString texture_path;
 	if(texture->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path) == AI_SUCCESS);
 	{
-		std::string full_path = base_path.c_str();
-		full_path += texture_path.C_Str();
+		std::string file_path, full_path = base_path.c_str();
+		App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file_path, nullptr);
+		full_path += file_path;
 
 		char id[15];
 		sprintf_s(id, 15, "%u", resource_texture->GetID().GetNumber());

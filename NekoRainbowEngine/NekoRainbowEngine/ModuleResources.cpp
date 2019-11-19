@@ -109,19 +109,20 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		std::string file_name;
 		App->fs->SplitFilePath(file_assets, nullptr, &file_name);
 		res->file = file_name;
-		res->imported_file = output_file;
-		id = res->ID;
-		res->Load();
-		SaveMeta(res->file.c_str(), res);
 
 		char str_id[50];
 		sprintf_s(str_id, 50, "%u", res->GetID().GetNumber());
 		std::string path = LIBRARY_MODELS_FOLDER;
 		path += str_id;
 		path += ".model";
+
 		bool ret = App->fs->CopyFromOutsideFS(output_file.c_str(), path.c_str());
-		ret = App->fs->Remove(output_file.c_str());
+		std::remove(output_file.c_str());
 		res->imported_file = "." + path;
+		id = res->ID;
+		res->Load();
+
+		SaveMeta(res->file.c_str(), res);
 
 		SaveMeta(res->imported_file.c_str(), res);
 	}
@@ -241,17 +242,17 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 				Scene mesh = meshes.AddSectionArray(i);
 				Scene texture = textures.AddSectionArray(i);
 				char id[50];
-				char name[10];
+				char name[20];
 				//Mesh
 				uint32 m_id = go.GetDouble("Mesh");
 				sprintf_s(id, 50, "%u", m_id);
-				sprintf_s(name, 10, "Mesh %i", i);
+				sprintf_s(name, 20, "Mesh %i", i);
 				mesh.AddString(name, id);
 
 				//Texture
 				uint32 t_id = go.GetDouble("Texture");
 				sprintf_s(id, 50, "%u", t_id);
-				sprintf_s(name, 10, "Texture %i", i);
+				sprintf_s(name, 20, "Texture %i", i);
 				texture.AddString(name, id);
 			}
 			else

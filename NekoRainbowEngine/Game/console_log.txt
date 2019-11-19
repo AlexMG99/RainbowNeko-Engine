@@ -13,66 +13,40 @@ Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 3 and id index: 4
-Loaded with path: /Library/Textures/1498279446.dds succesfully!
+Loaded with path: /Library/Textures/784120369.dds succesfully!
 Generated mesh with id vertex: 9 and id index: 10
 Loading Editor Scene
 -------------- Application Update --------------
 
-Mouse Pos: 1114.000000, 420.000000
-Normalized Mouse Pos: 0.935706, 0.352780
-Mouse Pos: 341.000000, 62.000000
-Normalized Mouse Pos: 0.983870, 0.178885
-Mouse Pos: 1554.000000, 89.000000
-Normalized Mouse Pos: 0.998364, 0.057178
-Mouse Pos: 1558.000000, 141.000000
-Normalized Mouse Pos: 0.995930, 0.090132
-Mouse Pos: 1556.000000, 135.000000
-Normalized Mouse Pos: 0.996257, 0.086436
-Mouse Pos: 1556.000000, 135.000000
-Normalized Mouse Pos: 0.996257, 0.086436
-Mouse Pos: 1571.000000, 132.000000
-Normalized Mouse Pos: 0.996489, 0.083728
-Mouse Pos: 1571.000000, 132.000000
-Normalized Mouse Pos: 0.996489, 0.083728
-Mouse Pos: 1571.000000, 132.000000
-Normalized Mouse Pos: 0.996489, 0.083728
-Mouse Pos: 855.000000, 620.000000
-Normalized Mouse Pos: 0.809554, 0.587045
-Mouse Pos: 855.000000, 620.000000
-Normalized Mouse Pos: 0.809554, 0.587045
-Mouse Pos: 888.000000, 289.000000
-Normalized Mouse Pos: 0.950908, 0.309473
-Mouse Pos: 940.000000, 304.000000
-Normalized Mouse Pos: 0.951479, 0.307712
-Mouse Pos: 1349.000000, 476.000000
-Normalized Mouse Pos: 0.943016, 0.332747
-Mouse Pos: 1103.000000, 458.000000
-Normalized Mouse Pos: 0.923547, 0.383485
-Mouse Pos: 978.000000, 421.000000
-Normalized Mouse Pos: 0.918512, 0.395392
-Mouse Pos: 1283.000000, 528.000000
-Normalized Mouse Pos: 0.924753, 0.380569
-Mouse Pos: 949.000000, 501.000000
-Normalized Mouse Pos: 0.884331, 0.466860
-Mouse Pos: 1136.000000, 575.000000
-Normalized Mouse Pos: 0.892217, 0.451606
-Mouse Pos: 1265.000000, 488.000000
-Normalized Mouse Pos: 0.932984, 0.359918
-Mouse Pos: 1131.000000, 601.000000
-Normalized Mouse Pos: 0.883065, 0.469250
-Mouse Pos: 805.000000, 626.000000
-Normalized Mouse Pos: 0.789405, 0.613873
-Mouse Pos: 1204.000000, 333.000000
-Normalized Mouse Pos: 0.963815, 0.266570
-Mouse Pos: 1155.000000, 542.000000
-Normalized Mouse Pos: 0.905280, 0.424815
-Mouse Pos: 1292.000000, 344.000000
-Normalized Mouse Pos: 0.966334, 0.257290
-Mouse Pos: 1119.000000, 361.000000
-Normalized Mouse Pos: 0.951701, 0.307028
-Mouse Pos: 1072.000000, 500.000000
-Normalized Mouse Pos: 0.906269, 0.422700
-Mouse Pos: 1169.000000, 314.000000
-Normalized Mouse Pos: 0.965767, 0.259411
-Mouse Pos: 1065.000000, 507.000000
-Normalized Mouse Pos: 0.902907, 0.429835
+Mouse Pos: 1696.000000, 92.000000
+Normalized Mouse Pos: 0.998532, 0.054166
+Generated mesh with id vertex: 17 and id index: 18
+Loaded with path: /Library/Textures/21126047.dds succesfully!
+Generated mesh with id vertex: 23 and id index: 24
+Loaded with path: /Library/Textures/1846820845.dds succesfully!
+Generated mesh with id vertex: 29 and id index: 30
+Loaded with path: /Library/Textures/1154705962.dds succesfully!
+Generated mesh with id vertex: 35 and id index: 36
+Loaded with path: /Library/Textures/2887520369.dds succesfully!
+Generated mesh with id vertex: 41 and id index: 42
+Failed to load texture with path: 1858191833. Error: (null)
+Generated mesh with id vertex: 46 and id index: 47
+Failed to load texture with path: 2602867094. Error: (null)
+Generated mesh with id vertex: 52 and id index: 53
+Loaded with path: /Library/Textures/849677028.dds succesfully!
+Generated mesh with id vertex: 61 and id index: 62
+Loaded with path: /Library/Textures/122992834.dds succesfully!
+Generated mesh with id vertex: 67 and id index: 68
+Generated mesh with id vertex: 79 and id index: 80
+Loaded with path: /Library/Textures/2281231556.dds succesfully!
+Generated mesh with id vertex: 91 and id index: 92
+Generated mesh with id vertex: 97 and id index: 98
+Loaded with path: /Library/Textures/833248155.dds succesfully!
+Generated mesh with id vertex: 103 and id index: 104
+Failed to load texture with path: 2088407891. Error: (null)
+Generated mesh with id vertex: 117 and id index: 118
+Generated mesh with id vertex: 123 and id index: 124
+Generated mesh with id vertex: 135 and id index: 136
+Generated mesh with id vertex: 141 and id index: 142
+Mouse Pos: 1065.000000, 350.000000
+Normalized Mouse Pos: 0.950013, 0.312211
