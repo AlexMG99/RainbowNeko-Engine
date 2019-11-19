@@ -37,16 +37,3 @@ update_status PanelGame::Draw()
 	ImGui::End();
 	return UPDATE_CONTINUE;
 }
-
-void PanelGame::Logic()
-{
-
-	// Get docking cursor values
-	/*width = ImGui::GetWindowWidth();
-	height = ImGui::GetWindowHeight();*/
-
-	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
-	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
-
-
-}

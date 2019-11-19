@@ -86,6 +86,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 	io.ConfigFlags = ImGuiConfigFlags_DockingEnable;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
+
 	ImGui::NewFrame();
 
 	ImGuizmo::BeginFrame();
@@ -94,6 +95,10 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
+
+	
+	//// Rendering
+	//ImGui::Render();
 	return ret;
 }
 
@@ -116,9 +121,10 @@ void ModuleEditor::DrawImGui()
 
 	
 
+	
+	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
 	// Rendering
 	ImGui::Render();
-	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

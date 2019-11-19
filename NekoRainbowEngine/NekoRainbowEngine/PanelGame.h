@@ -12,7 +12,7 @@ public:
 	~PanelGame() {};
 	
 	update_status Draw();
-	void Logic();
+	
 
 public:
 	ImVec2 size;

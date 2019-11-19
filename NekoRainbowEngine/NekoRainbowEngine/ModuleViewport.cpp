@@ -88,6 +88,8 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if (App->camera->drawraycast)
 		App->camera->DrawSegmentRay();
 
+	GuizControls();
+	GuizLogic();
 
 	root_object->Update();
 
@@ -242,27 +244,20 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 void ModuleViewport::GuizControls()
 {
-	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT))
-	{
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) 
 		guizmo_op = ImGuizmo::OPERATION::TRANSLATE;
-	}
+	
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
-	{
 		guizmo_op = ImGuizmo::OPERATION::ROTATE;
-	}
+
 	if(App->input->GetKey(SDL_SCANCODE_R)==KEY_DOWN)
-	{
 		guizmo_op = ImGuizmo::OPERATION::SCALE;
-	}
+	
 	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) 
-	{
 		guizmo_mode = ImGuizmo::MODE::WORLD;
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
-	{
 	    guizmo_mode = ImGuizmo::MODE::LOCAL;
-	}
 }
 
 void ModuleViewport::GuizLogic()
@@ -270,14 +265,15 @@ void ModuleViewport::GuizLogic()
 	if (App->viewport->selected_object != nullptr )
 	{
 		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
+
 		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
-		view_transposed.Transposed();
+		view_transposed.Transpose();
 
 		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix();
-		projection_transposed.Transposed();
+		projection_transposed.Transpose();
 
 		float4x4 object_transform_matrix = transform->global_matrix;
-		object_transform_matrix.Transposed();
+		object_transform_matrix.Transpose();
 
 		float4x4 delta_matrix;
 
