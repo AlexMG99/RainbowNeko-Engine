@@ -22,6 +22,7 @@ public:
 	void InputSettings();
 	void HardwareSettings();
 	void RendererSettings();
+	void CameraSettings();
 
 private:
 

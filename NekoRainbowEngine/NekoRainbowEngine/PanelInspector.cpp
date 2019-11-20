@@ -39,17 +39,12 @@ update_status PanelInspector::Draw()
 		{
 			//Position / Rotation / Scale
 			ImGui::Text("ID: %u", object->GetId());
-			if (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2) ||
+			if (((comp_camera) ? (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2)) : (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2))) ||
 				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
 				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
 			{
 				comp_trans->UpdateComponents();
 			}
-
-			/*ImGui::Text("Bounding Boxes:");
-			ImGui::Checkbox("Show AABB", &object->BB_obj->show_aabb);
-			ImGui::Checkbox("Show OBB", &object->BB_obj->show_obb);*/
-			//ImGui::Checkbox("Camera Culling", &comp_mesh->camera_culling);
 
 			ImGui::Separator();
 		}
@@ -116,18 +111,12 @@ update_status PanelInspector::Draw()
 			{
 				ImGui::PushID("Camera");
 
-				ImGui::Text("Transform:");
-				if (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2))
-				{
-					comp_camera->UpdateFrustum(true);
-				}
-				ImGui::Separator();
-
 				if (ImGui::InputFloat("Near Plane", &comp_camera->frustum.nearPlaneDistance, 5) ||
 					ImGui::InputFloat("Far Plane", &comp_camera->frustum.farPlaneDistance, 5) ||
 					ImGui::InputFloat("FOV", &comp_camera->frustum.verticalFov, 0.1))
 				{
 					comp_camera->UpdateFrustum(false);
+					comp_camera->update_proj = true;
 				}
 				ImGui::PopID();
 				ImGui::Separator();

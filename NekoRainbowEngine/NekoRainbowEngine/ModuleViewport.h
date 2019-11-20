@@ -57,7 +57,7 @@ public:
 public:
 	Scene* scene = nullptr;
 	GameObject* root_object = nullptr;
-	GameObject* camera_test = nullptr;
+	GameObject* camera_scene = nullptr;
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
 

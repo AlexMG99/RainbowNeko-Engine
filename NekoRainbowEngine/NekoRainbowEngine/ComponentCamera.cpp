@@ -128,10 +128,12 @@ void ComponentCamera::UpdateFrustum(bool camera)
 	}
 	vertices_frustum.clear();
 
-	if (App->viewport->camera_test->GetParent() != App->viewport->root_object)
+	if (!camera)
 		ChangePosition();
 	else if(transform)
 		UpdateCameraPosition();
+
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
 	ReloadFrustum();
 

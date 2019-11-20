@@ -27,7 +27,7 @@ bool ModuleEditorCamera::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
-	camera = scene_camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr);
+	camera = scene_camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr,1,1000, 20);
 
 	return ret;
 }
@@ -144,6 +144,11 @@ void ModuleEditorCamera::SetSceneCamera()
 	camera->update_proj = true;
 }
 
+ComponentCamera * ModuleEditorCamera::GetSceneCamera() const
+{
+	return scene_camera;
+}
+
 void ModuleEditorCamera::Zoom(float zoom)
 {
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -158,9 +163,8 @@ void ModuleEditorCamera::Zoom(float zoom)
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
 
-GameObject * ModuleEditorCamera::Pick(float3 * hit_point) 
+GameObject* ModuleEditorCamera::Pick(float3 * hit_point) 
 {
-
 	float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) /App->editor->panel_game->height);
 
 	origin.x = (origin.x - 0.5F) * 2;

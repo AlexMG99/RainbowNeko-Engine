@@ -1,11 +1,13 @@
 #include "Application.h"
 #include "PanelConfiguration.h"
+#include "ComponentCamera.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
 #include "mmgr/mmgr.h"
 #include <string>
+
 PanelConfiguration::~PanelConfiguration()
 {
 }
@@ -55,18 +57,15 @@ update_status PanelConfiguration::Draw()
 	update_status ret = UPDATE_CONTINUE;
 
 	ImGui::Begin(name, &enabled);
+
 		AppSettings();
-
 		WindowSettings();
-
 		InputSettings();
-
 		HardwareSettings();
-
 		RendererSettings();
+		CameraSettings();
 
 	ImGui::End();
-
 
 	return ret;
 }
@@ -118,8 +117,6 @@ void PanelConfiguration::AppSettings()
 
 	}
 }
-
-
 
 	void PanelConfiguration::WindowSettings()
 	{
@@ -283,6 +280,21 @@ void PanelConfiguration::AppSettings()
 			ImGui::Checkbox("GL SHADE MODEL", &gl_shade_model);
 		}
 
+	}
+
+	void PanelConfiguration::CameraSettings()
+	{
+		if (ImGui::CollapsingHeader("CameraSettings"))
+		{
+			ComponentCamera* comp_camera = (ComponentCamera*)App->camera->GetSceneCamera();
+			if (ImGui::InputFloat("Near Plane", &comp_camera->frustum.nearPlaneDistance, 5) ||
+				ImGui::InputFloat("Far Plane", &comp_camera->frustum.farPlaneDistance, 5) ||
+				ImGui::InputFloat("FOV", &comp_camera->frustum.verticalFov, 0.1)) 
+			{
+				comp_camera->UpdateFrustum(true);
+				comp_camera->update_proj = true;
+			}
+		}
 	}
 
 

@@ -34,6 +34,8 @@ public:
 	void ChangeCamera(ComponentCamera* camera);
 	void SetSceneCamera();
 
+	ComponentCamera* GetSceneCamera() const;
+
 private:
 	void Move(float dt);
 	void Move(float motion_x, float motion_y);
