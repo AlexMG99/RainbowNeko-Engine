@@ -3,6 +3,8 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "Application.h"
 #include "imgui/imgui.h"
+#include "imGuizmo/ImGuizmo.h"
+#include "ModuleViewport.h"
 #include "Brofiler/Brofiler.h"
 #include <string>
 
@@ -29,9 +31,11 @@ update_status PanelGame::Draw()
 	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
 
 
-
 	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - width) * 0.5f);
 	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - height) * 0.5f);
+
+	App->viewport->GuizControls();
+	App->viewport->GuizLogic();
 	
 
 	ImGui::End();

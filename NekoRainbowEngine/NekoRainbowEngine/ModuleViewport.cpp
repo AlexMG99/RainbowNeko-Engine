@@ -88,8 +88,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if (App->camera->drawraycast)
 		App->camera->DrawSegmentRay();
 
-	GuizControls();
-	GuizLogic();
+
 
 	root_object->Update();
 
@@ -195,38 +194,7 @@ GameObject* ModuleViewport::TriangleTest(LineSegment& ray, GameObject* obj)
 
 void ModuleViewport::DrawGrid(uint separation, uint lines)
 {
-	//Vertex Point
-	glPointSize(10.0f);
-
-	glEnable(GL_POINT_SMOOTH);
-
-	glBegin(GL_POINTS);
-	glVertex3f(0, 0, 0);
-	glEnd();
-
-	glDisable(GL_POINT_SMOOTH);
-
-	glPointSize(1.0f);
-
-	//Axis X,Y,Z
-	glLineWidth(7.0);
-
-	glBegin(GL_LINES);
-
-	glColor3f(255, 0, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(1.5, 0, 0);
-
-	glColor3f(0, 255, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 1.5, 0);
-
-	glColor3f(0, 0, 255);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, 1.5);
-
 	glColor3f(255, 255, 255);
-	glEnd();
 
 	glLineWidth(1.0f);
 
