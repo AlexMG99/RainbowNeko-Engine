@@ -49,10 +49,10 @@ bool ComponentMesh::Update()
 	return true;
 }
 
-bool ComponentMesh::OnSave(Scene & scene) const
+bool ComponentMesh::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;
-	Scene mesh_scene = scene.AddSectionArray(type);
+	Scene mesh_scene = scene.AddSectionArray(i);
 
 	mesh_scene.AddInt("Type", type);
 	mesh_scene.AddString("Mesh", mesh->file.c_str());
@@ -61,9 +61,9 @@ bool ComponentMesh::OnSave(Scene & scene) const
 	return ret;
 }
 
-bool ComponentMesh::OnLoad(Scene & scene)
+bool ComponentMesh::OnLoad(Scene & scene, int i)
 {
-	Scene mesh_scene = scene.GetSectionArray(type);
+	Scene mesh_scene = scene.GetSectionArray(i);
 
 	transform = my_go->GetComponentTransform();
 	AddMesh(App->resources->ImportMesh(mesh_scene.GetDouble("Resource")));
@@ -232,10 +232,10 @@ void ComponentMesh::DrawSelectedOutline()
 
 }
 
-bool ComponentTexture::OnSave(Scene & scene) const
+bool ComponentTexture::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;
-	Scene texture_scene = scene.AddSectionArray(type);
+	Scene texture_scene = scene.AddSectionArray(i);
 
 	ret = texture_scene.AddInt("Type", type);
 	ret = texture_scene.AddDouble("Resource", texture->GetID().GetNumber());
@@ -243,10 +243,10 @@ bool ComponentTexture::OnSave(Scene & scene) const
 	return ret;
 }
 
-bool ComponentTexture::OnLoad(Scene & scene)
+bool ComponentTexture::OnLoad(Scene & scene, int i)
 {
 	bool ret = true;
-	Scene texture_scene = scene.AddSectionArray(type);
+	Scene texture_scene = scene.AddSectionArray(i);
 
 	type = (component_type)texture_scene.GetInt("Type");
 	AddTexture(App->resources->ImportTexture(texture_scene.GetDouble("Resource")));

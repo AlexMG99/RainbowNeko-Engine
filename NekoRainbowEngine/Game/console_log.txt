@@ -5,15 +5,28 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: Quadro FX 370/PCIe/SSE2
-OpenGL version supported 3.3.0
-GLSL: 3.30 NVIDIA via Cg compiler
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
+GLSL: 4.60 NVIDIA
 
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
-Loaded with path: /Library/Textures/3936724882.dds succesfully!
+Loaded with path: /Library/Textures/1984439191.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
 Loading Editor Scene
 -------------- Application Update --------------
+
+Mouse Pos: 994.000000, 381.000000
+Normalized Mouse Pos: 0.933757, 0.357909
+Mouse Pos: 1192.000000, 392.000000
+Normalized Mouse Pos: 0.949951, 0.312400
+Mouse Pos: 1279.000000, 421.000000
+Normalized Mouse Pos: 0.949865, 0.312661
+Mouse Pos: 785.000000, 340.000000
+Normalized Mouse Pos: 0.917627, 0.397443
+Mouse Pos: 820.000000, 369.000000
+Normalized Mouse Pos: 0.911922, 0.410365
+Mouse Pos: 775.000000, 381.000000
+Normalized Mouse Pos: 0.897418, 0.441182

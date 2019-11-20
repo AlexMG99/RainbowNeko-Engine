@@ -172,25 +172,29 @@ float4x4 ComponentCamera::GetOpenGLProjectionMatrix()
 	return frustum.ProjectionMatrix().Transposed();
 }
 
-bool ComponentCamera::OnSave(Scene & scene) const
+bool ComponentCamera::OnSave(Scene & scene, int i) const
 {
 	bool ret = false;
-	Scene mesh_scene = scene.GetSectionArray(type);
+	Scene camera_scene = scene.AddSectionArray(i);
 
-	ret = mesh_scene.AddFloat("NearPlane", frustum.nearPlaneDistance);
-	ret = mesh_scene.AddFloat("FarPlane", frustum.farPlaneDistance);
-	ret = mesh_scene.AddFloat("Fov", frustum.horizontalFov);
+	ret = camera_scene.AddInt("Type", type);
+	ret = camera_scene.AddFloat("NearPlane", frustum.nearPlaneDistance);
+	ret = camera_scene.AddFloat("FarPlane", frustum.farPlaneDistance);
+	ret = camera_scene.AddFloat("Fov", frustum.horizontalFov);
 
 	return ret;
 }
 
-bool ComponentCamera::OnLoad(Scene & scene)
+bool ComponentCamera::OnLoad(Scene & scene, int i)
 {
-	Scene mesh_scene = scene.GetSectionArray(type);
+	Scene camera_scene = scene.GetSectionArray(i);
+	
+	type = (component_type)camera_scene.GetInt("Type");
+	frustum.nearPlaneDistance = camera_scene.GetFloat("NearPlane");
+	frustum.farPlaneDistance = camera_scene.GetFloat("FarPlane");
+	frustum.horizontalFov = camera_scene.GetFloat("Fov");
 
-	frustum.nearPlaneDistance = mesh_scene.GetFloat("NearPlane");
-	frustum.farPlaneDistance = mesh_scene.GetFloat("FarPlane");
-	frustum.horizontalFov = mesh_scene.GetFloat("Fov");
+	UpdateFrustum(true);
 
 	return true;
 }

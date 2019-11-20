@@ -79,9 +79,9 @@ ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV
 
 bool GameObject::SaveComponents(Scene scene)
 {
-	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	for (int i = 0; i < components.size(); i++)
 	{
-		(*it_comp)->OnSave(scene);
+		components.at(i)->OnSave(scene, i);
 	}
 	return true;
 }
@@ -93,12 +93,12 @@ bool GameObject::LoadComponents(Scene scene)
 	for (int i = 1; i < COMPONENT_TOTAL; i++)
 	{
 		if (comp_scene.IsArraySection(i))
-			CreateComponent((component_type)(i));
+			CreateComponent((component_type)(comp_scene.GetSectionArray(i).GetInt("Type")));
 	}
 	
-	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	for (int i = 0; i< components.size(); i++)
 	{
-		(*it_comp)->OnLoad(comp_scene);
+		components.at(i)->OnLoad(comp_scene, i);
 	}
 	return true;
 }

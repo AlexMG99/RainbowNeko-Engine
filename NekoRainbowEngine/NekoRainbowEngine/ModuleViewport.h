@@ -32,7 +32,7 @@ public:
 
 	
 
-	bool LoadScene(Scene* scn);
+	bool LoadScene();
 	bool LoadGameObject(Scene scn);
 
 	bool SaveScene();

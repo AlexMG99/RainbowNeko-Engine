@@ -23,8 +23,8 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	bool OnSave(Scene& scene) const;
-	bool OnLoad(Scene& scene);
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
 
 	void AddMesh(ResourceMesh* mesh);
 
@@ -68,8 +68,8 @@ public:
 	void Enable() {};
 	void Disable() {};
 
-	bool OnSave(Scene& scene) const;
-	bool OnLoad(Scene& scene);
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
 
 	void AddTexture(ResourceTexture* text);
 

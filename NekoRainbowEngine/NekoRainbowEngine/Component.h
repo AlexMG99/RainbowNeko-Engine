@@ -33,8 +33,8 @@ public:
 	virtual void Enable() {};
 	virtual void Disable() {};
 
-	virtual bool OnSave(Scene& scene) const { return true; };
-	virtual bool OnLoad(Scene& scene) { return true; };
+	virtual bool OnSave(Scene& scene, int i) const { return true; };
+	virtual bool OnLoad(Scene& scene, int i) { return true; };
 
 public:
 	component_type type = COMPONENT_NONE;
@@ -55,8 +55,8 @@ public:
 
 	bool ItIntersect(LineSegment ray);
 
-	bool OnSave(Scene& scene) const;
-	bool OnLoad(Scene& scene);
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
 
 	float4x4 GetGlobalTransformMatrix();
 	void CalculateGlobalAxis();

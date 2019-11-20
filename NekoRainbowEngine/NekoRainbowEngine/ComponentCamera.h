@@ -30,8 +30,8 @@ public:
 
 	float4x4 GetOpenGLProjectionMatrix();
 
-	bool OnSave(Scene& scene) const;
-	bool OnLoad(Scene& scene);
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
 
 public:
 	Frustum frustum;
