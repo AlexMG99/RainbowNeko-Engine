@@ -2,6 +2,7 @@
 #include "ComponentCamera.h"
 #include "Parson/parson.h"
 #include "GL/include/glew.h"
+#include "Scene.h"
 #include <vector>
 
 ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject* obj): Component(comp_type, act, obj)
@@ -166,22 +167,30 @@ float3 ComponentCamera::GetCameraPosition() const
 	return frustum.pos;
 }
 
-update_status ComponentCamera::Load()
-{
-	//BROFILER_CATEGORY("Load_ModuleCamera3D", Profiler::Color::LightGray);
-
-	//JSON_Object* obj = json_object(App->settings_doc);
-	//JSON_Object* cam_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Camera");
-
-	//base_speed = json_object_get_number(cam_obj, "Speed");
-	//Position = { (float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "X"),
-	//	(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Y"),
-	//	(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Z") };
-
-	return UPDATE_CONTINUE;
-}
-
 float4x4 ComponentCamera::GetOpenGLProjectionMatrix()
 {
 	return frustum.ProjectionMatrix().Transposed();
+}
+
+bool ComponentCamera::OnSave(Scene & scene) const
+{
+	bool ret = false;
+	Scene mesh_scene = scene.GetSectionArray(type);
+
+	ret = mesh_scene.AddFloat("NearPlane", frustum.nearPlaneDistance);
+	ret = mesh_scene.AddFloat("FarPlane", frustum.farPlaneDistance);
+	ret = mesh_scene.AddFloat("Fov", frustum.horizontalFov);
+
+	return ret;
+}
+
+bool ComponentCamera::OnLoad(Scene & scene)
+{
+	Scene mesh_scene = scene.GetSectionArray(type);
+
+	frustum.nearPlaneDistance = mesh_scene.GetFloat("NearPlane");
+	frustum.farPlaneDistance = mesh_scene.GetFloat("FarPlane");
+	frustum.horizontalFov = mesh_scene.GetFloat("Fov");
+
+	return true;
 }

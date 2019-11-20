@@ -31,7 +31,7 @@ bool ModuleEditorCamera::Start()
 
 update_status ModuleEditorCamera::Load()
 {
-	camera->Load();
+	//camera->Load();
 
 	return UPDATE_CONTINUE;
 }

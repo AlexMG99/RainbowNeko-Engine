@@ -28,9 +28,10 @@ public:
 	float3 GetCameraPosition() const;
 	float* GetViewMatrix();
 
-	update_status Load();
 	float4x4 GetOpenGLProjectionMatrix();
-	update_status Save() { return UPDATE_CONTINUE; };
+
+	bool OnSave(Scene& scene) const;
+	bool OnLoad(Scene& scene);
 
 public:
 	Frustum frustum;

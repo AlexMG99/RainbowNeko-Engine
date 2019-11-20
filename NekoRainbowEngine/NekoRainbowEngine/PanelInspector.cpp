@@ -43,7 +43,6 @@ update_status PanelInspector::Draw()
 				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
 				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
 			{
-				App->is_loaded = false;
 				comp_trans->UpdateComponents();
 			}
 

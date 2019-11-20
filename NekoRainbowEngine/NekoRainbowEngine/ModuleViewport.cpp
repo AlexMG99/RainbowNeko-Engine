@@ -33,7 +33,10 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	camera_test = CreateGameObject("Camera", root_object);
 	camera_test->CreateComponentCamera(1.0f, 600.0f, 90);
-	scene = new Scene();
+	std::string point = ".";
+	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	if (!scene->GetVRoot())
+		scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -61,7 +64,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		SaveScene();
 
-	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && !App->is_loaded)
+	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
 		LoadScene(scene);
 
 
@@ -196,7 +199,6 @@ bool ModuleViewport::LoadScene(Scene* scn)
 {
 	Scene go_scene = scn->GetArray("GameObjects");
 	int i = 0;
-	App->is_loaded = true;
 
 	ResetScene();
 
@@ -236,7 +238,6 @@ bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
 	Scene go_scene = scene->AddArray("GameObjects");
-	App->is_loaded = false;
 	
 	int num = 0;
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
@@ -245,7 +246,7 @@ bool ModuleViewport::SaveScene()
 	}
 	num = 0;
 
-	ret = scene->Save("scene_test.json");
+	ret = scene->Save(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	return ret;
 }
 
