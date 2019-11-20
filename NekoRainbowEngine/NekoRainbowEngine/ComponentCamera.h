@@ -41,6 +41,7 @@ public:
 	Frustum frustum;
 	float3 Reference;
 	bool update_proj = true;
+	bool draw_frustrum = true;
 
 private:
 	std::vector<float3> vertices_frustum;

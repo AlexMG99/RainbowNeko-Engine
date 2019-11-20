@@ -69,7 +69,8 @@ float* ComponentCamera::GetViewMatrix()
 
 bool ComponentCamera::Update()
 {
-	DrawFrustum();
+	if(draw_frustrum)
+		DrawFrustum();
 
 	return true;
 }
@@ -100,11 +101,9 @@ void ComponentCamera::ChangePosition()
 
 void ComponentCamera::UpdateCameraPosition()
 {
-	transform->position = frustum.pos;
+	transform->local_position = frustum.pos;
+	transform->SetGlobalAxis(frustum.WorldRight(), frustum.up, frustum.front);
 	transform->GetGlobalTransformMatrix();
-	transform->CalculateGlobalAxis();
-	frustum.front = transform->Z;
-	frustum.up = transform->Y;
 }
 
 void ComponentCamera::GenerateFrustumBuffers()
@@ -130,8 +129,8 @@ void ComponentCamera::UpdateFrustum(bool camera)
 
 	if (!camera)
 		ChangePosition();
-	//else if(transform)
-	//	UpdateCameraPosition();
+	else if(transform)
+		UpdateCameraPosition();
 
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
@@ -192,6 +191,9 @@ bool ComponentCamera::OnSave(Scene & scene, int i) const
 	Scene camera_scene = scene.AddSectionArray(i);
 
 	ret = camera_scene.AddInt("Type", type);
+	ret = camera_scene.AddFloat3("Position", frustum.pos);
+	ret = camera_scene.AddFloat3("Front", frustum.front);
+	ret = camera_scene.AddFloat3("Up", frustum.up);
 	ret = camera_scene.AddFloat("NearPlane", frustum.nearPlaneDistance);
 	ret = camera_scene.AddFloat("FarPlane", frustum.farPlaneDistance);
 	ret = camera_scene.AddFloat("Fov", frustum.horizontalFov);
@@ -204,6 +206,9 @@ bool ComponentCamera::OnLoad(Scene & scene, int i)
 	Scene camera_scene = scene.GetSectionArray(i);
 	
 	type = (component_type)camera_scene.GetInt("Type");
+	frustum.pos = camera_scene.GetFloat3("Position");
+	frustum.front = camera_scene.GetFloat3("Front");
+	frustum.up = camera_scene.GetFloat3("Up");
 	frustum.nearPlaneDistance = camera_scene.GetFloat("NearPlane");
 	frustum.farPlaneDistance = camera_scene.GetFloat("FarPlane");
 	frustum.horizontalFov = camera_scene.GetFloat("Fov");

@@ -38,7 +38,6 @@ update_status PanelInspector::Draw()
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			ImGui::Text("ID: %u", object->GetId());
 			if (((comp_camera) ? (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2)) : (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2))) ||
 				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
 				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
@@ -110,6 +109,7 @@ update_status PanelInspector::Draw()
 			if (ImGui::CollapsingHeader("Camera"))
 			{
 				ImGui::PushID("Camera");
+				ImGui::Checkbox("Show Frustrum", &comp_camera->draw_frustrum); ImGui::Separator();
 
 				if (ImGui::InputFloat("Near Plane", &comp_camera->frustum.nearPlaneDistance, 5) ||
 					ImGui::InputFloat("Far Plane", &comp_camera->frustum.farPlaneDistance, 5) ||
@@ -123,6 +123,7 @@ update_status PanelInspector::Draw()
 			}
 		}
 	}
+
 	ImGui::End();
 	return UPDATE_CONTINUE;
 }

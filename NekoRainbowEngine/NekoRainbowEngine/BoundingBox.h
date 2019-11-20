@@ -24,7 +24,6 @@ public:
 
 	void DrawBB();
 	void UpdateBB(GameObject * obj);
-	/*void CreateTransformAABB(GameObject * obj);*/
 
 	void CleanVertices();
 

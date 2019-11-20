@@ -85,8 +85,8 @@ AABB BoundingBox::GetGlobalAABB(GameObject* obj)
 
 void BoundingBox::DrawBB()
 {
-	glColor3f(125, 125, 0);
-	glLineWidth(2.0);
+	glColor3f(1, 0, 0.2);
+	glLineWidth(3.0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -100,7 +100,7 @@ void BoundingBox::DrawBB()
 	}
 
 	//Draw OBB
-	glColor3f(0, 200, 150);
+	glColor3f(0.13, 0.59, 0.97);
 	if (show_obb)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
@@ -124,22 +124,6 @@ void BoundingBox::UpdateBB(GameObject* obj)
 
 	GenerateBoundingBuffers();
 }
-
-//void BoundingBox::CreateTransformAABB(GameObject* obj)
-//{
-//	local_AABB.SetNegativeInfinity();
-//
-//	for (auto it_child = obj->children.rbegin(); it_child != obj->children.rend(); it_child++)
-//	{
-//		local_AABB.Enclose((*it_child)->BB_obj->global_AABB);
-//	}
-//
-//	CleanVertices();
-//
-//	GetGlobalAABB(obj);
-//	GenerateBoundingBuffers();
-//
-//}
 
 void BoundingBox::CleanVertices()
 {
