@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
 
 class vector;
 
@@ -33,6 +34,8 @@ public:
 
 	bool OnSave(Scene& scene, int i) const;
 	bool OnLoad(Scene& scene, int i);
+
+	bool ContainsAABox(const AABB & aabb) const;
 
 public:
 	Frustum frustum;

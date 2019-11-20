@@ -57,7 +57,7 @@ public:
 public:
 	Scene* scene = nullptr;
 	GameObject* root_object = nullptr;
-	GameObject* camera_scene = nullptr;
+	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
 
@@ -66,6 +66,7 @@ public:
 	bool wireframe_on = false;
 	bool fill_on = true;
 	bool point_on = false;
+	bool camera_culling = false;
 
 private:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;

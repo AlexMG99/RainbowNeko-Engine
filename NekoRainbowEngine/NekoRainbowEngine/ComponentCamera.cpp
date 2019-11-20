@@ -100,8 +100,8 @@ void ComponentCamera::ChangePosition()
 
 void ComponentCamera::UpdateCameraPosition()
 {
+	transform->position = frustum.pos;
 	transform->GetGlobalTransformMatrix();
-	transform->local_position = frustum.pos;
 	transform->CalculateGlobalAxis();
 	frustum.front = transform->Z;
 	frustum.up = transform->Y;
@@ -130,8 +130,8 @@ void ComponentCamera::UpdateFrustum(bool camera)
 
 	if (!camera)
 		ChangePosition();
-	else if(transform)
-		UpdateCameraPosition();
+	//else if(transform)
+	//	UpdateCameraPosition();
 
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
@@ -210,5 +210,27 @@ bool ComponentCamera::OnLoad(Scene & scene, int i)
 
 	UpdateFrustum(true);
 
+	return true;
+}
+
+bool ComponentCamera::ContainsAABox(const AABB& aabb) const
+{
+	float3 corners[8];
+	int corner_in = 0;
+	aabb.GetCornerPoints(corners); 
+
+	for (int p = 0; p < 6; ++p) {
+		int corner_in_count = 8;
+		for (int i = 0; i < 8; ++i) {
+			if (frustum.GetPlane(p).IsOnPositiveSide(corners[i])) {
+				--corner_in_count;
+			}
+		}
+
+		if (corner_in_count == 0)
+			return false;
+			
+	}
+	
 	return true;
 }

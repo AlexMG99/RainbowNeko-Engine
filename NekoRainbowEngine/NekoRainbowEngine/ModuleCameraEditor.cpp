@@ -27,7 +27,7 @@ bool ModuleEditorCamera::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
-	camera = scene_camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr,1,1000, 20);
+	camera = scene_camera = new ComponentCamera(COMPONENT_CAMERA, true, nullptr);
 
 	return ret;
 }
@@ -108,7 +108,6 @@ update_status ModuleEditorCamera::Update(float dt)
 		{
 			if (App->viewport->selected_object != nullptr) 
 				App->viewport->selected_object->SetSelected(false);
-			
 			
 			App->viewport->selected_object = nullptr;
 		}

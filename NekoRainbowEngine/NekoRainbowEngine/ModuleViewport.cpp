@@ -37,8 +37,8 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	camera_scene = CreateGameObject("Camera", root_object);
-	camera_scene->CreateComponentCamera(1.0f, 600.0f, 90);
+	camera_game = CreateGameObject("Camera", root_object);
+	camera_game->CreateComponentCamera(1.0f, 600.0f, 90);
 	scene = new Scene(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
 		scene = new Scene();
@@ -61,7 +61,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 		App->camera->FocusObject(selected_object);
 
 	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-		App->camera->ChangeCamera(camera_scene->GetComponentCamera());
+		App->camera->ChangeCamera(camera_game->GetComponentCamera());
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		App->camera->SetSceneCamera();

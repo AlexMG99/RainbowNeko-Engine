@@ -32,6 +32,9 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
+	if (App->viewport->camera_culling && !App->viewport->camera_game->GetComponentCamera()->ContainsAABox(BB_mesh.GetGlobalAABB(my_go)))
+		return false;
+
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());
 
