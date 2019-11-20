@@ -19,6 +19,7 @@ public:
 
 	void ReloadFrustum();
 	void ChangePosition();
+	void UpdateCameraPosition();
 	void GenerateFrustumBuffers();
 	void UpdateFrustum(bool camera);
 	void DrawFrustum();
@@ -43,7 +44,7 @@ private:
 	std::vector<uint> index_frustum;
 
 	uint id_vertices_frustum, id_index_frustum;
-	ComponentTransform* transform;
+	ComponentTransform* transform = nullptr;
 };
 
 #endif // !_COMPONENT_CAMERA_H_

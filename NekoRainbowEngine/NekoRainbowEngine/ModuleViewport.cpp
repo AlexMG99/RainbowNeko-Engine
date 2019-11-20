@@ -89,8 +89,6 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if (App->camera->drawraycast)
 		App->camera->DrawSegmentRay();
 
-
-
 	root_object->Update();
 
 	return UPDATE_CONTINUE;
@@ -134,9 +132,10 @@ void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::v
 	{
 		if (obj->GetComponentTransform()->ItIntersect(*ray))
 		{
+			ComponentMesh* comp_mesh = obj->GetComponentMesh();
 			RayCast hit(obj);
 			float near_hit, far_hit;
-			if (ray->Intersects(obj->BB_obj.global_OBB, near_hit, far_hit))
+			if (ray->Intersects(comp_mesh->BB_mesh.global_OBB, near_hit, far_hit))
 			{
 				hit.distance = near_hit;
 				scene_obj.push_back(hit);
@@ -253,6 +252,7 @@ void ModuleViewport::GuizLogic()
 		if (ImGuizmo::IsUsing() && !delta_matrix.IsIdentity() )
 		{
 			transform->SetLocalTransform(object_transform_matrix.Transposed());
+			transform->UpdateComponents();
 		}
 	}
 }

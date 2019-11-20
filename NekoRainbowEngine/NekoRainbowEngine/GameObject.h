@@ -83,7 +83,7 @@ private:
 	uint id_indexBB = 0;
 
 public:
-	BoundingBox BB_obj;
+	BoundingBox* BB_obj = nullptr;
 
 	ComponentTransform* transfrom;
 	ComponentMesh *mesh;

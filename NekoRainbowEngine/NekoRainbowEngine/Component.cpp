@@ -29,12 +29,19 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::ItIntersect(LineSegment ray)
 {
-		AABB inter_box = my_go->BB_obj.global_AABB;
+	ComponentMesh* comp_mesh = my_go->GetComponentMesh();
+	if (comp_mesh)
+	{
+		AABB inter_box = comp_mesh->BB_mesh.global_AABB;
 
 		if (inter_box.IsFinite())
 			return ray.Intersects(inter_box);
 		else
-			return false;	
+			return false;
+	}
+	else
+		return false;
+		
 }
 
 bool ComponentTransform::OnSave(Scene & scene, int i) const
@@ -76,8 +83,6 @@ float4x4 ComponentTransform::GetGlobalTransformMatrix()
 
 	return global_matrix;
 }
-
-
 
 void ComponentTransform::SetLocalTransform(float4x4 & t_matrix)
 {

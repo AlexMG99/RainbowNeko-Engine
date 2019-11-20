@@ -98,6 +98,15 @@ void ComponentCamera::ChangePosition()
 	frustum.up = transform->Y;
 }
 
+void ComponentCamera::UpdateCameraPosition()
+{
+	transform->GetGlobalTransformMatrix();
+	transform->local_position = frustum.pos;
+	transform->CalculateGlobalAxis();
+	frustum.front = transform->Z;
+	frustum.up = transform->Y;
+}
+
 void ComponentCamera::GenerateFrustumBuffers()
 {
 	//Cube Vertex
@@ -119,8 +128,11 @@ void ComponentCamera::UpdateFrustum(bool camera)
 	}
 	vertices_frustum.clear();
 
-	if(!camera)
+	if (App->viewport->camera_test->GetParent() != App->viewport->root_object)
 		ChangePosition();
+	else if(transform)
+		UpdateCameraPosition();
+
 	ReloadFrustum();
 
 	glDeleteBuffers(1, &id_vertices_frustum);
