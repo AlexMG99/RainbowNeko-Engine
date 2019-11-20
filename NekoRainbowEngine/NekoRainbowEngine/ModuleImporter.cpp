@@ -191,7 +191,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	comp_mesh->transform = trans;
 	comp_mesh->AddMesh(mesh);
-	obj->GetGlobalAABB();
+	/*obj->GetGlobalAABB();*/
 
 	par_shapes_free_mesh(shape);
 }

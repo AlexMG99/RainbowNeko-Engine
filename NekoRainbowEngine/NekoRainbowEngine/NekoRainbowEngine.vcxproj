@@ -84,6 +84,7 @@
     <ClInclude Include="Assimp\include\postprocess.h" />
     <ClInclude Include="Assimp\include\scene.h" />
     <ClInclude Include="Assimp\include\texture.h" />
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCamera.h" />
@@ -214,12 +215,12 @@
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="TextureImporter.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />

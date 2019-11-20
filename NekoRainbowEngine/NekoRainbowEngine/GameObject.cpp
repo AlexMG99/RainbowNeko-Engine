@@ -10,7 +10,7 @@
 
 GameObject::GameObject()
 {
-	local_AABB.SetNegativeInfinity();
+	
 }
 
 GameObject::~GameObject()
@@ -35,8 +35,8 @@ bool GameObject::Update()
 			(*it_comp)->Update();
 	}
 
-	if (show_aabb || show_obb)
-		DrawBB();
+	//if (show_aabb || show_obb)
+	//	DrawBB();
 
 	return true;
 }
@@ -318,152 +318,3 @@ void GameObject::DeleteComponent(Component * comp)
 
 	}
 }
-
-//--------------------- Bounding Box --------------------------//
-
-void GameObject::GenerateBoundingBuffers()
-{
-	//Global AABB vertices
-	glGenBuffers(1, &id_vertexAABB);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_AABB.size(), &vertices_AABB[0], GL_STATIC_DRAW);
-
-	//Global OBB vertices
-	glGenBuffers(1, &id_vertexOBB);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3)* vertices_OBB.size(), &vertices_OBB[0], GL_STATIC_DRAW);
-
-	//Global BB vertices index
-	glGenBuffers(1, &id_indexBB);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_BB.size(), &index_BB[0], GL_STATIC_DRAW);
-}
-
-void GameObject::TransformBoundingBox()
-{
-	/*bbox.obb = bbox.aabb_local;
-	bbox.obb.Transform(transform->GetGlobalMatrix());
-
-	bbox.aabb_global.SetNegativeInfinity();
-	bbox.aabb_global.Enclose(bbox.obb);
-
-	bbox.min = bbox.aabb_local.minPoint;
-	bbox.max = bbox.aabb_local.maxPoint;*/
-}
-
-void GameObject::DrawBB()
-{
-	glColor3f(125, 125, 0);
-	glLineWidth(2.0);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	//Draw Global AABB
-	if (show_aabb)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
-	}
-
-	//Draw OBB
-	glColor3f(0, 200, 150);
-	if (show_obb)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
-	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glLineWidth(1);
-}
-
-OBB GameObject::GetOBB()
-{
-	global_OBB = local_AABB;
-	global_OBB.Transform(GetComponentTransform()->GetGlobalTransformMatrix());
-
-	//Get Vertex and Index
-	float3* aux_vertices = new float3[8];
-	global_OBB.GetCornerPoints(aux_vertices);
-	for (int i = 0; i < 8; i++)
-	{
-		vertices_OBB.push_back(aux_vertices[i]);
-	}
-
-	return global_OBB;
-}
-
-AABB GameObject::GetGlobalAABB()
-{
-	global_AABB.SetNegativeInfinity();
-	global_AABB.Enclose(GetOBB());
-
-	//Get Vertex and Index
-	float3* aux_vertices = new float3[8];
-	global_AABB.GetCornerPoints(aux_vertices);
-	for (int i = 0; i < 8; i++)
-	{
-		vertices_AABB.push_back(aux_vertices[i]);
-	}
-	index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front
-	3,2, 2,0, 0,1, 1,3,
-	7,6, 6,2, 2,3, 3,7,
-	6,4, 2,0,
-	7,5, 3,1 };
-
-	return global_AABB;
-}
-
-void GameObject::UpdateBB()
-{
-	CleanVertices();
-
-	glDeleteBuffers(1, &id_vertexAABB);
-	glDeleteBuffers(1, &id_indexBB);
-	glDeleteBuffers(1, &id_vertexOBB);
-
-	GetGlobalAABB();
-
-	if (parent && parent != App->viewport->root_object)
-	{
-		parent->CreateTransformAABB();
-	}
-
-	GenerateBoundingBuffers();
-}
-
-void GameObject::CreateTransformAABB()
-{
-	local_AABB.SetNegativeInfinity();
-
-	for (auto it_child = children.rbegin(); it_child != children.rend(); it_child++)
-	{
-		local_AABB.Enclose((*it_child)->global_AABB);
-	}
-
-	CleanVertices();
-
-	GetGlobalAABB();
-	GenerateBoundingBuffers();
-
-}
-
-void GameObject::CleanVertices()
-{
-	for (int i = 0; i < vertices_AABB.size();)
-	{
-		vertices_AABB.pop_back();
-	}
-	vertices_AABB.clear();
-
-	for (int i = 0; i < vertices_OBB.size();)
-	{
-		vertices_OBB.pop_back();
-	}
-	vertices_OBB.clear();
-}
-
-

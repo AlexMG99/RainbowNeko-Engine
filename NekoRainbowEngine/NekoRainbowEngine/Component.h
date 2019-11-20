@@ -61,7 +61,6 @@ public:
 
 	float4x4 GetGlobalTransformMatrix();
 	
-
 	void SetLocalTransform(float4x4 & t_matrix);
 	void CalculateGlobalAxis();
 
@@ -81,12 +80,8 @@ public:
 	float3 local_rotation_euler;
 	Quat local_rotation;
 
-
 	float4x4 global_transformation = float4x4::identity;
 	float4x4 local_transformation = float4x4::identity;
-
-
-	GameObject* game_item = nullptr;
 
 	//Axis
 	float3 X, Y, Z;

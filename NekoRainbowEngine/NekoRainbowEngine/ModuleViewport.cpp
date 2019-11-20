@@ -136,7 +136,7 @@ void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::v
 		{
 			RayCast hit(obj);
 			float near_hit, far_hit;
-			if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
+			if (ray->Intersects(obj->BB_obj.global_OBB, near_hit, far_hit))
 			{
 				hit.distance = near_hit;
 				scene_obj.push_back(hit);

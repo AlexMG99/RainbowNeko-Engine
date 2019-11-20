@@ -46,6 +46,9 @@ bool ComponentMesh::Update()
 		DrawSelectedOutline();
 
 	glPopMatrix();
+
+	BB_mesh.DrawBB();
+
 	return true;
 }
 
@@ -76,18 +79,9 @@ void ComponentMesh::AddMesh(ResourceMesh * mesh)
 {
 	this->mesh = mesh;
 	transform = my_go->GetComponentTransform();
-	CreateLocalAABB();
-	my_go->global_AABB = my_go->GetGlobalAABB();
-	my_go->GenerateBoundingBuffers();
-
-}
-
-//------------ Bounding Boxes -------------------------//
-AABB ComponentMesh::CreateLocalAABB()
-{
-	my_go->local_AABB.Enclose(mesh->vertices, mesh->vertices_size);
-
-	return my_go->local_AABB;
+	BB_mesh.CreateLocalAABB(mesh);
+	BB_mesh.global_AABB = BB_mesh.GetGlobalAABB(my_go);
+	BB_mesh.GenerateBoundingBuffers();
 }
 
 

@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
+#include "BoundingBox.h"
 #include "Random.h"
 
 class ComponentMesh;
@@ -69,19 +70,6 @@ public:
 	void SetSelected(bool select);
 	float3 CorrectScale(const float3 scale) const;
 
-	//Bounding Box
-	void GenerateBoundingBuffers();
-	void TransformBoundingBox();
-	void DrawBB();
-	OBB GetOBB();
-	AABB GetGlobalAABB();
-
-	void UpdateBB();
-
-	void CreateTransformAABB();
-
-	void CleanVertices();
-
 private:
 	object_type type = OBJECT_NONE;
 	std::string name = "Object Null";
@@ -95,15 +83,7 @@ private:
 	uint id_indexBB = 0;
 
 public:
-	//AABB
-	AABB local_AABB;
-	AABB global_AABB;
-	OBB global_OBB;
-	std::vector<float3> vertices_AABB;
-	std::vector<float3> vertices_OBB;
-	std::vector<uint> index_BB;
-	bool show_aabb = false;
-	bool show_obb = false;
+	BoundingBox BB_obj;
 
 	ComponentTransform* transfrom;
 	ComponentMesh *mesh;

@@ -12,45 +12,8 @@ GLSL: 4.60 NVIDIA
 Framebuffer created succesfully!
 -------------- Application Start --------------
 Setting up the camera
-  T9376: Load ./Assets/BakerHouse.fbx
-
-  T9376: Found a matching importer for this file format: Autodesk FBX Importer.
-
-  T9376: Import root directory is './Assets\'
-
-  T9376: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
-
-  T9376: Entering post processing pipeline
-
-  T9376: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
-
-  T9376: CalcTangentsProcess finished. Tangents have been calculated
-
-  T9376: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4
-
-  T9376: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
-
-  T9376: Leaving post processing pipeline
-
-File System error while copy from [./assets/baker_house.png] to [/Assets/baker_house.png]
-New file created [./Library/Textures/1984439191.dds] of 1048704 bytes
-Loaded with path: /Library/Textures/1984439191.dds succesfully!
-New mesh with 160 vertices
 Generated mesh with id vertex: 5 and id index: 6
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/2711964680.neko] of 4508 bytes
-New mesh with 1641 vertices
-Generated mesh with id vertex: 8 and id index: 9
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/977838899.neko] of 43836 bytes
-File System copied file [./Library/Models/RootNode.model] to [/Library/Models/3294762167.model]
+Loaded with path: /Library/Textures/1984439191.dds succesfully!
+Generated mesh with id vertex: 11 and id index: 12
 Loading Editor Scene
 -------------- Application Update --------------
-
-DID IT
-DID IT
-DID IT
-DID IT
-DID IT
-DID IT
-DID IT

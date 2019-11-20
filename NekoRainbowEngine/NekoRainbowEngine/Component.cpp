@@ -29,17 +29,12 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::ItIntersect(LineSegment ray)
 {
-	
-		AABB inter_box = my_go->global_AABB;
+		AABB inter_box = my_go->BB_obj.global_AABB;
+
 		if (inter_box.IsFinite())
-		{
 			return ray.Intersects(inter_box);
-		}
 		else
-		{
-			return false;
-		}
-	
+			return false;	
 }
 
 bool ComponentTransform::OnSave(Scene & scene, int i) const
@@ -117,11 +112,12 @@ void ComponentTransform::UpdateComponents()
 		(*it_child)->GetComponentTransform()->UpdateComponents();
 	}
 
-	ComponentMesh* mesh = my_go->GetComponentMesh();
+	ComponentMesh* comp_mesh = my_go->GetComponentMesh();
 
-	my_go->UpdateBB();
+	if (comp_mesh)
+		comp_mesh->BB_mesh.UpdateBB(my_go);
 
-	ComponentCamera* camera = my_go->GetComponentCamera();
-	if (camera)
-		camera->UpdateFrustum(false);
+	ComponentCamera* comp_camera = my_go->GetComponentCamera();
+	if (comp_camera)
+		comp_camera->UpdateFrustum(false);
 }

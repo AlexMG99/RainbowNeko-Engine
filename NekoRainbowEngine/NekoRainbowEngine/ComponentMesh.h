@@ -5,7 +5,7 @@
 #include <string>
 #include "glmath.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
-#include "MathGeoLib/include/Geometry/OBB.h"
+#include "BoundingBox.h"
 #include "RayCast.h"
 
 #include <vector>
@@ -29,9 +29,6 @@ public:
 
 	void AddMesh(ResourceMesh* mesh);
 
-	//----- Bounding box -----//
-	AABB CreateLocalAABB();
-
 	//-------- Render--------//
 	void RenderFill();
 	void RenderWireframe();
@@ -39,8 +36,14 @@ public:
 
 	void DrawSelectedOutline();
 
+private:
+	uint id_vertexAABB = 0;
+	uint id_vertexOBB = 0;
+	uint id_indexBB = 0;
+
 public:
 	ResourceMesh* mesh = nullptr;
+	BoundingBox BB_mesh;
 
 	uint image_id = -1;
 
