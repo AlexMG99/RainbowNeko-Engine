@@ -6,6 +6,7 @@
 #include "glmath.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
+#include "RayCast.h"
 
 #include <vector>
 

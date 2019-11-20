@@ -8,6 +8,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelShape.h"
+#include "ModuleViewport.h"
 #include "PanelImporter.h"
 
 #include "SDL/include/SDL_opengl.h"
@@ -16,6 +17,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_sdl.h"
 #include "PCG/pcg_random.hpp"
+#include "imGuizmo/ImGuizmo.h"
 
 #include "Parson/parson.h"
 
@@ -84,8 +86,19 @@ update_status ModuleEditor::PreUpdate(float dt)
 	io.ConfigFlags = ImGuiConfigFlags_DockingEnable;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
+
 	ImGui::NewFrame();
 
+	ImGuizmo::BeginFrame();
+	ImGuizmo::Enable(true);
+
+
+	App->viewport->GuizControls();
+	App->viewport->GuizLogic();
+
+	
+	//// Rendering
+	//ImGui::Render();
 	return ret;
 }
 
@@ -105,9 +118,13 @@ update_status ModuleEditor::Update(float dt)
 void ModuleEditor::DrawImGui()
 {
 	BROFILER_CATEGORY("Draw_ModuleEditor_ImGui", Profiler::Color::GoldenRod);
+
+	
+
+	
+	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
 	// Rendering
 	ImGui::Render();
-	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

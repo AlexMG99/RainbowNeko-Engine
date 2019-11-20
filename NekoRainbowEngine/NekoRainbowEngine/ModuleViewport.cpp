@@ -6,11 +6,17 @@
 #include "Application.h"
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
+#include "ModuleCameraEditor.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentMesh.h"
+#include "ComponentCamera.h"
 #include "Scene.h"
+#include "PanelGame.h"
 #include "RayCast.h"
+#include "ResourceMesh.h"
 #include "Assimp/include/anim.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -80,6 +86,11 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if(draw_grid)
 		DrawGrid(2,100);
 
+	if (App->camera->drawraycast)
+		App->camera->DrawSegmentRay();
+
+
+
 	root_object->Update();
 
 	return UPDATE_CONTINUE;
@@ -96,26 +107,34 @@ bool CompareRayCast(RayCast & a, RayCast & b)
 	return a.distance < b.distance;
 }
 
-bool ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
+GameObject* ModuleViewport::MyRayCastIntersection(LineSegment * my_ray, RayCast & hit)
 {
-	this->ray = (*my_ray);
+	std::vector<RayCast> scn_obj;
+	BoxIntersection(root_object, my_ray, scn_obj);
 
-	std::vector<RayCast> scene_obj;
-	BoxIntersection(root_object, my_ray, scene_obj);
+	std::sort(scn_obj.begin(), scn_obj.end(), CompareRayCast);
 
-	//It takes the first value, and the last and with them two does the function compare
-	std::sort(scene_obj.begin(), scene_obj.end(), CompareRayCast);
+	GameObject* var = nullptr;
+	GameObject* selec = nullptr;
 
-	return TriangleTest(my_ray, scene_obj, hit);
+	for (std::vector<RayCast>::iterator iter = scn_obj.begin(); iter != scn_obj.end(); ++iter)
+	{
+		var = (*iter).go;
+		selec = TriangleTest(*my_ray, var);
+		if (selec != nullptr)
+			break;
+	}
+
+	return selec;
 }
 
 void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::vector<RayCast>& scene_obj)
 {
-	if (obj->active)
+	if (obj->GetComponentMesh() != nullptr)
 	{
-		if (obj->transfrom->ItIntersect(*ray))
+		if (obj->GetComponentTransform()->ItIntersect(*ray))
 		{
-			RayCast hit(obj->transfrom);
+			RayCast hit(obj);
 			float near_hit, far_hit;
 			if (ray->Intersects(obj->global_OBB, near_hit, far_hit))
 			{
@@ -123,62 +142,60 @@ void ModuleViewport::BoxIntersection(GameObject * obj, LineSegment * ray, std::v
 				scene_obj.push_back(hit);
 			}
 		}
-		for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
-		{
-			BoxIntersection((*iter), ray, scene_obj);
-		}
-
+	}
+	for (auto iter = obj->children.begin(); iter != obj->children.end(); ++iter)
+	{
+		BoxIntersection((*iter), ray, scene_obj);
 	}
 }
 
-bool ModuleViewport::TriangleTest(LineSegment * ray, std::vector<RayCast>& scene_obj, RayCast & point)
+GameObject* ModuleViewport::TriangleTest(LineSegment& ray, GameObject* obj)
 {
-	/*for (std::vector<RayCast>::iterator iter = scene_obj.begin(); iter != scene_obj.end(); ++iter)
+	bool intersected = false;
+	ComponentMesh* mesh = obj->GetComponentMesh();
+
+	if (mesh != nullptr)
 	{
-		GameObject* mesh = (*iter).trans->my_go->GetComponentMesh();
-		if(mesh)
+		ComponentTransform* trans = obj->GetComponentTransform();
+
+		for (uint i = 0; i < mesh->mesh->index_size; i += 3)
 		{
-			RayCast hit;
-			if(mesh->)
+			uint index_a, index_b, index_c;
+
+			index_a = mesh->mesh->index[i] * 3;
+			float3 point_a(mesh->mesh->vertices[index_a]);
+
+			index_b = mesh->mesh->index[i + 1] * 3;
+			float3 point_b(mesh->mesh->vertices[index_b]);
+
+			index_c = mesh->mesh->index[i + 2] * 3;
+			float3 point_c(mesh->mesh->vertices[index_c]);
+
+			Triangle triangle_to_check(point_a, point_b, point_c);
+			triangle_to_check.Transform(trans->GetGlobalTransformMatrix());
+
+			if (ray.Intersects(triangle_to_check, nullptr, nullptr))
+			{
+				LOG("DID IT");
+				intersected = true;
+				return obj;
+				break;
+			}
 		}
-	}*/
-	return false;
+
+		if (!intersected)
+			return nullptr;
+	}
+
+	else if (obj->children.empty())
+		return obj;
+	else
+		return nullptr;
 }
 
 void ModuleViewport::DrawGrid(uint separation, uint lines)
 {
-	//Vertex Point
-	glPointSize(10.0f);
-
-	glEnable(GL_POINT_SMOOTH);
-
-	glBegin(GL_POINTS);
-	glVertex3f(0, 0, 0);
-	glEnd();
-
-	glDisable(GL_POINT_SMOOTH);
-
-	glPointSize(1.0f);
-
-	//Axis X,Y,Z
-	glLineWidth(7.0);
-
-	glBegin(GL_LINES);
-
-	glColor3f(255, 0, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(1.5, 0, 0);
-
-	glColor3f(0, 255, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 1.5, 0);
-
-	glColor3f(0, 0, 255);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, 1.5);
-
 	glColor3f(255, 255, 255);
-	glEnd();
 
 	glLineWidth(1.0f);
 
@@ -192,6 +209,52 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 	glEnd();
 
+}
+
+void ModuleViewport::GuizControls()
+{
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) 
+		guizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		guizmo_op = ImGuizmo::OPERATION::ROTATE;
+
+	if(App->input->GetKey(SDL_SCANCODE_R)==KEY_DOWN)
+		guizmo_op = ImGuizmo::OPERATION::SCALE;
+	
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) 
+		guizmo_mode = ImGuizmo::MODE::WORLD;
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
+	    guizmo_mode = ImGuizmo::MODE::LOCAL;
+}
+
+void ModuleViewport::GuizLogic()
+{
+	if (App->viewport->selected_object != nullptr )
+	{
+		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
+
+		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
+		view_transposed.Transpose();
+
+		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix();
+		projection_transposed.Transpose();
+
+		float4x4 object_transform_matrix = transform->global_matrix;
+		object_transform_matrix.Transpose();
+
+		float4x4 delta_matrix;
+
+		ImGuizmo::SetRect(App->editor->panel_game->WorldPosX, App->editor->panel_game->WorldPosY, App->editor->panel_game->width, App->editor->panel_game->height);
+		ImGuizmo::SetDrawlist();
+		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
+	
+		if (ImGuizmo::IsUsing() && !delta_matrix.IsIdentity() )
+		{
+			transform->SetLocalTransform(object_transform_matrix.Transposed());
+		}
+	}
 }
 
 bool ModuleViewport::LoadScene()
@@ -302,9 +365,7 @@ bool ModuleViewport::ResetScene()
 	}
 
 	root_object->children.clear();
-
 	RELEASE(scene);
-	
 	return true;
 }
 
@@ -325,7 +386,6 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 void ModuleViewport::DeleteGameObject()
 {
 	//Check ID
-
 	GameObject* parent = selected_object->GetParent();
 
 	for (auto it_obj = parent->children.begin(); it_obj < parent->children.end();) {

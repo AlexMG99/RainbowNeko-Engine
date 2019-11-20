@@ -3,10 +3,13 @@
 #include "GL/include/glew.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleCameraEditor.h"
+#include "PanelGame.h"
+#include "PanelHierarchy.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "RayCast.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "MathGeoLib/include/Geometry/LineSegment.h"
 
 
 ModuleEditorCamera::ModuleEditorCamera(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -83,24 +86,34 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
-	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
-		
-		vec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
-		LOG("Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
-		mouse_pos = normalize(mouse_pos);
-		LOG("Normalized Mouse Pos: %f, %f", mouse_pos.x, mouse_pos.y);
+	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN) 
+	{
+		GameObject* pick = Pick();
 
-
-		picking = camera->frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
-		
-		RayCast ray;
-
-		if (App->viewport->MyRayCastIntersection(&picking, ray))
+		if (pick != nullptr)
 		{
-			picked_obj->SetSelected(ray.trans);
+			if (App->viewport->selected_object == nullptr)
+			{
+				App->viewport->selected_object = pick;
+				App->viewport->selected_object->SetSelected(true);
+				
+			}
+			else {
+				App->viewport->selected_object->SetSelected(false);
+				App->viewport->selected_object = pick;
+				App->viewport->selected_object->SetSelected(true);
+			}
+		}
+		else if (pick == nullptr)
+		{
+			if (App->viewport->selected_object != nullptr) 
+				App->viewport->selected_object->SetSelected(false);
+			
+			
+			App->viewport->selected_object = nullptr;
 		}
 	}
-
+		
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
 	if(wheel != 0)
@@ -143,6 +156,23 @@ void ModuleEditorCamera::Zoom(float zoom)
 	camera->UpdateFrustum(true);
 
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
+}
+
+GameObject * ModuleEditorCamera::Pick(float3 * hit_point) 
+{
+
+	float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) /App->editor->panel_game->height);
+
+	origin.x = (origin.x - 0.5F) * 2;
+	origin.y = -(origin.y - 0.5F) * 2;
+
+	//adal dreta-(1,1)
+	picking =  camera->frustum.UnProjectLineSegment(origin.x, origin.y);
+	drawraycast = true;
+
+	RayCast ray;
+
+	return App->viewport->MyRayCastIntersection(&picking ,ray);
 }
 
 // -----------------------------------------------------------------
@@ -245,4 +275,19 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 	}
 
 	camera->UpdateFrustum(true);
+}
+
+void ModuleEditorCamera::DrawSegmentRay()
+{
+	glLineWidth(5.0f);
+	
+	glBegin(GL_LINES);
+
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
+
+
+	glEnd();
 }

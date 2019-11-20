@@ -4,6 +4,7 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "Scene.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 Component::Component(component_type comp_type, bool act, GameObject * obj)
 {
@@ -28,16 +29,17 @@ ComponentTransform::ComponentTransform(component_type comp_type, bool act, GameO
 
 bool ComponentTransform::ItIntersect(LineSegment ray)
 {
-	/*AABB inter_box = my_go->local_AABB;
-	if (inter_box.IsFinite())
-	{
-		return ray.Intersects(inter_box);
-	}
-	else
-	{
-	return false;
-	}*/
-	return true;
+	
+		AABB inter_box = my_go->global_AABB;
+		if (inter_box.IsFinite())
+		{
+			return ray.Intersects(inter_box);
+		}
+		else
+		{
+			return false;
+		}
+	
 }
 
 bool ComponentTransform::OnSave(Scene & scene, int i) const
@@ -78,6 +80,21 @@ float4x4 ComponentTransform::GetGlobalTransformMatrix()
 	global_matrix.Decompose(position, rotation, scale);
 
 	return global_matrix;
+}
+
+
+
+void ComponentTransform::SetLocalTransform(float4x4 & t_matrix)
+{
+	t_matrix.Decompose(local_position, local_rotation, local_scale);
+	local_rotation_euler = local_rotation.ToEulerXYZ();
+
+	local_rotation_euler.x = RadToDeg(local_rotation_euler.x);
+	local_rotation_euler.y = RadToDeg(local_rotation_euler.y);
+	local_rotation_euler.z = RadToDeg(local_rotation_euler.z);
+
+	GetGlobalTransformMatrix();
+
 }
 
 void ComponentTransform::CalculateGlobalAxis()

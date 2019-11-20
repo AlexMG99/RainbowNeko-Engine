@@ -339,6 +339,18 @@ void GameObject::GenerateBoundingBuffers()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)* index_BB.size(), &index_BB[0], GL_STATIC_DRAW);
 }
 
+void GameObject::TransformBoundingBox()
+{
+	/*bbox.obb = bbox.aabb_local;
+	bbox.obb.Transform(transform->GetGlobalMatrix());
+
+	bbox.aabb_global.SetNegativeInfinity();
+	bbox.aabb_global.Enclose(bbox.obb);
+
+	bbox.min = bbox.aabb_local.minPoint;
+	bbox.max = bbox.aabb_local.maxPoint;*/
+}
+
 void GameObject::DrawBB()
 {
 	glColor3f(125, 125, 0);

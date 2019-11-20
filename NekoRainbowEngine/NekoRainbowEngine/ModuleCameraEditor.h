@@ -26,6 +26,8 @@ public:
 
 	void FocusObject(GameObject * obj);
 
+	void DrawSegmentRay();
+
 	void MoveTo(const vec3 & Pos);
 	void LookAt(const float3 &Spot);
 
@@ -37,19 +39,21 @@ private:
 	void Move(float motion_x, float motion_y);
 	void Orbit(float motion_x, float motion_y);
 	void Zoom(float zoom);
-	
+	GameObject* Pick(float3* hit_point = nullptr);
 
 public:
 	float move_speed = 10.0f;
 	float move_mouse_speed = 5.0f;
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
-
+	bool drawraycast = false;
 	LineSegment picking;
 	GameObject* picked_obj;
+	ComponentCamera* camera = nullptr;
 
 private:
 	float3 looking_point;
-	ComponentCamera* camera = nullptr;
+	
+	/*ComponentCamera* camera = nullptr;*/
 	ComponentCamera* scene_camera = nullptr;
 };

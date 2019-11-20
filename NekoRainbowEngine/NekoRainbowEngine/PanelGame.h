@@ -10,11 +10,19 @@ public:
 	PanelGame() {};
 	PanelGame(const char* name) : Panel(name) {};
 	~PanelGame() {};
-
+	
 	update_status Draw();
+	
 
 public:
 	ImVec2 size;
+
+	float height = 742;
+	float width = 1020;
+	
+
+	float WorldPosX = 0;
+	float WorldPosY = 0;
 };
 
 
