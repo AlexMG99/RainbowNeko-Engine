@@ -4,6 +4,11 @@
 #include "imgui/imgui.h"
 #include "Brofiler/Brofiler.h"
 
+PanelPlay::PanelPlay():Panel()
+{
+	scene_timer.Start();
+}
+
 update_status PanelPlay::Draw()
 {
 	BROFILER_CATEGORY("Draw_PanelPlay", Profiler::Color::GoldenRod);
@@ -12,13 +17,13 @@ update_status PanelPlay::Draw()
 
 	/*ImGui::SetCursorPos({ (ImGui::GetWindowWidth()*0.5), ImGui::GetCursorPosY() });*/
 
-	//ButtonFunctions();
+	ButtonFunctions();
 
-	//ImGui::SameLine();
+	ImGui::SameLine();
 
-	//ImGui::Text("Real Time: %.3f", App->MS_Timer()); ImGui::SameLine();
-	//ImGui::Text("Game Time: %.3f", Time::time);
-	//	
+	ImGui::Text("Real Time: %.3f", scene_timer.ReadSec()); ImGui::SameLine();
+	ImGui::Text("Game Time: %.3f", Time::time);
+		
 
 
 	ImGui::End();
@@ -26,27 +31,29 @@ update_status PanelPlay::Draw()
 
 }
 
-//void PanelPlay::ButtonFunctions()
-//{
-//	std::string stop_play = Time::running ? "STOP" : "PLAY";
-//	if (ImGui::Button(stop_play.c_str(), ImVec2(70, 30)))
-//	{
-//		Time::running ? App->viewport->StopTime() : App->viewport->Start();
-//	}
-//	ImGui::SameLine();
-//
-//
-//	std::string pause_resume_time = Time::paused ? "RESUME" : "PAUSE";
-//	if (ImGui::Button(pause_resume_time.c_str(), ImVec2(70, 30)))
-//	{
-//		Time::paused ? Time::Resume() : Time::Pause();
-//	}
-//
-//	ImGui::SameLine();
-//
-//	if (ImGui::Button("One Frame", ImVec2(70, 30)))
-//	{
-//
-//	}
-//
-//}
+void PanelPlay::ButtonFunctions()
+{
+	ImGui::Spacing();
+
+	std::string stop_play = Time::running ? "STOP" : "PLAY";
+	if (ImGui::Button(stop_play.c_str(), ImVec2(70, 30)))
+	{
+		Time::running ? App->viewport->Stop_Time() : App->viewport->Start();
+	}
+
+	ImGui::SameLine();
+
+	std::string pause_resume_time = Time::paused ? "RESUME" : "PAUSE";
+	if (ImGui::Button(pause_resume_time.c_str(), ImVec2(70, 30)))
+	{
+		Time::paused ? Time::Resume() : Time::Pause();
+	}
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("One Frame", ImVec2(70, 30)))
+	{
+
+	}
+
+}

@@ -16,12 +16,12 @@ public:
 
 
 
-	uint32 Read() const;
+	uint32 Read();
 	float ReadSec() const;
 
 private:
 
-	bool       running;
+	bool running;
 	uint32	started_at;
 	uint32  stopped_at;
 };

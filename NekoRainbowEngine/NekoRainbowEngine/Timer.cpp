@@ -35,9 +35,9 @@ void Timer::Resume_Timer()
 }
 
 // ---------------------------------------------
-uint32 Timer::Read() const
+uint32 Timer::Read() 
 {
-	if (running == true)
+	if(running ==true)
 	{
 		return SDL_GetTicks() - started_at;
 	}
@@ -45,7 +45,7 @@ uint32 Timer::Read() const
 	{
 		return stopped_at - started_at;
 	}
-}
+	}
 
 // ---------------------------------------------
 float Timer::ReadSec() const

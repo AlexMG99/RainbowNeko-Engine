@@ -39,17 +39,19 @@ void Time::Play()
 void Time::Pause()
 {
 	paused = true;
+	game_timer.Stop();
 	
 }
 
 void Time::Resume()
 {
 	paused = false;
+	game_timer.Resume_Timer();
 	
 }
 
 void Time::Stop()
 {
 	running = false;
-	
+	game_timer.Stop();
 }
