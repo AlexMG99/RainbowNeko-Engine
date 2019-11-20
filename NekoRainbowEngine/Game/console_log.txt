@@ -1,0 +1,19 @@
+
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: Quadro FX 370/PCIe/SSE2
+OpenGL version supported 3.3.0
+GLSL: 3.30 NVIDIA via Cg compiler
+
+Framebuffer created succesfully!
+-------------- Application Start --------------
+Setting up the camera
+Generated mesh with id vertex: 5 and id index: 6
+Loaded with path: /Library/Textures/3936724882.dds succesfully!
+Generated mesh with id vertex: 11 and id index: 12
+Loading Editor Scene
+-------------- Application Update --------------
