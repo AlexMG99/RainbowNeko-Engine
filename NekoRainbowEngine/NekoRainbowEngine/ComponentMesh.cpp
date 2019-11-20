@@ -131,29 +131,28 @@ void ComponentMesh::RenderFill()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	//Render Vertex Normals
-	//if (normals && normal_show) {
-	//	for (uint i = 0; i < vertices_size; i++)
-	//	{
-	//		glColor3f(255, 0, 0);
-	//		glBegin(GL_LINES);
-	//		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);
-	//		glVertex3f(vertices[i].x + normals[i].x, vertices[i].y + normals[i].y, vertices[i].z + normals[i].z);
-	//		glEnd();
-	//	}
-	//}
+	//Render Face Normals
+	if (mesh->normals_face && normal_face_show) {
+		glColor3f(0, 0, 0.75);
+		glBegin(GL_LINES);
+		for (int i = 0; i < mesh->norm_face_size; i += 2) {
+			glVertex3f(mesh->normals_face[i].x, mesh->normals_face[i].y, mesh->normals_face[i].z);
+			glVertex3f(mesh->normals_face[i].x + mesh->normals_face[i + 1].x, mesh->normals_face[i].y + mesh->normals_face[i + 1].y, mesh->normals_face[i].z + mesh->normals_face[i + 1].z);
+		}
 
-	////Render Face Normals
-	//if (normals_face.size() > 0 && normal_face_show) {
-	//	glColor3f(0, 0, 255);
-	//	glBegin(GL_LINES);
-	//	for (int i = 0; i < normals_face.size(); i += 2) {
-	//		glVertex3f(normals_face[i].x, normals_face[i].y, normals_face[i].z);
-	//		glVertex3f(normals_face[i].x + normals_face[i + 1].x, normals_face[i].y + normals_face[i + 1].y, normals_face[i].z + normals_face[i + 1].z);
-	//	}
+		glEnd();
+	}
 
-	//	glEnd();
-	//}
+	if (mesh->normals_vertex && normal_show) {
+		glColor3f(0, 0, 0.75);
+		glBegin(GL_LINES);
+		for (int i = 0; i < mesh->norm_vertex_size; i += 2) {
+			glVertex3f(mesh->normals_vertex[i].x, mesh->normals_vertex[i].y, mesh->normals_vertex[i].z);
+			glVertex3f(mesh->normals_vertex[i].x + mesh->normals_vertex[i + 1].x, mesh->normals_vertex[i].y + mesh->normals_vertex[i + 1].y, mesh->normals_vertex[i].z + mesh->normals_vertex[i + 1].z);
+		}
+
+		glEnd();
+	}
 
 }
 

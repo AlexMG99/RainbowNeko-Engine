@@ -74,7 +74,8 @@ ResourceMesh* MeshImporter::Import(const aiMesh * aimesh, ResourceMesh* res_mesh
 
 void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimesh)
 {
-	/*mesh->normals_vertex = new float3[aimesh->mNumVertices];
+	mesh->norm_vertex_size = aimesh->mNumVertices;
+	mesh->normals_vertex = new float3[aimesh->mNumVertices];
 	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
 
 	std::vector<float3> normal_face;
@@ -103,15 +104,15 @@ void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimes
 		mesh->norm_face_size += 2;
 	}
 
-	mesh->normals_vertex = new float3[mesh->norm_face_size];
-	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
+	mesh->normals_face = new float3[mesh->norm_face_size];
+	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_face);
 }
 
 bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
-	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
-	uint size = sizeof(ranges) + sizeof(uint) * mesh->index_size + sizeof(float3) * mesh->vertices_size + sizeof(float2)*mesh->UV_size;
+	uint ranges[5] = { mesh->index_size, mesh->vertices_size, mesh->UV_size, mesh->norm_face_size, mesh->norm_vertex_size};
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->index_size + sizeof(float3) * mesh->vertices_size + sizeof(float2)*mesh->UV_size + sizeof(float3) * mesh->norm_face_size + sizeof(float3) * mesh->norm_vertex_size;
 
 	// Allocate
 	char* data = new char[size];
@@ -137,6 +138,22 @@ bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 		// Store UV
 		bytes = sizeof(float2) * mesh->UV_size;
 		memcpy(cursor, mesh->UV_coord, bytes);
+		cursor += bytes;
+	}
+
+	if (mesh->norm_face_size > 0)
+	{
+		// Store Normals Face
+		bytes = sizeof(float3) * mesh->norm_face_size;
+		memcpy(cursor, mesh->normals_face, bytes);
+		cursor += bytes;
+	}
+
+	if (mesh->norm_vertex_size > 0)
+	{
+		// Store Normals Vertex
+		bytes = sizeof(float3) * mesh->norm_vertex_size;
+		memcpy(cursor, mesh->normals_vertex, bytes);
 		cursor += bytes;
 	}
 
@@ -168,12 +185,14 @@ ResourceMesh* MeshImporter::Load(const char * exported_file)
 
 	char* cursor = buffer;
 	// Amount of Index/Vertices/UVs
-	uint ranges[3];
+	uint ranges[5];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
 	mesh->index_size = ranges[0];
 	mesh->vertices_size = ranges[1];
 	mesh->UV_size = ranges[2];
+	mesh->norm_face_size = ranges[3];
+	mesh->norm_vertex_size = ranges[4];
 	cursor += bytes;
 
 	// Load indices
@@ -194,6 +213,24 @@ ResourceMesh* MeshImporter::Load(const char * exported_file)
 		bytes = sizeof(float2) * mesh->UV_size;
 		mesh->UV_coord = new float2[mesh->UV_size];
 		memcpy(mesh->UV_coord, cursor, bytes);
+		cursor += bytes;
+	}
+
+	//Load Normal Face
+	if (mesh->norm_face_size > 0)
+	{
+		bytes = sizeof(float3) * mesh->norm_face_size;
+		mesh->normals_face = new float3[mesh->norm_face_size];
+		memcpy(mesh->normals_face, cursor, bytes);
+		cursor += bytes;
+	}
+
+	//Load Normal Vertex
+	if (mesh->norm_vertex_size > 0)
+	{
+		bytes = sizeof(float3) * mesh->norm_vertex_size;
+		mesh->normals_vertex = new float3[mesh->norm_vertex_size];
+		memcpy(mesh->normals_vertex, cursor, bytes);
 		cursor += bytes;
 	}
 

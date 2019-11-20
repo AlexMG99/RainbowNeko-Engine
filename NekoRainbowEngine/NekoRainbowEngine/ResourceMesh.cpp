@@ -51,8 +51,8 @@ void ResourceMesh::GenerateBuffers()
 
 	if (norm_vertex_size > 0)
 	{
-		glGenBuffers(1, &buffers[BUFF_NORMAL_FACE]);
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFF_NORMAL_FACE]);
+		glGenBuffers(1, &buffers[BUFF_NORMAL]);
+		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFF_NORMAL]);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * norm_vertex_size, normals_vertex, GL_STATIC_DRAW);
 	}
 
