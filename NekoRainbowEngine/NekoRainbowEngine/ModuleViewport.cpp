@@ -14,7 +14,7 @@
 #include "Scene.h"
 #include "PanelGame.h"
 #include "RayCast.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
 #include "Assimp/include/anim.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
 
