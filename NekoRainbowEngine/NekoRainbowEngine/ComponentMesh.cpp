@@ -57,7 +57,6 @@ bool ComponentMesh::OnSave(Scene & scene) const
 	mesh_scene.AddInt("Type", type);
 	mesh_scene.AddInt("Resource", mesh->ID.GetNumber());
 	mesh_scene.AddString("Mesh", mesh->GetFile());
-	mesh_scene.AddString("Mesh1", mesh->GetImportedFile());
 
 	return ret;
 }
@@ -239,7 +238,7 @@ bool ComponentTexture::OnSave(Scene & scene) const
 	Scene texture_scene = scene.AddSectionArray(type);
 
 	ret = texture_scene.AddInt("Type", type);
-	/*ret = texture_scene.AddString("Path", texture->path.c_str());*/
+	ret = texture_scene.AddDouble("ID", texture->GetID().GetNumber());
 
 	return ret;
 }
@@ -251,9 +250,12 @@ bool ComponentTexture::OnLoad(Scene & scene)
 
 	type = (component_type)texture_scene.GetInt("Type");
 
-	/*AddTexture(App->importer->texture_imp->Load(texture_scene.GetString("Path").c_str()));
+	std::string id_path = ".";
+	id_path += LIBRARY_TEXTURES_FOLDER;
+	id_path +=	App->UintToString(texture_scene.GetDouble("ID")) + ".dds";
+	AddTexture(App->importer->texture_imp->Load(id_path.c_str()));
 
-	my_go->GetComponentMesh()->image_id = texture->image_id;*/
+	my_go->GetComponentMesh()->image_id = texture->image_id;
 
 	return ret;
 }

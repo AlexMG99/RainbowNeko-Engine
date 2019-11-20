@@ -257,7 +257,6 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddDouble("ID", obj->GetId());
 	ret = s_obj.AddDouble("ParentID", obj->GetParent()->GetId());
-	//TODO: Solve extra object creation
 	Scene s_comp = s_obj.AddArray("Components");
 	ret = obj->SaveComponents(s_comp);
 	

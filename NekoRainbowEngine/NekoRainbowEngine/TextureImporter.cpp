@@ -74,10 +74,7 @@ ResourceTexture* TextureImporter::Load(const char * file)
 	ilBindImage(devil_id);
 	ilutRenderer(ILUT_OPENGL);
 
-	std::string path = file;
-	App->fs->NormalizePath(path);
-
-	if (!ilLoadImage(path.c_str())) {
+	if (!ilLoadImage(file)) {
 		auto error = ilGetError();
 		LOG("Failed to load texture with path: %s. Error: %s", file, ilGetString(error));
 		ret = false;

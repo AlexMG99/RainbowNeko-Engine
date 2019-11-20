@@ -77,6 +77,8 @@ public:
 	std::list<ConsoleText> GetLogs() const;
 	void ClearLogs();
 
+	std::string UintToString(uint32 num);
+
 private:
 
 	void AddModule(Module* mod);

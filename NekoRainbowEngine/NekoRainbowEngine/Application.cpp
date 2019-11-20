@@ -214,6 +214,13 @@ void Application::ClearLogs()
 	logs.clear();
 }
 
+std::string Application::UintToString(uint32 num)
+{
+	char str[50];
+	sprintf_s(str, 50, "%u", num);
+	return std::string(str);
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
