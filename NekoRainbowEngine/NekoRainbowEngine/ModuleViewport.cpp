@@ -279,7 +279,9 @@ bool ModuleViewport::LoadScene()
 
 	if(!root_object->children.empty())
 		ReorganizeHierarchy();
-	
+
+	App->camera->camera = App->camera->GetSceneCamera();
+
 	return true;
 }
 
@@ -293,9 +295,15 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
 
+	new_obj->SetType((object_type)scn.GetInt("Type"));
 	new_obj->SetId(scn.GetDouble("ID"));
 	new_obj->parent_id = scn.GetDouble("ParentID");
 	new_obj->LoadComponents(scn);
+
+	if (new_obj->GetName() == "Camera")
+	{
+		camera_game = new_obj;
+	}
 
 	return true;
 }
@@ -326,6 +334,7 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 	Scene s_obj = scn.AddSectionArray(*num);
 
 	ret = s_obj.AddString("Name", obj->GetName());
+	ret = s_obj.AddInt("Type", obj->GetType());
 	ret = s_obj.AddDouble("ID", obj->GetId());
 	ret = s_obj.AddDouble("ParentID", obj->GetParent()->GetId());
 	Scene s_comp = s_obj.AddArray("Components");

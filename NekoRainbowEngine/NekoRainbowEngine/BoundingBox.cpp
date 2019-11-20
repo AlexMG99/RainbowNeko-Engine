@@ -125,21 +125,21 @@ void BoundingBox::UpdateBB(GameObject* obj)
 	GenerateBoundingBuffers();
 }
 
-void BoundingBox::CreateTransformAABB(GameObject* obj)
-{
-	local_AABB.SetNegativeInfinity();
-
-	for (auto it_child = obj->children.rbegin(); it_child != obj->children.rend(); it_child++)
-	{
-		local_AABB.Enclose((*it_child)->BB_obj->global_AABB);
-	}
-
-	CleanVertices();
-
-	GetGlobalAABB(obj);
-	GenerateBoundingBuffers();
-
-}
+//void BoundingBox::CreateTransformAABB(GameObject* obj)
+//{
+//	local_AABB.SetNegativeInfinity();
+//
+//	for (auto it_child = obj->children.rbegin(); it_child != obj->children.rend(); it_child++)
+//	{
+//		local_AABB.Enclose((*it_child)->BB_obj->global_AABB);
+//	}
+//
+//	CleanVertices();
+//
+//	GetGlobalAABB(obj);
+//	GenerateBoundingBuffers();
+//
+//}
 
 void BoundingBox::CleanVertices()
 {

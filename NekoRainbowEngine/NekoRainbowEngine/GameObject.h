@@ -7,7 +7,6 @@
 #include "Component.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
-#include "BoundingBox.h"
 #include "Random.h"
 
 class ComponentMesh;
@@ -83,10 +82,8 @@ private:
 	uint id_indexBB = 0;
 
 public:
-	BoundingBox* BB_obj = nullptr;
-
-	ComponentTransform* transfrom;
-	ComponentMesh *mesh;
+	ComponentTransform* transfrom = nullptr;
+	ComponentMesh* mesh = nullptr;
 
 	std::vector<GameObject*>	children;
 	bool selected = false;
