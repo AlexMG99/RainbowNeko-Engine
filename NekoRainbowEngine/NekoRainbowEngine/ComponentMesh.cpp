@@ -106,13 +106,6 @@ void ComponentMesh::RenderFill()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 
-	//Normal
-	if (mesh->norm_face_size > 0)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_NORMAL_FACE]);
-		glNormalPointer(GL_FLOAT, 0, nullptr);
-	}
-
 	//UVs
 	if (mesh->UV_size > 0)
 	{
@@ -133,7 +126,7 @@ void ComponentMesh::RenderFill()
 
 	//Render Face Normals
 	if (mesh->normals_face && normal_face_show) {
-		glColor3f(0, 0, 0.75);
+		glColor3f(1, 0.5, 0);
 		glBegin(GL_LINES);
 		for (int i = 0; i < mesh->norm_face_size; i += 2) {
 			glVertex3f(mesh->normals_face[i].x, mesh->normals_face[i].y, mesh->normals_face[i].z);
@@ -144,11 +137,11 @@ void ComponentMesh::RenderFill()
 	}
 
 	if (mesh->normals_vertex && normal_show) {
-		glColor3f(0, 0, 0.75);
+		glColor3f(0, 1, 0.5);
 		glBegin(GL_LINES);
-		for (int i = 0; i < mesh->norm_vertex_size; i += 2) {
-			glVertex3f(mesh->normals_vertex[i].x, mesh->normals_vertex[i].y, mesh->normals_vertex[i].z);
-			glVertex3f(mesh->normals_vertex[i].x + mesh->normals_vertex[i + 1].x, mesh->normals_vertex[i].y + mesh->normals_vertex[i + 1].y, mesh->normals_vertex[i].z + mesh->normals_vertex[i + 1].z);
+		for (int i = 0; i < mesh->norm_vertex_size; i ++) {
+			glVertex3f(mesh->vertices[i].x, mesh->vertices[i].y, mesh->vertices[i].z);
+			glVertex3f(mesh->vertices[i].x + mesh->normals_vertex[i].x, mesh->vertices[i].y + mesh->normals_vertex[i].y, mesh->vertices[i].z + mesh->normals_vertex[i].z);
 		}
 
 		glEnd();

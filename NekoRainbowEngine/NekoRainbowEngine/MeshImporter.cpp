@@ -253,12 +253,14 @@ bool MeshImporter::Load(ResourceMesh* mesh)
 
 	char* cursor = buffer;
 	// Amount of Index/Vertices/UVs
-	uint ranges[3];
+	uint ranges[5];
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
 	mesh->index_size = ranges[0];
 	mesh->vertices_size = ranges[1];
 	mesh->UV_size = ranges[2];
+	mesh->norm_face_size = ranges[3];
+	mesh->norm_vertex_size = ranges[4];
 	cursor += bytes;
 
 	// Load indices
@@ -279,6 +281,24 @@ bool MeshImporter::Load(ResourceMesh* mesh)
 		bytes = sizeof(float2) * mesh->UV_size;
 		mesh->UV_coord = new float2[mesh->UV_size];
 		memcpy(mesh->UV_coord, cursor, bytes);
+		cursor += bytes;
+	}
+
+	//Load Normal Face
+	if (mesh->norm_face_size > 0)
+	{
+		bytes = sizeof(float3) * mesh->norm_face_size;
+		mesh->normals_face = new float3[mesh->norm_face_size];
+		memcpy(mesh->normals_face, cursor, bytes);
+		cursor += bytes;
+	}
+
+	//Load Normal Vertex
+	if (mesh->norm_vertex_size > 0)
+	{
+		bytes = sizeof(float3) * mesh->norm_vertex_size;
+		mesh->normals_vertex = new float3[mesh->norm_vertex_size];
+		memcpy(mesh->normals_vertex, cursor, bytes);
 		cursor += bytes;
 	}
 
