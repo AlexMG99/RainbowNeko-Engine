@@ -6,8 +6,10 @@
 struct Random {
 public:
 	Random() {};
+	Random(uint32 num);
 	~Random() {};
 
+	uint32 GenerateRandomIntRange(int first, int last);
 	uint32 GenerateRandomInt();
 	uint32 GetNumber() const;
 

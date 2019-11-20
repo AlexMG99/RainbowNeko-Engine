@@ -69,11 +69,19 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 	return comp;
 }
 
+ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV)
+{
+	ComponentCamera* comp = new ComponentCamera(COMPONENT_CAMERA, true, this, nP, fP, FOV);
+	if (comp)
+		components.push_back(comp);
+	return comp;
+}
+
 bool GameObject::SaveComponents(Scene scene)
 {
-	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	for (int i = 0; i < components.size(); i++)
 	{
-		(*it_comp)->OnSave(scene);
+		components.at(i)->OnSave(scene, i);
 	}
 	return true;
 }
@@ -85,12 +93,12 @@ bool GameObject::LoadComponents(Scene scene)
 	for (int i = 1; i < COMPONENT_TOTAL; i++)
 	{
 		if (comp_scene.IsArraySection(i))
-			CreateComponent((component_type)(i));
+			CreateComponent((component_type)(comp_scene.GetSectionArray(i).GetInt("Type")));
 	}
 	
-	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	for (int i = 0; i< components.size(); i++)
 	{
-		(*it_comp)->OnLoad(comp_scene);
+		components.at(i)->OnLoad(comp_scene, i);
 	}
 	return true;
 }
@@ -216,6 +224,19 @@ void GameObject::SetParent(GameObject* par)
 bool GameObject::IsParentID(uint32 id)
 {
 	return (this->id.GetNumber() == id);
+}
+
+GameObject* GameObject::GetIteratorChild(uint32 id)
+{
+	for (auto it_child = children.begin(); it_child != children.end();it_child++)
+	{
+		if ((*it_child)->IsParentID(id))
+			return *it_child;
+
+		return (*it_child)->GetIteratorChild(id);
+	}
+
+	return nullptr;
 }
 
 object_type GameObject::GetType()

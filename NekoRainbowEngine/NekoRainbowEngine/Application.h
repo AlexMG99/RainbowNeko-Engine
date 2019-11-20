@@ -13,6 +13,7 @@
 #include "ModuleViewport.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "ModuleResources.h"
 
 typedef struct json_value_t  JSON_Value;
 struct ConsoleText;
@@ -28,11 +29,11 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleEditorCamera* camera;
 	ModuleImporter* importer;
+	ModuleResources* resources;
 
 	int					capped_ms = -1;
 	JSON_Value* settings_doc = nullptr;
 	JSON_Value* credits_doc = nullptr;
-	bool is_loaded = false;
 
 private:
 
@@ -74,6 +75,8 @@ public:
 	void Log(ConsoleText text);
 	std::list<ConsoleText> GetLogs() const;
 	void ClearLogs();
+
+	std::string UintToString(uint32 num);
 
 private:
 

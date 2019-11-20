@@ -26,13 +26,14 @@ public:
 	~Scene();
 
 	bool AddInt(const char* field, int value);
+	bool AddFloat(const char* field, float value);
 	bool AddDouble(const char * field, double value);
-	//bool AddFloat(const char* field, float value);
 	bool AddFloat3(const char* field, float3 value);
 	bool AddQuat(const char * field, Quat value);
 	bool AddString(const char * field, std::string value);
 
 	int GetInt(const char* field);
+	float GetFloat(const char* field);
 	double GetDouble(const char * field);
 	float3 GetFloat3(const char* field);
 	Quat GetQuat(const char * field);
@@ -53,6 +54,7 @@ public:
 	bool Save(const char* name);
 
 	std::string GetName() const;
+	JSON_Value* GetVRoot() const;
 
 private:
 	JSON_Value* vroot = nullptr;

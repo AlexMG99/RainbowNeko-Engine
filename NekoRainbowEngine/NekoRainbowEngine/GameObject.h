@@ -30,6 +30,7 @@ public:
 
 	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true);
+	ComponentCamera * CreateComponentCamera(float nP, float fP, float FOV);
 
 	bool SaveComponents(Scene scene);
 	bool LoadComponents(Scene scene);
@@ -52,6 +53,8 @@ public:
 	GameObject* GetParent() const;
 	void SetParent(GameObject * par);
 	bool IsParentID(uint32 id);
+
+	GameObject* GetIteratorChild(uint32 id);
 
 	object_type GetType();
 	void SetType(object_type ty_);

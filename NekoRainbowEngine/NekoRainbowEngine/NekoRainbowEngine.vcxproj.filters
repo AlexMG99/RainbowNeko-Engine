@@ -220,9 +220,6 @@
     <ClCompile Include="MeshImporter.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="SceneImporter.cpp">
-      <Filter>Sources\Importer</Filter>
-    </ClCompile>
     <ClCompile Include="TextureImporter.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
@@ -247,11 +244,17 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Sources\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Sources\GameObject</Filter>
+    <ClCompile Include="ModuleResources.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Sources\GameObject</Filter>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Sources\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceModel.cpp">
+      <Filter>Sources\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Sources\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -636,9 +639,6 @@
     <ClInclude Include="MeshImporter.h">
       <Filter>Sources\Importer</Filter>
     </ClInclude>
-    <ClInclude Include="SceneImporter.h">
-      <Filter>Sources\Importer</Filter>
-    </ClInclude>
     <ClInclude Include="TextureImporter.h">
       <Filter>Sources\Importer</Filter>
     </ClInclude>
@@ -669,14 +669,23 @@
     <ClInclude Include="Globals.h">
       <Filter>Sources\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="RayCast.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Sources\GameObject</Filter>
+    <ClInclude Include="ModuleResources.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Sources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Sources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceModel.h">
+      <Filter>Sources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
+      <Filter>Sources\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -760,6 +769,9 @@
     </Filter>
     <Filter Include="Sources\Helpers">
       <UniqueIdentifier>{a86ec934-f6d1-414a-a684-72aab5f5cc68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Resource">
+      <UniqueIdentifier>{505bd5c0-2ecc-4fa4-b1fc-8481cda76760}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const c
 	// workaround VS string directory mess
 	AddPath(".");
 
-	if(0&&game_path != nullptr)
+	if (0 && game_path != nullptr)
 		AddPath(game_path);
 
 	// Dump list of paths
@@ -34,7 +34,8 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled, const c
 
 	// Make sure standard paths exist
 	const char* dirs[] = {
-		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER
+		SETTINGS_FOLDER, ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER, ASSETS_META_FOLDER,
+		LIBRARY_SCENE_FOLDER
 	};
 
 	for (uint i = 0; i < sizeof(dirs)/sizeof(const char*); ++i)
@@ -250,6 +251,22 @@ bool ModuleFileSystem::IsInDirectory(const char * directory, const char * p)
 	return ret;
 }
 
+bool ModuleFileSystem::RemovePath(std::string * directory, const char * p)
+{
+	bool ret = true;
+
+	std::size_t found = directory->find(p);
+	if (found != std::string::npos)
+	{
+		directory->erase(found, 6);
+		ret = true;
+	}
+	else
+		ret = false;
+
+	return ret;
+}
+
 unsigned int ModuleFileSystem::Load(const char * path, const char * file, char ** buffer) const
 {
 	string full_path(path);
@@ -261,7 +278,6 @@ unsigned int ModuleFileSystem::Load(const char * path, const char * file, char *
 uint ModuleFileSystem::Load(const char* file, char** buffer) const
 {
 	uint ret = 0;
-
 	PHYSFS_file* fs_file = PHYSFS_openRead(file);
 
 	if(fs_file != nullptr)

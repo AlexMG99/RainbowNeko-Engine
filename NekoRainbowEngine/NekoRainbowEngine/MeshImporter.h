@@ -6,7 +6,7 @@
 class ComponentMesh;
 struct aiScene;
 class aiMesh;
-class Mesh;
+class ResourceMesh;
 
 class MeshImporter:public Importer 
 {
@@ -17,13 +17,14 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	Mesh* Import(const aiScene* scene, const aiMesh* aimesh);
-	bool SaveMesh(Mesh* mesh, const char* name = "mesh");
+	ResourceMesh* Import(const aiMesh* aimesh, ResourceMesh* res_mesh);
+	bool SaveMesh(ResourceMesh* mesh);
 
-	Mesh* Load(const char* exported_file);
+	ResourceMesh* Load(const char* exported_file);
+	bool Load(ResourceMesh * mesh);
 	//ComponentMesh* LoadPrimitive(PRIMITIVE_TYPE type);
 
-	void CalculateNormalFace(Mesh* mesh, const aiMesh* aimesh);
+	void CalculateNormalFace(ResourceMesh* mesh, const aiMesh* aimesh);
 
 };
 

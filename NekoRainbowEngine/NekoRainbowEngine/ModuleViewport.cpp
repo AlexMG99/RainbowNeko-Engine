@@ -23,7 +23,6 @@ ModuleViewport::~ModuleViewport()
 {
 	RELEASE(root_object);
 	RELEASE(scene);
-	RELEASE(camera_test);
 }
 
 bool ModuleViewport::Start()
@@ -32,9 +31,11 @@ bool ModuleViewport::Start()
 
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
-	//camera_test = CreateGameObject("Camera", root_object);
-	//camera_test->CreateComponent(COMPONENT_CAMERA);
-	scene = new Scene("scene_test.json");
+	camera_test = CreateGameObject("Camera", root_object);
+	camera_test->CreateComponentCamera(1.0f, 600.0f, 90);
+	scene = new Scene(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	if (!scene->GetVRoot())
+		scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -62,8 +63,8 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		SaveScene();
 
-	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && !App->is_loaded)
-		LoadScene(scene);
+	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
+		LoadScene();
 
 
 	return UPDATE_CONTINUE;
@@ -193,13 +194,14 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 }
 
-bool ModuleViewport::LoadScene(Scene* scn)
+bool ModuleViewport::LoadScene()
 {
-	Scene go_scene = scn->GetArray("GameObjects");
-	int i = 0;
-	App->is_loaded = true;
-
 	ResetScene();
+
+	scene = new Scene(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+
+	Scene go_scene = scene->GetArray("GameObjects");
+	int i = 0;
 
 	while (i !=-1)
 	{ 
@@ -222,7 +224,11 @@ bool ModuleViewport::LoadScene(Scene* scn)
 bool ModuleViewport::LoadGameObject(Scene scn)
 {
 	if (!scn.IsString("Name"))
+	{
+		LOG("Scene don't load");
 		return false;
+	}
+
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
 
 	new_obj->SetId(scn.GetDouble("ID"));
@@ -237,35 +243,35 @@ bool ModuleViewport::SaveScene()
 {
 	bool ret = true;
 	Scene go_scene = scene->AddArray("GameObjects");
-	App->is_loaded = false;
 	
-	int num = 0;
+	int num = -1;
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); it_child++)
 	{
 		ret = SaveGameObject(go_scene, *it_child, &num);
 	}
-	num = 0;
+	num = -1;
 
-	ret = scene->Save("scene_test.json");
+	ret = scene->Save(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+
 	return ret;
 }
 
 bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 {
 	bool ret = true;
+	(*num)++;
+
 	Scene s_obj = scn.AddSectionArray(*num);
 
 	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddDouble("ID", obj->GetId());
 	ret = s_obj.AddDouble("ParentID", obj->GetParent()->GetId());
-	//TODO: Solve extra object creation
 	Scene s_comp = s_obj.AddArray("Components");
 	ret = obj->SaveComponents(s_comp);
 	
 	//Iterate Childrens
 	for (auto it_child = obj->children.begin(); it_child != obj->children.end(); it_child++)
 	{
-		(*num)++;
 		ret = SaveGameObject(scn, *it_child, num);
 	}
 
@@ -296,6 +302,8 @@ bool ModuleViewport::ResetScene()
 	}
 
 	root_object->children.clear();
+
+	RELEASE(scene);
 	
 	return true;
 }

@@ -3,6 +3,7 @@
 #include "ComponentMesh.h"
 #include "GameObject.h"
 #include "MeshImporter.h"
+#include "ResourceMesh.h"
 
 #include <string>
 
@@ -12,7 +13,6 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/mesh.h"
 #include "MathGeoLib/include/Math/float2.h"
-#include "Mesh.h"
 
 bool MeshImporter::Init()
 {
@@ -25,55 +25,54 @@ bool MeshImporter::CleanUp()
 	return true;
 }
 
-Mesh* MeshImporter::Import(const aiScene * scene, const aiMesh * aimesh)
+ResourceMesh* MeshImporter::Import(const aiMesh * aimesh, ResourceMesh* res_mesh)
 {
-	Mesh* mesh = new Mesh();
 
 	//Vertices Load
-	mesh->vertices_size = aimesh->mNumVertices;
-	mesh->vertices = new float3[aimesh->mNumVertices];
-	memcpy(mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
-	LOG("New mesh with %d vertices", mesh->vertices_size);
+	res_mesh->vertices_size = aimesh->mNumVertices;
+	res_mesh->vertices = new float3[aimesh->mNumVertices];
+	memcpy(res_mesh->vertices, aimesh->mVertices, sizeof(float3) * aimesh->mNumVertices);
+	LOG("New mesh with %d vertices", res_mesh->vertices_size);
 
 	//Index Load
 	if (aimesh->HasFaces())
 	{
-		mesh->index_size = aimesh->mNumFaces * 3;
-		mesh->index = new uint[mesh->index_size];
+		res_mesh->index_size = aimesh->mNumFaces * 3;
+		res_mesh->index = new uint[res_mesh->index_size];
 		for (uint i = 0; i < aimesh->mNumFaces; i++) //ASSUME FACE IS TRIANGLE
 		{
-			memcpy(&mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			memcpy(&res_mesh->index[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
 	}
 
 	//Load Normals
 	if (aimesh->HasNormals())
 	{
-		CalculateNormalFace(mesh, aimesh);
+		CalculateNormalFace(res_mesh, aimesh);
 	}
 
 	//Load UVs
 	if (aimesh->HasTextureCoords(0))
 	{
-		mesh->UV_size = mesh->vertices_size;
-		mesh->UV_coord = new float2[mesh->UV_size];
+		res_mesh->UV_size = res_mesh->vertices_size;
+		res_mesh->UV_coord = new float2[res_mesh->UV_size];
 
-		for (uint i = 0; i < mesh->UV_size; i++)
+		for (uint i = 0; i < res_mesh->UV_size; i++)
 		{
 			float2 uv = float2(aimesh->mTextureCoords[0][i].x, aimesh->mTextureCoords[0][i].y);
-			mesh->UV_coord[i] = uv;
+			res_mesh->UV_coord[i] = uv;
 		}
 
 	}
 
-	mesh->GenerateBuffers();
+	res_mesh->GenerateBuffers();
 
 	LOG("Loaded mesh file succesfully!");
 
-	return mesh;
+	return res_mesh;
 }
 
-void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
+void MeshImporter::CalculateNormalFace(ResourceMesh * mesh, const aiMesh * aimesh)
 {
 	/*mesh->normals_vertex = new float3[aimesh->mNumVertices];
 	memcpy(mesh->normals_vertex, aimesh->mNormals, sizeof(aiVector3D) * mesh->vertices_size);
@@ -108,7 +107,7 @@ void MeshImporter::CalculateNormalFace(Mesh * mesh, const aiMesh * aimesh)
 	std::copy(normal_face.begin(), normal_face.end(), mesh->normals_vertex);*/
 }
 
-bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
+bool MeshImporter::SaveMesh(ResourceMesh * mesh)
 {
 	// amount of indices / vertices / colors / normals / texture_coords / AABB
 	uint ranges[3] = { mesh->index_size, mesh->vertices_size, mesh->UV_size};
@@ -141,24 +140,76 @@ bool MeshImporter::SaveMesh(Mesh * mesh, const char* name)
 		cursor += bytes;
 	}
 
-	std::string mesh_name = LIBRARY_MESH_FOLDER;
-	mesh_name += name;
-	uint ret = App->fs->Save(std::string(mesh_name + ".neko").c_str(), data, size);
+	std::string name;
+	name.append(LIBRARY_MESH_FOLDER);
+	char file_name[50];
+	sprintf_s(file_name, 50, "%u", mesh->GetID().GetNumber());
+	name += file_name;
+	name += ".neko";
+	uint ret = App->fs->Save(name.c_str(), data, size);
 
 	RELEASE_ARRAY(data);
 	return true;
 }
 
-Mesh* MeshImporter::Load(const char * exported_file)
+ResourceMesh* MeshImporter::Load(const char * exported_file)
 {
-	Mesh* mesh = new Mesh();
+	ResourceMesh* mesh = (ResourceMesh*)App->resources->CreateNewResource(RESOURCE_MESH);
 
 	std::string extension, file;
 	App->fs->SplitFilePath(exported_file, nullptr, &file, &extension);
 	mesh->name = file.c_str();
 
 	std::string path = LIBRARY_MESH_FOLDER;
-	path.append(std::string(file + "." + extension).c_str());
+	path += file + "." + extension;
+
+	char* buffer;
+	uint size = App->fs->Load(path.c_str(), &buffer);
+
+	char* cursor = buffer;
+	// Amount of Index/Vertices/UVs
+	uint ranges[3];
+	uint bytes = sizeof(ranges);
+	memcpy(ranges, cursor, bytes);
+	mesh->index_size = ranges[0];
+	mesh->vertices_size = ranges[1];
+	mesh->UV_size = ranges[2];
+	cursor += bytes;
+
+	// Load indices
+	bytes = sizeof(uint) * mesh->index_size;
+	mesh->index = new uint[mesh->index_size];
+	memcpy(mesh->index, cursor, bytes);
+	cursor += bytes;
+
+	// Load vertices
+	bytes = sizeof(float3) * mesh->vertices_size;
+	mesh->vertices = new float3[mesh->vertices_size];
+	memcpy(mesh->vertices, cursor, bytes);
+	cursor += bytes;
+
+	//Load UV
+	if (mesh->UV_size > 0)
+	{
+		bytes = sizeof(float2) * mesh->UV_size;
+		mesh->UV_coord = new float2[mesh->UV_size];
+		memcpy(mesh->UV_coord, cursor, bytes);
+		cursor += bytes;
+	}
+
+	mesh->GenerateBuffers();
+
+	RELEASE_ARRAY(buffer);
+	return mesh;
+}
+
+bool MeshImporter::Load(ResourceMesh* mesh)
+{
+	std::string path = LIBRARY_MESH_FOLDER;
+	char str_id[50];
+	sprintf_s(str_id, 50, "%u", mesh->GetID().GetNumber());
+	path += str_id;
+	path += ".neko";
 
 	char* buffer;
 	uint size = App->fs->Load(path.c_str(), &buffer);
