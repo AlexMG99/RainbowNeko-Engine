@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Module.h"
 #include "Globals.h"
 #include "par/par_shapes.h"
@@ -33,7 +34,7 @@ public:
 
 	
 
-	bool LoadScene(Scene* scn);
+	bool LoadScene();
 	bool LoadGameObject(Scene scn);
 
 	bool SaveScene();
@@ -60,7 +61,7 @@ public:
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
 
-
+	std::string scene_name = "Scene01.scene";
 	bool draw_grid = true;
 	bool wireframe_on = false;
 	bool fill_on = true;

@@ -2,6 +2,7 @@
 #include "ComponentCamera.h"
 #include "Parson/parson.h"
 #include "GL/include/glew.h"
+#include "Scene.h"
 #include <vector>
 
 ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject* obj): Component(comp_type, act, obj)
@@ -18,9 +19,34 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject*
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 
-	frustum.nearPlaneDistance = 10.0f;
-	frustum.farPlaneDistance = 100.0f;
-	frustum.verticalFov = 60.0f * DEGTORAD;
+	frustum.nearPlaneDistance = 1.0f;
+	frustum.farPlaneDistance = 1000.0f;
+	frustum.verticalFov = 90.0f * DEGTORAD;
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
+
+	Reference = float3(0, 0, 0);
+
+	ReloadFrustum();
+	GenerateFrustumBuffers();
+}
+
+ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject * obj, float nP, float fP, float FOV) : Component(comp_type, act, obj)
+{
+	if (my_go)
+	{
+		transform = my_go->GetComponentTransform();
+		transform->position = float3::zero;
+		transform->local_position = float3::zero;
+	}
+	frustum.type = FrustumType::PerspectiveFrustum;
+
+	frustum.pos = float3::zero;
+	frustum.front = float3::unitZ;
+	frustum.up = float3::unitY;
+
+	frustum.nearPlaneDistance = nP;
+	frustum.farPlaneDistance = fP;
+	frustum.verticalFov = FOV * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
 	Reference = float3(0, 0, 0);
@@ -141,17 +167,34 @@ float3 ComponentCamera::GetCameraPosition() const
 	return frustum.pos;
 }
 
-update_status ComponentCamera::Load()
+float4x4 ComponentCamera::GetOpenGLProjectionMatrix()
 {
-	//BROFILER_CATEGORY("Load_ModuleCamera3D", Profiler::Color::LightGray);
+	return frustum.ProjectionMatrix().Transposed();
+}
 
-	//JSON_Object* obj = json_object(App->settings_doc);
-	//JSON_Object* cam_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Camera");
+bool ComponentCamera::OnSave(Scene & scene, int i) const
+{
+	bool ret = false;
+	Scene camera_scene = scene.AddSectionArray(i);
 
-	//base_speed = json_object_get_number(cam_obj, "Speed");
-	//Position = { (float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "X"),
-	//	(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Y"),
-	//	(float)json_object_get_number(json_object_get_object(cam_obj, "Position"), "Z") };
+	ret = camera_scene.AddInt("Type", type);
+	ret = camera_scene.AddFloat("NearPlane", frustum.nearPlaneDistance);
+	ret = camera_scene.AddFloat("FarPlane", frustum.farPlaneDistance);
+	ret = camera_scene.AddFloat("Fov", frustum.horizontalFov);
 
-	return UPDATE_CONTINUE;
+	return ret;
+}
+
+bool ComponentCamera::OnLoad(Scene & scene, int i)
+{
+	Scene camera_scene = scene.GetSectionArray(i);
+	
+	type = (component_type)camera_scene.GetInt("Type");
+	frustum.nearPlaneDistance = camera_scene.GetFloat("NearPlane");
+	frustum.farPlaneDistance = camera_scene.GetFloat("FarPlane");
+	frustum.horizontalFov = camera_scene.GetFloat("Fov");
+
+	UpdateFrustum(true);
+
+	return true;
 }

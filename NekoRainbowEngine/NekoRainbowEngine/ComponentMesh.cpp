@@ -1,13 +1,14 @@
 #include "Application.h"
 #include "ModuleViewport.h"
+#include "ModuleResources.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "PanelConfiguration.h"
 #include "TextureImporter.h"
 #include "MeshImporter.h"
-#include "Mesh.h"
-#include "Texture.h"
+#include "ResourceMesh.h"
+#include "ResourceTexture.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -48,52 +49,33 @@ bool ComponentMesh::Update()
 	return true;
 }
 
-bool ComponentMesh::OnSave(Scene & scene) const
+bool ComponentMesh::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;
-	Scene mesh_scene = scene.AddSectionArray(type);
+	Scene mesh_scene = scene.AddSectionArray(i);
 
 	mesh_scene.AddInt("Type", type);
-	mesh_scene.AddString("Mesh", my_go->GetName());
+	mesh_scene.AddString("Mesh", mesh->file.c_str());
+	mesh_scene.AddDouble("Resource", mesh->ID.GetNumber());
 
 	return ret;
 }
 
-bool ComponentMesh::OnLoad(Scene & scene)
+bool ComponentMesh::OnLoad(Scene & scene, int i)
 {
-	Scene mesh_scene = scene.GetSectionArray(type);
+	Scene mesh_scene = scene.GetSectionArray(i);
 
-	std::string mesh = mesh_scene.GetString("Mesh") + ".neko";
 	transform = my_go->GetComponentTransform();
-	AddMesh(App->importer->mesh_imp->Load(mesh.c_str()));
+	AddMesh(App->resources->ImportMesh(mesh_scene.GetDouble("Resource")));
+	mesh->file = mesh_scene.GetString("Mesh");
 
 	return true;
 }
 
-bool ComponentMesh::Intersect(LineSegment * ray, RayCast & hit)
-{
-	//Lets see if the ray intersects with the triangle mesh
-	/*bool ret = false;
-	hit.trans = nullptr;
-	LineSegment locray((*ray));
-
-	locray.Transform(my_go->transfrom->GetGlobalTransformMatrix().Inverted());
-
-	for (int i = 0; i < mesh->index_size; i += 3)
-	{
-		Triangle triangle(mesh->vertices[mesh->index[i]], mesh->vertices[mesh->index[i + 1]], mesh->vertices[mesh->index[i + 2]]);
-		RayCast nhit(my_go->transfrom);
-
-
-
-	}*/
-
-	return false;
-}
-
-void ComponentMesh::AddMesh(Mesh * mesh)
+void ComponentMesh::AddMesh(ResourceMesh * mesh)
 {
 	this->mesh = mesh;
+	transform = my_go->GetComponentTransform();
 	CreateLocalAABB();
 	my_go->global_AABB = my_go->GetGlobalAABB();
 	my_go->GenerateBoundingBuffers();
@@ -250,32 +232,31 @@ void ComponentMesh::DrawSelectedOutline()
 
 }
 
-bool ComponentTexture::OnSave(Scene & scene) const
+bool ComponentTexture::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;
-	Scene texture_scene = scene.AddSectionArray(type);
+	Scene texture_scene = scene.AddSectionArray(i);
 
 	ret = texture_scene.AddInt("Type", type);
-	ret = texture_scene.AddString("Path", texture->path.c_str());
+	ret = texture_scene.AddDouble("Resource", texture->GetID().GetNumber());
 
 	return ret;
 }
 
-bool ComponentTexture::OnLoad(Scene & scene)
+bool ComponentTexture::OnLoad(Scene & scene, int i)
 {
 	bool ret = true;
-	Scene texture_scene = scene.AddSectionArray(type);
+	Scene texture_scene = scene.AddSectionArray(i);
 
 	type = (component_type)texture_scene.GetInt("Type");
-
-	AddTexture(App->importer->texture_imp->Load(texture_scene.GetString("Path").c_str()));
+	AddTexture(App->resources->ImportTexture(texture_scene.GetDouble("Resource")));
 
 	my_go->GetComponentMesh()->image_id = texture->image_id;
 
 	return ret;
 }
 
-void ComponentTexture::AddTexture(Texture * text)
+void ComponentTexture::AddTexture(ResourceTexture* text)
 {
 	texture = text;
 }

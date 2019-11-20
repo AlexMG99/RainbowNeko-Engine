@@ -39,6 +39,8 @@ public:
 	void NormalizePath(std::string& full_path) const;
 	bool IsInDirectory(const char* directory, const char* p);
 
+	bool RemovePath(std::string * directory, const char * p);
+
 	// Open for Read/Write
 	unsigned int Load(const char* path, const char* file, char** buffer) const;
 	unsigned int Load(const char* file, char** buffer) const;

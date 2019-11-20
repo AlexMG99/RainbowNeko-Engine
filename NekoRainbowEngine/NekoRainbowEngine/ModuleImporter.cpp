@@ -2,10 +2,13 @@
 #include "GL/include/glew.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "ModuleResources.h"
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
-#include "Mesh.h"
+#include "ResourceMesh.h"
+#include "ResourceModel.h"
+#include "ResourceTexture.h"
 #include "PanelConsole.h"
 #include "MathGeoLib/include/Math/float2.h"
 #include "glmath.h"
@@ -14,7 +17,6 @@
 
 #include"Brofiler/Brofiler.h"
 
-#include "SceneImporter.h"
 #include "MeshImporter.h"
 #include "TextureImporter.h"
 
@@ -32,11 +34,9 @@ bool ModuleImporter::Init()
 {
 	BROFILER_CATEGORY("Init_ModuleImporter", Profiler::Color::Crimson);
 
-	scene_imp = new SceneImporter();
 	mesh_imp = new MeshImporter();
 	texture_imp = new TextureImporter();
 
-	scene_imp->Init();
 	mesh_imp->Init();
 	texture_imp->Init();
 
@@ -54,17 +54,48 @@ bool ModuleImporter::ImportFile(const char* path)
 	std::string output_file;
 
 	if (extension == "fbx" || extension == "FBX")
-		scene_imp->Import(path);
-	else if (extension == "neko") 
+		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL);
+	else if (extension == "neko")
 	{
-		Mesh* mesh = mesh_imp->Load(path);
+		ResourceMesh* mesh = (ResourceMesh*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MESH).GetNumber());
 		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
 		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 		comp_mesh->transform = obj->GetComponentTransform();
 		comp_mesh->AddMesh(mesh);
 	}
+	else if (extension == "MODEL" || extension == "model")
+	{
+		ResourceModel* model = (ResourceModel*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MODEL).GetNumber());
+
+		model->Load();
+	}
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
-		texture_imp->Import(path);
+	{
+		if (App->viewport->selected_object)
+		{
+			ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
+			if (comp_texture)
+			{
+				ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
+				if (texture)
+				{
+					App->resources->ImportAssets(path);
+					comp_texture->AddTexture(texture);
+					App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
+					LOG("Load Texture succesfully with name: %s", texture->file.c_str());
+				}
+				else
+					LOG("Resource not loaded");
+			}
+			else
+				LOG("Object don't found. There's not selected object!");
+
+		}
+
+	}
+	else
+		LOG("Format not allowed");
+		
 
 	return ret;
 }
@@ -140,7 +171,7 @@ void ModuleImporter::CreateShape(shape_type type, uint sl, uint st)
 
 	//Create Component Mesh
 	ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
-	Mesh* mesh = new Mesh();
+	ResourceMesh* mesh = new ResourceMesh();
 
 	//Load Normals
 	if (shape->normals)

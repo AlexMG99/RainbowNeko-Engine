@@ -42,10 +42,10 @@ bool ComponentTransform::ItIntersect(LineSegment ray)
 	
 }
 
-bool ComponentTransform::OnSave(Scene & scene) const
+bool ComponentTransform::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;
-	Scene trans_scene = scene.AddSectionArray(0);
+	Scene trans_scene = scene.AddSectionArray(i);
 	ret = trans_scene.AddInt("Type", type);
 	ret = trans_scene.AddFloat3("Position", local_position);
 	ret = trans_scene.AddFloat3("Rotation", local_rotation_euler);
@@ -54,10 +54,10 @@ bool ComponentTransform::OnSave(Scene & scene) const
 	return ret;
 }
 
-bool ComponentTransform::OnLoad(Scene & scene)
+bool ComponentTransform::OnLoad(Scene & scene, int i)
 {
 	bool ret = true;
-	Scene trans_scene = scene.GetSectionArray(0);
+	Scene trans_scene = scene.GetSectionArray(i);
 
 	type = (component_type)trans_scene.GetInt("Type");
 	local_position = trans_scene.GetFloat3("Position");

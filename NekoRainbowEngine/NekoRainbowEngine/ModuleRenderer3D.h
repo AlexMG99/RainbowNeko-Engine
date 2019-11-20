@@ -26,6 +26,8 @@ public:
 	ImVec2 GetTextureSize() const;
 	uint GetWinTexture() const;
 
+	void UpdateProjectionMatrix();
+
 
 public:
 	FBO* fbo = nullptr;

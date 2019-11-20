@@ -34,7 +34,7 @@ bool ModuleEditorCamera::Start()
 
 update_status ModuleEditorCamera::Load()
 {
-	camera->Load();
+	//camera->Load();
 
 	return UPDATE_CONTINUE;
 }
@@ -125,7 +125,7 @@ update_status ModuleEditorCamera::Update(float dt)
 // -----------------------------------------------------------------
 void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
-	camera->Reference = -Spot;
+	camera->Reference = Spot;
 	camera->Look(Spot);
 }
 
@@ -133,12 +133,15 @@ void ModuleEditorCamera::ChangeCamera(ComponentCamera* camera)
 {
 	if(!this->camera->my_go)
 		scene_camera = this->camera;
+
+	camera->update_proj = true;
 	this->camera = camera;
 }
 
 void ModuleEditorCamera::SetSceneCamera()
 {
 	camera = scene_camera;
+	camera->update_proj = true;
 }
 
 void ModuleEditorCamera::Zoom(float zoom)

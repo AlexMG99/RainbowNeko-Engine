@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "TextureImporter.h"
 #include "ComponentMesh.h"
-#include "Texture.h"
+#include "ResourceTexture.h"
 
 //-------------- Devil --------------
 #include "Devil/include/il.h"
@@ -21,84 +21,53 @@ bool TextureImporter::Init()
 	return true;
 }
 
-bool TextureImporter::Import(const char* path)
+bool TextureImporter::Import(const char* path, std::string& output_file)
 {
-	//BROFILER_CATEGORY("ImportTexture_ModuleImporter", Profiler::Color::Gray);
+	bool ret = false;
 
-	if (App->viewport->selected_object) {
-		ComponentMesh* comp_mesh = App->viewport->selected_object->GetComponentMesh();
-		ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
-		Texture* texture;
-		
-		if(!comp_texture)
-			comp_texture = new ComponentTexture(COMPONENT_TEXTURE, true, App->viewport->selected_object);
+	ret = ImportTexture(path, output_file);
 
-		std::string output_file;
-
-		//Load Texture
-		ImportTexture(path, output_file);
-		texture = Load(std::string("." + output_file).c_str());
-
-		comp_texture->AddTexture(texture);
-
-		if (comp_mesh)
-			comp_mesh->image_id = texture->image_id;
-		else
-		{
-			LOG("The object does not have a MESH! Create one or select another object.");
-			App->viewport->selected_object->DeleteComponent(comp_texture);
-		}
-	}
-	else
-	{
-		LOG("Warning! Object no selected. Please, select an object.");
-	}
-
-	return true;
+	return ret;
 }
 
-void TextureImporter::ImportTexture(const char* path, std::string& output_file)
+bool TextureImporter::ImportTexture(const char* path, std::string& output_file)
 {
 	bool ret = true;
+
 	std::string file, extension;
 	App->fs->SplitFilePath(path, nullptr, &file, &extension);
+
 	ILuint devil_id = 0;
-
-	App->fs->NormalizePath((char*)path);
-	
-
 	ilGenImages(1, &devil_id);
 	ilBindImage(devil_id);
 
-	if (App->fs->IsInDirectory("c:", path))
-		ret = ilLoadImage(path);
-	else
-		ilLoadImage(std::string(ASSETS_FOLDER + file + "." + extension).c_str());
-
-	ILuint size;
-	ILubyte *data;
-	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
-	size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
-	if (size > 0) {
-		data = new ILubyte[size]; // allocate data buffer
-		if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
-		{
-			std::string file, extension;
-			App->fs->SplitFilePath(path, nullptr, &file, &extension);
-			output_file = LIBRARY_TEXTURES_FOLDER + file + ".dds";
-			App->fs->Save(output_file.c_str(), data, size);
+	if (ilLoadImage(path))
+	{
+		ILuint size;
+		ILubyte *data;
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+		size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+		if (size > 0) {
+			data = new ILubyte[size]; // allocate data buffer
+			if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+			{
+				std::string path = LIBRARY_TEXTURES_FOLDER + output_file + ".dds";
+				output_file = path;
+				ret = App->fs->Save(output_file.c_str(), data, size);
+			}
+			RELEASE_ARRAY(data);
 		}
-		RELEASE_ARRAY(data);
+		ilDeleteImages(1, &devil_id);
 	}
 
-	ilDeleteImages(1, &devil_id);
+	return ret;
 }
 
 
-Texture* TextureImporter::Load(const char * file)
+ResourceTexture* TextureImporter::Load(const char * file)
 {
 	bool ret = true;
-	Texture* texture = new Texture();
+	ResourceTexture* texture = (ResourceTexture*)App->resources->CreateNewResource(RESOURCE_TEXTURE);
 	ILuint devil_id = 0;
 
 	ilGenImages(1, &devil_id);
@@ -121,6 +90,37 @@ Texture* TextureImporter::Load(const char * file)
 
 	ilDeleteImages(1, &devil_id);
 	texture->path = file;
+
+	return texture;
+}
+
+bool TextureImporter::Load(ResourceTexture* texture)
+{
+	bool ret = true;
+	ILuint devil_id = 0;
+
+	ilGenImages(1, &devil_id);
+	ilBindImage(devil_id);
+	ilutRenderer(ILUT_OPENGL);
+
+	std::string path = ".";
+	path.append(texture->imported_file.c_str());
+
+	if (!ilLoadImage(path.c_str())) {
+		auto error = ilGetError();
+		LOG("Failed to load texture with path: %s. Error: %s", texture->imported_file.c_str(), ilGetString(error));
+		ret = false;
+	}
+	else {
+		texture->image_id = ilutGLBindTexImage();
+		texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
+		texture->width = ilGetInteger(IL_IMAGE_WIDTH);
+
+		texture->GenerateTexture();
+		LOG("Loaded with path: %s succesfully!", texture->imported_file.c_str());
+	}
+
+	ilDeleteImages(1, &devil_id);
 
 	return texture;
 }
