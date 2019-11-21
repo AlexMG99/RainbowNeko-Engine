@@ -12,6 +12,7 @@ class PanelInspector;
 class PanelGame;
 class PanelShape;
 class PanelImporter;
+class PanelPlay;
 
 class ModuleEditor : public Module
 {
@@ -39,5 +40,9 @@ public:
 	PanelGame*				panel_game = nullptr;
 	PanelShape*				panel_shape = nullptr;
 	PanelImporter*          panel_importer = nullptr;
+	PanelPlay*              panel_play = nullptr;
+
+public:
+	bool gizmos = true;
 
 };

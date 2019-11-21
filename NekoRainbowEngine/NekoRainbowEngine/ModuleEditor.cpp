@@ -10,6 +10,7 @@
 #include "PanelShape.h"
 #include "ModuleViewport.h"
 #include "PanelImporter.h"
+#include "PanelPlay.h"
 
 #include "SDL/include/SDL_opengl.h"
 #include "SDL/include/SDL.h"
@@ -58,6 +59,7 @@ bool ModuleEditor::Start()
 	panel_game = new PanelGame("Game");
 	panel_shape = new PanelShape("Shape Creator");
 	panel_importer = new PanelImporter("Assets");
+	panel_play = new PanelPlay("Play");
 
 	//Start Panels
 	panel_topbar->Start();
@@ -68,6 +70,7 @@ bool ModuleEditor::Start()
 	panel_game->Start();
 	panel_shape->Start();
 	panel_importer->Start();
+	panel_play->Start();
 
 	return ret;
 }
@@ -90,7 +93,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 	ImGui::NewFrame();
 
 	ImGuizmo::BeginFrame();
-	ImGuizmo::Enable(true);
+	ImGuizmo::Enable(gizmos);
 
 
 	App->viewport->GuizControls();
@@ -142,6 +145,7 @@ bool ModuleEditor::CleanUp()
 	RELEASE(panel_topbar);
 	RELEASE(panel_shape);
 	RELEASE(panel_importer);
+	RELEASE(panel_play);
 
 	return true;
 }
@@ -185,6 +189,8 @@ void ModuleEditor::DrawPanels()
 		panel_shape->Draw();
 	if (panel_importer->IsEnabled())
 		panel_importer->Draw();
+	if (panel_play->IsEnabled())
+		panel_play->Draw();
 
 	ImGui::End();
 }

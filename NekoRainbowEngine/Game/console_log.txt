@@ -5,8 +5,8 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
+Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 431.60
 GLSL: 4.60 NVIDIA
 
 -------------- Application Start --------------

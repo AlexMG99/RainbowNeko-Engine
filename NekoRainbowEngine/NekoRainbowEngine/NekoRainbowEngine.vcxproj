@@ -124,6 +124,7 @@
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelImporter.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelPlay.h" />
     <ClInclude Include="PanelShape.h" />
     <ClInclude Include="PanelTopbar.h" />
     <ClInclude Include="PanelHelp.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="TextureImporter.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +294,7 @@
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelImporter.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelPlay.cpp" />
     <ClCompile Include="PanelShape.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
@@ -304,6 +307,7 @@
     <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="TextureImporter.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

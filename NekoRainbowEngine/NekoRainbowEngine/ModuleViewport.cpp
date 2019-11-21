@@ -15,6 +15,8 @@
 #include "PanelGame.h"
 #include "RayCast.h"
 #include "ResourceMesh.h"
+#include "Time.h"
+
 #include "Assimp/include/anim.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
 #include "FBO.h"
@@ -272,6 +274,18 @@ void ModuleViewport::GuizLogic()
 			transform->UpdateComponents();
 		}
 	}
+}
+
+void ModuleViewport::Play_Time()
+{
+	Time::Start();
+	SaveScene();
+}
+
+void ModuleViewport::Stop_Time()
+{
+	Time::Stop();
+	LoadScene();
 }
 
 bool ModuleViewport::LoadScene()

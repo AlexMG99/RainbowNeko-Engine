@@ -53,6 +53,9 @@ public:
 	void GuizLogic();
 	
 
+	void Play_Time();
+	void Stop_Time();
+
 public:
 	Scene* scene = nullptr;
 	GameObject* root_object = nullptr;

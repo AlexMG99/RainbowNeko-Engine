@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "imgui/imgui.h"
 #include "Parson/parson.h"
+#include "Time.h"
 
 #include "PanelConsole.h"
 
@@ -108,11 +109,15 @@ void Application::PrepareUpdate()
 
 	dt = (float)ms_timer.ReadSec();
 	ms_timer.Start();
+
+	Time::PreUpdate(dt);
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+
+	Time::Update();
 	// Framerate calculations --
 
 	if (last_sec_frame_time.Read() > 1000)
@@ -185,6 +190,11 @@ float Application::GetAvgFPS()
 float Application::GetAvgMs()
 {
 	return dt;
+}
+
+float Application::MSTimer()
+{
+	return ms_timer.Read()/1000.0f;
 }
 
 uint Application::GetCurrFPS()

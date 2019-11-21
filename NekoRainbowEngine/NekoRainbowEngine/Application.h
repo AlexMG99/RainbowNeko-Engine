@@ -69,6 +69,7 @@ public:
 
 	float GetAvgFPS();
 	float GetAvgMs();
+	float MSTimer();
 	uint GetCurrFPS();
 	void CapFPS(float frame_r);
 
