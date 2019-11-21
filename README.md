@@ -22,10 +22,15 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 * **Window**: Show/Hide Panels.
 	* _**Console**_.
 	* _**Configuration**_.
-	*	_**Game**_.
-	*	_**Hierarchy**_.
-	*	_**Inspector**_.
+	* _**Game**_.
+	* _**Hierarchy**_.
+	* _**Inspector**_.
         * _**Panel Shape**_.
+        * _**Assets**_.
+        * _**Play**_.
+
+
+
 ### Configuration
 * **Application**: Shows info about:
 	* _**Project Name**_. 
@@ -43,13 +48,42 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* _**Game panel mouse**_.
 * **Hardware**: It shows the capabilities of the hardware.
 * **Renderer**: Change backgroundcolor and activate/deactivate glRender properties and change view between POLYGON, WIREFRAME and VERTEX.
+* **Camera Setting**: Camera parameters:
+        * _**Near Plane**_.
+	* _**Far Plane**_.
+	* _**FOV**_.    
+	
 
 ### Hierarchy
 The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
+Also you can select the scene camera.
+
+
+### Game
+Show game scene 
+
+* **Check Boxes**: 
+	* _**Activate/Deactivate Grid**_. 
+	* _**Activate/Deactivate Fill**_.
+	* _**Activate/Deactivate Points**_:.
+        * _**Activate/Deactivate Camera Culling**_:.
+        * _**Activate/Deactivate Gizmos**_:.
+
+### Play
+Show scene through camera 
+
+* **Buttons**: 
+	* _**Play/Stop button: Starts/Stops/Resets Game Timer**_. 
+	* _**Continue/Pause button: Continue or Pauses Game Timer **_.
+	* _**One Frame button: Adds one frame to the paused Game Timer **_:.
+* **Timer**: 
+        * _**Real Timer: Starts when we start debugging**_. 
+	* _**Game Timer: Starts when Start Button is clicked**_.
 
 ### Inspector
 The panel Inspector shows information about that GameObject selected in the panel Hierarchy.
-* **Name**: Name of the object selected.
+* **Check Box**: Name of the GameObject selected.
+
 * **Transform**: Shows info about:
 	* _**Position of the object**_. 
 	* _**Scale of the object**_.
@@ -59,25 +93,31 @@ The panel Inspector shows information about that GameObject selected in the pane
 	* _**Activate or deactivate the mesh**_. 
 	* _**Activate or deactivate the normal vertex**_.
 	* _**Activate or deactivate the normal face**_:.
-	    
-	    
+
+* **Mesh**: It shows information about:
+	* _**Resource Mesh ID**_. 
+	* _**ID Vertex**_.
+	* _**Number of Vertex**_:.
+	* _**ID Index**_.
+	* _**Number of index**_:.
+        * _**ID Uv**_:.
+            Bounding Boxes check box:
+        * _**Show AABB**_. 
+      	* _**Show OBB**_.
+
+* **Mesh**: Mode:
+        * _**Change wireframe color**_. 
+      	* _**Change vertex color**_.
 	
-* **Mesh**: Shows info about:
-	* _**Id Vertices**_. 
-	* _**Number of Vertices**_.
-	* _**Id Indices**_:. 
-	* _**Id Indices**_. 
-	* _**Number of Indices**_.
-	* _**Id Uv**_.
 
 * **Texture**: Clicking in the check box you can:
 	* _**Activate or deactivate the texture**_. 
 	
 * **Texture**: Clicking in the check box you can:
+        * _**Resource Texture ID**_.
 	* _**Path of the texture**_.
 	* _**Id of the texture**_:. 
 	* _**Width and Height of the texture**_. 
-	* _**Number of Indices**_.
 	* _**Image of the texture**_.
 		
 ### Shape Creator
@@ -88,7 +128,9 @@ The panel Shape Creator allows you to create 5 types of shapes:
 	* _**Cylinder**_. 
 	* _**Cone**_.
 	* _**Plane**_.
-	
+        * _**Torus**_.
+	* _**Octahedron**_.
+
 
 ### Console
 The panel Console prints: 
@@ -110,6 +152,21 @@ The panel Console prints:
 	* _**Delete the selected GameObject and childrens**_.
 * **C key**:
 	* _**Centers the camera**_.
+* **Right Mouse Click on scene object**:
+	* _**Selects GameObject**_.
+
+## Guizmo Controls
+When a GameObject in the scene is selected:
+* **W key**:
+	* _**Translate GameObject**_.
+* **E key**:
+	* _**Rotate GameObject**_.
+* **R key**:
+	* _**Scale GameObject**_.
+* **X key**:
+	* _**Changes to World**_.
+* **D key**:
+	* _**Changes to Local**_.
 
 
 ## Innovations

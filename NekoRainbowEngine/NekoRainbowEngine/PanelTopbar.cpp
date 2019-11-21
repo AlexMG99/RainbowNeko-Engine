@@ -3,6 +3,7 @@
 #include "PanelScene.h"
 #include "PanelHelp.h"
 #include "PanelConsole.h"
+#include "PanelPlay.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
@@ -57,7 +58,8 @@ update_status PanelTopbar::Draw()
 		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
 		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
 		ImGui::MenuItem("Panel Shape ", NULL, &App->editor->panel_shape->enabled);
-		ImGui::MenuItem("Assets", NULL, &App->editor->panel_importer->enabled);
+		ImGui::MenuItem("Assets", NULL, &App->editor->panel_importer);
+		ImGui::MenuItem("Play", NULL, &App->editor->panel_play);
 
 		ImGui::EndMenu();
 	}
