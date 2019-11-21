@@ -13,9 +13,10 @@ PanelSceneManager::PanelSceneManager():Panel()
 update_status PanelSceneManager::Draw()
 {
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
-
+	
+	
 	ButtonFunctions();
-
+	
 	ImGui::SameLine();
 
 	ImGui::Text("Real Time: %.3f", scene_timer.ReadSec()); ImGui::SameLine();
@@ -28,8 +29,8 @@ update_status PanelSceneManager::Draw()
 
 void PanelSceneManager::ButtonFunctions()
 {
-	ImGui::Spacing();
-
+	
+	ImGui::SetCursorPos({ (float)(ImGui::GetWindowWidth()* 0.3), ImGui::GetCursorPosY() });
 	std::string stop_play = Time::running ? "STOP" : "PLAY";
 	if (ImGui::Button(stop_play.c_str(), ImVec2(70, 30)))
 	{
