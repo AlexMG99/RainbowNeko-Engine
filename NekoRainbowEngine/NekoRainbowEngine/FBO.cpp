@@ -3,6 +3,7 @@
 #include "GL/include/glew.h"
 #include "ModuleWindow.h"
 #include "ComponentCamera.h"
+#include "PanelScene.h"
 
 FBO::~FBO()
 {
@@ -60,7 +61,6 @@ void FBO::Bind(ImVec2 size_)
 	PrepareModelView();
 
 	//Buffer Texture/Depth
-	//TODO: Only OnResize
 	PrepareDepth();
 	PrepareTexture();
 
@@ -68,14 +68,14 @@ void FBO::Bind(ImVec2 size_)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	/*glStencilFunc(GL_NOTEQUAL, 1, -1);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);*/
+	glStencilFunc(GL_NOTEQUAL, 1, -1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
 void FBO::Unbind()
 {
-	/*glStencilFunc(GL_ALWAYS, 1, 0);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);*/
+	glStencilFunc(GL_ALWAYS, 1, 0);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -97,11 +97,19 @@ void FBO::PrepareModelView()
 void FBO::PrepareProjView()
 {
 	//TODO: Only OnResize
+	if (App->editor->panel_scene->OnResize()) 
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		ProjectionMatrix = perspective(comp_camera->frustum.horizontalFov * RADTODEG, (float)size.x / (float)size.y, comp_camera->frustum.nearPlaneDistance, comp_camera->frustum.farPlaneDistance);
+		glLoadMatrixf((float*)&ProjectionMatrix);
+	}
+	else
+	{
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glLoadMatrixf((float*)&comp_camera->GetOpenGLProjectionMatrix());
-		
-		comp_camera->update_proj = false;
+	}
 
 }
 

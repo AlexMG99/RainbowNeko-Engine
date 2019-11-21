@@ -35,11 +35,20 @@ update_status PanelScene::Draw()
 	WorldPosX = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x;
 	WorldPosY = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y;
 	
-	
-
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
 
 	ImGui::End();
 	return UPDATE_CONTINUE;
+}
+
+bool PanelScene::OnResize()
+{
+	if (window_size.x != new_win_size.x || window_size.y != new_win_size.y)
+	{
+		new_win_size = window_size;
+		return true;
+	}
+	else
+		return false;
 }

@@ -12,9 +12,11 @@ public:
 	~PanelScene() {};
 	
 	update_status Draw();
+	bool OnResize();
 	
 public:
 	ImVec2 window_size;
+	ImVec2 new_win_size;
 	
 
 	float WorldPosX = 0;

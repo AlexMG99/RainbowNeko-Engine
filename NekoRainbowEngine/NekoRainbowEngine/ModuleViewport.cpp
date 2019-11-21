@@ -264,8 +264,6 @@ void ModuleViewport::GuizLogic()
 		view_transposed = view_transposed.Transposed();
 
 		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix().Transposed();
-		
-
 		float4x4 object_transform_matrix = transform->global_matrix.Transposed();
 
 		ImGuizmo::SetRect(App->editor->panel_scene->pos_x, App->editor->panel_scene->pos_y, App->editor->panel_scene->width, App->editor->panel_scene->height);
