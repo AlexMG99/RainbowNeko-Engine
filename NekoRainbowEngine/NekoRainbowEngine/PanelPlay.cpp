@@ -38,7 +38,7 @@ void PanelPlay::ButtonFunctions()
 	std::string stop_play = Time::running ? "STOP" : "PLAY";
 	if (ImGui::Button(stop_play.c_str(), ImVec2(70, 30)))
 	{
-		Time::running ? App->viewport->Stop_Time() : App->viewport->Start();
+		Time::running ? App->viewport->Stop_Time() : App->viewport->Play_Time();
 	}
 
 	ImGui::SameLine();
