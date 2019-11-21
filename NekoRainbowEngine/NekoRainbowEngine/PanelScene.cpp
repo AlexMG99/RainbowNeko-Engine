@@ -24,19 +24,21 @@ update_status PanelScene::Draw()
 	ImGui::Checkbox("Camera Culling", &App->viewport->camera_culling); ImGui::SameLine();
 	ImGui::Checkbox("Gizmos", &App->editor->gizmos);
 
-	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
-	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
-
 	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), App->viewport->scene_fbo->GetTextureSize(), ImVec2(0, 1), ImVec2(1, 0));
 
 	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - App->viewport->scene_fbo->GetTextureSize().x) * 0.5f);
-	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - App->viewport->scene_fbo->GetTextureSize().y) * 0.5f);
+	ImGui::SetCursorPosX(App->input->GetMouseX() - ImGui::GetCursorScreenPos().x);
+	ImGui::SetCursorPosY(App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y);
+
+	WorldPosX = ImGui::GetCursorPosX();
+	WorldPosY = ImGui::GetCursorPosY();
+
+	LOG("Mouse X: %f		Mouse Y: %f \n", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
+	LOG("Width: %f		Height: %f \n", ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
-	
 
 	ImGui::End();
 	return UPDATE_CONTINUE;

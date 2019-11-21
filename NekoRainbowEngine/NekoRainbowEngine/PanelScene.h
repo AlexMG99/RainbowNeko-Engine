@@ -14,7 +14,6 @@ public:
 	update_status Draw();
 	
 public:
-	ImVec2 size;
 	ImVec2 window_size;
 
 	float WorldPosX = 0;

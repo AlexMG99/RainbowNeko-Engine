@@ -1,20 +1,240 @@
 
--------------- Application Init --------------
-Init SDL window & surface
-Init SDL input event system
-Creating 3D Renderer context
-Using Glew 2.1.0
-Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
-GLSL: 4.60 NVIDIA
+Mouse X: 420.000000		Mouse Y: 311.000000 
 
--------------- Application Start --------------
-Setting up the camera
-Framebuffer created succesfully!
-Framebuffer created succesfully!
-Generated mesh with id vertex: 5 and id index: 6
-Loaded with path: /Library/Textures/1271711834.dds succesfully!
-Generated mesh with id vertex: 11 and id index: 12
-Loading Editor Scene
--------------- Application Update --------------
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 420.000000		Mouse Y: 311.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 450.000000		Mouse Y: 285.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 501.000000		Mouse Y: 250.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 581.000000		Mouse Y: 197.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 698.000000		Mouse Y: 125.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 839.000000		Mouse Y: 48.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 969.000000		Mouse Y: -8.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1084.000000		Mouse Y: -52.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1164.000000		Mouse Y: -76.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 
+
+Mouse X: 1221.000000		Mouse Y: -81.000000 
+
+Width: 808.000000		Height: 680.000000 

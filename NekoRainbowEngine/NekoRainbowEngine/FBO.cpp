@@ -60,6 +60,7 @@ void FBO::Bind(ImVec2 size_)
 	PrepareModelView();
 
 	//Buffer Texture/Depth
+	//TODO: Only OnResize
 	PrepareDepth();
 	PrepareTexture();
 
@@ -90,7 +91,7 @@ void FBO::PrepareModelView()
 
 void FBO::PrepareProjView()
 {
-
+	//TODO: Only OnResize
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		ProjectionMatrix = perspective(comp_camera->frustum.horizontalFov * RADTODEG, (float)size.x / (float)size.y, comp_camera->frustum.nearPlaneDistance, comp_camera->frustum.farPlaneDistance);
