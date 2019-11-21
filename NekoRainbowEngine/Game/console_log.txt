@@ -17,3 +17,32 @@ Loaded with path: /Library/Textures/3890340333.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
 Loading Editor Scene
 -------------- Application Update --------------
+
+Generated mesh with id vertex: 27 and id index: 28
+Loaded with path: /Library/Textures/2247478051.dds succesfully!
+Generated mesh with id vertex: 33 and id index: 34
+Loaded with path: /Library/Textures/1387743892.dds succesfully!
+Generated mesh with id vertex: 39 and id index: 40
+Loaded with path: /Library/Textures/1904496798.dds succesfully!
+Generated mesh with id vertex: 45 and id index: 46
+Loaded with path: /Library/Textures/3659148202.dds succesfully!
+Generated mesh with id vertex: 51 and id index: 52
+Failed to load texture with path: 2358830892. Error: (null)
+Generated mesh with id vertex: 56 and id index: 57
+Failed to load texture with path: 4189296398. Error: (null)
+Generated mesh with id vertex: 62 and id index: 63
+Loaded with path: /Library/Textures/1670834089.dds succesfully!
+Generated mesh with id vertex: 71 and id index: 72
+Loaded with path: /Library/Textures/2420151772.dds succesfully!
+Generated mesh with id vertex: 77 and id index: 78
+Generated mesh with id vertex: 89 and id index: 90
+Loaded with path: /Library/Textures/3376743080.dds succesfully!
+Generated mesh with id vertex: 101 and id index: 102
+Generated mesh with id vertex: 107 and id index: 108
+Loaded with path: /Library/Textures/1609371971.dds succesfully!
+Generated mesh with id vertex: 113 and id index: 114
+Failed to load texture with path: 1902647207. Error: (null)
+Generated mesh with id vertex: 127 and id index: 128
+Generated mesh with id vertex: 133 and id index: 134
+Generated mesh with id vertex: 145 and id index: 146
+Generated mesh with id vertex: 151 and id index: 152

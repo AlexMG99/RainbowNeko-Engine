@@ -35,7 +35,6 @@ public:
 
 	bool ImportModel(const char* path, std::string& output_file, bool fromMeta, std::vector<Random> meshes, std::vector<Random> textures);
 	bool Load();
-	void ReorganizeHierarchy();
 private:
 	void GenerateTexture(const aiScene * scene, const char * file, std::vector<Random>& materials);
 	void GenerateMetaTexture(const aiScene * scene, const char * file, std::vector<Random> textures);

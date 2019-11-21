@@ -46,7 +46,7 @@ ResourceMesh* MeshImporter::Import(const aiMesh * aimesh, ResourceMesh* res_mesh
 	}
 
 	//Load Normals
-	if (aimesh->HasNormals())
+	if (aimesh->HasNormals() && (aimesh->mNumVertices % 3) == 0)
 	{
 		CalculateNormalFace(res_mesh, aimesh);
 	}

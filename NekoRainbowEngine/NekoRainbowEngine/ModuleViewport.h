@@ -61,6 +61,7 @@ public:
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
 
+	std::string point = ".";
 	std::string scene_name = "Scene01.scene";
 	bool draw_grid = true;
 	bool wireframe_on = false;

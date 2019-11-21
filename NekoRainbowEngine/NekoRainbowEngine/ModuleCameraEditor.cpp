@@ -73,7 +73,8 @@ update_status ModuleEditorCamera::Update(float dt)
 		{
 			float dx = (float)-motion_x * rot_speed * dt;
 			float dy = (float)-motion_y * rot_speed * dt;
-
+			
+		
 			Orbit(dx, dy);
 		}
 
