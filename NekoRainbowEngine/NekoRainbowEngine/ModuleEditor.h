@@ -9,7 +9,7 @@ class PanelConfiguration;
 class PanelConsole;
 class PanelHierarchy;
 class PanelInspector;
-class PanelGame;
+class PanelScene;
 class PanelShape;
 class PanelImporter;
 class PanelPlay;
@@ -37,7 +37,7 @@ public:
 	PanelConsole*			panel_console = nullptr;
 	PanelHierarchy*			panel_hierarchy = nullptr;
 	PanelInspector*			panel_inspector = nullptr;
-	PanelGame*				panel_game = nullptr;
+	PanelScene*				panel_game = nullptr;
 	PanelShape*				panel_shape = nullptr;
 	PanelImporter*          panel_importer = nullptr;
 	PanelPlay*              panel_play = nullptr;

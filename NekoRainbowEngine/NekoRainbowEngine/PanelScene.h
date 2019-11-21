@@ -1,31 +1,26 @@
-#ifndef PANEL_GAME_H_
-#define PANEL_GAME_H_
+#ifndef PANEL_SCENE_H_
+#define PANEL_SCENE_H_
 
 #include "Panel.h"
 
 class ImVec2;
 
-class PanelGame : public Panel {
+class PanelScene : public Panel {
 public:
-	PanelGame() {};
-	PanelGame(const char* name) : Panel(name) {};
-	~PanelGame() {};
+	PanelScene() {};
+	PanelScene(const char* name) : Panel(name) {};
+	~PanelScene() {};
 	
 	update_status Draw();
 	
-
 public:
 	ImVec2 size;
 
 	float height = 742;
 	float width = 1020;
-	
 
 	float WorldPosX = 0;
 	float WorldPosY = 0;
 };
-
-
-
 
 #endif

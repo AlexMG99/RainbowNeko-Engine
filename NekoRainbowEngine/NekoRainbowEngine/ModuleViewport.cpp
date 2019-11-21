@@ -12,7 +12,7 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "Scene.h"
-#include "PanelGame.h"
+#include "PanelScene.h"
 #include "RayCast.h"
 #include "ResourceMesh.h"
 #include "Time.h"
@@ -106,6 +106,12 @@ update_status ModuleViewport::PostUpdate(float dt)
 	root_object->Update();
 
 	scene_fbo->Unbind();
+
+	game_fbo->Bind();
+
+	root_object->Update();
+
+	game_fbo->Unbind();
 
 	return UPDATE_CONTINUE;
 }

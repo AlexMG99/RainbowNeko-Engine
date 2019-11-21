@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "PanelTopbar.h"
-#include "PanelGame.h"
+#include "PanelScene.h"
 #include "PanelHelp.h"
 #include "PanelConsole.h"
 #include "PanelHierarchy.h"

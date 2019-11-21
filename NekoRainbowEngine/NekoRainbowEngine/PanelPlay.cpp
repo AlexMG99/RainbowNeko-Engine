@@ -1,6 +1,8 @@
-#include "PanelPlay.h"
 #include "Application.h"
+#include "ModuleViewport.h"
+#include "PanelPlay.h"
 #include "Time.h"
+#include "FBO.h"
 #include "imgui/imgui.h"
 #include "Brofiler/Brofiler.h"
 
@@ -15,8 +17,6 @@ update_status PanelPlay::Draw()
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
 
-	/*ImGui::SetCursorPos({ (ImGui::GetWindowWidth()*0.5), ImGui::GetCursorPosY() });*/
-
 	ButtonFunctions();
 
 	ImGui::SameLine();
@@ -24,7 +24,7 @@ update_status PanelPlay::Draw()
 	ImGui::Text("Real Time: %.3f", scene_timer.ReadSec()); ImGui::SameLine();
 	ImGui::Text("Game Time: %.3f", Time::time);
 		
-
+	ImGui::Image((ImTextureID)App->viewport->game_fbo->GetTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 	return UPDATE_CONTINUE;

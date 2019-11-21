@@ -4,7 +4,7 @@
 #include "PanelTopbar.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
-#include "PanelGame.h"
+#include "PanelScene.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelShape.h"
@@ -56,7 +56,7 @@ bool ModuleEditor::Start()
 	panel_config = new PanelConfiguration("Configuration");
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
-	panel_game = new PanelGame("Game");
+	panel_game = new PanelScene("Game");
 	panel_shape = new PanelShape("Shape Creator");
 	panel_importer = new PanelImporter("Assets");
 	panel_play = new PanelPlay("Play");

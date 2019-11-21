@@ -3,7 +3,7 @@
 #include "GL/include/glew.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleCameraEditor.h"
-#include "PanelGame.h"
+#include "PanelScene.h"
 #include "PanelHierarchy.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"

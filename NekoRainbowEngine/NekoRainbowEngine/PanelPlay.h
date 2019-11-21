@@ -18,8 +18,9 @@ public:
 private:
 	Timer scene_timer;
 
+	float height = 742;
+	float width = 1020;
+
 };
-
-
 
 #endif

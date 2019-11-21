@@ -178,9 +178,6 @@
     <ClCompile Include="PanelHierarchy.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="PanelGame.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -264,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelScene.cpp">
+      <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -597,9 +597,6 @@
     <ClInclude Include="Assimp\include\cfileio.h">
       <Filter>Sources\3rdPartyLibrary\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="PanelGame.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -701,6 +698,9 @@
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelScene.h">
+      <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
