@@ -65,10 +65,6 @@ bool ModuleRenderer3D::Init()
 			LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 		}
 
-		//Init FBO
-		fbo = new FBO();
-		fbo->Create((uint)App->window->GetWinSize().x , App->window->GetWinSize().y);
-
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -112,19 +108,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	BROFILER_CATEGORY("PreUpdate_ModuleRenderer3D", Profiler::Color::SkyBlue);
 
-	fbo->Bind();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-	if (App->camera->GetCamera()->update_proj) {
-		UpdateProjectionMatrix();
-		App->camera->GetCamera()->update_proj = false;
-	}
-	glLoadIdentity();
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetCamera()->GetViewMatrix());
-
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->GetCamera()->GetCameraPosition().x, App->camera->GetCamera()->GetCameraPosition().y, App->camera->GetCamera()->GetCameraPosition().z);
 
@@ -139,8 +122,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostUpdate_ModuleRenderer3D", Profiler::Color::DarkBlue);
 
-	fbo->Unbind();
-
 	App->editor->DrawImGui();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -150,10 +131,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
-
-	fbo->Unbind();
-
-	RELEASE(fbo);
 
 	SDL_GL_DeleteContext(context);
 
@@ -174,23 +151,12 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-ImVec2 ModuleRenderer3D::GetTextureSize() const
-{
-	return ImVec2(fbo->width, fbo->height);
-}
-
-uint ModuleRenderer3D::GetWinTexture() const
-{
-	return fbo->GetTexture();
-}
-
-void ModuleRenderer3D::UpdateProjectionMatrix()
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glLoadMatrixf((float*)&App->camera->GetCamera()->GetOpenGLProjectionMatrix());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
+//ImVec2 ModuleRenderer3D::GetTextureSize() const
+//{
+//	return ImVec2(fbo->width, fbo->height);
+//}
+//
+//uint ModuleRenderer3D::GetWinTexture() const
+//{
+//	return fbo->GetTexture();
+//}

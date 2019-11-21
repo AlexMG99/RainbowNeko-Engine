@@ -5,6 +5,7 @@
 #include "imgui/imgui.h"
 #include "imGuizmo/ImGuizmo.h"
 #include "ModuleViewport.h"
+#include "FBO.h"
 #include "Brofiler/Brofiler.h"
 #include <string>
 
@@ -26,8 +27,7 @@ update_status PanelGame::Draw()
 	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
 
 	
-	ImGui::Image((ImTextureID)App->renderer3D->GetWinTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
-
+	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - width) * 0.5f);
 	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - height) * 0.5f);

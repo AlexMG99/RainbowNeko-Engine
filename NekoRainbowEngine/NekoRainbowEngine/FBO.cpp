@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "GL/include/glew.h"
 #include "ModuleWindow.h"
+#include "ComponentCamera.h"
+#include "imgui/imgui.h"
 
 FBO::~FBO()
 {
@@ -51,7 +53,12 @@ bool FBO::Create(uint width, uint height)
 
 void FBO::Bind()
 {
+	PrepareProjView();
+	PrepareModelView();
+
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_id);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void FBO::Unbind()
@@ -67,7 +74,41 @@ void FBO::Delete()
 	glDeleteTextures(1, &depth_id);
 }
 
+void FBO::PrepareModelView()
+{
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(comp_camera->GetViewMatrix());
+}
+
+void FBO::PrepareProjView()
+{
+	if (comp_camera->update_proj) {
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glLoadMatrixf((float*)&comp_camera->GetOpenGLProjectionMatrix());
+		
+		comp_camera->update_proj = false;
+	}
+}
+
 GLuint FBO::GetTexture() const
 {
 	return fbo_id;
+}
+
+ComponentCamera * FBO::GetComponentCamera() const
+{
+	return comp_camera;
+}
+
+void FBO::SetComponentCamera(ComponentCamera* camera)
+{
+	comp_camera = camera;
+}
+
+ImVec2 FBO::GetTextureSize() const
+{
+	return ImVec2(width, height);
 }

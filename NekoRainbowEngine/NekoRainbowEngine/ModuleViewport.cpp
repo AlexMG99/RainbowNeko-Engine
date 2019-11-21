@@ -17,6 +17,7 @@
 #include "ResourceMesh.h"
 #include "Assimp/include/anim.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
+#include "FBO.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -39,9 +40,21 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	camera_game = CreateGameObject("Camera", root_object);
 	camera_game->CreateComponentCamera(1.0f, 600.0f, 90);
+
 	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
 		scene = new Scene();
+
+	//Init Scene FBO
+	scene_fbo = new FBO();
+	scene_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
+	scene_fbo->SetComponentCamera(App->camera->GetSceneCamera());
+
+	//Init Game FBO
+	game_fbo = new FBO();
+	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
+	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
+
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	return ret;
 }
@@ -80,8 +93,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
 	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glClearStencil(0);
+	scene_fbo->Bind();
 
 	if(draw_grid)
 		DrawGrid(2,100);
@@ -91,11 +103,17 @@ update_status ModuleViewport::PostUpdate(float dt)
 
 	root_object->Update();
 
+	scene_fbo->Unbind();
+
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleViewport::CleanUp()
 {
+	scene_fbo->Unbind();
+
+	RELEASE(scene_fbo);
+	RELEASE(game_fbo);
 
 	return true;
 }
