@@ -15,10 +15,12 @@ public:
 	
 public:
 	ImVec2 window_size;
-	ImVec2 gizmo_pos;
+	
 
 	float WorldPosX = 0;
 	float WorldPosY = 0;
+	float width, height;
+	float pos_y, pos_x;
 };
 
 #endif

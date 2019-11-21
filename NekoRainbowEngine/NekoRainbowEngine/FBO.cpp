@@ -94,8 +94,7 @@ void FBO::PrepareProjView()
 	//TODO: Only OnResize
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		ProjectionMatrix = perspective(comp_camera->frustum.horizontalFov * RADTODEG, (float)size.x / (float)size.y, comp_camera->frustum.nearPlaneDistance, comp_camera->frustum.farPlaneDistance);
-		glLoadMatrixf((float*)&ProjectionMatrix);
+		glLoadMatrixf((float*)&comp_camera->GetOpenGLProjectionMatrix());
 		
 		comp_camera->update_proj = false;
 

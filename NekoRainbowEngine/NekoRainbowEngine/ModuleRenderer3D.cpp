@@ -97,9 +97,15 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 	}
 
+	
+	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
 	// Projection matrix for
 	OnResize(App->window->GetWinSize().x, App->window->GetWinSize().y);
-	return ret;
+	return true;
 }
 
 // PreUpdate: clear buffer
@@ -144,9 +150,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+	glLoadMatrixf((GLfloat*)&App->camera->GetSceneCamera()->frustum.ProjectionMatrix().Transposed());
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	
 }

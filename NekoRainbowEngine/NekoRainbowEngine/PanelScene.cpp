@@ -23,12 +23,19 @@ update_status PanelScene::Draw()
 	ImGui::Checkbox("Camera Culling", &App->viewport->camera_culling); ImGui::SameLine();
 	ImGui::Checkbox("Gizmos", &App->editor->gizmos);
 
+	pos_y = ImGui::GetCursorScreenPos().y;
+	pos_x = ImGui::GetCursorScreenPos().x;
+	width = ImGui::GetWindowWidth();
+	height = ImGui::GetWindowHeight();
+
 	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), App->viewport->scene_fbo->GetTextureSize(), ImVec2(0, 1), ImVec2(1, 0));
 
 	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
 	WorldPosX = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x;
 	WorldPosY = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y;
+	
+	
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();

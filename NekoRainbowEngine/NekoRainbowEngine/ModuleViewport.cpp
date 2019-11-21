@@ -261,21 +261,18 @@ void ModuleViewport::GuizLogic()
 		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
 
 		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
-		view_transposed.Transpose();
+		view_transposed = view_transposed.Transposed();
 
-		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix();
-		projection_transposed.Transpose();
+		float4x4 projection_transposed = App->camera->camera->frustum.ProjectionMatrix().Transposed();
+		
 
-		float4x4 object_transform_matrix = transform->global_matrix;
-		object_transform_matrix.Transpose();
+		float4x4 object_transform_matrix = transform->global_matrix.Transposed();
 
-		float4x4 delta_matrix;
-
-		ImGuizmo::SetRect(ImGui::GetCursorScreenPos().x, ImGui::GetCursorScreenPos().y, App->editor->panel_scene->window_size.x, App->editor->panel_scene->window_size.y);
+		ImGuizmo::SetRect(App->editor->panel_scene->pos_x, App->editor->panel_scene->pos_y, App->editor->panel_scene->width, App->editor->panel_scene->height);
 		ImGuizmo::SetDrawlist();
-		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
+		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr());
 	
-		if (ImGuizmo::IsUsing() && !delta_matrix.IsIdentity() )
+		if (ImGuizmo::IsUsing() )
 		{
 			transform->SetLocalTransform(object_transform_matrix.Transposed());
 			transform->UpdateComponents();
