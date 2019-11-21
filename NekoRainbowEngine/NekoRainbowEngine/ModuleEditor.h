@@ -13,6 +13,7 @@ class PanelScene;
 class PanelShape;
 class PanelImporter;
 class PanelPlay;
+class PanelSceneManager;
 
 class ModuleEditor : public Module
 {
@@ -38,7 +39,8 @@ public:
 	PanelHierarchy*			panel_hierarchy = nullptr;
 	PanelInspector*			panel_inspector = nullptr;
 	PanelScene*				panel_scene = nullptr;
-	PanelShape*				panel_shape = nullptr;
+	//PanelShape*				panel_shape = nullptr;
+	PanelSceneManager*		panel_scene_manager = nullptr;
 	PanelImporter*          panel_importer = nullptr;
 	PanelPlay*              panel_play = nullptr;
 

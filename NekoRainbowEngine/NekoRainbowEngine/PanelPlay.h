@@ -2,7 +2,6 @@
 #define PANEL_PLAY_H
 
 #include "Panel.h"
-#include "Timer.h"
 
 class ImVec2;
 
@@ -10,15 +9,11 @@ class PanelPlay : public Panel {
 
 public:
 
-	PanelPlay();
+	PanelPlay() :Panel() {};
 	PanelPlay(const char* name) : Panel(name) {};
 	~PanelPlay() {};
 
 	update_status Draw();
-	void ButtonFunctions();
-
-private:
-	Timer scene_timer;
 
 public:
 	ImVec2 window_size;

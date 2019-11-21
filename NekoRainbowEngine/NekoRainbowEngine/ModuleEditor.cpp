@@ -8,6 +8,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelShape.h"
+#include "PanelSceneManager.h"
 #include "ModuleViewport.h"
 #include "PanelImporter.h"
 #include "PanelPlay.h"
@@ -52,14 +53,15 @@ bool ModuleEditor::Start()
 	
 	// Initialize Panels
 	panel_topbar = new PanelTopbar("Topbar");
+	panel_importer = new PanelImporter("Assets");
 	panel_console = new PanelConsole("Console");
 	panel_config = new PanelConfiguration("Configuration");
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
-	panel_scene = new PanelScene("Game");
-	panel_shape = new PanelShape("Shape Creator");
-	panel_importer = new PanelImporter("Assets");
+	//panel_shape = new PanelShape("Shape Creator");
 	panel_play = new PanelPlay("Play");
+	panel_scene = new PanelScene("Game");
+	panel_scene_manager = new PanelSceneManager("SceneManager");
 
 	//Start Panels
 	panel_topbar->Start();
@@ -68,9 +70,10 @@ bool ModuleEditor::Start()
 	panel_hierarchy->Start();
 	panel_inspector->Start();
 	panel_scene->Start();
-	panel_shape->Start();
+	//panel_shape->Start();
 	panel_importer->Start();
 	panel_play->Start();
+	panel_scene_manager->Start();
 
 	return ret;
 }
@@ -116,11 +119,9 @@ update_status ModuleEditor::Update(float dt)
 void ModuleEditor::DrawImGui()
 {
 	BROFILER_CATEGORY("Draw_ModuleEditor_ImGui", Profiler::Color::GoldenRod);
-
-	
-
 	
 	glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+
 	// Rendering
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -138,9 +139,10 @@ bool ModuleEditor::CleanUp()
 	RELEASE(panel_inspector);
 	RELEASE(panel_console);
 	RELEASE(panel_topbar);
-	RELEASE(panel_shape);
+	//RELEASE(panel_shape);
 	RELEASE(panel_importer);
 	RELEASE(panel_play);
+	RELEASE(panel_scene_manager);
 
 	return true;
 }
@@ -180,12 +182,14 @@ void ModuleEditor::DrawPanels()
 		panel_inspector->Draw();
 	if (panel_scene->IsEnabled())
 		panel_scene->Draw();
-	if (panel_shape->IsEnabled())
-		panel_shape->Draw();
+	//if (panel_shape->IsEnabled())
+	//	panel_shape->Draw();
 	if (panel_importer->IsEnabled())
 		panel_importer->Draw();
 	if (panel_play->IsEnabled())
 		panel_play->Draw();
+	if (panel_scene_manager->IsEnabled())
+		panel_scene_manager->Draw();
 
 	ImGui::End();
 }

@@ -125,6 +125,7 @@
     <ClInclude Include="PanelImporter.h" />
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelPlay.h" />
+    <ClInclude Include="PanelSceneManager.h" />
     <ClInclude Include="PanelShape.h" />
     <ClInclude Include="PanelTopbar.h" />
     <ClInclude Include="PanelHelp.h" />
@@ -295,6 +296,7 @@
     <ClCompile Include="PanelImporter.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelPlay.cpp" />
+    <ClCompile Include="PanelSceneManager.cpp" />
     <ClCompile Include="PanelShape.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelHelp.cpp" />

@@ -265,6 +265,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="PanelSceneManager.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -700,6 +703,9 @@
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="PanelScene.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelSceneManager.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
   </ItemGroup>
