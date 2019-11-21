@@ -25,9 +25,9 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* _**Game**_.
 	* _**Hierarchy**_.
 	* _**Inspector**_.
-        * _**Panel Shape**_.
-        * _**Assets**_.
-        * _**Play**_.
+   * _**Panel Shape**_.
+   * _**Assets**_.
+   * _**Play**_.
 
 
 
@@ -49,10 +49,11 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 * **Hardware**: It shows the capabilities of the hardware.
 * **Renderer**: Change backgroundcolor and activate/deactivate glRender properties and change view between POLYGON, WIREFRAME and VERTEX.
 * **Camera Setting**: Camera parameters:
-        * _**Near Plane**_.
+	* _**Near Plane**_.
 	* _**Far Plane**_.
-	* _**FOV**_.    
-	
+	* _**FOV**_.
+                            
+	 
 
 ### Hierarchy
 The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
@@ -66,19 +67,21 @@ Show game scene
 	* _**Activate/Deactivate Grid**_. 
 	* _**Activate/Deactivate Fill**_.
 	* _**Activate/Deactivate Points**_:.
-        * _**Activate/Deactivate Camera Culling**_:.
-        * _**Activate/Deactivate Gizmos**_:.
+	* _**Activate/Deactivate Camera Culling**_. 
+	* _**Activate/Deactivate Gizmos**_.
+	
 
 ### Play
 Show scene through camera 
 
 * **Buttons**: 
-	* _**Play/Stop button: Starts/Stops/Resets Game Timer**_. 
-	* _**Continue/Pause button: Continue or Pauses Game Timer **_.
-	* _**One Frame button: Adds one frame to the paused Game Timer **_:.
+	* _**Play/Stop button: Starts/Stops/Resets Game Timer**_.  
+	* _**Continue/Pause button: Continue or Pauses Game Timer**_.
+	* _**One Frame button: Adds one frame to the paused Game Timer**_:.
 * **Timer**: 
-        * _**Real Timer: Starts when we start debugging**_. 
-	* _**Game Timer: Starts when Start Button is clicked**_.
+	* _**Real Timer: Starts when we start debugging**_.
+	* _**Game Timer: Starts when Start Button is clicked**_:.
+       
 
 ### Inspector
 The panel Inspector shows information about that GameObject selected in the panel Hierarchy.
@@ -91,8 +94,8 @@ The panel Inspector shows information about that GameObject selected in the pane
 	
 * **Mesh**: Clicking in the check boxes you can:
 	* _**Activate or deactivate the mesh**_. 
-	* _**Activate or deactivate the normal vertex**_.
-	* _**Activate or deactivate the normal face**_:.
+  * _**Activate or deactivate the normal vertex**_.
+  * _**Activate or deactivate the normal face**_:.
 
 * **Mesh**: It shows information about:
 	* _**Resource Mesh ID**_. 
@@ -100,14 +103,18 @@ The panel Inspector shows information about that GameObject selected in the pane
 	* _**Number of Vertex**_:.
 	* _**ID Index**_.
 	* _**Number of index**_:.
-        * _**ID Uv**_:.
-            Bounding Boxes check box:
-        * _**Show AABB**_. 
-      	* _**Show OBB**_.
-
+	* _**ID Uv**_:.
+        
+	
+* **Mesh**: Bounding Boxes check box:
+	* _**Show AABB**_.
+        * _**Show OBB**_. 
+      	
 * **Mesh**: Mode:
-        * _**Change wireframe color**_. 
-      	* _**Change vertex color**_.
+       
+	* _**Change wireframe color**_.
+        * _**Change vertex color**_. 
+      	
 	
 
 * **Texture**: Clicking in the check box you can:
