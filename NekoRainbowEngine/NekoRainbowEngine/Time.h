@@ -26,6 +26,7 @@ public:
 	static float scale_t;
 	static float time;
 	static Timer game_timer;
+	static bool oneframe;
 	static bool paused;
 	static bool running;
 

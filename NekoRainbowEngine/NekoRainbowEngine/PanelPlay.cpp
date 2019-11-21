@@ -43,7 +43,7 @@ void PanelPlay::ButtonFunctions()
 
 	ImGui::SameLine();
 
-	std::string pause_resume_time = Time::paused ? "RESUME" : "PAUSE";
+	std::string pause_resume_time = Time::paused ? "CONTINUE" : "PAUSE";
 	if (ImGui::Button(pause_resume_time.c_str(), ImVec2(70, 30)))
 	{
 		Time::paused ? Time::Resume() : Time::Pause();
@@ -51,9 +51,33 @@ void PanelPlay::ButtonFunctions()
 
 	ImGui::SameLine();
 
+	if (Time::oneframe)
+	{
+		Time::Pause();
+		Time::oneframe = false;
+	}
+
 	if (ImGui::Button("One Frame", ImVec2(70, 30)))
 	{
+		//Move timer one frame
+		Time::oneframe = (Time::oneframe == false) ? true : false;
 
+		if (Time::oneframe)
+		{
+			//Check if its paused
+			if (Time::paused)
+			{
+				//If it is activate resume (timer runs) and then activate pause (timer stops)
+				Time::Resume();
+				Time::paused = true;
+			}
+			else
+			{
+				//If not activate pause (timer stops) and then activate resume (timer starts)
+				Time::paused=true;
+				Time::Resume();
+			}
+		}
 	}
 
 }

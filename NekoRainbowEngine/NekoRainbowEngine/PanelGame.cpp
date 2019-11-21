@@ -20,7 +20,8 @@ update_status PanelGame::Draw()
 	ImGui::Checkbox("Fill", &App->viewport->fill_on); ImGui::SameLine();
 	ImGui::Checkbox("Wireframe", &App->viewport->wireframe_on); ImGui::SameLine();
 	ImGui::Checkbox("Points", &App->viewport->point_on); ImGui::SameLine();
-	ImGui::Checkbox("Camera Culling", &App->viewport->camera_culling);
+	ImGui::Checkbox("Camera Culling", &App->viewport->camera_culling); ImGui::SameLine();
+	ImGui::Checkbox("Gizmos", &App->editor->gizmos);
 
 	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
 	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();

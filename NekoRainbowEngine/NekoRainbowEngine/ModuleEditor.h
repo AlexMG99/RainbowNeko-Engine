@@ -42,4 +42,7 @@ public:
 	PanelImporter*          panel_importer = nullptr;
 	PanelPlay*              panel_play = nullptr;
 
+public:
+	bool gizmos = true;
+
 };

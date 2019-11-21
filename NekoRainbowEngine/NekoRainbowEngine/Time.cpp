@@ -6,6 +6,8 @@ float Time::time;
 
 Timer Time::game_timer;
 
+
+bool Time::oneframe = false;
 bool Time::paused = false;
 bool Time::running = false;
 

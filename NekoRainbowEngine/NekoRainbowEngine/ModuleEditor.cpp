@@ -93,7 +93,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 	ImGui::NewFrame();
 
 	ImGuizmo::BeginFrame();
-	ImGuizmo::Enable(true);
+	ImGuizmo::Enable(gizmos);
 
 
 	App->viewport->GuizControls();
