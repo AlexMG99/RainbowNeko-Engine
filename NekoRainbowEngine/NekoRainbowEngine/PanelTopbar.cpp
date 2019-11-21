@@ -53,7 +53,7 @@ update_status PanelTopbar::Draw()
 	{
 		ImGui::MenuItem("Console	", NULL, &App->editor->panel_console->enabled);
 		ImGui::MenuItem("Configuration	", NULL, &App->editor->panel_config->enabled);
-		ImGui::MenuItem("Game	", NULL, &App->editor->panel_game->enabled);
+		ImGui::MenuItem("Game	", NULL, &App->editor->panel_scene->enabled);
 		ImGui::MenuItem("Hierarchy	", NULL, &App->editor->panel_hierarchy->enabled);
 		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
 		ImGui::MenuItem("Panel Shape ", NULL, &App->editor->panel_shape->enabled);

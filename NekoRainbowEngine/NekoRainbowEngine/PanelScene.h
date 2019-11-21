@@ -15,9 +15,7 @@ public:
 	
 public:
 	ImVec2 size;
-
-	float height = 742;
-	float width = 1020;
+	ImVec2 window_size;
 
 	float WorldPosX = 0;
 	float WorldPosY = 0;

@@ -165,7 +165,7 @@ void ModuleEditorCamera::Zoom(float zoom)
 
 GameObject* ModuleEditorCamera::Pick(float3 * hit_point) 
 {
-	float2 origin = float2((App->input->GetMouseX() - App->editor->panel_game->WorldPosX) / App->editor->panel_game->width, (App->input->GetMouseY() - App->editor->panel_game->WorldPosY) /App->editor->panel_game->height);
+	float2 origin = float2((App->input->GetMouseX() - App->editor->panel_scene->WorldPosX) / App->editor->panel_scene->size.x, (App->input->GetMouseY() - App->editor->panel_scene->WorldPosY) /App->editor->panel_scene->size.y);
 
 	origin.x = (origin.x - 0.5F) * 2;
 	origin.y = -(origin.y - 0.5F) * 2;

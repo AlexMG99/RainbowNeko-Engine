@@ -4,6 +4,8 @@
 #include "Panel.h"
 #include "Timer.h"
 
+class ImVec2;
+
 class PanelPlay : public Panel {
 
 public:
@@ -18,8 +20,8 @@ public:
 private:
 	Timer scene_timer;
 
-	float height = 742;
-	float width = 1020;
+public:
+	ImVec2 window_size;
 
 };
 

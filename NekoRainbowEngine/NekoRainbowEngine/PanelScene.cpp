@@ -27,11 +27,12 @@ update_status PanelScene::Draw()
 	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
 	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
 
-	
-	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), App->viewport->scene_fbo->GetTextureSize(), ImVec2(0, 1), ImVec2(1, 0));
 
-	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - width) * 0.5f);
-	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - height) * 0.5f);
+	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - App->viewport->scene_fbo->GetTextureSize().x) * 0.5f);
+	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - App->viewport->scene_fbo->GetTextureSize().y) * 0.5f);
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();

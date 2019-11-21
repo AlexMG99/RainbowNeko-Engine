@@ -13,6 +13,7 @@
 #include "ComponentCamera.h"
 #include "Scene.h"
 #include "PanelScene.h"
+#include "PanelPlay.h"
 #include "RayCast.h"
 #include "ResourceMesh.h"
 #include "Time.h"
@@ -95,7 +96,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
 	
-	scene_fbo->Bind();
+	scene_fbo->Bind(App->editor->panel_scene->window_size);
 
 	if(draw_grid)
 		DrawGrid(2,100);
@@ -107,7 +108,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 
 	scene_fbo->Unbind();
 
-	game_fbo->Bind();
+	game_fbo->Bind(App->editor->panel_play->window_size);
 
 	root_object->Update();
 
@@ -270,7 +271,7 @@ void ModuleViewport::GuizLogic()
 
 		float4x4 delta_matrix;
 
-		ImGuizmo::SetRect(App->editor->panel_game->WorldPosX, App->editor->panel_game->WorldPosY, App->editor->panel_game->width, App->editor->panel_game->height);
+		ImGuizmo::SetRect(App->editor->panel_scene->WorldPosX, App->editor->panel_scene->WorldPosY, App->editor->panel_scene->size.x, App->editor->panel_scene->size.y);
 		ImGuizmo::SetDrawlist();
 		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
 	
