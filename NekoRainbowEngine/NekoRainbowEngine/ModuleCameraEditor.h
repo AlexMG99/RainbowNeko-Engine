@@ -30,7 +30,6 @@ public:
 	void MoveTo(const vec3 & Pos);
 	void LookAt(const float3 &Spot);
 
-	void ChangeCamera(ComponentCamera* camera);
 	void SetSceneCamera();
 
 	ComponentCamera* GetSceneCamera() const;

@@ -115,7 +115,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	BROFILER_CATEGORY("PreUpdate_ModuleRenderer3D", Profiler::Color::SkyBlue);
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->GetCamera()->GetCameraPosition().x, App->camera->GetCamera()->GetCameraPosition().y, App->camera->GetCamera()->GetCameraPosition().z);
+	lights[0].SetPos(App->camera->GetSceneCamera()->GetCameraPosition().x, App->camera->GetSceneCamera()->GetCameraPosition().y, App->camera->GetSceneCamera()->GetCameraPosition().z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();

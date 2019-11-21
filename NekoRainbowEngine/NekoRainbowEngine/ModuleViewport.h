@@ -76,6 +76,7 @@ public:
 	bool point_on = false;
 	bool camera_culling = false;
 	bool is_over_guizmo = false;
+	bool is_over_scene = false;
 
 private:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;

@@ -62,7 +62,7 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(dt);
 
 	// Mouse
-	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT))
+	if ((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT))
 	{
 		FocusObject(App->viewport->selected_object);
 
@@ -87,7 +87,7 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
-	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && !App->viewport->is_over_guizmo) 
+	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && !App->viewport->is_over_guizmo && App->viewport->is_over_scene) 
 	{
 		GameObject* pick = Pick();
 
@@ -113,6 +113,7 @@ update_status ModuleEditorCamera::Update(float dt)
 			App->viewport->selected_object = nullptr;
 		}
 	}
+	App->viewport->is_over_scene = false;
 		
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
@@ -127,15 +128,6 @@ void ModuleEditorCamera::LookAt(const float3 &Spot)
 {
 	camera->Reference = Spot;
 	camera->Look(Spot);
-}
-
-void ModuleEditorCamera::ChangeCamera(ComponentCamera* camera)
-{
-	if(!this->camera->my_go)
-		scene_camera = this->camera;
-
-	camera->update_proj = true;
-	this->camera = camera;
 }
 
 void ModuleEditorCamera::SetSceneCamera()

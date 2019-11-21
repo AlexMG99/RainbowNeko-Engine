@@ -34,6 +34,9 @@ update_status PanelScene::Draw()
 
 	WorldPosX = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x;
 	WorldPosY = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y;
+
+	if (ImGui::IsWindowHovered())
+		App->viewport->is_over_scene = true;
 	
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
