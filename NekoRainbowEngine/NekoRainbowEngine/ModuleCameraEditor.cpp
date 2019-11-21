@@ -159,7 +159,6 @@ void ModuleEditorCamera::Zoom(float zoom)
 	camera->Reference += zoom_movement;
 
 	camera->UpdateFrustum(true);
-
 	ImGui::SetMouseCursor(ImGuiMouseCursor_Zoom);
 }
 
@@ -170,6 +169,7 @@ GameObject* ModuleEditorCamera::Pick(float3 * hit_point)
 	origin.x = (origin.x - 0.5F) * 2;
 	origin.y = -(origin.y - 0.5F) * 2;
 
+	App->viewport->guizmo_pos = float2(App->editor->panel_scene->WorldPosX, App->editor->panel_scene->WorldPosY / App->editor->panel_scene->window_size.y);
 	//adal dreta-(1,1)
 	picking =  camera->frustum.UnProjectLineSegment(origin.x, origin.y);
 	drawraycast = true;

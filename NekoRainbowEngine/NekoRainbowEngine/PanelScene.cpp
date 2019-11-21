@@ -15,7 +15,6 @@ update_status PanelScene::Draw()
 	BROFILER_CATEGORY("Draw_PanelScene", Profiler::Color::GoldenRod);
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	/*size = App->window->GetWinSize();*/
 
 	ImGui::Checkbox("Grid", &App->viewport->draw_grid); ImGui::SameLine();
 	ImGui::Checkbox("Fill", &App->viewport->fill_on); ImGui::SameLine();
@@ -33,11 +32,6 @@ update_status PanelScene::Draw()
 
 	WorldPosX = ImGui::GetCursorPosX();
 	WorldPosY = ImGui::GetCursorPosY();
-
-	guizmo_pos = ImVec2((ImGui::GetWindowPos().x + ImGui::GetWindowWidth()) * 0.5f, ImGui::GetWindowPos().y + ImGui::GetCursorPosY());
-
-	LOG("Mouse X: %f		Mouse Y: %f \n", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
-	LOG("Width: %f		Height: %f \n", ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
