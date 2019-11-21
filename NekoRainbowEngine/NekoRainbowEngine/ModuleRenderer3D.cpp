@@ -111,7 +111,6 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-
 	BROFILER_CATEGORY("PreUpdate_ModuleRenderer3D", Profiler::Color::SkyBlue);
 
 	// light 0 on cam pos

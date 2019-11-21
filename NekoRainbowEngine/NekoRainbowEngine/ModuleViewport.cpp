@@ -437,6 +437,9 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 void ModuleViewport::DeleteGameObject()
 {
 	//Check ID
+	if (selected_object == camera_game)
+		return;
+
 	GameObject* parent = selected_object->GetParent();
 
 	for (auto it_obj = parent->children.begin(); it_obj < parent->children.end();) {

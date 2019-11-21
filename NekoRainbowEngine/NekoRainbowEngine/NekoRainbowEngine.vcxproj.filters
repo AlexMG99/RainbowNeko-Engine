@@ -708,6 +708,9 @@
     <ClInclude Include="PanelSceneManager.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
