@@ -205,14 +205,9 @@ update_status ModuleEditor::Save()
 void ModuleEditor::ChangeActualWindow(bool go)
 {
 	if (go)
-	{
-		panel_scene->enabled = false;
-		panel_scene->enabled = true;
-		panel_play->enabled = false;
-		panel_play->enabled = true;
-	}
+		ImGui::SetTabItemClosed("Scene");
 	else
-		panel_scene->enabled = true;
+		ImGui::SetTabItemClosed("Play");
 
 }
 

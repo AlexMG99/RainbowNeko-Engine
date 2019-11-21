@@ -97,18 +97,13 @@ update_status ModuleViewport::PostUpdate(float dt)
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
 	
 	scene_fbo->Bind(App->editor->panel_scene->window_size);
-
 	if(draw_grid)
 		DrawGrid(2,100);
-
 	root_object->Update();
-
 	scene_fbo->Unbind();
 
 	game_fbo->Bind(App->editor->panel_play->window_size);
-
 	root_object->Update();
-
 	game_fbo->Unbind();
 
 	return UPDATE_CONTINUE;
@@ -284,8 +279,8 @@ void ModuleViewport::Play_Time()
 {
 	Time::Start();
 	SaveScene();
-
 	App->editor->ChangeActualWindow(true);
+	camera_culling = true;
 }
 
 void ModuleViewport::Stop_Time()
@@ -294,6 +289,7 @@ void ModuleViewport::Stop_Time()
 	LoadScene();
 
 	App->editor->ChangeActualWindow(false);
+	camera_culling = false;
 }
 
 bool ModuleViewport::LoadScene()
