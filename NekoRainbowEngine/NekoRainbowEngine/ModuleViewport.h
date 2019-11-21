@@ -13,6 +13,7 @@
 
 
 class Scene;
+class FBO;
 
 class ModuleViewport : public Module
 {
@@ -31,8 +32,6 @@ public:
 
 	void BoxIntersection(GameObject* obj, LineSegment* ray, std::vector<RayCast>& scene_obj);
 	GameObject* TriangleTest(LineSegment& ray, GameObject* obj );
-
-	
 
 	bool LoadScene();
 	bool LoadGameObject(Scene scn);
@@ -63,6 +62,9 @@ public:
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
+
+	FBO* scene_fbo = nullptr;
+	FBO* game_fbo = nullptr;
 
 	std::string point = ".";
 	std::string scene_name = "Scene01.scene";

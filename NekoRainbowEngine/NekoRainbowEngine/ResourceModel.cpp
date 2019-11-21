@@ -245,5 +245,8 @@ bool ResourceModel::Save(ResourceModel model, std::string & output) const
 	output = ".";
 	output += LIBRARY_MODELS_FOLDER + model.nodes[0].name + ".model";
 	ret = model_scene->Save(output.c_str());
+
+	RELEASE(model_scene);
+
 	return ret;
 }

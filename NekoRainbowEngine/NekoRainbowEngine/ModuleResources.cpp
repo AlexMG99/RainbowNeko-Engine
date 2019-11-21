@@ -67,6 +67,8 @@ Resource* ModuleResources::FindMeta(const char * file)
 		return res;
 	}
 
+	RELEASE(meta);
+
 	return nullptr;
 }
 
@@ -188,6 +190,8 @@ bool ModuleResources::ImportMeta(const char* file_assets, const char* meta_path,
 		res->imported_file = "." + path;
 		res->Load();
 	}
+
+	RELEASE(meta);
 
 	return import_ok;
 }
@@ -332,6 +336,8 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 		std::string extension;
 		App->fs->SplitFilePath(file, nullptr, &file_name, &extension);
 		output += file_name;
+
+		RELEASE(resource_model);
 	}
 	break;
 	case RESOURCE_MESH:
@@ -357,6 +363,7 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 	
 	output +=".meta";
 
-	bool ret = meta->Save(output.c_str());
+	meta->Save(output.c_str());
 
+	RELEASE(meta);
 }
