@@ -101,9 +101,6 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if(draw_grid)
 		DrawGrid(2,100);
 
-	if (App->camera->drawraycast)
-		App->camera->DrawSegmentRay();
-
 	root_object->Update();
 
 	scene_fbo->Unbind();
@@ -270,11 +267,16 @@ void ModuleViewport::GuizLogic()
 		ImGuizmo::SetDrawlist();
 		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr());
 	
-		if (ImGuizmo::IsUsing() )
+		if (ImGuizmo::IsUsing())
 		{
 			transform->SetLocalTransform(object_transform_matrix.Transposed());
 			transform->UpdateComponents();
 		}
+
+		if (ImGuizmo::IsOver())
+			is_over_guizmo = true;
+		else
+			is_over_guizmo = false;
 	}
 }
 
@@ -282,12 +284,16 @@ void ModuleViewport::Play_Time()
 {
 	Time::Start();
 	SaveScene();
+
+	App->editor->ChangeActualWindow(true);
 }
 
 void ModuleViewport::Stop_Time()
 {
 	Time::Stop();
 	LoadScene();
+
+	App->editor->ChangeActualWindow(false);
 }
 
 bool ModuleViewport::LoadScene()

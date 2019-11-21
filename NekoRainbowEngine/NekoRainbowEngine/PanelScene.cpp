@@ -39,6 +39,7 @@ update_status PanelScene::Draw()
 	App->viewport->GuizLogic();
 
 	ImGui::End();
+
 	return UPDATE_CONTINUE;
 }
 

@@ -27,8 +27,6 @@ public:
 
 	void FocusObject(GameObject * obj);
 
-	void DrawSegmentRay();
-
 	void MoveTo(const vec3 & Pos);
 	void LookAt(const float3 &Spot);
 
@@ -49,7 +47,6 @@ public:
 	float move_mouse_speed = 5.0f;
 	float rot_speed = 10.0f;
 	float zoom_speed = 150.0f;
-	bool drawraycast = false;
 	LineSegment picking;
 	GameObject* picked_obj;
 	ComponentCamera* camera = nullptr;
@@ -57,6 +54,5 @@ public:
 private:
 	float3 looking_point;
 	
-	/*ComponentCamera* camera = nullptr;*/
 	ComponentCamera* scene_camera = nullptr;
 };

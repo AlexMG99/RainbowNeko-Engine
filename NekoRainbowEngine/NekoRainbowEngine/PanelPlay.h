@@ -3,13 +3,15 @@
 
 #include "Panel.h"
 
+#include "Timer.h"
+
 class ImVec2;
 
 class PanelPlay : public Panel {
 
 public:
 
-	PanelPlay() :Panel() {};
+	PanelPlay();
 	PanelPlay(const char* name) : Panel(name) {};
 	~PanelPlay() {};
 
@@ -17,6 +19,7 @@ public:
 
 public:
 	ImVec2 window_size;
+	Timer scene_timer;
 
 };
 

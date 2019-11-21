@@ -60,7 +60,7 @@ bool ModuleEditor::Start()
 	panel_inspector = new PanelInspector("Inspector");
 	//panel_shape = new PanelShape("Shape Creator");
 	panel_play = new PanelPlay("Play");
-	panel_scene = new PanelScene("Game");
+	panel_scene = new PanelScene("Scene");
 	panel_scene_manager = new PanelSceneManager("SceneManager");
 
 	//Start Panels
@@ -149,7 +149,6 @@ bool ModuleEditor::CleanUp()
 
 void ModuleEditor::DrawPanels()
 {
-
 	BROFILER_CATEGORY("Draw_ModuleEditor_Panels", Profiler::Color::GoldenRod);
 
 	//Dockspace
@@ -172,6 +171,8 @@ void ModuleEditor::DrawPanels()
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 	}
 
+	if (panel_importer->IsEnabled())
+		panel_importer->Draw();
 	if(panel_console->IsEnabled())
 		panel_console->Draw();
 	if (panel_config->IsEnabled())
@@ -180,14 +181,12 @@ void ModuleEditor::DrawPanels()
 		panel_hierarchy->Draw();
 	if (panel_inspector->IsEnabled())
 		panel_inspector->Draw();
+	if (panel_play->IsEnabled())
+		panel_play->Draw();
 	if (panel_scene->IsEnabled())
 		panel_scene->Draw();
 	//if (panel_shape->IsEnabled())
 	//	panel_shape->Draw();
-	if (panel_importer->IsEnabled())
-		panel_importer->Draw();
-	if (panel_play->IsEnabled())
-		panel_play->Draw();
 	if (panel_scene_manager->IsEnabled())
 		panel_scene_manager->Draw();
 
@@ -201,6 +200,20 @@ update_status ModuleEditor::Save()
 	ret = panel_topbar->Save();
 
 	return ret;
+}
+
+void ModuleEditor::ChangeActualWindow(bool go)
+{
+	if (go)
+	{
+		panel_scene->enabled = false;
+		panel_scene->enabled = true;
+		panel_play->enabled = false;
+		panel_play->enabled = true;
+	}
+	else
+		panel_scene->enabled = true;
+
 }
 
 

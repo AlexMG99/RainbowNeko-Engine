@@ -87,7 +87,7 @@ update_status ModuleEditorCamera::Update(float dt)
 		Move(mouse_motion.x, mouse_motion.y);
 	}
 
-	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN) 
+	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && !App->viewport->is_over_guizmo) 
 	{
 		GameObject* pick = Pick();
 
@@ -170,9 +170,8 @@ GameObject* ModuleEditorCamera::Pick(float3 * hit_point)
 	origin.y = -(origin.y - 0.5F) * 2;
 
 	App->viewport->guizmo_pos = float2(App->editor->panel_scene->WorldPosX, App->editor->panel_scene->WorldPosY / App->editor->panel_scene->window_size.y);
-	//adal dreta-(1,1)
+	
 	picking =  camera->frustum.UnProjectLineSegment(origin.x, origin.y);
-	drawraycast = true;
 
 	RayCast ray;
 
@@ -279,19 +278,4 @@ void ModuleEditorCamera::FocusObject(GameObject* obj)
 	}
 
 	camera->UpdateFrustum(true);
-}
-
-void ModuleEditorCamera::DrawSegmentRay()
-{
-	glLineWidth(5.0f);
-	
-	glBegin(GL_LINES);
-
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
-	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
-
-
-	glEnd();
 }

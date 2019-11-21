@@ -5,22 +5,11 @@
 
 #include <string>
 
-PanelSceneManager::PanelSceneManager():Panel()
-{
-	scene_timer.Start();
-}
-
 update_status PanelSceneManager::Draw()
 {
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
 	
-	
 	ButtonFunctions();
-	
-	ImGui::SameLine();
-
-	ImGui::Text("Real Time: %.3f", scene_timer.ReadSec()); ImGui::SameLine();
-	ImGui::Text("Game Time: %.3f", Time::time);
 
 	ImGui::End();
 
@@ -29,8 +18,7 @@ update_status PanelSceneManager::Draw()
 
 void PanelSceneManager::ButtonFunctions()
 {
-	
-	ImGui::SetCursorPos({ (float)(ImGui::GetWindowWidth()* 0.3), ImGui::GetCursorPosY() });
+	ImGui::SetCursorPos({ (float)(ImGui::GetWindowWidth()* 0.35), ImGui::GetCursorPosY() });
 	std::string stop_play = Time::running ? "STOP" : "PLAY";
 	if (ImGui::Button(stop_play.c_str(), ImVec2(70, 30)))
 	{

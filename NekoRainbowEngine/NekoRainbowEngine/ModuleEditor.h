@@ -26,6 +26,7 @@ public:
 	update_status Update(float dt);
 	update_status Save();
 
+	void ChangeActualWindow(bool go);
 	void DrawImGui();
 	bool CleanUp();
 

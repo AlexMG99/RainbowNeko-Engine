@@ -53,7 +53,6 @@ public:
 	void DrawGrid(uint separation, uint lines);
 	void GuizControls();
 	void GuizLogic();
-	
 
 	void Play_Time();
 	void Stop_Time();
@@ -76,6 +75,7 @@ public:
 	bool fill_on = true;
 	bool point_on = false;
 	bool camera_culling = false;
+	bool is_over_guizmo = false;
 
 private:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
