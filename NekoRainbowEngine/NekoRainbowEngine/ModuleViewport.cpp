@@ -271,7 +271,7 @@ void ModuleViewport::GuizLogic()
 
 		float4x4 delta_matrix;
 
-		ImGuizmo::SetRect(App->camera->guizmo_pos.x, App->camera->guizmo_pos.y, App->editor->panel_scene->window_size.x, App->editor->panel_scene->window_size.y);
+		ImGuizmo::SetRect(App->editor->panel_scene->guizmo_pos.x, App->editor->panel_scene->guizmo_pos.x, App->editor->panel_scene->window_size.x, App->editor->panel_scene->window_size.y);
 		ImGuizmo::SetDrawlist();
 		ImGuizmo::Manipulate(view_transposed.ptr(), projection_transposed.ptr(), guizmo_op, guizmo_mode, object_transform_matrix.ptr(), delta_matrix.ptr());
 	

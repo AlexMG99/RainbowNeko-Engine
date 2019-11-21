@@ -34,6 +34,8 @@ update_status PanelScene::Draw()
 	WorldPosX = ImGui::GetCursorPosX();
 	WorldPosY = ImGui::GetCursorPosY();
 
+	guizmo_pos = ImVec2((ImGui::GetWindowPos().x + ImGui::GetWindowWidth()) * 0.5f, ImGui::GetWindowPos().y + ImGui::GetCursorPosY());
+
 	LOG("Mouse X: %f		Mouse Y: %f \n", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
 	LOG("Width: %f		Height: %f \n", ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 

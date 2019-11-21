@@ -166,13 +166,9 @@ void ModuleEditorCamera::Zoom(float zoom)
 GameObject* ModuleEditorCamera::Pick(float3 * hit_point) 
 {
 	float2 origin = float2(App->editor->panel_scene->WorldPosX / App->editor->panel_scene->window_size.x, App->editor->panel_scene->WorldPosY / App->editor->panel_scene->window_size.y);
-	guizmo_pos = origin;
 
 	origin.x = (origin.x - 0.5F) * 2;
 	origin.y = -(origin.y - 0.5F) * 2;
-
-	guizmo_pos.x = App->editor->panel_scene->WorldPosX;
-	guizmo_pos.y = App->editor->panel_scene->WorldPosY;
 
 	//adal dreta-(1,1)
 	picking =  camera->frustum.UnProjectLineSegment(origin.x, origin.y);

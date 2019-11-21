@@ -53,7 +53,6 @@ public:
 	LineSegment picking;
 	GameObject* picked_obj;
 	ComponentCamera* camera = nullptr;
-	float2 guizmo_pos;
 
 private:
 	float3 looking_point;

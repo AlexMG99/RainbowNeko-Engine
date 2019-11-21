@@ -1,240 +1,240 @@
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 420.000000		Mouse Y: 311.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 450.000000		Mouse Y: 285.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 501.000000		Mouse Y: 250.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 581.000000		Mouse Y: 197.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 698.000000		Mouse Y: 125.000000 
+Mouse X: 699.000000		Mouse Y: 384.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 839.000000		Mouse Y: 48.000000 
+Mouse X: 699.000000		Mouse Y: 383.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 969.000000		Mouse Y: -8.000000 
+Mouse X: 699.000000		Mouse Y: 383.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1084.000000		Mouse Y: -52.000000 
+Mouse X: 677.000000		Mouse Y: 391.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1164.000000		Mouse Y: -76.000000 
+Mouse X: 677.000000		Mouse Y: 391.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 644.000000		Mouse Y: 400.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 631.000000		Mouse Y: 400.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 613.000000		Mouse Y: 401.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 593.000000		Mouse Y: 401.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 583.000000		Mouse Y: 398.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 574.000000		Mouse Y: 397.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 574.000000		Mouse Y: 397.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 562.000000		Mouse Y: 394.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 560.000000		Mouse Y: 393.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 560.000000		Mouse Y: 393.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 558.000000		Mouse Y: 393.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 557.000000		Mouse Y: 387.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 571.000000		Mouse Y: 364.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 614.000000		Mouse Y: 323.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 699.000000		Mouse Y: 265.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 813.000000		Mouse Y: 208.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 960.000000		Mouse Y: 137.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1139.000000		Mouse Y: 70.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1323.000000		Mouse Y: 25.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -24.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -59.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 
 
-Mouse X: 1221.000000		Mouse Y: -81.000000 
+Mouse X: 1366.000000		Mouse Y: -81.000000 
 
-Width: 808.000000		Height: 680.000000 
+Width: 1035.000000		Height: 779.000000 

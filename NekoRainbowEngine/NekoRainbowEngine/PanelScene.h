@@ -15,6 +15,7 @@ public:
 	
 public:
 	ImVec2 window_size;
+	ImVec2 guizmo_pos;
 
 	float WorldPosX = 0;
 	float WorldPosY = 0;
