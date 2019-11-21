@@ -261,11 +261,13 @@ void ModuleViewport::GuizLogic()
 void ModuleViewport::Play_Time()
 {
 	Time::Start();
+	SaveScene();
 }
 
 void ModuleViewport::Stop_Time()
 {
 	Time::Stop();
+	LoadScene();
 }
 
 bool ModuleViewport::LoadScene()
