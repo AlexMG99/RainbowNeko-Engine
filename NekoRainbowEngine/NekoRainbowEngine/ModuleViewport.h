@@ -5,10 +5,12 @@
 #include "par/par_shapes.h"
 #include "GameObject.h"
 #include "ModuleImporter.h"
+#include "MathGeoLib/include/Math/float2.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/Quat.h"
 #include "MathGeoLib/include/Geometry/LineSegment.h"
 #include "RayCast.h"
+#include "imgui/imgui.h"
 #include "imGuizmo/ImGuizmo.h"
 
 
@@ -65,6 +67,7 @@ public:
 
 	FBO* scene_fbo = nullptr;
 	FBO* game_fbo = nullptr;
+	float2 guizmo_pos;
 
 	std::string point = ".";
 	std::string scene_name = "Scene01.scene";

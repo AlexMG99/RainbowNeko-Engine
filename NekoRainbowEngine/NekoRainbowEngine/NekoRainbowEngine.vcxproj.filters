@@ -148,9 +148,6 @@
     <ClCompile Include="PanelConsole.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Sources\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
@@ -264,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="PanelScene.cpp">
       <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,6 @@ update_status PanelScene::Draw()
 	BROFILER_CATEGORY("Draw_PanelScene", Profiler::Color::GoldenRod);
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	/*size = App->window->GetWinSize();*/
 
 	ImGui::Checkbox("Grid", &App->viewport->draw_grid); ImGui::SameLine();
 	ImGui::Checkbox("Fill", &App->viewport->fill_on); ImGui::SameLine();
@@ -24,18 +23,18 @@ update_status PanelScene::Draw()
 	ImGui::Checkbox("Camera Culling", &App->viewport->camera_culling); ImGui::SameLine();
 	ImGui::Checkbox("Gizmos", &App->editor->gizmos);
 
-	WorldPosX = ImGui::GetWindowPos().x + ImGui::GetCursorPosX();
-	WorldPosY = ImGui::GetWindowPos().y + ImGui::GetCursorPosY();
+	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), App->viewport->scene_fbo->GetTextureSize(), ImVec2(0, 1), ImVec2(1, 0));
 
-	
-	ImGui::Image((ImTextureID)App->viewport->scene_fbo->GetTexture(), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - width) * 0.5f);
-	ImGui::SetCursorPosY((ImGui::GetWindowHeight() - height) * 0.5f);
+	ImGui::SetCursorPosX(App->input->GetMouseX() - ImGui::GetCursorScreenPos().x);
+	ImGui::SetCursorPosY(App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y);
+
+	WorldPosX = ImGui::GetCursorPosX();
+	WorldPosY = ImGui::GetCursorPosY();
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
-	
 
 	ImGui::End();
 	return UPDATE_CONTINUE;

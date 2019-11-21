@@ -3,7 +3,6 @@
 #include "GL/include/glew.h"
 #include "ModuleWindow.h"
 #include "ComponentCamera.h"
-#include "imgui/imgui.h"
 
 FBO::~FBO()
 {
@@ -43,18 +42,27 @@ bool FBO::Create(uint width, uint height)
 		ret = false;
 	}
 
-	this->width = width;
-	this->height = height;
+	size = ImVec2(width, height);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	return ret;
 }
 
-void FBO::Bind()
+void FBO::Bind(ImVec2 size_)
 {
+	size = size_;
+
+	//Camera
+	glViewport(0, 0, size.x, size.y);
+
 	PrepareProjView();
 	PrepareModelView();
+
+	//Buffer Texture/Depth
+	//TODO: Only OnResize
+	PrepareDepth();
+	PrepareTexture();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_id);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -83,14 +91,32 @@ void FBO::PrepareModelView()
 
 void FBO::PrepareProjView()
 {
-	if (comp_camera->update_proj) {
-
+	//TODO: Only OnResize
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glLoadMatrixf((float*)&comp_camera->GetOpenGLProjectionMatrix());
+		ProjectionMatrix = perspective(comp_camera->frustum.horizontalFov * RADTODEG, (float)size.x / (float)size.y, comp_camera->frustum.nearPlaneDistance, comp_camera->frustum.farPlaneDistance);
+		glLoadMatrixf((float*)&ProjectionMatrix);
 		
 		comp_camera->update_proj = false;
-	}
+
+}
+
+void FBO::PrepareTexture()
+{
+	glBindRenderbuffer(GL_RENDERBUFFER, depth_id);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
+
+	//Reset buffer
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+}
+
+void FBO::PrepareDepth()
+{
+	glBindTexture(GL_TEXTURE_2D, color_id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size.x, size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+	
+	//Reset buffer
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 GLuint FBO::GetTexture() const
@@ -110,5 +136,5 @@ void FBO::SetComponentCamera(ComponentCamera* camera)
 
 ImVec2 FBO::GetTextureSize() const
 {
-	return ImVec2(width, height);
+	return size;
 }

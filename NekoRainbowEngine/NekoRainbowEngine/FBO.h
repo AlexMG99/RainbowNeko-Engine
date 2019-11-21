@@ -2,9 +2,10 @@
 #define _FBO_H_
 
 #include "Globals.h"
+#include "glmath.h"
+#include "imgui/imgui.h"
 
 class ComponentCamera;
-class ImVec2;
 
 typedef unsigned int GLuint;
 
@@ -14,12 +15,14 @@ public:
 	~FBO();
 
 	bool Create(uint width, uint height);
-	void Bind();
+	void Bind(ImVec2 size);
 	void Unbind();
 	void Delete();
 
 	void PrepareModelView();
 	void PrepareProjView();
+	void PrepareTexture();
+	void PrepareDepth();
 
 	GLuint GetTexture() const;
 	ComponentCamera* GetComponentCamera() const;
@@ -35,7 +38,8 @@ public:
 	GLuint color_id = 0;
 	GLuint depth_id = 0;
 
-	uint width, height;
+	ImVec2 size;
+	mat4x4 ProjectionMatrix;
 };
 
 

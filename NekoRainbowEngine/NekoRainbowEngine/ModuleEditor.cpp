@@ -56,7 +56,7 @@ bool ModuleEditor::Start()
 	panel_config = new PanelConfiguration("Configuration");
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
-	panel_game = new PanelScene("Game");
+	panel_scene = new PanelScene("Game");
 	panel_shape = new PanelShape("Shape Creator");
 	panel_importer = new PanelImporter("Assets");
 	panel_play = new PanelPlay("Play");
@@ -67,7 +67,7 @@ bool ModuleEditor::Start()
 	panel_config->Start();
 	panel_hierarchy->Start();
 	panel_inspector->Start();
-	panel_game->Start();
+	panel_scene->Start();
 	panel_shape->Start();
 	panel_importer->Start();
 	panel_play->Start();
@@ -94,11 +94,6 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 	ImGuizmo::BeginFrame();
 	ImGuizmo::Enable(gizmos);
-
-
-	App->viewport->GuizControls();
-	App->viewport->GuizLogic();
-
 	
 	//// Rendering
 	//ImGui::Render();
@@ -138,7 +133,7 @@ bool ModuleEditor::CleanUp()
 
 	//Release Panels
 	RELEASE(panel_config);
-	RELEASE(panel_game);
+	RELEASE(panel_scene);
 	RELEASE(panel_hierarchy);
 	RELEASE(panel_inspector);
 	RELEASE(panel_console);
@@ -183,8 +178,8 @@ void ModuleEditor::DrawPanels()
 		panel_hierarchy->Draw();
 	if (panel_inspector->IsEnabled())
 		panel_inspector->Draw();
-	if (panel_game->IsEnabled())
-		panel_game->Draw();
+	if (panel_scene->IsEnabled())
+		panel_scene->Draw();
 	if (panel_shape->IsEnabled())
 		panel_shape->Draw();
 	if (panel_importer->IsEnabled())

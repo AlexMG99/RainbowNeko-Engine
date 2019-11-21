@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
+#include "MathGeoLib/include/Math/float2.h"
 #include "MathGeoLib/include/Geometry/Ray.h"
 #include "MathGeoLib/include/Geometry/Triangle.h"
 #include "MathGeoLib/include/Geometry/LineSegment.h"

@@ -37,7 +37,7 @@ public:
 	PanelConsole*			panel_console = nullptr;
 	PanelHierarchy*			panel_hierarchy = nullptr;
 	PanelInspector*			panel_inspector = nullptr;
-	PanelScene*				panel_game = nullptr;
+	PanelScene*				panel_scene = nullptr;
 	PanelShape*				panel_shape = nullptr;
 	PanelImporter*          panel_importer = nullptr;
 	PanelPlay*              panel_play = nullptr;

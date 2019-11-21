@@ -150,13 +150,3 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
-
-//ImVec2 ModuleRenderer3D::GetTextureSize() const
-//{
-//	return ImVec2(fbo->width, fbo->height);
-//}
-//
-//uint ModuleRenderer3D::GetWinTexture() const
-//{
-//	return fbo->GetTexture();
-//}
