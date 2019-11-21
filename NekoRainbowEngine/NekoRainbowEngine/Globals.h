@@ -31,7 +31,7 @@ void _log(ConsoleTextType type, const char file[], int line, const char * format
 #define ASSETS_META_FOLDER "/Assets/Meta/"
 #define SETTINGS_FOLDER "/Settings/"
 #define LIBRARY_FOLDER "/Library/"
-#define LIBRARY_SCENE_FOLDER "./Library/Scenes/"
+#define LIBRARY_SCENE_FOLDER "/Library/Scenes/"
 #define LIBRARY_TEXTURES_FOLDER "/Library/Textures/"
 #define LIBRARY_MESH_FOLDER "/Library/Meshes/"
 #define LIBRARY_MODELS_FOLDER "/Library/Models/"

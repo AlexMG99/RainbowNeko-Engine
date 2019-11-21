@@ -41,21 +41,6 @@ void ResourceMesh::GenerateBuffers()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float2)*UV_size, UV_coord, GL_STATIC_DRAW);
 	}
 
-	//Normal Definition
-	if (norm_face_size > 0)
-	{
-		glGenBuffers(1, &buffers[BUFF_NORMAL_FACE]);
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFF_NORMAL_FACE]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * norm_face_size, normals_face, GL_STATIC_DRAW);
-	}
-
-	if (norm_vertex_size > 0)
-	{
-		glGenBuffers(1, &buffers[BUFF_NORMAL_FACE]);
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFF_NORMAL_FACE]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * norm_vertex_size, normals_vertex, GL_STATIC_DRAW);
-	}
-
 	LOG("Generated mesh with id vertex: %i and id index: %i", buffers[BUFF_VERTICES], buffers[BUFF_INDEX]);
 }
 
@@ -79,8 +64,6 @@ ResourceMesh::~ResourceMesh()
 
 	glDeleteBuffers(1, &buffers[BUFF_INDEX]);
 	glDeleteBuffers(1, &buffers[BUFF_VERTICES]);
-	glDeleteBuffers(1, &buffers[BUFF_NORMAL]);
-	glDeleteBuffers(1, &buffers[BUFF_NORMAL_FACE]);
 	glDeleteBuffers(1, &buffers[BUFF_UV]);
 }
 
@@ -114,8 +97,6 @@ void ResourceMesh::ReleaseFromMemory()
 
 	glDeleteBuffers(1, &buffers[BUFF_INDEX]);
 	glDeleteBuffers(1, &buffers[BUFF_VERTICES]);
-	glDeleteBuffers(1, &buffers[BUFF_NORMAL]);
-	glDeleteBuffers(1, &buffers[BUFF_NORMAL_FACE]);
 	glDeleteBuffers(1, &buffers[BUFF_UV]);
 }
 

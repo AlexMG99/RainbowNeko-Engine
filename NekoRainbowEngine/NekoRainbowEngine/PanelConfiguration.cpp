@@ -196,7 +196,6 @@ void PanelConfiguration::AppSettings()
 
 			if (mode == 1) 
 			{
-
 				ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VERSION));
 				ImGui::Text("Brand:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.91f, 0.22f, 0.27f, 1.00f), "%s", glGetString(GL_VENDOR));
 
@@ -284,7 +283,7 @@ void PanelConfiguration::AppSettings()
 
 	void PanelConfiguration::CameraSettings()
 	{
-		if (ImGui::CollapsingHeader("CameraSettings"))
+		if (ImGui::CollapsingHeader("Camera Settings"))
 		{
 			ComponentCamera* comp_camera = (ComponentCamera*)App->camera->GetSceneCamera();
 			if (ImGui::InputFloat("Near Plane", &comp_camera->frustum.nearPlaneDistance, 5) ||

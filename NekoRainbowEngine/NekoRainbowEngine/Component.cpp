@@ -110,6 +110,11 @@ void ComponentTransform::CalculateGlobalAxis()
 	Z = matrix * Z;
 }
 
+void ComponentTransform::SetGlobalAxis(float3 X, float3 Y, float3 Z)
+{
+	global_matrix.Set3x3Part(float3x3(X,Y,Z));
+}
+
 void ComponentTransform::UpdateComponents()
 {
 	for (auto it_child = my_go->children.begin(); it_child != my_go->children.end(); it_child++)

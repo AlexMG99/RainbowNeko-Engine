@@ -41,7 +41,7 @@ bool ModuleViewport::Start()
 	root_object = CreateGameObject("Root Object");
 	camera_game = CreateGameObject("Camera", root_object);
 	camera_game->CreateComponentCamera(1.0f, 600.0f, 90);
-	scene = new Scene(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
 		scene = new Scene();
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
@@ -272,7 +272,7 @@ bool ModuleViewport::LoadScene()
 {
 	ResetScene();
 
-	scene = new Scene(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 
 	Scene go_scene = scene->GetArray("GameObjects");
 	int i = 0;
@@ -333,7 +333,7 @@ bool ModuleViewport::SaveScene()
 	}
 	num = -1;
 
-	ret = scene->Save(std::string(LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	ret = scene->Save(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 
 	return ret;
 }
@@ -363,15 +363,28 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 
 void ModuleViewport::ReorganizeHierarchy()
 {
+	if (root_object->children.empty())
+		return;
+
 	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end() - 1;)
 	{
-		if ((*it_child)->IsParentID((*(it_child + 1))->parent_id))
+		auto it_next = (it_child + 1);
+		if ((*it_child)->IsParentID((*it_next)->parent_id))
 		{
-			(*(it_child + 1))->SetParent(*it_child);
-			root_object->RemoveChild(*(it_child + 1));
+			(*it_next)->SetParent(*it_child);
+			root_object->RemoveChild(*it_next);
 		}
 		else
-			it_child++;
+		{
+			GameObject* it_new = (*it_child)->GetIteratorChild((*it_next)->parent_id);
+			if (it_new)
+			{
+				(*it_next)->SetParent(it_new);
+				root_object->RemoveChild(*it_next);
+			}
+			else
+				it_child++;
+		}
 	}
 }
 

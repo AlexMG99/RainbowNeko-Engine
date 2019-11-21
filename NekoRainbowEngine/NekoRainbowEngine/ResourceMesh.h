@@ -12,8 +12,6 @@ enum buffer_type
 {
 	BUFF_VERTICES,
 	BUFF_UV,
-	BUFF_NORMAL,
-	BUFF_NORMAL_FACE,
 	BUFF_INDEX,
 	BUFF_TOTAL
 };

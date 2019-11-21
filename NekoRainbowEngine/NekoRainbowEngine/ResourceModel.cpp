@@ -111,38 +111,11 @@ bool ResourceModel::Load()
 	}
 	
 	if (model->GetVRoot())
-		ReorganizeHierarchy();
+		App->viewport->ReorganizeHierarchy();
 	else
 		ret = false;
 
 	return ret;
-}
-
-void ResourceModel::ReorganizeHierarchy()
-{
-	if (App->viewport->root_object->children.empty())
-		return;
-
-	for (auto it_child = App->viewport->root_object->children.begin(); it_child != App->viewport->root_object->children.end() - 1;)
-	{
-		auto it_next = (it_child + 1);
-		if ((*it_child)->IsParentID((*it_next)->parent_id))
-		{
-			(*it_next)->SetParent(*it_child);
-			App->viewport->root_object->RemoveChild(*it_next);
-		}
-		else
-		{
-			GameObject* it_new = (*it_child)->GetIteratorChild((*it_next)->parent_id);
-			if (it_new) 
-			{
-				(*it_next)->SetParent(it_new);
-				App->viewport->root_object->RemoveChild(*it_next);
-			}
-			else
-				it_child++;
-		}
-	}
 }
 
 void LogCallback(const char* text, char* data)
