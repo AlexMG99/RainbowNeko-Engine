@@ -27,8 +27,11 @@ update_status PanelScene::Draw()
 
 	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-	WorldPosX = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x;
-	WorldPosY = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y;
+	ImGui::SetCursorPosX(App->input->GetMouseX() - ImGui::GetCursorScreenPos().x);
+	ImGui::SetCursorPosY(App->input->GetMouseY() - ImGui::GetCursorScreenPos().y + ImGui::GetWindowSize().y);
+
+	WorldPosX = ImGui::GetCursorPosX();
+	WorldPosY = ImGui::GetCursorPosY();
 
 	App->viewport->GuizControls();
 	App->viewport->GuizLogic();
