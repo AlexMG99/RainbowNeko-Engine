@@ -18,10 +18,10 @@ ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * ob
 {
 	wireframe_color = vec4(0, 1, 0, 1);
 	vertex_color = vec4(1, 0, 0, 1);
-	outline_color = vec4(0.54, 0.16, 0.9, 0);
+	outline_color = vec4(1, 1, 1, 0);
 	point_size = 1;
 	line_width = 1;
-	outline_width = 7;
+	outline_width = 3;
 }
 
 ComponentMesh::~ComponentMesh()

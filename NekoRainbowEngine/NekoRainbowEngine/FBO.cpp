@@ -65,14 +65,19 @@ void FBO::Bind(ImVec2 size_)
 	PrepareTexture();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_id);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+
+	/*glStencilFunc(GL_NOTEQUAL, 1, -1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);*/
 }
 
 void FBO::Unbind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	/*glStencilFunc(GL_ALWAYS, 1, 0);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);*/
 
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void FBO::Delete()

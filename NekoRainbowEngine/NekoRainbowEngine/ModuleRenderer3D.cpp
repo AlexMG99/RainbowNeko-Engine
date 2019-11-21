@@ -152,5 +152,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 	glLoadMatrixf((GLfloat*)&App->camera->GetSceneCamera()->frustum.ProjectionMatrix().Transposed());
 
-	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(App->camera->GetSceneCamera()->GetViewMatrix());
 }
