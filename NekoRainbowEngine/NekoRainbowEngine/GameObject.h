@@ -88,6 +88,7 @@ public:
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;
+	bool is_static = false;
 
 	uint32 parent_id;
 };

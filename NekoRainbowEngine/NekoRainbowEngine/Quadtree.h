@@ -2,18 +2,17 @@
 #define _QUADTREE_H_
 
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include <vector>
 
 class GameObject;
 
+#define BUCKET 4
+
 enum QuadIndex {
-	TOP_SW,
-	TOP_SE,
-	TOP_NW,
-	TOP_NE,
-	BOT_SW,
-	BOT_SE,
-	BOT_NW,
-	BOT_NE
+	SW,
+	SE,
+	NW,
+	NE
 };
 
 class QuadNode {
@@ -23,10 +22,11 @@ public:
 
 	void Insert(GameObject* obj);
 	void Remove(GameObject* obj);
+	void DrawNode();
 
 public:
 	AABB box;
-	void Draw();
+	
 };
 
 
@@ -36,6 +36,7 @@ public:
 	Quad() {};
 	~Quad() {};
 
+	void GenerateOctree(AABB section);
 	void Insert(GameObject* obj);
 	void Remove(GameObject* obj);
 
@@ -43,6 +44,8 @@ public:
 
 private:
 	QuadNode* root = nullptr;
+
+	std::vector<GameObject*> node_objects;
 };
 
 #endif // !_OCTREE_H_

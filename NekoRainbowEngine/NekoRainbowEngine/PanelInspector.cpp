@@ -32,7 +32,8 @@ update_status PanelInspector::Draw()
 		//Transform
 		ImGui::PushID("Transform");
 		ImGui::Checkbox("", &object->active); ImGui::SameLine();
-		ImGui::Text("%s		", object->GetName().c_str());
+		ImGui::Text("%s		", object->GetName().c_str()); ImGui::SameLine();
+		ImGui::Checkbox("Static", &object->is_static);
 		ImGui::Separator();
 
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
