@@ -206,6 +206,7 @@
     <ClInclude Include="Panel.h" />
     <ClInclude Include="Parson\parson.h" />
     <ClInclude Include="par\par_shapes.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PCG\pcg_extras.hpp" />
     <ClInclude Include="PCG\pcg_random.hpp" />
     <ClInclude Include="PCG\pcg_uint128.hpp" />

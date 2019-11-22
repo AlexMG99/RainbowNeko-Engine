@@ -3,6 +3,8 @@
 
 #include "Panel.h"
 
+#include "Path.h"
+
 class PanelAssets : public Panel {
 public: 
 	PanelAssets() {};
@@ -11,6 +13,9 @@ public:
 
 
 	update_status Draw();
+
+private:
+	void DrawFolders(const Path& node);
 
 
 };
