@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "PanelImporter.h"
+#include "PanelAssets.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
@@ -13,10 +13,10 @@
 //{
 //}
 
-update_status PanelImporter::Draw()
+update_status PanelAssets::Draw()
 {
 
-	BROFILER_CATEGORY("Draw_PanelImpotrter", Profiler::Color::GoldenRod);
+	BROFILER_CATEGORY("Draw_PanelAssets", Profiler::Color::GoldenRod);
 
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin(name, &enabled);

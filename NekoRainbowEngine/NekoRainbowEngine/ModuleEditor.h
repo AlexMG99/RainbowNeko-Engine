@@ -11,7 +11,7 @@ class PanelHierarchy;
 class PanelInspector;
 class PanelScene;
 class PanelShape;
-class PanelImporter;
+class PanelAssets;
 class PanelPlay;
 class PanelSceneManager;
 
@@ -42,7 +42,7 @@ public:
 	PanelScene*				panel_scene = nullptr;
 	//PanelShape*				panel_shape = nullptr;
 	PanelSceneManager*		panel_scene_manager = nullptr;
-	PanelImporter*          panel_importer = nullptr;
+	PanelAssets*            panel_assets = nullptr;
 	PanelPlay*              panel_play = nullptr;
 
 public:

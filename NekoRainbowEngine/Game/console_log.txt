@@ -4,15 +4,15 @@ Init SDL window & surface
 Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
-Vendor: NVIDIA Corporation
-Renderer: Quadro FX 580/PCIe/SSE2
-OpenGL version supported 3.3.0
-GLSL: 3.30 NVIDIA via Cg compiler
+Vendor: ATI Technologies Inc.
+Renderer: AMD Radeon HD 6450
+OpenGL version supported 4.5.13399 Compatibility Profile Context 15.201.1151.1008
+GLSL: 4.40
 
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
-Loaded with path: /Library/Textures/447794986.dds succesfully!
+Loaded with path: /Library/Textures/5485697.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
 Loading Editor Scene
 -------------- Application Update --------------

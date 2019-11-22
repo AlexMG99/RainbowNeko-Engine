@@ -10,7 +10,7 @@
 #include "PanelShape.h"
 #include "PanelSceneManager.h"
 #include "ModuleViewport.h"
-#include "PanelImporter.h"
+#include "PanelAssets.h"
 #include "PanelPlay.h"
 
 #include "SDL/include/SDL_opengl.h"
@@ -53,7 +53,7 @@ bool ModuleEditor::Start()
 	
 	// Initialize Panels
 	panel_topbar = new PanelTopbar("Topbar");
-	panel_importer = new PanelImporter("Assets");
+	panel_assets = new PanelAssets("Assets");
 	panel_console = new PanelConsole("Console");
 	panel_config = new PanelConfiguration("Configuration");
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
@@ -71,7 +71,7 @@ bool ModuleEditor::Start()
 	panel_inspector->Start();
 	panel_scene->Start();
 	//panel_shape->Start();
-	panel_importer->Start();
+	panel_assets->Start();
 	panel_play->Start();
 	panel_scene_manager->Start();
 
@@ -140,7 +140,7 @@ bool ModuleEditor::CleanUp()
 	RELEASE(panel_console);
 	RELEASE(panel_topbar);
 	//RELEASE(panel_shape);
-	RELEASE(panel_importer);
+	RELEASE(panel_assets);
 	RELEASE(panel_play);
 	RELEASE(panel_scene_manager);
 
@@ -171,8 +171,8 @@ void ModuleEditor::DrawPanels()
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 	}
 
-	if (panel_importer->IsEnabled())
-		panel_importer->Draw();
+	if (panel_assets->IsEnabled())
+		panel_assets->Draw();
 	if(panel_console->IsEnabled())
 		panel_console->Draw();
 	if (panel_config->IsEnabled())
