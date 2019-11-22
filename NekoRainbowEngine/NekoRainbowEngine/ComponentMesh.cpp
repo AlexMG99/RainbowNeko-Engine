@@ -9,6 +9,7 @@
 #include "MeshImporter.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
+#include "PanelConsole.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -192,10 +193,10 @@ void ComponentMesh::RenderPoint()
 	glColor3f(1, 1, 1);
 }
 
-void ComponentMesh::DrawSelectedOutline()
+bool ComponentMesh::DrawSelectedOutline()
 {
 	if (!glIsEnabled(GL_STENCIL_TEST))
-		return;
+		return false;
 
 	glColor3f(outline_color.r, outline_color.g, outline_color.b);
 	glLineWidth(outline_width);
@@ -211,7 +212,7 @@ void ComponentMesh::DrawSelectedOutline()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->buffers[BUFF_INDEX]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 
-	glDrawElements(GL_TRIANGLES, mesh->index_size * 3, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, mesh->index_size, GL_UNSIGNED_INT, 0);
 
 	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_POLYGON_OFFSET_FILL);
@@ -219,6 +220,7 @@ void ComponentMesh::DrawSelectedOutline()
 
 	glLineWidth(1);
 
+	return true;
 }
 
 bool ComponentTexture::OnSave(Scene & scene, int i) const

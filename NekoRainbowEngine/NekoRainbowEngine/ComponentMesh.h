@@ -34,7 +34,7 @@ public:
 	void RenderWireframe();
 	void RenderPoint();
 
-	void DrawSelectedOutline();
+	bool DrawSelectedOutline();
 
 private:
 	uint id_vertexAABB = 0;
@@ -55,9 +55,9 @@ public:
 	vec4 wireframe_color;
 	vec4 vertex_color;
 	vec4 outline_color;
-	int point_size;
-	int line_width;
-	int outline_width;
+	int point_size = 1.0;
+	int line_width = 1.0;
+	int outline_width = 1.0;
 
 	//Component Transform
 	ComponentTransform* transform = nullptr;
