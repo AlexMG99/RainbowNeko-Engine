@@ -25,6 +25,7 @@ bool PanelAssets::Start()
 	CreateNodeTexture("./Icons/Model.png");
 	CreateNodeTexture("./Icons/PNG.png");
 	CreateNodeTexture("./Icons/Scene.png");
+	CreateNodeTexture("./Icons/Arrow.png");
 
 	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
 	actual_node = &nodes;
@@ -42,7 +43,7 @@ update_status PanelAssets::Draw()
 
 	if (back_node)
 		back_node->Draw();
-
+	
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		actual_node->at(i).Draw();
@@ -97,7 +98,8 @@ void Node::Draw()
 	ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
 	if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 0))
 	{
-		/*App->editor->panel_assets->actual_node = childrens;*/
+		App->editor->panel_assets->actual_node = App->editor->panel_assets->nodes.begin;
+		
 	}
 	ImGui::Text("%s", local_path.c_str());
 	ImGui::EndChild();

@@ -45,6 +45,7 @@ public:
 
 	std::vector<Node>* actual_node;
 	std::vector<Node> nodes;
+	std::vector<Node>* library_node;
 
 	Node* back_node = nullptr;
 
