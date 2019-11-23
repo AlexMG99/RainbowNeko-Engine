@@ -116,7 +116,7 @@ uint PanelAssets::NodeTexture(const Path& node, uint64 * item, std::string * eve
 void Node::Draw()
 {
 	ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
-	ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 0);
+	ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 1);
 	ImGui::Text("%s", local_path.c_str());
 	ImGui::EndChild();
 	ImGui::SameLine();

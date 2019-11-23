@@ -12,10 +12,11 @@ struct Path
 	std::string path;
 	std::string local_path;
 
-
 	std::vector<Path> childs;
 
 	bool file = true;
+
+	int image_id = 0;
 };
 
 

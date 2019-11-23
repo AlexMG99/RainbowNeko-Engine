@@ -78,17 +78,6 @@ bool ModuleEditor::Start()
 	panel_play->Start();
 	panel_scene_manager->Start();
 
-
-
-	char* buff = nullptr;
-	/*Random ID = App->importer->texture_imp->ImportTexture("./Icons/Icon_Folder.png");*/
-	/*
-	std::string path;
-	Resource* icon = App->resources->Get(ID.GetNumber());
-	icon->file = "./Icons/Icon_Folder.png"; 
-	App->resources->SaveMeta(path.c_str(), App->resources->Get(ID.GetNumber()));*/
-
-
 	return ret;
 }
 
