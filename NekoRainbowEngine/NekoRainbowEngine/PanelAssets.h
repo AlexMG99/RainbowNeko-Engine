@@ -15,9 +15,15 @@ public:
 	update_status Draw();
 
 private:
-	void DrawFolders(const Path& node);
+	/*void DrawFolders(const Path& node);*/
+
+	uint NodeTexture(const Path& node, uint64* item = nullptr, std::string* event = nullptr);
 
 
+
+public:
+	uint b_folder = 0;
+	uint f_folder = 0;
 };
 
 

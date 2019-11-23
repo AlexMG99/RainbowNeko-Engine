@@ -15,7 +15,7 @@ struct Path
 
 	std::vector<Path> childs;
 
-
+	bool file = true;
 };
 
 

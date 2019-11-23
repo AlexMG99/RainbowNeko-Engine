@@ -1,5 +1,7 @@
 #include "Application.h"
+#include "Random.h"
 #include "PanelAssets.h"
+#include "ModuleResources.h"
 #include "SDL/include/SDL_opengl.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "SDL/include/SDL.h"
@@ -44,4 +46,24 @@ update_status PanelAssets::Draw()
 	
 
 	return ret;
+}
+
+uint PanelAssets::NodeTexture(const Path& node, uint64 * item, std::string * event)
+{
+	/*Random r_ID = 0;
+	if (node.file == false)
+	{
+		if (event) event->assign("FOLDER");
+		return folderBuffer;
+
+	 }
+	else
+	{
+		std::string m_files = node.path + (".meta");
+		r_ID = App->resources->ImportFile(m_files.c_str(), RESOURCE_TEXTURE);
+		
+
+	}*/
+
+	return uint();
 }
