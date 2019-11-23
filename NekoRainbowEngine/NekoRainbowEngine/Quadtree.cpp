@@ -16,6 +16,7 @@ void Quad::GenerateQuadtree(AABB section)
 {
 	if (root) {
 		RELEASE(root);
+		quad_objects.clear();
 	}
 
 	root = new QuadNode(section);
@@ -45,6 +46,23 @@ void Quad::Insert(GameObject * obj)
 	}
 }
 
+void Quad::DeleteQuad()
+{
+	if (root)
+	{
+		root->DeleteNode();
+		RELEASE(root);
+	}
+
+	for (auto it_obj = quad_objects.begin(); it_obj != quad_objects.end(); it_obj)
+	{
+		it_obj = quad_objects.erase(it_obj);
+	}
+
+	quad_objects.clear();
+
+}
+
 void QuadNode::SubDivide()
 {
 	float3 mid_point = float3(section.minPoint.x + (section.maxPoint.x - section.minPoint.x) * 0.5F,
@@ -57,6 +75,24 @@ void QuadNode::SubDivide()
 	AddNode(float3(min(mid_point.x, section.maxPoint.x), min(section.minPoint.y, section.maxPoint.y), min(mid_point.z, section.minPoint.z)), float3(max(mid_point.x, section.maxPoint.x), max(section.minPoint.y, section.maxPoint.y), max(mid_point.z, section.minPoint.z)));
 	AddNode(float3(min(mid_point.x, section.minPoint.x), min(section.minPoint.y, section.maxPoint.y), min(mid_point.z, section.maxPoint.z)), float3(max(mid_point.x, section.minPoint.x), max(section.minPoint.y, section.maxPoint.y), max(mid_point.z, section.maxPoint.z)));
 
+	for (auto it_obj = node_objects.begin(); it_obj != node_objects.end();)
+	{
+		bool erase = false;
+		for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
+		{
+			ComponentMesh* comp_mesh = (*it_obj)->GetComponentMesh();
+			if (comp_mesh && (*it_child)->section.Contains(comp_mesh->BB_mesh.GetGlobalAABB(*it_obj)))
+			{
+				(*it_child)->Insert(*it_obj, comp_mesh->BB_mesh.GetGlobalAABB(*it_obj));
+				erase = true;
+				break;
+			}
+		}
+		if (erase)
+			it_obj = node_objects.erase(it_obj);
+		else
+			it_obj++;
+	}
 }
 
 void QuadNode::AddNode(const float3 min, const float3 max)
@@ -98,8 +134,6 @@ void Quad::ReCalculate(GameObject * obj)
 	{
 		Insert(*it_save);
 	}
-
-	save_obj.clear();
 }
 
 bool Quad::IsGameobjectQuad(GameObject * obj)
@@ -115,7 +149,8 @@ bool Quad::IsGameobjectQuad(GameObject * obj)
 
 void Quad::Draw()
 {
-	root->DrawNode();
+	if(root)
+		root->DrawNode();
 }
 
 QuadNode::QuadNode(float3 min, float3 max)
@@ -213,6 +248,24 @@ void QuadNode::DrawNode()
 
 }
 
+void QuadNode::DeleteNode()
+{
+	for (auto it_node = node_objects.begin(); it_node != node_objects.end(); it_node)
+	{
+		it_node = node_objects.erase(it_node);
+	}
+
+	node_objects.clear();
+
+	for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
+	{
+		(*it_child)->DeleteNode();
+		RELEASE(*it_child);
+	}
+
+	childrens.clear();
+}
+
 void QuadNode::EmptyNode()
 {
 	for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
@@ -235,6 +288,8 @@ void QuadNode::SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB & aabb)
 			aabb.maxPoint = float3(max(aabb.maxPoint.x, aux_aabb.maxPoint.x), max(aabb.maxPoint.y, aux_aabb.maxPoint.y), max(aabb.maxPoint.z, aux_aabb.maxPoint.z));
 		}
 	}
+
+	node_objects.clear();
 
 	for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
 	{

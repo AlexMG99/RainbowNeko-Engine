@@ -18,6 +18,7 @@ public:
 	void Insert(GameObject* obj, AABB aabb);
 	void Remove(GameObject* obj) {};
 	void DrawNode();
+	void DeleteNode();
 
 	void SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB& aabb);
 
@@ -46,7 +47,7 @@ public:
 
 	void GenerateQuadtree(AABB section);
 	void Insert(GameObject* obj);
-	void Remove(GameObject* obj) {};
+	void DeleteQuad();
 
 	void ReCalculate(GameObject* obj);
 
