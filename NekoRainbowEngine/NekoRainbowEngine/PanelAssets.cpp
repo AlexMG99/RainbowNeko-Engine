@@ -26,7 +26,8 @@ bool PanelAssets::Start()
 	CreateNodeTexture("./Icons/PNG.png");
 	CreateNodeTexture("./Icons/Scene.png");
 
-	CreateNodes(nodes, LIBRARY_FOLDER);
+	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
+	actual_node = &nodes;
 
 	return true;
 }
@@ -39,17 +40,19 @@ update_status PanelAssets::Draw()
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin(name, &enabled);
 
+	if (back_node)
+		back_node->Draw();
+
 	for (int i = 0; i < nodes.size(); i++)
 	{
-		actual_node->at(i).Draw(*actual_node);
+		actual_node->at(i).Draw();
 	}
 
 	ImGui::End();
-	
 	return ret;
 }
 
-void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p)
+void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p, Node* parent)
 {
 	ResourceTexture* texture;
 	std::vector<std::string> file_list, dir_list;
@@ -59,31 +62,23 @@ void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p)
 	{
 		texture = (ResourceTexture*)App->resources->Get(node_textures.at("folder").GetNumber());
 		std::string path = p + dir_list.at(i) + "/";
-		node.push_back(Node(path.c_str(), dir_list.at(i).c_str(), texture->image_id, texture->width, texture->height));
+		node.push_back(Node(path.c_str(), dir_list.at(i).c_str(), texture->image_id, texture->width, texture->height, parent));
 	}
 
 	for (int i = 0; i < file_list.size(); i++)
 	{
 		std::string extension;
-		uint directory = 0;
 		App->fs->SplitFilePath(file_list.at(i).c_str(), nullptr, nullptr, &extension);
 		texture = (ResourceTexture*)App->resources->Get(node_textures.at(extension).GetNumber());
 
-		if (extension == "neko")
-			directory = 0;
-		else if (extension == "model")
-			directory = 1;
-		else if (extension == "dds")
-			directory = 3;
-
 		std::string path = p + file_list.at(i);
 		
-		node.push_back(Node(path.c_str(), file_list.at(i).c_str(), texture->image_id, texture->width, texture->height));
+		node.push_back(Node(path.c_str(), file_list.at(i).c_str(), texture->image_id, texture->width, texture->height, parent));
 	}
 
 	for (auto it_child = node.begin(); it_child != node.end(); it_child++)
 	{
-		CreateNodes((*it_child).childrens, ((*it_child).path.c_str()));
+		CreateNodes((*it_child).childrens, ((*it_child).path.c_str()), &(*it_child));
 	}
 	
 }
@@ -97,34 +92,15 @@ void PanelAssets::CreateNodeTexture(std::string path)
 	node_textures.insert(std::pair<std::string, Random>(file_name, ID));
 }
 
-uint PanelAssets::NodeTexture(const Path& node, uint64 * item, std::string * event)
-{/*
-	Random r_ID = 0;
-	if (node.file == false)
-	{
-		if (event) event->assign("FOLDER");
-		return folderBuffer;
-
-	 }
-	else
-	{
-		std::string m_files = node.path + (".meta");
-		r_ID = App->resources->ImportFile(m_files.c_str(), RESOURCE_TEXTURE);
-		
-
-	}*/
-
-	return uint();
-}
-
-void Node::Draw(std::vector<Node>& node)
+void Node::Draw()
 {
 	ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
 	if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 0))
 	{
-		node = childrens;
+		/*App->editor->panel_assets->actual_node = childrens;*/
 	}
 	ImGui::Text("%s", local_path.c_str());
 	ImGui::EndChild();
 	ImGui::SameLine();
+
 }

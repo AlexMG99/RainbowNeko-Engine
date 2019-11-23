@@ -7,7 +7,8 @@
 
 struct Node {
 
-	Node(const char* p, const char* lp, uint id, uint w, uint h) :path(p), local_path(lp), image_id(id), width(w), height(h) {};
+	Node() {};
+	Node(const char* p, const char* lp, uint id, uint w, uint h, Node* par) :path(p), local_path(lp), image_id(id), width(w), height(h), parent(par) {};
 
 	std::string path = "";
 	std::string local_path = "";
@@ -16,14 +17,15 @@ struct Node {
 	uint width = 0;
 	uint height = 0;
 
-	void Draw(std::vector<Node>& node);
+	void Draw();
 
+	Node* parent = nullptr;;
 	std::vector<Node> childrens;
 };
 
 class PanelAssets : public Panel {
-public: 
 
+public: 
 	bool Start();
 
 	PanelAssets() {};
@@ -34,22 +36,17 @@ public:
 	update_status Draw();
 
 private:
-	void CreateNodes(std::vector<Node>& node, const char* path);
+	void CreateNodes(std::vector<Node>& node, const char* path, Node* parent);
 	void CreateNodeTexture(std::string path);
-	/*void DrawFolders(const Path& node);*/
-
-	uint NodeTexture(const Path& node, uint64* item = nullptr, std::string* event = nullptr);
-
-
 
 public:
-	uint b_folder = 0;
-	uint f_folder = 0;
 
 	std::map<std::string, Random> node_textures;
 
 	std::vector<Node>* actual_node;
 	std::vector<Node> nodes;
+
+	Node* back_node = nullptr;
 
 };
 
