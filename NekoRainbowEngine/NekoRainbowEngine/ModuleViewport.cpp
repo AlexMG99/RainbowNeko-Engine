@@ -246,6 +246,8 @@ void ModuleViewport::GuizLogic()
 	{
 		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
 
+		float4x4 model = transform->global_matrix.Transposed();
+
 		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
 		view_transposed = view_transposed.Transposed();
 
@@ -258,8 +260,16 @@ void ModuleViewport::GuizLogic()
 	
 		if (ImGuizmo::IsUsing())
 		{
-			transform->SetLocalTransform(object_transform_matrix.Transposed());
-			transform->UpdateComponents();
+			ComponentTransform* trans_parent = App->viewport->selected_object->GetParent()->GetComponentTransform();
+			if (App->viewport->selected_object->GetParent() != App->viewport->root_object)
+			{
+				transform->SetGlobalTransform(trans_parent->global_transformation.Inverted()*object_transform_matrix.Transposed());
+				
+			}
+			else
+			{
+				transform->SetGlobalTransform(object_transform_matrix.Transposed());
+			}
 		}
 
 		if (ImGuizmo::IsOver())
