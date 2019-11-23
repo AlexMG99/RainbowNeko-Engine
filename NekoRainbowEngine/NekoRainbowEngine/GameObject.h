@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
+#include "BoundingBox.h"
 #include "Random.h"
 
 class ComponentMesh;
@@ -88,6 +89,9 @@ public:
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;
+	BoundingBox bounding;
+	
+
 
 	uint32 parent_id;
 };
