@@ -23,8 +23,8 @@ public:
 
 private:
 	void SubDivide();
-	void AddObjectNode(GameObject* obj);
 	void AddNode(const float3 min, const float3 max);
+	void EmptyNode();
 
 	bool AddToChildren(GameObject* obj, AABB aabb);
 

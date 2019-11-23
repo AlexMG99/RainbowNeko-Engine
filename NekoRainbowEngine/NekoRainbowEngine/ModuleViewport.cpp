@@ -85,6 +85,9 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
 		LoadScene();
 
+	if((App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN))
+		quad_tree.Insert(root_object);
+
 
 	return UPDATE_CONTINUE;
 }
@@ -314,7 +317,7 @@ bool ModuleViewport::LoadScene()
 	if(!root_object->children.empty())
 		ReorganizeHierarchy();
 
-	App->camera->camera = App->camera->GetSceneCamera();
+	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	return true;
 }

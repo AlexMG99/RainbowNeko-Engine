@@ -30,7 +30,7 @@ void Quad::Insert(GameObject * obj)
 		if (!root)
 		{
 			GenerateQuadtree(comp_mesh->BB_mesh.GetGlobalAABB(obj));
-			quad_objects.push_back(obj);
+			root->node_objects.push_back(obj);
 		}
 		else if (!IsGameobjectQuad(obj))
 		{
@@ -56,11 +56,6 @@ void QuadNode::SubDivide()
 
 	AddNode(float3(min(mid_point.x, section.maxPoint.x), min(section.minPoint.y, section.maxPoint.y), min(mid_point.z, section.minPoint.z)), float3(max(mid_point.x, section.maxPoint.x), max(section.minPoint.y, section.maxPoint.y), max(mid_point.z, section.minPoint.z)));
 	AddNode(float3(min(mid_point.x, section.minPoint.x), min(section.minPoint.y, section.maxPoint.y), min(mid_point.z, section.maxPoint.z)), float3(max(mid_point.x, section.minPoint.x), max(section.minPoint.y, section.maxPoint.y), max(mid_point.z, section.maxPoint.z)));
-
-}
-
-void QuadNode::AddObjectNode(GameObject * obj)
-{
 
 }
 
@@ -139,17 +134,23 @@ void QuadNode::Insert(GameObject * obj, AABB aabb)
 {
 	if (section.Contains(aabb))
 	{
-		if (node_objects.size() < BUCKET)
-		{
-			node_objects.push_back(obj);
+		if (childrens.empty()) {
+			if (node_objects.size() < BUCKET)
+				node_objects.push_back(obj);
+			else
+			{
+				SubDivide();
+				if (!AddToChildren(obj, aabb))
+				{
+					EmptyNode();
+					node_objects.push_back(obj);
+				}
+			}
 		}
 		else
 		{
-			SubDivide();
 			if (!AddToChildren(obj, aabb))
-			{
-				//Regrup
-			}
+				node_objects.push_back(obj);
 		}
 	}
 	else
@@ -210,6 +211,16 @@ void QuadNode::DrawNode()
 	glLineWidth(1.0f);
 	glColor3f(1, 1, 1);
 
+}
+
+void QuadNode::EmptyNode()
+{
+	for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
+	{
+		RELEASE(*it_child);
+	}
+
+	childrens.clear();
 }
 
 void QuadNode::SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB & aabb)
