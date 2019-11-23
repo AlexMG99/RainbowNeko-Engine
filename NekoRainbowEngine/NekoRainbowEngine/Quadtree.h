@@ -19,10 +19,14 @@ public:
 	void Remove(GameObject* obj) {};
 	void DrawNode();
 
+	void SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB& aabb);
+
 private:
 	void SubDivide();
 	void AddObjectNode(GameObject* obj);
 	void AddNode(const float3 min, const float3 max);
+
+	bool AddToChildren(GameObject* obj, AABB aabb);
 
 public:
 	AABB section;
@@ -43,6 +47,8 @@ public:
 	void GenerateQuadtree(AABB section);
 	void Insert(GameObject* obj);
 	void Remove(GameObject* obj) {};
+
+	void ReCalculate(GameObject* obj);
 
 	bool IsGameobjectQuad(GameObject* obj);
 
