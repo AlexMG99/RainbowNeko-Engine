@@ -50,7 +50,6 @@ public:
 	void DeleteQuad();
 
 	void ReCalculate(GameObject* obj);
-
 	bool IsGameobjectQuad(GameObject* obj);
 
 	void Draw();

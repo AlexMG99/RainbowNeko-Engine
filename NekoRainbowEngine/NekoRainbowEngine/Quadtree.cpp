@@ -26,7 +26,7 @@ void Quad::GenerateQuadtree(AABB section)
 void Quad::Insert(GameObject * obj)
 {
 	ComponentMesh* comp_mesh = obj->GetComponentMesh();
-	if (comp_mesh && comp_mesh->mesh)
+	if (obj->is_static && comp_mesh && comp_mesh->mesh)
 	{
 		if (!root)
 		{

@@ -60,8 +60,6 @@ bool ModuleViewport::Start()
 
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 
-	/*quad_tree.Insert(root_object);*/
-
 	return ret;
 }
 
@@ -84,13 +82,6 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
 		LoadScene();
-
-	if ((App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN))
-	{
-		quad_tree.DeleteQuad();
-		quad_tree.Insert(root_object);
-	}
-
 
 	return UPDATE_CONTINUE;
 }
@@ -252,7 +243,7 @@ void ModuleViewport::GuizControls()
 
 void ModuleViewport::GuizLogic()
 {
-	if (App->viewport->selected_object != nullptr )
+	if (App->viewport->selected_object != nullptr && !App->viewport->selected_object->is_static)
 	{
 		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
 
