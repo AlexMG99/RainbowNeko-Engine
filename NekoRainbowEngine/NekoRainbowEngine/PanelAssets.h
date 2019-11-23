@@ -16,7 +16,9 @@ struct Node {
 	uint width = 0;
 	uint height = 0;
 
-	void Draw();
+	void Draw(std::vector<Node>& node);
+
+	std::vector<Node> childrens;
 };
 
 class PanelAssets : public Panel {
@@ -32,7 +34,7 @@ public:
 	update_status Draw();
 
 private:
-	void CreateNodes();
+	void CreateNodes(std::vector<Node>& node, const char* path);
 	void CreateNodeTexture(std::string path);
 	/*void DrawFolders(const Path& node);*/
 
@@ -46,6 +48,7 @@ public:
 
 	std::map<std::string, Random> node_textures;
 
+	std::vector<Node>* actual_node;
 	std::vector<Node> nodes;
 
 };
