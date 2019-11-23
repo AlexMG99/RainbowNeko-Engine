@@ -20,7 +20,6 @@ void Quad::GenerateQuadtree(AABB section)
 	}
 
 	root = new QuadNode(section);
-
 }
 
 void Quad::Insert(GameObject * obj)
@@ -59,6 +58,7 @@ void Quad::DeleteQuad()
 		it_obj = quad_objects.erase(it_obj);
 	}
 
+	divisions = 0;
 	quad_objects.clear();
 
 }
@@ -153,6 +153,16 @@ void Quad::Draw()
 		root->DrawNode();
 }
 
+uint Quad::GetDivisions() const
+{
+	return divisions;
+}
+
+void Quad::AddDivision()
+{
+	divisions++;
+}
+
 QuadNode::QuadNode(float3 min, float3 max)
 {
 	section.minPoint = min;
@@ -172,9 +182,10 @@ void QuadNode::Insert(GameObject * obj, AABB aabb)
 		if (childrens.empty()) {
 			if (node_objects.size() < BUCKET)
 				node_objects.push_back(obj);
-			else
+			else if(App->viewport->quad_tree.GetDivisions() < MAX_DIVISIONS)
 			{
 				SubDivide();
+				App->viewport->quad_tree.AddDivision();
 				if (!AddToChildren(obj, aabb))
 				{
 					EmptyNode();

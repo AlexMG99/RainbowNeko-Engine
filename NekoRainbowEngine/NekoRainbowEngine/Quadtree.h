@@ -7,7 +7,8 @@
 
 class GameObject;
 
-#define BUCKET 1
+#define BUCKET 2
+#define MAX_DIVISIONS 3
 
 class QuadNode {
 public:
@@ -54,10 +55,14 @@ public:
 
 	void Draw();
 
+	uint GetDivisions() const;
+	void AddDivision();
+
 private:
 	QuadNode* root = nullptr;
 
 	std::vector<GameObject*> quad_objects;
+	uint divisions = 0;
 };
 
 #endif // !_OCTREE_H_
