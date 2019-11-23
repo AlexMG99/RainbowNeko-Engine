@@ -58,13 +58,10 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
-	AABB aabb;
-	aabb.SetNegativeInfinity();
-	aabb.minPoint = float3(-20, 0, -20);
-	aabb.maxPoint = float3(20, 20, 20);
-	quad_tree.GenerateQuadtree(aabb);
-
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+
+	quad_tree.Insert(root_object);
+
 	return ret;
 }
 
