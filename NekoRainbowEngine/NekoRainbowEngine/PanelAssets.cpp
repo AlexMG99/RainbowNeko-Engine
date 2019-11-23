@@ -21,6 +21,7 @@ bool PanelAssets::Start()
 	CreateNodeTexture("./Icons/Folder.png");
 	CreateNodeTexture("./Icons/DDS.png");
 	CreateNodeTexture("./Icons/Neko.png");
+	CreateNodeTexture("./Icons/JPG.png");
 	CreateNodeTexture("./Icons/Model.png");
 	CreateNodeTexture("./Icons/PNG.png");
 	CreateNodeTexture("./Icons/Scene.png");
@@ -61,7 +62,7 @@ void PanelAssets::CreateNodes()
 		App->fs->DiscoverFiles(path.c_str(), file_list, dir_list);
 	}
 
-	for (int i = 0; i < file_list.size() - 6; i++)
+	for (int i = 0; i < file_list.size(); i++)
 	{
 		std::string extension;
 		uint directory = 0;
@@ -88,8 +89,7 @@ void PanelAssets::CreateNodeTexture(std::string path)
 	Random ID = App->resources->ImportFile(path.c_str(), RESOURCE_TEXTURE);
 	std::string file_name, extension;
 	App->fs->SplitFilePath(path.c_str(), nullptr, &file_name, &extension);
-	App->importer->texture_imp->ImportTexture(path.c_str(), extension);
-
+	
 	node_textures.insert(std::pair<std::string, Random>(file_name, ID));
 }
 
