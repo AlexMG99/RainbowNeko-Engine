@@ -66,7 +66,7 @@ void Quad::DeleteQuad()
 void QuadNode::SubDivide()
 {
 	float3 mid_point = float3(section.minPoint.x + (section.maxPoint.x - section.minPoint.x) * 0.5F,
-		section.minPoint.y + section.maxPoint.y - section.minPoint.y,
+		section.maxPoint.y,
 		section.minPoint.z + (section.maxPoint.z - section.minPoint.z) * 0.5F);
 
 	AddNode(section.minPoint, mid_point);
@@ -77,8 +77,8 @@ void QuadNode::SubDivide()
 
 	AddNode(pointA, pointB);
 
-	pointA = float3(mid_point.x, section.minPoint.y, mid_point.z);
-	pointB = float3(section.minPoint.x, section.maxPoint.y, section.maxPoint.z);
+	pointA = float3(min(mid_point.x, section.minPoint.x), min(section.minPoint.y, section.maxPoint.y), min(mid_point.z, section.maxPoint.z));
+	pointB = float3(max(mid_point.x, section.minPoint.x), max(section.minPoint.y, section.maxPoint.y), max(mid_point.z, section.maxPoint.z));
 	AddNode(pointA, pointB);
 
 	for (auto it_obj = node_objects.begin(); it_obj != node_objects.end();)

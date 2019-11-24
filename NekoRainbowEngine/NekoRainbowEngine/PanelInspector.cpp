@@ -34,6 +34,7 @@ update_status PanelInspector::Draw()
 		ImGui::Text("%s		", object->GetName().c_str()); ImGui::SameLine();
 		if (ImGui::Checkbox("Static", &object->is_static))
 		{
+			object->SetStatic(object->is_static);
 			App->viewport->quad_tree.DeleteQuad();
 			App->viewport->quad_tree.Insert(App->viewport->root_object);
 		}

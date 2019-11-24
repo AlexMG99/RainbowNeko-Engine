@@ -35,9 +35,6 @@ bool GameObject::Update()
 			(*it_comp)->Update();
 	}
 
-	//if (show_aabb || show_obb)
-	//	DrawBB();
-
 	return true;
 }
 
@@ -279,6 +276,15 @@ void GameObject::SetName(const char * name_)
 		pos = temp_str.find_last_of("\\");
 	std::string str = temp_str.substr(pos + 1);
 	name = str.c_str();
+}
+
+void GameObject::SetStatic(const bool stc)
+{
+	is_static = stc;
+	for (auto it_child = children.begin(); it_child != children.end(); it_child++)
+	{
+		(*it_child)->SetStatic(stc);
+	}
 }
 
 void GameObject::SetSelected(bool select)
