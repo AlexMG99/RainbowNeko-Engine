@@ -111,6 +111,10 @@ void Node::Draw()
 			{
 				childrens.at(i).draw = !childrens.at(i).draw;
 			}
+			std::string extension = "", path = local_path;
+			App->fs->SplitFilePath(local_path.c_str(), nullptr, nullptr, &extension);
+			if(!extension.empty())
+				App->importer->ImportFile(local_path.c_str());
 		}
 		ImGui::Text("%s", local_path.c_str());
 

@@ -5,13 +5,15 @@ Init SDL input event system
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 431.60
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
 GLSL: 4.60 NVIDIA
 
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
+Loaded with path: /Library/Textures/4026752798.dds succesfully!
+Generated mesh with id vertex: 11 and id index: 12
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
@@ -24,8 +26,6 @@ Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
 
 Generated mesh with id vertex: 19 and id index: 20
-Generated mesh with id vertex: 25 and id index: 26
-Format not allowed
-Format not allowed
-Format not allowed
-Format not allowed
+Loaded with path: /Library/Textures/4026752798.dds succesfully!
+File System error while copy from [4026752798.dds] to [/Assets/4026752798.dds]
+Load Texture succesfully with name: 
