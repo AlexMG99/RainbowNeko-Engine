@@ -16,7 +16,6 @@ public:
 	void TreeObject(GameObject* obj);
 
 	void BeginDragDropTarget(GameObject* obj);
-
 	void BeginDragDropTargetRoot(GameObject* obj);
 
 	void BeginDragDropSource(GameObject* obj);

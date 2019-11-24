@@ -28,26 +28,26 @@ bool PanelAssets::Start()
 	CreateNodeTexture("./Icons/Arrow.png");
 
 	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
-	actual_node = &nodes;
-	
+	CreateBackNode(LIBRARY_FOLDER);
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		nodes.at(i).draw = true;
+	}
 
 	return true;
 }
 
 update_status PanelAssets::Draw()
 {
-
 	BROFILER_CATEGORY("Draw_PanelAssets", Profiler::Color::GoldenRod);
 
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin(name, &enabled);
-
-	/*if (back_node)
-		back_node->Draw();*/
 	
 	for (int i = 0; i < nodes.size(); i++)
 	{
-		actual_node->at(i).Draw();
+		nodes.at(i).Draw();
 	}
 
 	ImGui::End();
@@ -85,6 +85,12 @@ void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p, Node* pare
 	
 }
 
+void PanelAssets::CreateBackNode(const char * path)
+{
+	ResourceTexture* texture = (ResourceTexture*)App->resources->Get(node_textures.at("arrow").GetNumber());
+	back_node = new Node(path, path, texture->image_id, texture->width, texture->height, nullptr);
+}
+
 void PanelAssets::CreateNodeTexture(std::string path)
 {
 	Random ID = App->resources->ImportFile(path.c_str(), RESOURCE_TEXTURE);
@@ -96,16 +102,27 @@ void PanelAssets::CreateNodeTexture(std::string path)
 
 void Node::Draw()
 {
-	ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
-	if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 6, ImVec4(1,1,0,0)))
+	if (draw) 
 	{
-		std::vector<Node> file_node = App->editor->panel_assets->actual_node->data()->childrens;
-		/*App->editor->panel_assets->CreateNodes(file_node, LIBRARY_MESH_FOLDER, App->editor->panel_assets->nodes);*/
+		ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
+		if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 6, ImVec4(1, 1, 0, 0)))
+		{
+			for (int i = 0; i < childrens.size(); i++)
+			{
+				childrens.at(i).draw = !childrens.at(i).draw;
+			}
+		}
+		ImGui::Text("%s", local_path.c_str());
 
-		LOG("HOAHPDHIDOPAGOIDGAIPDBPÔABDOBAÔDB")
+		ImGui::EndChild();
+		ImGui::SameLine();
 	}
-	ImGui::Text("%s", local_path.c_str());
-	ImGui::EndChild();
-	ImGui::SameLine();
+
+	for (int i = 0; i < childrens.size(); i++)
+	{
+		childrens.at(i).Draw();
+	}
 
 }
+
+

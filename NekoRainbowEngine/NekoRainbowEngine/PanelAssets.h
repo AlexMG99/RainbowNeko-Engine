@@ -23,6 +23,8 @@ struct Node {
 
 	Node* parent = nullptr;;
 	std::vector<Node> childrens;
+
+	bool draw = false;
 };
 
 class PanelAssets : public Panel {
@@ -39,17 +41,15 @@ public:
 
 	update_status Draw();
 
-public:
+private:
 	void CreateNodes(std::vector<Node>& node, const char* path, Node* parent);
+	void CreateBackNode(const char* path);
 	void CreateNodeTexture(std::string path);
 
 public:
 	std::map<std::string, Random> node_textures;
 
-	std::vector<Node>* actual_node;
 	std::vector<Node> nodes;
-
-	Node* next_node = nullptr;
 
 	Node* back_node = nullptr;
 
