@@ -23,6 +23,8 @@ public:
 
 	void SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB& aabb);
 
+	void CheckQuadFrustrum(std::vector<GameObject*>& gameObjects, const ComponentCamera* frustrum);
+
 private:
 	void SubDivide();
 	void AddNode(const float3 min, const float3 max);
@@ -36,7 +38,6 @@ public:
 	QuadNode* parent = nullptr;
 	std::vector<GameObject*> node_objects;
 	std::vector<QuadNode*> childrens;
-	
 };
 
 
@@ -57,6 +58,12 @@ public:
 
 	uint GetDivisions() const;
 	void AddDivision();
+
+	void CheckQuadFrustrum(std::vector<GameObject*>& gameObjects, const ComponentCamera* frustrum)
+	{
+		if(root)
+			root->CheckQuadFrustrum(gameObjects, frustrum);
+	}
 
 private:
 	QuadNode* root = nullptr;

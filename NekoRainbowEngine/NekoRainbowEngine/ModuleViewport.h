@@ -14,6 +14,8 @@
 #include "imGuizmo/ImGuizmo.h"
 #include "Quadtree.h"
 
+#include <vector>
+
 class Scene;
 class FBO;
 
@@ -25,6 +27,7 @@ public:
 
 	bool Start();
 	update_status PreUpdate(float dt);
+	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
@@ -49,13 +52,15 @@ public:
 	
 	void DeleteGameObject();
 
-public:
-	void DrawGrid(uint separation, uint lines);
 	void GuizControls();
 	void GuizLogic();
 
 	void Play_Time();
 	void Stop_Time();
+
+private:
+	void DrawGrid(uint separation, uint lines);
+	void SetDrawObjects(std::vector<GameObject*>& draw_obj, GameObject* obj, ComponentCamera* frustrum);
 
 public:
 	Scene* scene = nullptr;

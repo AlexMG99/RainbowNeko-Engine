@@ -19,7 +19,7 @@ public:
 	ComponentMesh(component_type comp_type, bool act, GameObject * obj);
 	~ComponentMesh();
 
-	bool Update();
+	bool Draw();
 
 	void Enable() {};
 	void Disable() {};

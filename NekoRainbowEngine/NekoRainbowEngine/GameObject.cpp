@@ -144,6 +144,12 @@ ComponentCamera* GameObject::GetComponentCamera()
 	return nullptr;
 }
 
+void GameObject::DrawObject()
+{
+	if(GetComponentMesh())
+		GetComponentMesh()->Draw();
+}
+
 bool GameObject::HasChildren() const
 {
 	if (children.empty())

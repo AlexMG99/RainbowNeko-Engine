@@ -86,6 +86,21 @@ update_status ModuleViewport::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleViewport::Update(float dt)
+{
+	std::vector<GameObject*> draw_obj;
+
+	quad_tree.CheckQuadFrustrum(draw_obj, camera_game->GetComponentCamera());
+	SetDrawObjects(draw_obj, root_object, camera_game->GetComponentCamera());
+	
+	for (std::vector<GameObject*>::iterator it_child = draw_obj.begin(); it_child != draw_obj.end(); it_child++)
+	{
+		(*it_child)->DrawObject();
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
@@ -221,6 +236,24 @@ void ModuleViewport::DrawGrid(uint separation, uint lines)
 
 	glEnd();
 
+}
+
+void ModuleViewport::SetDrawObjects(std::vector<GameObject*>& draw_obj, GameObject* obj, ComponentCamera* frustrum)
+{
+	if (!obj->is_static && obj->GetComponentMesh() && frustrum->ContainsAABox(obj->GetComponentMesh()->BB_mesh.GetGlobalAABB(obj)))
+	{
+		draw_obj.push_back(obj);
+	}
+
+	for (std::vector<GameObject*>::iterator it_child = obj->children.begin(); it_child != obj->children.end(); ++it_child)
+	{
+		if (!(*it_child)->is_static && (*it_child)->GetComponentMesh() && frustrum->ContainsAABox((*it_child)->GetComponentMesh()->BB_mesh.GetGlobalAABB((*it_child))))
+		{
+			draw_obj.push_back((*it_child));
+		}
+
+		SetDrawObjects(draw_obj, *it_child, frustrum);
+	}
 }
 
 void ModuleViewport::GuizControls()

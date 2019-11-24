@@ -40,6 +40,8 @@ public:
 	ComponentTexture* GetComponentTexture();
 	ComponentCamera* GetComponentCamera();
 
+	void DrawObject();
+
 	void DeleteComponent(Component* comp);
 
 	//--------------- Childrens ---------------//

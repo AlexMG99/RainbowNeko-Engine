@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Quadtree.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 #include "GL/include/glew.h"
 
@@ -113,7 +114,7 @@ bool QuadNode::AddToChildren(GameObject * obj, AABB aabb)
 	bool ret = false;
 	for (auto it_node = childrens.begin(); it_node != childrens.end(); it_node++)
 	{
-		if ((*it_node)->section.Contains(aabb))
+		if ((*it_node)->section.Contains(aabb.CenterPoint()))
 		{
 			(*it_node)->Insert(obj, aabb);
 			ret = true;
@@ -183,15 +184,14 @@ QuadNode::QuadNode(const AABB limits)
 
 void QuadNode::Insert(GameObject * obj, AABB aabb)
 {
-	if (section.Contains(aabb))
+	if (section.Contains(aabb.CenterPoint()))
 	{
 		if (childrens.empty()) {
 			if (node_objects.size() < BUCKET)
 				node_objects.push_back(obj);
-			else if(App->viewport->quad_tree.GetDivisions() < MAX_DIVISIONS)
+			else
 			{
 				SubDivide();
-				App->viewport->quad_tree.AddDivision();
 				if (!AddToChildren(obj, aabb))
 				{
 					EmptyNode();
@@ -311,6 +311,22 @@ void QuadNode::SaveNodeObjects(std::vector<GameObject*>& save_vec, AABB & aabb)
 	for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
 	{
 		(*it_child)->SaveNodeObjects(save_vec, aabb);
+	}
+}
+
+void QuadNode::CheckQuadFrustrum(std::vector<GameObject*>& gameObjects, const ComponentCamera * frustrum)
+{
+	if (frustrum->ContainsAABox(section))
+	{
+		for (auto it_node = node_objects.begin(); it_node != node_objects.end(); it_node)
+		{
+			gameObjects.push_back(*it_node);
+		}
+
+		for (auto it_child = childrens.begin(); it_child != childrens.end(); it_child++)
+		{
+			(*it_child)->CheckQuadFrustrum(gameObjects, frustrum);
+		}
 	}
 }
 
