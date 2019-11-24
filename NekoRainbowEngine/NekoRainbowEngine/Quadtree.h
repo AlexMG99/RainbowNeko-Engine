@@ -7,7 +7,7 @@
 
 class GameObject;
 
-#define BUCKET 2
+#define BUCKET 1
 #define MAX_DIVISIONS 3
 
 class QuadNode {
