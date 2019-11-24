@@ -29,6 +29,7 @@ bool PanelAssets::Start()
 
 	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
 	actual_node = &nodes;
+	
 
 	return true;
 }
@@ -41,8 +42,8 @@ update_status PanelAssets::Draw()
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin(name, &enabled);
 
-	if (back_node)
-		back_node->Draw();
+	/*if (back_node)
+		back_node->Draw();*/
 	
 	for (int i = 0; i < nodes.size(); i++)
 	{
@@ -65,7 +66,7 @@ void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p, Node* pare
 		std::string path = p + dir_list.at(i) + "/";
 		node.push_back(Node(path.c_str(), dir_list.at(i).c_str(), texture->image_id, texture->width, texture->height, parent));
 	}
-
+	
 	for (int i = 0; i < file_list.size(); i++)
 	{
 		std::string extension;
@@ -96,10 +97,12 @@ void PanelAssets::CreateNodeTexture(std::string path)
 void Node::Draw()
 {
 	ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
-	if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 0))
+	if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 6, ImVec4(1,1,0,0)))
 	{
-		App->editor->panel_assets->actual_node = App->editor->panel_assets->nodes.begin;
-		
+		std::vector<Node> file_node = App->editor->panel_assets->actual_node->data()->childrens;
+		/*App->editor->panel_assets->CreateNodes(file_node, LIBRARY_MESH_FOLDER, App->editor->panel_assets->nodes);*/
+
+		LOG("HOAHPDHIDOPAGOIDGAIPDBPÔABDOBAÔDB")
 	}
 	ImGui::Text("%s", local_path.c_str());
 	ImGui::EndChild();

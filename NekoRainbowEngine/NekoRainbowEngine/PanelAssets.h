@@ -7,6 +7,8 @@
 
 struct Node {
 
+	friend class PanelAssets;
+	
 	Node() {};
 	Node(const char* p, const char* lp, uint id, uint w, uint h, Node* par) :path(p), local_path(lp), image_id(id), width(w), height(h), parent(par) {};
 
@@ -25,6 +27,8 @@ struct Node {
 
 class PanelAssets : public Panel {
 
+	friend class Node;
+
 public: 
 	bool Start();
 
@@ -35,17 +39,17 @@ public:
 
 	update_status Draw();
 
-private:
+public:
 	void CreateNodes(std::vector<Node>& node, const char* path, Node* parent);
 	void CreateNodeTexture(std::string path);
 
 public:
-
 	std::map<std::string, Random> node_textures;
 
 	std::vector<Node>* actual_node;
 	std::vector<Node> nodes;
-	std::vector<Node>* library_node;
+
+	Node* next_node = nullptr;
 
 	Node* back_node = nullptr;
 
