@@ -37,6 +37,8 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 	{
 		std::string file_path, full_path = base_path.c_str();
 		App->fs->SplitFilePath(texture_path.C_Str(), nullptr, &file_path, nullptr);
+		if (file_path.empty())
+			file_path = "default_texture.png";
 		full_path += file_path;
 
 		App->resources->ImportAssets(full_path.c_str());
