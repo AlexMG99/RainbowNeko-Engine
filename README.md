@@ -196,7 +196,32 @@ Innovations implemented in our Engine:
         * _**Load the resources texture, selecting the object in the scene and then left_clicking on the texture**_.
 
 
+## Tasks by Member Assigment 2
 
+* Laia Martinez:
+
+	* Mouse Picking
+	* Panel Game
+	* Scene Guizmos
+	* Engine Icons
+	* Timer
+	* Start, pause and tick 
+	
+	
+
+* Alex Morales:
+
+        * Quadtree
+	* AABB and OBB
+	* Camera as component
+	* Frustum & Frustum Culling
+	* Resource Manager
+        * Resizing
+        * Own Format
+	* Serialize scene
+	* Library created again if it doesn't exists
+        * Panel Assets
+ 
 
 ## Libraries Used
 Libraries used in our Engine:
