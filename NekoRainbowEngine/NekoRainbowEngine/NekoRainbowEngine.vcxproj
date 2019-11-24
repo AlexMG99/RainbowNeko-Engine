@@ -122,7 +122,7 @@
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelScene.h" />
     <ClInclude Include="PanelHierarchy.h" />
-    <ClInclude Include="PanelImporter.h" />
+    <ClInclude Include="PanelAssets.h" />
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelPlay.h" />
     <ClInclude Include="PanelSceneManager.h" />
@@ -206,6 +206,7 @@
     <ClInclude Include="Panel.h" />
     <ClInclude Include="Parson\parson.h" />
     <ClInclude Include="par\par_shapes.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PCG\pcg_extras.hpp" />
     <ClInclude Include="PCG\pcg_random.hpp" />
     <ClInclude Include="PCG\pcg_uint128.hpp" />
@@ -294,7 +295,7 @@
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelScene.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
-    <ClCompile Include="PanelImporter.cpp" />
+    <ClCompile Include="PanelAssets.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelPlay.cpp" />
     <ClCompile Include="PanelSceneManager.cpp" />

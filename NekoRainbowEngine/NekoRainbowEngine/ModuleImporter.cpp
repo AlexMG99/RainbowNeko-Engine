@@ -70,24 +70,23 @@ bool ModuleImporter::ImportFile(const char* path)
 		if (App->viewport->selected_object)
 		{
 			ComponentTexture* comp_texture = App->viewport->selected_object->GetComponentTexture();
-			if (comp_texture)
+			if (!comp_texture)
+				comp_texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
+
+			ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
+			if (texture)
 			{
-				ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
-				if (texture)
-				{
-					App->resources->ImportAssets(path);
-					comp_texture->AddTexture(texture);
-					App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
-					LOG("Load Texture succesfully with name: %s", texture->file.c_str());
-				}
-				else
-					LOG("Resource not loaded");
+				App->resources->ImportAssets(path);
+				comp_texture->AddTexture(texture);
+				App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
+				LOG("Load Texture succesfully with name: %s", texture->file.c_str());
 			}
 			else
-				LOG("Object don't found. There's not selected object!");
+				LOG("Resource not loaded");
 
 		}
-
+		else
+			LOG("Object don't found. There's not selected object!");
 	}
 	else
 		LOG("Format not allowed");

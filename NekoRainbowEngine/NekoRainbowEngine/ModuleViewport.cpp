@@ -265,11 +265,12 @@ void ModuleViewport::GuizLogic()
 			if (App->viewport->selected_object->GetParent() != App->viewport->root_object)
 			{
 				transform->SetGlobalTransform(trans_parent->global_transformation.Inverted()*object_transform_matrix.Transposed());
-				
+				transform->UpdateComponents();
 			}
 			else
 			{
 				transform->SetGlobalTransform(object_transform_matrix.Transposed());
+				transform->UpdateComponents();
 			}
 		}
 

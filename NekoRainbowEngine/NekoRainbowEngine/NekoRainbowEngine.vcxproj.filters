@@ -193,9 +193,6 @@
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="PanelImporter.cpp">
-      <Filter>Sources\Panel</Filter>
-    </ClCompile>
     <ClCompile Include="imGuizmo\ImCurveEdit.cpp">
       <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
     </ClCompile>
@@ -268,9 +265,12 @@
     <ClCompile Include="PanelSceneManager.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="PanelAssets.cpp">
+      <Filter>Sources\Panel</Filter>
+      </ClCompile>
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Helpers</Filter>
-    </ClCompile>
+      </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -627,9 +627,6 @@
     <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="PanelImporter.h">
-      <Filter>Sources\Panel</Filter>
-    </ClInclude>
     <ClInclude Include="imGuizmo\ImCurveEdit.h">
       <Filter>Sources\3rdPartyLibrary\ImGuizmo</Filter>
     </ClInclude>
@@ -712,6 +709,12 @@
       <Filter>Sources\Panel</Filter>
     </ClInclude>
     <ClInclude Include="Quadtree.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelAssets.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
   </ItemGroup>

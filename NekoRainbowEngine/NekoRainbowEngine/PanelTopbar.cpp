@@ -8,7 +8,7 @@
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
 #include "PanelShape.h"
-#include "PanelImporter.h"
+#include "PanelAssets.h"
 #include "PanelSceneManager.h"
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
@@ -60,7 +60,7 @@ update_status PanelTopbar::Draw()
 		ImGui::MenuItem("Inspector	", NULL, &App->editor->panel_inspector->enabled);
 		ImGui::MenuItem("SceneManager	", NULL, &App->editor->panel_scene_manager->enabled);
 		//ImGui::MenuItem("Panel Shape ", NULL, &App->editor->panel_shape->enabled);
-		ImGui::MenuItem("Assets", NULL, &App->editor->panel_importer->enabled);
+		ImGui::MenuItem("Assets", NULL, &App->editor->panel_assets->enabled);
 		ImGui::MenuItem("Play", NULL, &App->editor->panel_play->enabled);
 
 		ImGui::EndMenu();

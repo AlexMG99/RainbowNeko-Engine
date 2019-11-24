@@ -113,7 +113,7 @@ bool QuadNode::AddToChildren(GameObject * obj, AABB aabb)
 	bool ret = false;
 	for (auto it_node = childrens.begin(); it_node != childrens.end(); it_node++)
 	{
-		if ((*it_node)->section.Contains(aabb))
+		if ((*it_node)->section.Contains(aabb.CenterPoint()))
 		{
 			(*it_node)->Insert(obj, aabb);
 			ret = true;
@@ -183,15 +183,14 @@ QuadNode::QuadNode(const AABB limits)
 
 void QuadNode::Insert(GameObject * obj, AABB aabb)
 {
-	if (section.Contains(aabb))
+	if (section.Contains(aabb.CenterPoint()))
 	{
 		if (childrens.empty()) {
 			if (node_objects.size() < BUCKET)
 				node_objects.push_back(obj);
-			else if(App->viewport->quad_tree.GetDivisions() < MAX_DIVISIONS)
+			else
 			{
 				SubDivide();
-				App->viewport->quad_tree.AddDivision();
 				if (!AddToChildren(obj, aabb))
 				{
 					EmptyNode();
