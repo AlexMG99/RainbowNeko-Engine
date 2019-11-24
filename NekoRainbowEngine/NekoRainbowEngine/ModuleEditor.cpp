@@ -74,6 +74,7 @@ bool ModuleEditor::Start()
 	panel_inspector->Start();
 	panel_scene->Start();
 	//panel_shape->Start();
+	panel_assets->Start();
 	panel_play->Start();
 	panel_scene_manager->Start();
 

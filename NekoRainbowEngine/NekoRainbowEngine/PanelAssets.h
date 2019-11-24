@@ -19,7 +19,7 @@ struct Node {
 	uint width = 0;
 	uint height = 0;
 
-	void Draw(uint& num);
+	void Draw();
 
 	Node* parent = nullptr;;
 	std::vector<Node> childrens;
@@ -41,16 +41,17 @@ public:
 
 	update_status Draw();
 
-	void ReloadPanel();
-
 private:
 	void CreateNodes(std::vector<Node>& node, const char* path, Node* parent);
+	void CreateBackNode(const char* path);
 	void CreateNodeTexture(std::string path);
 
 public:
 	std::map<std::string, Random> node_textures;
 
 	std::vector<Node> nodes;
+
+	Node* back_node = nullptr;
 
 };
 

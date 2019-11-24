@@ -58,7 +58,7 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
-	App->importer->ImportFile("./Assets/Street environment_V01.FBX");
+	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 
 	return ret;
 }
