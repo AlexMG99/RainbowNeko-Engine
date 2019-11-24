@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "Component.h"
 #include "GameObject.h"
 #include "glmath.h"
@@ -86,13 +87,36 @@ float4x4 ComponentTransform::GetGlobalTransformMatrix()
 
 void ComponentTransform::SetLocalTransform(float4x4 & t_matrix)
 {
-	t_matrix.Decompose(local_position, local_rotation, local_scale);
-	local_rotation_euler = local_rotation.ToEulerXYZ();
+	local_transformation = t_matrix;
+	local_transformation.Decompose(local_position, local_rotation, local_scale);
 
-	local_rotation_euler.x = RadToDeg(local_rotation_euler.x);
-	local_rotation_euler.y = RadToDeg(local_rotation_euler.y);
-	local_rotation_euler.z = RadToDeg(local_rotation_euler.z);
+	GetGlobalTransformMatrix();
 
+}
+
+
+void ComponentTransform::SetGlobalTransform(float4x4 & t_matrix)
+{
+	float3 position, scale;
+	Quat rotation;
+
+	t_matrix.Decompose(position, rotation, scale);
+	
+	if (App->viewport->guizmo_op == ImGuizmo::OPERATION::SCALE)
+	{
+		local_scale = scale;
+	}
+
+	else {
+		local_position = position;
+		local_rotation = rotation;
+
+		local_rotation_euler = local_rotation.ToEulerXYZ();
+
+		local_rotation_euler.x = RadToDeg(local_rotation_euler.x);
+		local_rotation_euler.y = RadToDeg(local_rotation_euler.y);
+		local_rotation_euler.z = RadToDeg(local_rotation_euler.z);
+	}
 	GetGlobalTransformMatrix();
 
 }

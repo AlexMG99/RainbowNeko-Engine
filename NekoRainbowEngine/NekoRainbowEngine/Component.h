@@ -62,6 +62,7 @@ public:
 	float4x4 GetGlobalTransformMatrix();
 	
 	void SetLocalTransform(float4x4 & t_matrix);
+	void SetGlobalTransform(float4x4 & t_matrix);
 	void CalculateGlobalAxis();
 
 	void SetGlobalAxis(float3 X, float3 Y, float3 Z);

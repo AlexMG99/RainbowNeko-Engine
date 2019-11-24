@@ -12,7 +12,7 @@
 #include "RayCast.h"
 #include "imgui/imgui.h"
 #include "imGuizmo/ImGuizmo.h"
-
+#include "Quadtree.h"
 
 class Scene;
 class FBO;
@@ -64,6 +64,8 @@ public:
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
 
+	Quad quad_tree;
+
 	FBO* scene_fbo = nullptr;
 	FBO* game_fbo = nullptr;
 	float2 guizmo_pos;
@@ -78,7 +80,7 @@ public:
 	bool is_over_guizmo = false;
 	bool is_over_scene = false;
 
-private:
+public:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
 	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
 	

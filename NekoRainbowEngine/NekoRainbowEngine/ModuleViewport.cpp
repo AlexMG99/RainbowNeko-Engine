@@ -59,6 +59,7 @@ bool ModuleViewport::Start()
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+
 	return ret;
 }
 
@@ -82,7 +83,6 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
 		LoadScene();
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -94,6 +94,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 	if(draw_grid)
 		DrawGrid(2,100);
 	root_object->Update();
+	quad_tree.Draw();
 	scene_fbo->Unbind();
 
 	game_fbo->Bind(App->editor->panel_play->window_size);
@@ -242,9 +243,11 @@ void ModuleViewport::GuizControls()
 
 void ModuleViewport::GuizLogic()
 {
-	if (App->viewport->selected_object != nullptr )
+	if (App->viewport->selected_object != nullptr && !App->viewport->selected_object->is_static)
 	{
 		ComponentTransform* transform = (ComponentTransform*)App->viewport->selected_object->GetComponentTransform();
+
+		float4x4 model = transform->global_matrix.Transposed();
 
 		float4x4 view_transposed = App->camera->camera->frustum.ViewMatrix();
 		view_transposed = view_transposed.Transposed();
@@ -258,8 +261,16 @@ void ModuleViewport::GuizLogic()
 	
 		if (ImGuizmo::IsUsing())
 		{
-			transform->SetLocalTransform(object_transform_matrix.Transposed());
-			transform->UpdateComponents();
+			ComponentTransform* trans_parent = App->viewport->selected_object->GetParent()->GetComponentTransform();
+			if (App->viewport->selected_object->GetParent() != App->viewport->root_object)
+			{
+				transform->SetGlobalTransform(trans_parent->global_transformation.Inverted()*object_transform_matrix.Transposed());
+				
+			}
+			else
+			{
+				transform->SetGlobalTransform(object_transform_matrix.Transposed());
+			}
 		}
 
 		if (ImGuizmo::IsOver())
@@ -310,7 +321,7 @@ bool ModuleViewport::LoadScene()
 	if(!root_object->children.empty())
 		ReorganizeHierarchy();
 
-	App->camera->camera = App->camera->GetSceneCamera();
+	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	return true;
 }
@@ -325,6 +336,7 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
 
+	new_obj->is_static = scn.GetBool("Static");
 	new_obj->SetType((object_type)scn.GetInt("Type"));
 	new_obj->SetId(scn.GetDouble("ID"));
 	new_obj->parent_id = scn.GetDouble("ParentID");
@@ -363,6 +375,7 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 
 	Scene s_obj = scn.AddSectionArray(*num);
 
+	ret = s_obj.AddBool("Static", obj->is_static);
 	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddInt("Type", obj->GetType());
 	ret = s_obj.AddDouble("ID", obj->GetId());

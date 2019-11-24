@@ -305,6 +305,7 @@
     <ClCompile Include="Parson\parson.c" />
     <ClCompile Include="par\par_shapes.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceModel.cpp" />

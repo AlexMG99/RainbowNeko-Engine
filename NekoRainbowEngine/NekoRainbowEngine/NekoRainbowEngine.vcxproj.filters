@@ -267,7 +267,10 @@
     </ClCompile>
     <ClCompile Include="PanelAssets.cpp">
       <Filter>Sources\Panel</Filter>
-    </ClCompile>
+      </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Sources\Helpers</Filter>
+      </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">

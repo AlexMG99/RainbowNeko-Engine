@@ -64,6 +64,7 @@ Resource* ModuleResources::FindMeta(const char * file)
 			ImportMeta(file, path.c_str(), res);
 		}
 
+		RELEASE(meta);
 		return res;
 	}
 

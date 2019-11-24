@@ -14,7 +14,6 @@
 
 update_status PanelInspector::Draw()
 {
-
 	BROFILER_CATEGORY("Draw_PaneInspector", Profiler::Color::GoldenRod);
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_HorizontalScrollbar);
@@ -32,15 +31,27 @@ update_status PanelInspector::Draw()
 		//Transform
 		ImGui::PushID("Transform");
 		ImGui::Checkbox("", &object->active); ImGui::SameLine();
-		ImGui::Text("%s		", object->GetName().c_str());
+		ImGui::Text("%s		", object->GetName().c_str()); ImGui::SameLine();
+		if (ImGui::Checkbox("Static", &object->is_static))
+		{
+			object->SetStatic(object->is_static);
+			App->viewport->quad_tree.DeleteQuad();
+			App->viewport->quad_tree.Insert(App->viewport->root_object);
+		}
 		ImGui::Separator();
 
 		if (comp_trans && ImGui::CollapsingHeader("Transform"))
 		{
 			//Position / Rotation / Scale
-			if (((comp_camera) ? (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2)) : (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2))) ||
-				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2)||
-				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2))
+			ImGuiInputTextFlags text_flags;
+			if (object->is_static)
+				text_flags = ImGuiInputTextFlags_ReadOnly;
+			else
+				text_flags = ImGuiInputTextFlags_None;
+
+			if (((comp_camera) ? (ImGui::InputFloat3("Position", (float*)&comp_camera->frustum.pos, 2, text_flags)) : (ImGui::InputFloat3("Position", (float*)&comp_trans->local_position, 2, text_flags))) ||
+				ImGui::InputFloat3("Rotation", (float*)&comp_trans->local_rotation_euler, 2, text_flags)||
+				ImGui::InputFloat3("Scale", (float*)&comp_trans->local_scale, 2, text_flags))
 			{
 				comp_trans->UpdateComponents();
 			}

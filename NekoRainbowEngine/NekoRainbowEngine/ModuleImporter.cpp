@@ -64,11 +64,7 @@ bool ModuleImporter::ImportFile(const char* path)
 		comp_mesh->AddMesh(mesh);
 	}
 	else if (extension == "MODEL" || extension == "model")
-	{
-		ResourceModel* model = (ResourceModel*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MODEL).GetNumber());
-
-		model->Load();
-	}
+		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL).GetNumber();
 	else if (extension == "png" || extension == "dds" || extension == "jpg" || extension == "PNG" || extension == "DDS" || extension == "JPG" || extension == "TGA" || extension == "tga")
 	{
 		if (App->viewport->selected_object)
