@@ -80,7 +80,7 @@ public:
 	bool is_over_guizmo = false;
 	bool is_over_scene = false;
 
-private:
+public:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
 	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
 	

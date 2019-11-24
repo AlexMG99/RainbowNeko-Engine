@@ -35,12 +35,11 @@ public:
 	void AddLog(const char* text);
 	void AddLog(ConsoleText text);
 	void FilterConsole();
+	void CreateLOGDoc();
 
 private:
 	ImVec4 GetColorFromType(ConsoleTextType type);
 	void CopyLogs();
-
-	void CreateLOGDoc();
 
 private:
 	std::list<ConsoleText> console_text;
