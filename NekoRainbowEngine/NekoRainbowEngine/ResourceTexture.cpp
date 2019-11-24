@@ -30,7 +30,7 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 	std::string base_path;
 	App->fs->SplitFilePath(path, &base_path, &file, nullptr);
 
-	ResourceTexture* resource_texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
+	ResourceTexture resource_texture = *(ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
 
 	aiString texture_path;
 	if(texture->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path) == AI_SUCCESS);
@@ -42,17 +42,17 @@ Random ResourceTexture::Import(const aiMaterial* texture, const char* path)
 		App->resources->ImportAssets(full_path.c_str());
 
 		char id[15];
-		sprintf_s(id, 15, "%u", resource_texture->GetID().GetNumber());
+		sprintf_s(id, 15, "%u", resource_texture.GetID().GetNumber());
 		std::string output = id;
 		App->importer->texture_imp->Import(full_path.c_str(), output);
-		resource_texture->imported_file = output;
+		resource_texture.imported_file = output;
 
-		resource_texture->Load();
+		resource_texture.Load();
 
-		App->resources->SaveMeta(texture_path.C_Str(), resource_texture);
+		App->resources->SaveMeta(texture_path.C_Str(), &resource_texture);
 	}
 
-	return resource_texture->ID;
+	return resource_texture.ID;
 }
 
 void ResourceTexture::Import(const aiMaterial* texture, const char* path, Random text_id)
@@ -60,7 +60,7 @@ void ResourceTexture::Import(const aiMaterial* texture, const char* path, Random
 	std::string base_path;
 	App->fs->SplitFilePath(path, &base_path, &file, nullptr);
 
-	ResourceTexture* resource_texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE, text_id.GetNumber()));
+	ResourceTexture resource_texture = *(ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE, text_id.GetNumber()));
 
 	aiString texture_path;
 	if (texture->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path) == AI_SUCCESS);
@@ -72,12 +72,12 @@ void ResourceTexture::Import(const aiMaterial* texture, const char* path, Random
 		App->resources->ImportAssets(full_path.c_str());
 
 		char id[15];
-		sprintf_s(id, 15, "%u", resource_texture->GetID().GetNumber());
+		sprintf_s(id, 15, "%u", resource_texture.GetID().GetNumber());
 		std::string output = id;
 		App->importer->texture_imp->Import(full_path.c_str(), output);
-		resource_texture->imported_file = output;
+		resource_texture.imported_file = output;
 
-		resource_texture->Load();
+		resource_texture.Load();
 	}
 }
 
