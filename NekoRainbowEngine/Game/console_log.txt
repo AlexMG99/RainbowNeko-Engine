@@ -24,3 +24,27 @@ Loaded with path: ./Icons/PNG.png succesfully!
 Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
+
+Generated mesh with id vertex: 19 and id index: 20
+Generated mesh with id vertex: 25 and id index: 26
+Generated mesh with id vertex: 31 and id index: 32
+Generated mesh with id vertex: 37 and id index: 38
+Generated mesh with id vertex: 43 and id index: 44
+Generated mesh with id vertex: 49 and id index: 50
+Generated mesh with id vertex: 55 and id index: 56
+Generated mesh with id vertex: 61 and id index: 62
+Generated mesh with id vertex: 67 and id index: 68
+Generated mesh with id vertex: 73 and id index: 74
+Generated mesh with id vertex: 79 and id index: 80
+Generated mesh with id vertex: 85 and id index: 86
+Generated mesh with id vertex: 91 and id index: 92
+Generated mesh with id vertex: 97 and id index: 98
+Generated mesh with id vertex: 103 and id index: 104
+Generated mesh with id vertex: 109 and id index: 110
+Generated mesh with id vertex: 115 and id index: 116
+Generated mesh with id vertex: 121 and id index: 122
+Generated mesh with id vertex: 127 and id index: 128
+Generated mesh with id vertex: 133 and id index: 134
+Generated mesh with id vertex: 139 and id index: 140
+Generated mesh with id vertex: 145 and id index: 146
+Generated mesh with id vertex: 151 and id index: 152

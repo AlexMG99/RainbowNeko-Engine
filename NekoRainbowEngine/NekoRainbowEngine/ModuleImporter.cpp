@@ -57,11 +57,11 @@ bool ModuleImporter::ImportFile(const char* path)
 		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL);
 	else if (extension == "neko")
 	{
-		ResourceMesh mesh = *(ResourceMesh*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MESH).GetNumber());
-		GameObject* obj = App->viewport->CreateGameObject(mesh.name);
+		ResourceMesh* mesh = (ResourceMesh*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_MESH).GetNumber());
+		GameObject* obj = App->viewport->CreateGameObject(mesh->name);
 		ComponentMesh* comp_mesh = (ComponentMesh*)obj->CreateComponent(COMPONENT_MESH);
 		comp_mesh->transform = obj->GetComponentTransform();
-		comp_mesh->AddMesh(&mesh);
+		comp_mesh->AddMesh(mesh);
 	}
 	else if (extension == "MODEL" || extension == "model")
 		App->resources->ImportFile(path, resource_type::RESOURCE_MODEL).GetNumber();
@@ -73,13 +73,13 @@ bool ModuleImporter::ImportFile(const char* path)
 			if (!comp_texture)
 				comp_texture = (ComponentTexture*)App->viewport->selected_object->CreateComponent(COMPONENT_TEXTURE);
 
-			ResourceTexture texture = *(ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
-			if (&texture)
+			ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path, resource_type::RESOURCE_TEXTURE).GetNumber());
+			if (texture)
 			{
 				App->resources->ImportAssets(path);
-				comp_texture->AddTexture(&texture);
+				comp_texture->AddTexture(texture);
 				App->viewport->selected_object->GetComponentMesh()->image_id = comp_texture->texture->image_id;
-				LOG("Load Texture succesfully with name: %s", texture.file.c_str());
+				LOG("Load Texture succesfully with name: %s", texture->file.c_str());
 			}
 			else
 				LOG("Resource not loaded");

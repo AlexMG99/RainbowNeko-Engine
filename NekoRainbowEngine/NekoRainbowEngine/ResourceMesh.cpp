@@ -69,22 +69,22 @@ ResourceMesh::~ResourceMesh()
 
 Random ResourceMesh::Import(const aiMesh * mesh, const char * source_file)
 {
-	ResourceMesh resource_mesh = *(ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH);
+	ResourceMesh* resource_mesh = (ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH);
 	
-	resource_mesh = *(ResourceMesh*)App->importer->mesh_imp->Import(mesh, &resource_mesh);
-	App->importer->mesh_imp->SaveMesh(&resource_mesh);
-	resource_mesh.file = source_file;
+	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
+	App->importer->mesh_imp->SaveMesh(resource_mesh);
+	resource_mesh->file = source_file;
 
-	return resource_mesh.GetID();
+	return resource_mesh->GetID();
 }
 
 void ResourceMesh::Import(const aiMesh * mesh, const char * source_file, Random id)
 {
-	ResourceMesh resource_mesh = *(ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH, id.GetNumber());
+	ResourceMesh* resource_mesh = (ResourceMesh*)App->resources->CreateNewResource(resource_type::RESOURCE_MESH, id.GetNumber());
 
-	resource_mesh = *(ResourceMesh*)App->importer->mesh_imp->Import(mesh, &resource_mesh);
-	App->importer->mesh_imp->SaveMesh(&resource_mesh);
-	resource_mesh.file = source_file;
+	resource_mesh = App->importer->mesh_imp->Import(mesh, resource_mesh);
+	App->importer->mesh_imp->SaveMesh(resource_mesh);
+	resource_mesh->file = source_file;
 }
 
 void ResourceMesh::ReleaseFromMemory() 

@@ -115,7 +115,6 @@ bool ResourceModel::Load()
 	else
 		ret = false;
 
-	RELEASE(model);
 	return ret;
 }
 
