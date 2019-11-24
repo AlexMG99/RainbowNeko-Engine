@@ -28,7 +28,6 @@ bool PanelAssets::Start()
 	CreateNodeTexture("./Icons/Arrow.png");
 
 	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
-	CreateBackNode(LIBRARY_FOLDER);
 
 	for (int i = 0; i < nodes.size(); i++)
 	{
@@ -45,14 +44,30 @@ update_status PanelAssets::Draw()
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 	
+	uint num = 0;
 	for (int i = 0; i < nodes.size(); i++)
 	{
-		nodes.at(i).Draw();
+		nodes.at(i).Draw(num);
 	}
 
+	num = 0;
 	ImGui::End();
 	return ret;
 }
+
+void PanelAssets::ReloadPanel()
+{
+	RELEASE_LIST(nodes);
+
+	CreateNodes(nodes, LIBRARY_FOLDER, nullptr);
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		nodes.at(i).draw = true;
+	}
+}
+
+
 
 void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p, Node* parent)
 {
@@ -85,12 +100,6 @@ void PanelAssets::CreateNodes(std::vector<Node>& node, const char* p, Node* pare
 	
 }
 
-void PanelAssets::CreateBackNode(const char * path)
-{
-	ResourceTexture* texture = (ResourceTexture*)App->resources->Get(node_textures.at("arrow").GetNumber());
-	back_node = new Node(path, path, texture->image_id, texture->width, texture->height, nullptr);
-}
-
 void PanelAssets::CreateNodeTexture(std::string path)
 {
 	Random ID = App->resources->ImportFile(path.c_str(), RESOURCE_TEXTURE);
@@ -100,10 +109,11 @@ void PanelAssets::CreateNodeTexture(std::string path)
 	node_textures.insert(std::pair<std::string, Random>(file_name, ID));
 }
 
-void Node::Draw()
+void Node::Draw(uint& num)
 {
 	if (draw) 
 	{
+		num++;
 		ImGui::BeginChild(local_path.c_str(), ImVec2(width*0.3, height*0.3));
 		if (ImGui::ImageButton((ImTextureID)image_id, ImVec2(width * 0.2, height*0.2), ImVec2(0, 1), ImVec2(1, 0), 6, ImVec4(1, 1, 0, 0)))
 		{
@@ -119,12 +129,13 @@ void Node::Draw()
 		ImGui::Text("%s", local_path.c_str());
 
 		ImGui::EndChild();
-		ImGui::SameLine();
+		if(num % 10 != 0)
+			ImGui::SameLine();
 	}
 
 	for (int i = 0; i < childrens.size(); i++)
 	{
-		childrens.at(i).Draw();
+		childrens.at(i).Draw(num);
 	}
 
 }
