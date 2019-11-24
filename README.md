@@ -70,7 +70,6 @@ Show game scene
 	* _**Activate/Deactivate Camera Culling**_. 
 	* _**Activate/Deactivate Gizmos**_.
 	
-
 ### Play
 Show scene through camera 
 
@@ -86,6 +85,8 @@ Show scene through camera
 ### Inspector
 The panel Inspector shows information about that GameObject selected in the panel Hierarchy.
 * **Check Box**: Name of the GameObject selected.
+
+* **Check Box**: Static or non-static object. Creates Quadtree.
 
 * **Transform**: Shows info about:
 	* _**Position of the object**_. 
@@ -146,6 +147,11 @@ The panel Console prints:
 	* _**Normal Logs**_. 
 	
 
+### Assets
+The panel loads the floders and resources that are inside the Library folder.
+If you left-click on a floder, it will show the resources inside it. To use one of the shown resorces on the Panel Scene, you must left-click on the resource, then it will appear in the scene without the texture.
+To put the texture on it you must have the texture folder opened, then select the object you want to punt the texture on and then left-click on the texture.  
+
 ## Game Engine Controls
 * **Camera Movement**:
 	* _**While right clicking, and using "WASD" movement and free look around is enabled**_.
@@ -184,6 +190,11 @@ Innovations implemented in our Engine:
 * **Style**:
 	* _**Created two types of cursor icons (eye and hand)**_.
 	* _**Created our Engine style and applied to it**_.
+* **Panel Assets**:
+	* _**Panel that loads the resources inside the Library folder**_.
+	* _**Left_Click on the resources to place them in the panel scene to use them**_.
+        * _**Load the resources texture, selecting the object in the scene and then left_clicking on the texture**_.
+
 
 
 
