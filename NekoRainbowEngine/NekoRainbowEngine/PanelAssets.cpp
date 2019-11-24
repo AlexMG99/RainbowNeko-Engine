@@ -43,7 +43,7 @@ update_status PanelAssets::Draw()
 	BROFILER_CATEGORY("Draw_PanelAssets", Profiler::Color::GoldenRod);
 
 	update_status ret = UPDATE_CONTINUE;
-	ImGui::Begin(name, &enabled);
+	ImGui::Begin(name, &enabled, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 	
 	for (int i = 0; i < nodes.size(); i++)
 	{

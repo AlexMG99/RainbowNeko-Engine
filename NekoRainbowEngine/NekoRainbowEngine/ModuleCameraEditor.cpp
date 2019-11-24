@@ -113,13 +113,13 @@ update_status ModuleEditorCamera::Update(float dt)
 			App->viewport->selected_object = nullptr;
 		}
 	}
-	App->viewport->is_over_scene = false;
 		
 	// Wheel Movement
 	int wheel = App->input->GetMouseZ();
-	if(wheel != 0)
+	if(wheel != 0 && App->viewport->is_over_scene)
 		Zoom(wheel * zoom_speed * dt);
 
+	App->viewport->is_over_scene = false;
 	return UPDATE_CONTINUE;
 }
 
