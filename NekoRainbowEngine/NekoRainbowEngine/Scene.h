@@ -26,6 +26,7 @@ public:
 	~Scene();
 
 	bool AddInt(const char* field, int value);
+	bool AddBool(const char* field, bool value);
 	bool AddFloat(const char* field, float value);
 	bool AddDouble(const char * field, double value);
 	bool AddFloat3(const char* field, float3 value);
@@ -33,6 +34,7 @@ public:
 	bool AddString(const char * field, std::string value);
 
 	int GetInt(const char* field);
+	bool GetBool(const char* field);
 	float GetFloat(const char* field);
 	double GetDouble(const char * field);
 	float3 GetFloat3(const char* field);

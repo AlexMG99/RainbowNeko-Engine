@@ -12,7 +12,7 @@
 #include "RayCast.h"
 #include "imgui/imgui.h"
 #include "imGuizmo/ImGuizmo.h"
-
+#include "Quadtree.h"
 
 class Scene;
 class FBO;
@@ -63,6 +63,8 @@ public:
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
 	LineSegment ray;
+
+	Quad quad_tree;
 
 	FBO* scene_fbo = nullptr;
 	FBO* game_fbo = nullptr;

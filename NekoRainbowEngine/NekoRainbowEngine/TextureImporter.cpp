@@ -90,6 +90,7 @@ ResourceTexture* TextureImporter::Load(const char * file)
 
 	ilDeleteImages(1, &devil_id);
 	texture->path = file;
+	texture->file = file;
 
 	return texture;
 }

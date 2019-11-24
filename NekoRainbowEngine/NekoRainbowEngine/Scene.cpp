@@ -40,6 +40,11 @@ bool Scene::AddInt(const char * field, int value)
 	return json_object_set_number(root, field, (uint32)value) == JSONSuccess;
 }
 
+bool Scene::AddBool(const char * field, bool value)
+{
+	return json_object_set_boolean(root, field, (bool)value) == JSONSuccess;
+}
+
 bool Scene::AddFloat(const char * field, float value)
 {
 	return json_object_set_number(root, field, (float)value) == JSONSuccess;
@@ -85,6 +90,11 @@ bool Scene::AddString(const char * field, std::string value)
 int Scene::GetInt(const char * field)
 {
 	return int(json_object_get_number(root, field));
+}
+
+bool Scene::GetBool(const char * field)
+{
+	return bool(json_object_get_boolean(root, field));;
 }
 
 float Scene::GetFloat(const char * field)

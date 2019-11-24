@@ -89,7 +89,7 @@ bool ResourceModel::Load()
 			parent->SetId(go.GetDouble("ID") + random.GetNumber());
 			parent->parent_id = go.GetDouble("Parent") + random.GetNumber();
 
-			ResourceMesh* mesh = new ResourceMesh();
+			ResourceMesh* mesh = (ResourceMesh*)App->resources->Get(go.GetDouble("Mesh"));
 			mesh = mesh->Load(go);
 			if (mesh)
 			{
@@ -97,7 +97,7 @@ bool ResourceModel::Load()
 				comp_mesh->AddMesh(mesh);
 			}
 			
-			ResourceTexture* texture = new ResourceTexture();
+			ResourceTexture* texture = (ResourceTexture*)App->resources->Get(go.GetDouble("Texture"));
 			texture = texture->Load(go);
 			if (texture)
 			{
