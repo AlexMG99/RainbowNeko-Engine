@@ -50,7 +50,11 @@ Resource* ModuleResources::FindMeta(const char * file)
 
 	if (meta->GetVRoot())
 	{
-		Resource* res = CreateNewResource(resource_type(meta->GetInt("Type")), meta->GetDouble("ID"));
+		Resource* res = Get(meta->GetDouble("ID"));
+		if (!res)
+		{
+			res = CreateNewResource(resource_type(meta->GetInt("Type")), meta->GetDouble("ID"));
+		}
 		res->file = meta->GetString("File");
 		res->imported_file = meta->GetString("ExportedFile");
 		if (res->type == RESOURCE_MESH)
