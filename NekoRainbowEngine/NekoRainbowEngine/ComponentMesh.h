@@ -67,7 +67,7 @@ public:
 class ComponentTexture : public Component {
 public:
 	ComponentTexture(component_type comp_type, bool act, GameObject * obj) : Component(comp_type, act, obj) {};
-	~ComponentTexture() {};
+	~ComponentTexture();
 
 	void Enable() {};
 	void Disable() {};

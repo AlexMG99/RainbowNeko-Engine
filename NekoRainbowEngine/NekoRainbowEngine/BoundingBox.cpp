@@ -23,6 +23,11 @@ BoundingBox::~BoundingBox()
 	RELEASE_LIST(vertices_AABB);
 	RELEASE_LIST(vertices_OBB);
 	RELEASE_LIST(index_BB);
+
+	glDeleteBuffers(1, &id_vertexAABB);
+	glGenBuffers(1, &id_vertexOBB);
+	glGenBuffers(1, &id_indexBB);
+
 }
 
 void BoundingBox::GenerateBoundingBuffers()

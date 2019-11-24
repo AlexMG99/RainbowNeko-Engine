@@ -55,6 +55,12 @@ ComponentCamera::ComponentCamera(component_type comp_type, bool act, GameObject 
 	GenerateFrustumBuffers();
 }
 
+ComponentCamera::~ComponentCamera()
+{
+	glDeleteBuffers(1, &id_vertices_frustum);
+	glDeleteBuffers(1, &id_index_frustum);
+}
+
 float* ComponentCamera::GetViewMatrix()
 {
 	vec3 X = { frustum.WorldRight().x, frustum.WorldRight().y, frustum.WorldRight().z };

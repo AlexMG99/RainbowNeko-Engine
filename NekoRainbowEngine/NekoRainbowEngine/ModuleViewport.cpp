@@ -424,13 +424,10 @@ bool ModuleViewport::ResetScene()
 {
 	selected_object = nullptr;
 
-	for (auto it_child = root_object->children.begin(); it_child != root_object->children.end(); ++it_child)
-	{
-		RELEASE(*it_child);
-	}
+	RELEASE_ARRAY_LIST(root_object->children);
 
-	root_object->children.clear();
 	RELEASE(scene);
+
 	return true;
 }
 

@@ -84,9 +84,6 @@ private:
 	uint id_indexBB = 0;
 
 public:
-	ComponentTransform* transfrom = nullptr;
-	ComponentMesh* mesh = nullptr;
-
 	std::vector<GameObject*>	children;
 	bool selected = false;
 	bool active = true;

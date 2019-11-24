@@ -223,6 +223,11 @@ bool ComponentMesh::DrawSelectedOutline()
 	return true;
 }
 
+ComponentTexture::~ComponentTexture()
+{
+	RELEASE(texture);
+}
+
 bool ComponentTexture::OnSave(Scene & scene, int i) const
 {
 	bool ret = true;

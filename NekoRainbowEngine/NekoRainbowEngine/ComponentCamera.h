@@ -14,7 +14,7 @@ class ComponentCamera: public Component
 public:
 	ComponentCamera(component_type comp_type, bool act, GameObject* obj);
 	ComponentCamera(component_type comp_type, bool act, GameObject* obj, float nP, float fP, float FOV);
-	~ComponentCamera() {};
+	~ComponentCamera();
 
 	bool Update();
 
