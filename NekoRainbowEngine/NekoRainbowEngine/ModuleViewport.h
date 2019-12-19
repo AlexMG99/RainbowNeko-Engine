@@ -62,6 +62,7 @@ public:
 	GameObject* root_object = nullptr;
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
+	GameObject* canvas = nullptr;
 	LineSegment ray;
 
 	Quad quad_tree;

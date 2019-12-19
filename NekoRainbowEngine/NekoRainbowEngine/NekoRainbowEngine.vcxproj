@@ -87,8 +87,13 @@
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentButton.h" />
     <ClInclude Include="ComponentCamera.h" />
+    <ClInclude Include="ComponentCanvas.h" />
+    <ClInclude Include="ComponentLabel.h" />
     <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentRectTransform.h" />
+    <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Deviceld\DeviceId.h" />
     <ClInclude Include="Deviceld\dxgi1_4.h" />
@@ -229,6 +234,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
+    <ClCompile Include="ComponentCanvas.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="Deviceld\DeviceId.cpp" />
     <ClCompile Include="FBO.cpp" />

@@ -1,108 +1,16 @@
 
-Loaded with path: /Library/Textures/974821988.dds succesfully!
-File System error while copy from [./assets/building_v02_c.png] to [/Assets/building_v02_c.png]
-New file created [./Library/Textures/2823542149.dds] of 262272 bytes
-Loaded with path: /Library/Textures/2823542149.dds succesfully!
-File System error while copy from [./assets/building_016_c.tga] to [/Assets/building_016_c.tga]
-New file created [./Library/Textures/1881078781.dds] of 65664 bytes
-Loaded with path: /Library/Textures/1881078781.dds succesfully!
-File System error while copy from [./assets/building_025_c.tga] to [/Assets/building_025_c.tga]
-New file created [./Library/Textures/399160389.dds] of 65664 bytes
-Loaded with path: /Library/Textures/399160389.dds succesfully!
-File System error while copy from [./assets/default_texture.png] to [/Assets/default_texture.png]
-New file created [./Library/Textures/4291639936.dds] of 51536 bytes
-Loaded with path: /Library/Textures/4291639936.dds succesfully!
-File System error while copy from [./assets/default_texture.png] to [/Assets/default_texture.png]
-New file created [./Library/Textures/2142798304.dds] of 51536 bytes
-Loaded with path: /Library/Textures/2142798304.dds succesfully!
-File System error while copy from [./assets/building 01_c.tga] to [/Assets/building 01_c.tga]
-New file created [./Library/Textures/3673612666.dds] of 1048704 bytes
-Loaded with path: /Library/Textures/3673612666.dds succesfully!
-File System error while copy from [./assets/building 06_ c.tga] to [/Assets/building 06_ c.tga]
-New file created [./Library/Textures/3992808710.dds] of 1048704 bytes
-Loaded with path: /Library/Textures/3992808710.dds succesfully!
-File System error while copy from [./assets/building05 _c.tga] to [/Assets/building05 _c.tga]
-New file created [./Library/Textures/468513804.dds] of 1048704 bytes
-Loaded with path: /Library/Textures/468513804.dds succesfully!
-File System error while copy from [./assets/building_v01_c.png] to [/Assets/building_v01_c.png]
-New file created [./Library/Textures/1470632730.dds] of 262272 bytes
-Loaded with path: /Library/Textures/1470632730.dds succesfully!
-File System error while copy from [./assets/default_texture.png] to [/Assets/default_texture.png]
-New file created [./Library/Textures/306285054.dds] of 51536 bytes
-Loaded with path: /Library/Textures/306285054.dds succesfully!
-New mesh with 3850 vertices
-Generated mesh with id vertex: 5 and id index: 6
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/2054269462.neko] of 100972 bytes
-New mesh with 2129 vertices
-Generated mesh with id vertex: 8 and id index: 9
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/3074475522.neko] of 59304 bytes
-New mesh with 436 vertices
-Generated mesh with id vertex: 11 and id index: 12
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/1354815108.neko] of 11476 bytes
-New mesh with 419 vertices
-Generated mesh with id vertex: 14 and id index: 15
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/935821080.neko] of 11856 bytes
-New mesh with 4 vertices
-Generated mesh with id vertex: 17 and id index: 18
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/4042317620.neko] of 124 bytes
-New mesh with 3268 vertices
-Generated mesh with id vertex: 20 and id index: 21
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/1062835961.neko] of 85372 bytes
-New mesh with 2452 vertices
-Generated mesh with id vertex: 23 and id index: 24
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/1477123242.neko] of 65848 bytes
-New mesh with 6069 vertices
-Generated mesh with id vertex: 26 and id index: 27
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/161293255.neko] of 275948 bytes
-New mesh with 48 vertices
-Generated mesh with id vertex: 29 and id index: 30
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/225215500.neko] of 1844 bytes
-New mesh with 25 vertices
-Generated mesh with id vertex: 31 and id index: 32
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/1798881929.neko] of 904 bytes
-New mesh with 4218 vertices
-Generated mesh with id vertex: 34 and id index: 35
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/4239372589.neko] of 195284 bytes
-New mesh with 4670 vertices
-Generated mesh with id vertex: 37 and id index: 38
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/859350977.neko] of 127404 bytes
-New mesh with 4523 vertices
-Generated mesh with id vertex: 40 and id index: 41
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/2169725465.neko] of 123408 bytes
-New mesh with 1440 vertices
-Generated mesh with id vertex: 43 and id index: 44
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/409954988.neko] of 54740 bytes
-New mesh with 4772 vertices
-Generated mesh with id vertex: 45 and id index: 46
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/1293008953.neko] of 127404 bytes
-New mesh with 3481 vertices
-Generated mesh with id vertex: 48 and id index: 49
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/2646188314.neko] of 95152 bytes
-New mesh with 2548 vertices
-Generated mesh with id vertex: 51 and id index: 52
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/3902766577.neko] of 69100 bytes
-New mesh with 3972 vertices
-Generated mesh with id vertex: 54 and id index: 55
-Loaded mesh file succesfully!
-New file created [./Library/Meshes/4007583813.neko] of 188468 bytes
-File System copied file [./Library/Models/RootNode.model] to [/Library/Models/4247469021.model]
+-------------- Application Init --------------
+Init SDL window & surface
+Init SDL input event system
+Creating 3D Renderer context
+Using Glew 2.1.0
+Vendor: NVIDIA Corporation
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
+GLSL: 4.60 NVIDIA
+
+-------------- Application Start --------------
+Setting up the camera
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
@@ -113,10 +21,3 @@ Loaded with path: ./Icons/PNG.png succesfully!
 Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
-
-Generated mesh with id vertex: 149 and id index: 150
-Generated mesh with id vertex: 155 and id index: 156
-Generated mesh with id vertex: 161 and id index: 162
-Generated mesh with id vertex: 167 and id index: 168
-Generated mesh with id vertex: 173 and id index: 174
-Generated mesh with id vertex: 179 and id index: 180

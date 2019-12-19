@@ -44,6 +44,9 @@ bool ModuleViewport::Start()
 	camera_game = CreateGameObject("Camera", root_object);
 	camera_game->CreateComponentCamera(1.0f, 600.0f, 90);
 
+	canvas = CreateGameObject("Canvas", root_object);
+	canvas->CreateComponent(COMPONENT_CANVAS);
+
 	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
 		scene = new Scene();
@@ -58,7 +61,7 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
-	App->importer->ImportFile("./Assets/Street environment_V01.FBX");
+	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
 
 	return ret;
 }

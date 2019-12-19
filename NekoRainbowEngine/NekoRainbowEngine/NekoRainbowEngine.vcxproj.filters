@@ -267,10 +267,11 @@
     </ClCompile>
     <ClCompile Include="PanelAssets.cpp">
       <Filter>Sources\Panel</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Helpers</Filter>
-      </ClCompile>
+    </ClCompile>
+    <ClCompile Include="ComponentCanvas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -717,6 +718,21 @@
     <ClInclude Include="Path.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentUI.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCanvas.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentButton.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentRectTransform.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentLabel.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -799,6 +815,9 @@
     </Filter>
     <Filter Include="Sources\Resource">
       <UniqueIdentifier>{505bd5c0-2ecc-4fa4-b1fc-8481cda76760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Components\UI">
+      <UniqueIdentifier>{7326dbb5-a963-4e50-8144-372af21c185b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

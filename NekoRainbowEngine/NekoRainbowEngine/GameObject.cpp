@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ComponentCanvas.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -55,6 +56,9 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		break;
 	case COMPONENT_CAMERA:
 		comp = new ComponentCamera(comp_type, act, this);
+		break;
+	case COMPONENT_CANVAS:
+		comp = new ComponentCanvas(comp_type, act, this, 66, 80);
 		break;
 	case COMPONENT_NONE:
 		break;
