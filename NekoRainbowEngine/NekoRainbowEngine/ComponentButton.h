@@ -4,8 +4,13 @@
 #include "ComponentUI.h"
 
 class ComponentButton :public ComponentUI {
-	ComponentButton();
-	ComponentButton();
+public:
+	ComponentButton(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas);
+	~ComponentButton() {};
+
+	bool Update();
+
+	void Draw();
 };
 
 

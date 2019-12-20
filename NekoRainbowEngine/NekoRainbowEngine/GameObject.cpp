@@ -5,6 +5,8 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "ComponentCanvas.h"
+#include "ComponentButton.h"
+#include "ComponentLabel.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -78,6 +80,32 @@ ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV
 	return comp;
 }
 
+ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint height, ComponentCanvas* canvas, bool active)
+{
+	ComponentUI* comp = nullptr;
+
+	switch (ui_type)
+	{
+	case UI_Button:
+		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas);
+		break;
+	case UI_Label:
+
+		break;
+	case UI_InpuText:
+
+		break;
+	case UI_Checkbox:
+
+		break;
+	}
+
+	if (comp)
+		components.push_back(comp);
+
+	return comp;
+}
+
 bool GameObject::SaveComponents(Scene scene)
 {
 	for (int i = 0; i < components.size(); i++)
@@ -143,6 +171,17 @@ ComponentCamera* GameObject::GetComponentCamera()
 	{
 		if ((*it_comp)->type == COMPONENT_CAMERA)
 			return (ComponentCamera*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
+ComponentCanvas * GameObject::GetComponentCanvas()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_CANVAS)
+			return (ComponentCanvas*)(*it_comp);
 	}
 
 	return nullptr;

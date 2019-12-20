@@ -4,8 +4,8 @@
 #include "ComponentUI.h"
 
 class ComponentLabel :public ComponentUI {
-	ComponentLabel() {};
-	~ComponentLabel() {};
+	/*ComponentLabel() {};
+	~ComponentLabel() {};*/
 
 
 	//void DebugDraw();

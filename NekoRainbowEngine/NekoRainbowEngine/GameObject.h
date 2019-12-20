@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Component.h"
+#include "ComponentUI.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
 #include "MathGeoLib/include/Geometry/OBB.h"
 #include "Random.h"
@@ -12,6 +13,7 @@
 class ComponentMesh;
 class ComponentTexture;
 class ComponentCamera;
+class ComponentCanvas;
 class Scene;
 
 enum object_type {
@@ -31,6 +33,7 @@ public:
 	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true);
 	ComponentCamera * CreateComponentCamera(float nP, float fP, float FOV);
+	ComponentUI* CreateComponentUI(UI_type comp_type, uint width, uint height, ComponentCanvas* canvas, bool active = true);
 
 	bool SaveComponents(Scene scene);
 	bool LoadComponents(Scene scene);
@@ -39,6 +42,7 @@ public:
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
 	ComponentCamera* GetComponentCamera();
+	ComponentCanvas* GetComponentCanvas();
 
 	void DeleteComponent(Component* comp);
 

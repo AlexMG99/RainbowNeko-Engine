@@ -20,6 +20,7 @@ enum component_type {
 	COMPONENT_LIGHT,
 	COMPONENT_CAMERA,
 	COMPONENT_CANVAS,
+	COMPONENT_UI,
 	COMPONENT_TOTAL
 };
 
@@ -27,7 +28,6 @@ enum component_type {
 
 class Component {
 public:
-	Component() {};
 	Component(component_type comp_type, bool act, GameObject* obj);
 	~Component();
 

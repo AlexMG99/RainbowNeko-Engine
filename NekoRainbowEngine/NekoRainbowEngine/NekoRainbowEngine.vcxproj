@@ -92,7 +92,6 @@
     <ClInclude Include="ComponentCanvas.h" />
     <ClInclude Include="ComponentLabel.h" />
     <ClInclude Include="ComponentMesh.h" />
-    <ClInclude Include="ComponentRectTransform.h" />
     <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Deviceld\DeviceId.h" />
@@ -233,9 +232,11 @@
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentButton.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentCanvas.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="Deviceld\DeviceId.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="GameObject.cpp" />

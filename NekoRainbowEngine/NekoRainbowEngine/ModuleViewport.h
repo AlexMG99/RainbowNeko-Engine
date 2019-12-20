@@ -46,7 +46,9 @@ public:
 	bool ResetScene();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f } , float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
-	
+	GameObject* CreateUIElement(std::string name, UI_type type, uint width, uint height, ComponentCanvas* canvas, GameObject* parent = nullptr, float3 position = { 0.0f,0.0f,0.0f }, float3 scale = { 1.0f,1.0f,1.0f }, Quat rotation = Quat::identity);
+
+
 	void DeleteGameObject();
 
 public:
@@ -62,6 +64,7 @@ public:
 	GameObject* root_object = nullptr;
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
+	GameObject* ui_test = nullptr;
 	GameObject* canvas = nullptr;
 	LineSegment ray;
 

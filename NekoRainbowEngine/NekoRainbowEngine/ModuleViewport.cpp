@@ -11,6 +11,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ComponentUI.h"
 #include "Scene.h"
 #include "PanelScene.h"
 #include "PanelPlay.h"
@@ -46,6 +47,8 @@ bool ModuleViewport::Start()
 
 	canvas = CreateGameObject("Canvas", root_object);
 	canvas->CreateComponent(COMPONENT_CANVAS);
+
+	ui_test = CreateUIElement("Button", UI_Button, 20, 10, canvas->GetComponentCanvas() ,canvas, { 2,2,2 });
 
 	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
@@ -444,6 +447,21 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	trans->local_scale = object->CorrectScale(scale);
 	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
 	object->SetParent(parent);
+	object->SetId();
+	return object;
+}
+
+GameObject * ModuleViewport::CreateUIElement(std::string name, UI_type type, uint width, uint height, ComponentCanvas* canvas, GameObject* parent, float3 position, float3 scale, Quat rotation)
+{
+	GameObject* object = new GameObject();
+	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
+	object->SetParent(parent);
+	object->CreateComponentUI(type, width, height, canvas);
+	object->SetName(name.c_str());
+	trans->local_position = position;
+	trans->local_rotation = rotation;
+	trans->local_scale = object->CorrectScale(scale);
+	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
 	object->SetId();
 	return object;
 }

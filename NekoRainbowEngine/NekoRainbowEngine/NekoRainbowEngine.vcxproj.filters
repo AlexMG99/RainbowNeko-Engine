@@ -271,7 +271,13 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentCanvas.cpp" />
+    <ClCompile Include="ComponentCanvas.cpp">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentButton.cpp">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -725,9 +731,6 @@
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="ComponentButton.h">
-      <Filter>Sources\GameObject\Components\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentRectTransform.h">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="ComponentLabel.h">
