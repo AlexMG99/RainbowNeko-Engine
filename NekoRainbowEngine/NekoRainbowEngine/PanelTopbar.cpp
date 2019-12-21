@@ -7,11 +7,13 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
+#include "ModuleViewport.h"
 #include "PanelShape.h"
 #include "PanelAssets.h"
 #include "PanelSceneManager.h"
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
+
 
 PanelTopbar::~PanelTopbar()
 {
@@ -63,6 +65,17 @@ update_status PanelTopbar::Draw()
 		ImGui::MenuItem("Assets", NULL, &App->editor->panel_assets->enabled);
 		ImGui::MenuItem("Play", NULL, &App->editor->panel_play->enabled);
 
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("Add UI Element"))
+	{
+		if (ImGui::Button("Add Button"))
+		{
+			App->viewport->CreateUIElement("Button", UI_Button, 20, 10, App->viewport->canvas->GetComponentCanvas(), App->viewport->canvas, { 2,2,2 });
+		};
+		ImGui::Button("Add Label");
+		
 		ImGui::EndMenu();
 	}
 
