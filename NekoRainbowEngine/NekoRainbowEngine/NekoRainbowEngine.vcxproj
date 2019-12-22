@@ -118,6 +118,7 @@
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleFileSystem.h" />
+    <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="ModuleViewport.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="ComponentButton.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentCanvas.cpp" />
+    <ClCompile Include="ComponentLabel.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="Deviceld\DeviceId.cpp" />
@@ -291,6 +293,7 @@
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCameraEditor.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
+    <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />

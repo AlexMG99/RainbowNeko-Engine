@@ -14,6 +14,7 @@
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
 #include "ModuleResources.h"
+#include "ModuleFonts.h"
 
 typedef struct json_value_t  JSON_Value;
 struct ConsoleText;
@@ -30,6 +31,7 @@ public:
 	ModuleEditorCamera* camera;
 	ModuleImporter* importer;
 	ModuleResources* resources;
+	ModuleFonts* fonts;
 
 	int					capped_ms = -1;
 	JSON_Value* settings_doc = nullptr;

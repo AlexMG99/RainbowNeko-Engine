@@ -1,5 +1,4 @@
 #include "ModuleFonts.h"
-#include "Globals.h"
 
 #include "SDL\include\SDL.h"
 #include "SDL2_ttf/include/SDL_ttf.h"
@@ -19,7 +18,7 @@ bool ModuleFonts::Init()
 	{
 		const char* path = "./Fonts/Roboto.ttf";
 		int size = 12;
-		default_font = Load(path, size);
+		default_font = LoadFont(path, size);
 	}
 
 	return ret;
@@ -33,7 +32,7 @@ bool ModuleFonts::CleanUp()
 	return true;
 }
 
-Font * const ModuleFonts::Load(const char * path, int size)
+Font * const ModuleFonts::LoadFont(const char * path, int size)
 {
 	Font* font = new Font;
 	font->font = TTF_OpenFont(path, size);
@@ -54,7 +53,7 @@ bool ModuleFonts::CalcSize(const char * text, int & width, int & height, _TTF_Fo
 {
 	bool ret = false;
 
-	if (TTF_SizeText((font) ? font : default->font, text, &width, &height) != 0) {
+	if (TTF_SizeText((font) ? font : default_font->font, text, &width, &height) != 0) {
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 	else {
@@ -62,5 +61,4 @@ bool ModuleFonts::CalcSize(const char * text, int & width, int & height, _TTF_Fo
 	}
 
 	return ret;
-}
 }

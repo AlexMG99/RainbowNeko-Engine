@@ -277,7 +277,15 @@
     <ClCompile Include="ComponentButton.cpp">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentUI.cpp" />
+    <ClCompile Include="ComponentUI.cpp">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentLabel.cpp">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -735,6 +743,9 @@
     </ClInclude>
     <ClInclude Include="ComponentLabel.h">
       <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

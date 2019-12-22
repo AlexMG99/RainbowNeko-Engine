@@ -2,6 +2,7 @@
 #define _MODULE_FONTS_H_
 
 #include "Module.h"
+#include "Globals.h"
 #include <vector>
 
 typedef struct _TTF_Font TTF_Font;
@@ -22,7 +23,7 @@ public:
 	bool CleanUp();
 
 	// Load Font
-	Font* const Load(const char* path, int size = 12);
+	Font* const LoadFont(const char* path, int size = 12);
 	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
 
 public:

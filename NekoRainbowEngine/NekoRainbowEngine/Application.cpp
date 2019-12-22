@@ -19,6 +19,7 @@ Application::Application()
 	camera = new ModuleEditorCamera(this);
 	importer = new ModuleImporter(this);
 	resources = new ModuleResources(this);
+	fonts = new ModuleFonts(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -31,6 +32,7 @@ Application::Application()
 	AddModule(fs);
 	AddModule(importer);
 	AddModule(resources);
+	AddModule(fonts);
 
 	// Scenes
 	AddModule(viewport);

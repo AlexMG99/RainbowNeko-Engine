@@ -2,6 +2,8 @@
 -------------- Application Init --------------
 Init SDL window & surface
 Init SDL input event system
+Init True Type Font library
+Font ./Fonts/Roboto.ttf with size 12 has been succesfully loaded!
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
@@ -12,8 +14,8 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
-New file created [./Library/Textures/3694344168.dds] of 57728 bytes
-Loaded with path: /Library/Textures/3694344168.dds succesfully!
+New file created [./Library/Textures/3671342338.dds] of 57728 bytes
+Loaded with path: /Library/Textures/3671342338.dds succesfully!
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
