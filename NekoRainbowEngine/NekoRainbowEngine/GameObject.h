@@ -43,6 +43,7 @@ public:
 	ComponentTexture* GetComponentTexture();
 	ComponentCamera* GetComponentCamera();
 	ComponentCanvas* GetComponentCanvas();
+	ComponentUI* GetComponentUI();
 
 	void DeleteComponent(Component* comp);
 

@@ -187,6 +187,17 @@ ComponentCanvas * GameObject::GetComponentCanvas()
 	return nullptr;
 }
 
+ComponentUI * GameObject::GetComponentUI()
+{
+	for (auto it_comp = components.begin(); it_comp != components.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == COMPONENT_UI)
+			return (ComponentUI*)(*it_comp);
+	}
+
+	return nullptr;
+}
+
 bool GameObject::HasChildren() const
 {
 	if (children.empty())

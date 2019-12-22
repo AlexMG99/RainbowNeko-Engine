@@ -27,3 +27,10 @@ void ComponentUI::DebugDraw()
 
 	glEnd();
 }
+
+void ComponentUI::UpdateTransform()
+{
+	ComponentTransform* comp_trans = my_go->GetComponentTransform();
+	comp_trans->local_position = { comp_trans->local_position.x, comp_trans->local_position.y, comp_trans->local_position.z };
+	comp_trans->GetGlobalTransformMatrix();
+}

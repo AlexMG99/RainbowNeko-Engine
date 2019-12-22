@@ -33,6 +33,7 @@ public:
 
 	virtual void DebugDraw();
 	virtual void Draw() {};
+	void UpdateTransform();
 
 	virtual bool Update() { return true; };
 

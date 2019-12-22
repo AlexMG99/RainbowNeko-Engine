@@ -151,6 +151,11 @@ void ComponentTransform::UpdateComponents()
 	if (comp_mesh)
 		comp_mesh->BB_mesh.UpdateBB(my_go);
 
+	ComponentUI* comp_ui = my_go->GetComponentUI();
+
+	if (comp_ui)
+		comp_ui->UpdateTransform();
+
 	ComponentCamera* comp_camera = my_go->GetComponentCamera();
 	if (comp_camera)
 		comp_camera->UpdateFrustum(false);
