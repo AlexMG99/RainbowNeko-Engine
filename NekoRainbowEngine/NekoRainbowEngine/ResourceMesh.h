@@ -27,6 +27,8 @@ public:
 	void Import(const aiMesh * mesh, const char * source_file, Random id);
 	void GenerateBuffers();
 
+	ResourceMesh* CreateMesh(float3* vertex);
+
 	bool Load();
 	ResourceMesh* Load(Scene& scene);
 

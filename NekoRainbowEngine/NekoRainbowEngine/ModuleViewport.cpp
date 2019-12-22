@@ -48,8 +48,6 @@ bool ModuleViewport::Start()
 	canvas = CreateGameObject("Canvas", root_object);
 	canvas->CreateComponent(COMPONENT_CANVAS);
 
-	ui_test = CreateUIElement("Button", UI_Button, 20, 10, canvas->GetComponentCanvas() ,canvas, { 2,2,2 });
-
 	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
 		scene = new Scene();
@@ -65,6 +63,7 @@ bool ModuleViewport::Start()
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
+	ui_test = CreateUIElement("Button", UI_Button, 20, 10, canvas->GetComponentCanvas(), canvas, { 2,2,2 });
 
 	return ret;
 }

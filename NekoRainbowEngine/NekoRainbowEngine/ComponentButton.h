@@ -3,6 +3,9 @@
 
 #include "ComponentUI.h"
 
+class ResourceMesh;
+class ResourceTexture;
+
 class ComponentButton :public ComponentUI {
 public:
 	ComponentButton(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas);
@@ -11,6 +14,10 @@ public:
 	bool Update();
 
 	void Draw();
+
+private:
+	ResourceMesh* mesh = nullptr;
+	ResourceTexture* texture = nullptr;
 };
 
 

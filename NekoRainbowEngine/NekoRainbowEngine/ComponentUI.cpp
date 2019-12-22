@@ -4,8 +4,6 @@
 #include "GL/include/glew.h"
 #include "ComponentUI.h"
 
-
-
 void ComponentUI::DebugDraw()
 {
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();

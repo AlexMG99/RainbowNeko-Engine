@@ -85,7 +85,6 @@ void ResourceTexture::Import(const aiMaterial* texture, const char* path, Random
 
 void ResourceTexture::GenerateTexture()
 {
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glBindTexture(GL_TEXTURE_2D, image_id);
 
@@ -110,4 +109,17 @@ bool ResourceTexture::Load()
 ResourceTexture* ResourceTexture::Load(Scene& scene)
 {
 	return App->resources->ImportTexture(scene.GetDouble("Texture"));
+}
+
+ResourceTexture * ResourceTexture::CreateTexture(const char * path)
+{
+	char id[15];
+	sprintf_s(id, 15, "%u", GetID().GetNumber());
+	std::string output = id;
+	App->importer->texture_imp->Import(path, output);
+	imported_file = output;
+
+	Load();
+
+	return this;
 }
