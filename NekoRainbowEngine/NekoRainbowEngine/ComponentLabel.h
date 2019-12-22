@@ -3,12 +3,21 @@
 
 #include "ComponentUI.h"
 
+struct SDL_Surface;
+struct Texture;
+struct Font;
+typedef struct _TTF_Font TTF_Font;
+
 class ComponentLabel :public ComponentUI {
-	/*ComponentLabel() {};
-	~ComponentLabel() {};*/
+public:
+	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas);
+	~ComponentLabel() {};
 
 
-	//void DebugDraw();
+
+public:
+	Font* font = nullptr;
+
 };
 
 
