@@ -92,6 +92,11 @@ void ComponentMesh::AddMesh(ResourceMesh * mesh)
 void ComponentMesh::RenderFill()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
 	
 	if (my_go->selected) {
 		glEnable(GL_STENCIL_TEST);
@@ -122,6 +127,7 @@ void ComponentMesh::RenderFill()
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_ALPHA_TEST);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
