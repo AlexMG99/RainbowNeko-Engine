@@ -209,6 +209,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="Panel.h" />
+    <ClInclude Include="PanelUi.h" />
     <ClInclude Include="Parson\parson.h" />
     <ClInclude Include="par\par_shapes.h" />
     <ClInclude Include="Path.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="PanelShape.cpp" />
     <ClCompile Include="PanelTopbar.cpp" />
     <ClCompile Include="PanelHelp.cpp" />
+    <ClCompile Include="PanelUi.cpp" />
     <ClCompile Include="Parson\parson.c" />
     <ClCompile Include="par\par_shapes.cpp" />
     <ClCompile Include="PerfTimer.cpp" />

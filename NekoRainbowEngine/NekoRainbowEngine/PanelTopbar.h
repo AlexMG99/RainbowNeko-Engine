@@ -7,6 +7,7 @@
 #include <list>
 
 class PanelHelp;
+class PanelUi;
 
 class PanelTopbar :public Panel {
 public:
@@ -20,6 +21,7 @@ public:
 
 public:
 	PanelHelp* panel_help = nullptr;
+	PanelUi* panel_ui = nullptr;
 
 };
 

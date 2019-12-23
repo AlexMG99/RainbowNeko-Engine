@@ -4,6 +4,7 @@
 #include "PanelHelp.h"
 #include "PanelConsole.h"
 #include "PanelPlay.h"
+#include "PanelUi.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelConfiguration.h"
@@ -18,6 +19,7 @@
 PanelTopbar::~PanelTopbar()
 {
 	RELEASE(panel_help);
+	RELEASE(panel_ui);
 }
 
 bool PanelTopbar::Start()
@@ -26,6 +28,8 @@ bool PanelTopbar::Start()
 	//Initialize Panels
 	panel_help = new PanelHelp("Help");
 	panel_help->Start();
+	panel_ui = new PanelUi("UI");
+	panel_ui->Start();
 
 	return true;
 }
@@ -68,7 +72,10 @@ update_status PanelTopbar::Draw()
 		ImGui::EndMenu();
 	}
 
-	if (ImGui::BeginMenu("Add UI Element"))
+	//Help Menu
+	panel_ui->Draw();
+
+	/*if (ImGui::BeginMenu("Add UI Element"))
 	{
 		if (ImGui::Button("Add Button"))
 		{
@@ -77,7 +84,7 @@ update_status PanelTopbar::Draw()
 		ImGui::Button("Add Label");
 		
 		ImGui::EndMenu();
-	}
+	}*/
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
