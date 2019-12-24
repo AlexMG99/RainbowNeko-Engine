@@ -41,10 +41,11 @@ protected:
 	bool dragable = false;
 	bool clicked = false;
 
-	uint width = 0, height = 0;
+	int width = 0, height = 0;
 	UI_type type = UI_None;
 
 	ComponentCanvas* canvas = nullptr;
+
 };
 
 

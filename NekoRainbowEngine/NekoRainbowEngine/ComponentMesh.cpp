@@ -97,6 +97,8 @@ void ComponentMesh::RenderFill()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_ALPHA_TEST);
 	glAlphaFunc(GL_GREATER, 0.0f);
+
+	glColor4f(255, 255, 255, 1.0f);
 	
 	if (my_go->selected) {
 		glEnable(GL_STENCIL_TEST);

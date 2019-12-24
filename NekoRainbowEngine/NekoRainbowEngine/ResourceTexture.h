@@ -21,6 +21,8 @@ public:
 
 	ResourceTexture* CreateTexture(const char* path);
 
+	void SetSize(uint w, uint h);
+
 public:
 	uint width = 0, height = 0;
 	uint image_id = 0;

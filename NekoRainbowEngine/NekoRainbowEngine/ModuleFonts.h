@@ -5,6 +5,8 @@
 #include "Globals.h"
 #include <vector>
 
+#define DEFAULT_FONT "./Fonts/Roboto.ttf"
+
 typedef struct _TTF_Font TTF_Font;
 
 struct Font

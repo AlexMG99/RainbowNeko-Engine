@@ -90,7 +90,7 @@ ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint he
 		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas);
 		break;
 	case UI_Label:
-
+		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas);
 		break;
 	case UI_InpuText:
 

@@ -16,7 +16,7 @@ bool ModuleFonts::Init()
 	}
 	else
 	{
-		const char* path = "./Fonts/Roboto.ttf";
+		const char* path = DEFAULT_FONT;
 		int size = 12;
 		default_font = LoadFont(path, size);
 	}

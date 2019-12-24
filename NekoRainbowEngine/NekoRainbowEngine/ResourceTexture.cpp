@@ -123,3 +123,9 @@ ResourceTexture * ResourceTexture::CreateTexture(const char * path)
 
 	return this;
 }
+
+void ResourceTexture::SetSize(uint w, uint h)
+{
+	width = w;
+	height = h;
+}

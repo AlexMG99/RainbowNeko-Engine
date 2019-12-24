@@ -63,7 +63,7 @@ bool ModuleViewport::Start()
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
-	ui_test = CreateUIElement("Button", UI_Button, 20, 10, canvas->GetComponentCanvas(), canvas, { 2,2,2 });
+	ui_test = CreateUIElement("Label", UI_Label, 20, 10, canvas->GetComponentCanvas(), canvas, { 2,2,2 });
 
 	return ret;
 }
