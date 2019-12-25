@@ -63,7 +63,7 @@ bool ModuleViewport::Start()
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
-	ui_test = CreateUIElement("Label", UI_Label, 20, 10, canvas->GetComponentCanvas(), canvas, { 2,2,2 });
+	ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
 
 	return ret;
 }
@@ -450,12 +450,12 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	return object;
 }
 
-GameObject * ModuleViewport::CreateUIElement(std::string name, UI_type type, uint width, uint height, ComponentCanvas* canvas, GameObject* parent, float3 position, float3 scale, Quat rotation)
+GameObject * ModuleViewport::CreateUIElement(std::string name, UI_type type, uint width, uint height, ComponentCanvas* canvas, const char* str, GameObject* parent, float3 position, float3 scale, Quat rotation)
 {
 	GameObject* object = new GameObject();
 	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
 	object->SetParent(parent);
-	object->CreateComponentUI(type, width, height, canvas);
+	object->CreateComponentUI(type, width, height, canvas, str);
 	object->SetName(name.c_str());
 	trans->local_position = position;
 	trans->local_rotation = rotation;

@@ -12,7 +12,7 @@ class SDL_Surface;
 
 class ComponentLabel :public ComponentUI {
 public:
-	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas);
+	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* text);
 	~ComponentLabel();
 
 private:
@@ -26,9 +26,6 @@ private:
 
 public:
 	std::string text_str;
-
-	ResourceMesh* mesh = nullptr;
-	ResourceTexture* texture = nullptr;
 
 private:
 	bool update_text = false;

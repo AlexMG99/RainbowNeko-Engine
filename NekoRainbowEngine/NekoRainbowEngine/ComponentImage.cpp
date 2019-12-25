@@ -4,13 +4,9 @@
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
-#include "ComponentLabel.h"
-#include "GL/include/glew.h"
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
+#include "ComponentImage.h"
 
-ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* text): ComponentUI(comp_type, act, obj, type, w, h, canvas, text)
+ComponentImage::ComponentImage(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
 {
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	comp_trans->local_position = { comp_trans->local_position.x, comp_trans->local_position.y + canvas->height, comp_trans->local_position.z };
@@ -29,39 +25,6 @@ ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * 
 
 	ComponentTexture* comp_text = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
 	texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
-	texture->SetSize(width, height);
-	comp_text->AddTexture(texture);
-
-	text_str = text;
-
-}
-
-ComponentLabel::~ComponentLabel()
-{
-}
-
-bool ComponentLabel::CreateText()
-{
-	if (text_str.empty())
-		return false;
-}
-
-void ComponentLabel::UpdateText()
-{
-	
-}
-
-bool ComponentLabel::Update()
-{
-	if (!update_text)
-	{
-		UpdateText();
-		update_text = true;
-	}
-	return true;
-}
-
-void ComponentLabel::Draw()
-{
-
+	comp_text->AddTexture(texture->CreateTexture(path));
+	comp_mesh->image_id = texture->image_id;
 }

@@ -13,6 +13,8 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
+New file created [./Library/Textures/4210770853.dds] of 1767488 bytes
+Loaded with path: /Library/Textures/4210770853.dds succesfully!
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!

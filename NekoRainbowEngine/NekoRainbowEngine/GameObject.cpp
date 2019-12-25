@@ -7,6 +7,7 @@
 #include "ComponentCanvas.h"
 #include "ComponentButton.h"
 #include "ComponentLabel.h"
+#include "ComponentImage.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -80,23 +81,26 @@ ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV
 	return comp;
 }
 
-ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint height, ComponentCanvas* canvas, bool active)
+ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint height, ComponentCanvas* canvas, const char* str, bool active)
 {
 	ComponentUI* comp = nullptr;
 
 	switch (ui_type)
 	{
 	case UI_Button:
-		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas);
+		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
 		break;
 	case UI_Label:
-		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas);
+		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
 		break;
 	case UI_InpuText:
 
 		break;
 	case UI_Checkbox:
 
+		break;
+	case UI_Image:
+		comp = new ComponentImage(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
 		break;
 	}
 

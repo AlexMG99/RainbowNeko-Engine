@@ -8,16 +8,9 @@ class ResourceTexture;
 
 class ComponentButton :public ComponentUI {
 public:
-	ComponentButton(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas);
+	ComponentButton(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path);
 	~ComponentButton() {};
 
-	bool Update();
-
-	void Draw();
-
-private:
-	ResourceMesh* mesh = nullptr;
-	ResourceTexture* texture = nullptr;
 };
 
 
