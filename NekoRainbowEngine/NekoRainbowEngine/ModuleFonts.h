@@ -7,11 +7,8 @@
 
 #define DEFAULT_FONT "./Fonts/Roboto.ttf"
 
-typedef struct _TTF_Font TTF_Font;
-
 struct Font
 {
-	TTF_Font* font = nullptr;
 	int size = 12;
 };
 
@@ -26,7 +23,7 @@ public:
 
 	// Load Font
 	Font* const LoadFont(const char* path, int size = 12);
-	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
+	bool CalcSize(const char* text, int& width, int& height) const;
 
 public:
 	std::vector<Font*> fonts;

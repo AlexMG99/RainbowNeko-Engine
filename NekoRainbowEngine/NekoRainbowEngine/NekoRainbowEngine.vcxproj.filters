@@ -283,11 +283,11 @@
     <ClCompile Include="ComponentLabel.cpp">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleFonts.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="PanelUi.cpp">
       <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -747,11 +747,11 @@
     <ClInclude Include="ComponentLabel.h">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleFonts.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="PanelUi.h">
       <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

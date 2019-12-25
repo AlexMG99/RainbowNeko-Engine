@@ -5,8 +5,6 @@
 
 struct SDL_Surface;
 struct Texture;
-struct Font;
-typedef struct _TTF_Font TTF_Font;
 
 class ResourceMesh;
 class ResourceTexture;
@@ -27,9 +25,7 @@ private:
 
 
 public:
-	Font* font = nullptr;
 	std::string text_str;
-	SDL_Surface* text_surface = nullptr;
 
 	ResourceMesh* mesh = nullptr;
 	ResourceTexture* texture = nullptr;

@@ -5,16 +5,16 @@
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
 #include "ComponentLabel.h"
-#include "ModuleFonts.h"
 #include "GL/include/glew.h"
-#include "SDL2_ttf/include/SDL_ttf.h"
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
 
 ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas): ComponentUI(comp_type, act, obj, type, w, h, canvas)
 {
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	comp_trans->local_position = { comp_trans->local_position.x, comp_trans->local_position.y + canvas->height, comp_trans->local_position.z };
 	comp_trans->GetGlobalTransformMatrix();
-	font = App->fonts->LoadFont(DEFAULT_FONT, 48);
 
 	ComponentMesh* comp_mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
 
@@ -38,8 +38,6 @@ ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * 
 
 ComponentLabel::~ComponentLabel()
 {
-	TTF_CloseFont(font->font);
-	RELEASE(font);
 }
 
 bool ComponentLabel::CreateText()
@@ -50,18 +48,7 @@ bool ComponentLabel::CreateText()
 
 void ComponentLabel::UpdateText()
 {
-	/*TTF_SizeText(font->font, text_str.c_str(), &width, &height);
 	
-	text_surface = TTF_RenderText_Blended_Wrapped(font->font, text_str.c_str(), SDL_Color{ 255,255,255 }, width);
-	
-	glBindTexture(GL_TEXTURE_2D, texture->image_id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, text_surface->pixels);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	my_go->GetComponentMesh()->image_id = texture->image_id;
-	SDL_FreeSurface(text_surface);*/
-
 }
 
 bool ComponentLabel::Update()
