@@ -8,7 +8,6 @@ struct Texture;
 
 class ResourceMesh;
 class ResourceTexture;
-class SDL_Surface;
 
 class ComponentLabel :public ComponentUI {
 public:

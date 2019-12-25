@@ -7,11 +7,10 @@
 
 #define DEFAULT_FONT "./Fonts/Roboto.ttf"
 
-struct Font
-{
+struct Font {
+
 	int size = 12;
 };
-
 class ModuleFonts :public Module
 {
 public:
