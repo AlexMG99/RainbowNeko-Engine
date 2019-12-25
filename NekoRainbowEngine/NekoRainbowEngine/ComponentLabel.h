@@ -15,15 +15,6 @@ public:
 	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* text);
 	~ComponentLabel();
 
-private:
-	bool CreateText();
-	void UpdateText();
-
-	bool Update();
-	void Draw();
-
-
-
 public:
 	std::string text_str;
 
