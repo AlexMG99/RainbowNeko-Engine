@@ -62,8 +62,11 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
+	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 12);
+
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
-	ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
+	//ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
+	ui_test = CreateUIElement("Image", UI_Label, 20, 10, canvas->GetComponentCanvas(), "Puta", canvas, { 2,2,2 });
 
 	return ret;
 }

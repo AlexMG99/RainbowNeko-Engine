@@ -7,6 +7,7 @@ struct SDL_Surface;
 struct Texture;
 
 class ResourceMesh;
+class Font;
 class ResourceTexture;
 
 class ComponentLabel :public ComponentUI {
@@ -27,6 +28,7 @@ public:
 	std::string text_str;
 
 private:
+	Font* text_font = nullptr;
 	bool update_text = false;
 
 };
