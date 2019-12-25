@@ -115,6 +115,7 @@
     <ClInclude Include="imGuizmo\ImGuizmo.h" />
     <ClInclude Include="imGuizmo\ImSequencer.h" />
     <ClInclude Include="Importer.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />

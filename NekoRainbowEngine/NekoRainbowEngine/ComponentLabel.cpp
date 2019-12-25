@@ -29,13 +29,11 @@ ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * 
 	ComponentTexture* comp_text = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
 	texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
 	texture->SetSize(width, height);
-	texture->image_id = text_font->Characters[0].TextureID;
+	texture->image_id = text_font->Characters[80].TextureID;
 	comp_mesh->image_id = texture->image_id;
 	comp_text->AddTexture(texture);
 
-
 	text_str = text;
-
 
 }
 

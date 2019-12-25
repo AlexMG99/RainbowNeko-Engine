@@ -2,11 +2,9 @@
 #include "FreeType/include/ft2build.h"
 #include "FreeType/include/freetype/freetype.h"
 #include "FreeType/include/freetype/ftglyph.h"
-#include "FreeType/include/freetype/ftoutln.h"
-#include "FreeType/include/freetype/fttrigon.h"
 #include "GL/include/glew.h"
 
-#pragma comment(lib, "FreeType/lib/freetype.lib")
+#pragma comment(lib, "FreeType/libx86/freetype.lib")
 
 bool ModuleFonts::Init()
 {
@@ -46,7 +44,7 @@ Font * const ModuleFonts::LoadFont(const char * path, int size)
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 
-	for (GLubyte c = 0; c < 128; c++)
+	for (int c = 0; c < 128; c++)
 	{
 		// Load character glyph 
 		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
