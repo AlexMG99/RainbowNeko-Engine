@@ -43,7 +43,7 @@ bool ModuleViewport::Start()
 	bool ret = true;
 	root_object = CreateGameObject("Root Object");
 	camera_game = CreateGameObject("Camera", root_object);
-	camera_game->CreateComponentCamera(1.0f, 600.0f, 90);
+	ComponentCamera* comp_camera = camera_game->CreateComponentCamera(1.0f, 100.0f, 90);
 
 	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
 	if (!scene->GetVRoot())
@@ -59,14 +59,17 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
-	canvas = CreateGameObject("Canvas", root_object);
-	canvas->CreateComponent(COMPONENT_CANVAS, true, 93,76);
+	canvas = CreateGameObject("Canvas", camera_game);
+	canvas->CreateComponent(COMPONENT_CANVAS, true, 937,760);
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
 	//ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
-	ui_test = CreateUIElement("Image", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 2,2,2 });
+	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
+	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
+	CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	ui_test = CreateUIElement("Image", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
 
 	return ret;
 }
