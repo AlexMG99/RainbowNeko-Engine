@@ -19,6 +19,7 @@ public:
 
 public:
 	ImVec2 window_size;
+	ImVec2 cursor_pos;
 	Timer scene_timer;
 
 };

@@ -1,8 +1,56 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "GameObject.h"
+#include "ComponentMesh.h"
+#include "ResourceMesh.h"
+#include "ResourceTexture.h"
 #include "GL/include/glew.h"
 #include "ComponentUI.h"
+#include "PanelPlay.h"
+
+ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str) :Component(comp_type, act, obj)
+{
+	this->canvas = canvas;
+	this->type = type;
+	height = h;
+	width = w;
+
+	ComponentTransform* comp_trans = my_go->GetComponentTransform();
+	pos_x = comp_trans->local_position.x;
+	pos_y = comp_trans->local_position.y;
+
+	ComponentMesh* comp_mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
+
+	float3* vertex = new float3[4];
+	vertex[0] = float3(0, height, 0);
+	vertex[1] = float3(width, height, 0);
+	vertex[3] = float3(width, 0, 0);
+	vertex[2] = float3(0, 0, 0);
+
+	mesh = new ResourceMesh();
+	comp_mesh->AddMesh(mesh->CreateMesh(vertex));
+};
+
+bool ComponentUI::OnHover()
+{
+	LOG("OnHover");
+
+	return true;
+}
+
+bool ComponentUI::OnClick()
+{
+	LOG("OnClick");
+
+	my_go->GetComponentMesh()->ChangeColor(vec4(0.5, 0.5, 0.5, 1));
+	return true;
+}
+
+bool ComponentUI::OnRelease()
+{
+	my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
+	return true;
+}
 
 void ComponentUI::DebugDraw()
 {
@@ -31,4 +79,32 @@ void ComponentUI::UpdateTransform()
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	comp_trans->local_position = { comp_trans->local_position.x, comp_trans->local_position.y, comp_trans->local_position.z };
 	comp_trans->GetGlobalTransformMatrix();
+}
+
+bool ComponentUI::Update()
+{
+	float2 origin = float2(App->editor->panel_play->cursor_pos.x / App->editor->panel_play->window_size.x, App->editor->panel_play->cursor_pos.y / App->editor->panel_play->window_size.y);
+	origin.x = (origin.x - 0.5F) * 2;
+	origin.y = -(origin.y - 0.5F) * 2;
+
+	ImVec2 ratio = ImVec2(App->editor->panel_play->window_size.x / canvas->width, App->editor->panel_play->window_size.y / canvas->height);
+	float2 mouse_pos = float2(-App->editor->panel_play->cursor_pos.x / ratio.x, -App->editor->panel_play->cursor_pos.y / ratio.y);
+
+	LOG("Pos x: %f Pos y: %f", mouse_pos.x, mouse_pos.y);
+
+	if (mouse_pos.x >= pos_x && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height)
+	{
+		OnHover();
+
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			OnClick();
+		}
+		else if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP)
+		{
+			OnRelease();
+		}
+	}
+
+	return true;
 }

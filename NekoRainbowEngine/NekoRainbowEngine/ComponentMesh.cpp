@@ -89,6 +89,11 @@ void ComponentMesh::AddMesh(ResourceMesh * mesh)
 	BB_mesh.GenerateBoundingBuffers();
 }
 
+void ComponentMesh::ChangeColor(vec4 color)
+{
+	fill_color = color;
+}
+
 
 void ComponentMesh::RenderFill()
 {

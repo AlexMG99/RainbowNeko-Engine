@@ -28,6 +28,7 @@ public:
 	bool OnLoad(Scene& scene, int i);
 
 	void AddMesh(ResourceMesh* mesh);
+	void ChangeColor(vec4 color);
 
 	//-------- Render--------//
 	void RenderFill();

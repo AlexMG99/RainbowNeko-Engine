@@ -68,7 +68,7 @@ bool ModuleViewport::Start()
 	//ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
 	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
-	CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	//CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 	ui_test = CreateUIElement("Image", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
 
 	return ret;
@@ -461,12 +461,12 @@ GameObject * ModuleViewport::CreateUIElement(char*  name, UI_type type, uint wid
 	GameObject* object = new GameObject();
 	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
 	object->SetParent(parent);
-	object->CreateComponentUI(type, width, height, canvas, str);
 	object->SetName(name);
 	trans->local_position = position;
 	trans->local_rotation = rotation;
 	trans->local_scale = object->CorrectScale(scale);
 	trans->local_rotation_euler = rotation.ToEulerXYZ() * RADTODEG;
+	object->CreateComponentUI(type, width, height, canvas, str);
 	object->SetId();
 	return object;
 }

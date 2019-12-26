@@ -20,32 +20,26 @@ enum UI_type {
 
 class ComponentUI :public Component {
 public:
-	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str):Component(comp_type, act, obj)
-	{
-		this->canvas = canvas;
-		this->type = type;
-		height = h;
-		width = w;
-	};
+	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str);
 
 	~ComponentUI() {};
 
-	virtual bool OnHover() { return true; };
-	virtual bool OnClicked() { return true; };
-	virtual bool OnRelease() { return true; };
+	virtual bool OnHover();
+	virtual bool OnClick();
+	virtual bool OnRelease();
 	virtual bool OnExit() { return true; };
 
 	virtual void DebugDraw();
 	virtual void Draw() {};
 	void UpdateTransform();
 
-	virtual bool Update() { return true; };
+	virtual bool Update();
 
 protected:
 	bool dragable = false;
 	bool clicked = false;
 
-	int width = 0, height = 0;
+	int pos_x = 0, pos_y = 0, width = 0, height = 0;
 	UI_type type = UI_None;
 
 	ResourceMesh* mesh = nullptr;
