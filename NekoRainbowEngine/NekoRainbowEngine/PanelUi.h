@@ -17,9 +17,18 @@ public:
 
 	void CreateButton();
 	void CreateLabel();
+	void CreateImage();
+	void CreateCheckBox();
 
-private:
+
+public:
+	uint width;
+	uint height;
+
 	bool create_button = false;
+	bool create_label = false;
+	bool create_image = false;
+	bool create_checkbox = false;
 
 
 

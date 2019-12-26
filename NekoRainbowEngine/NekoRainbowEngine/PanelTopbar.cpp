@@ -75,16 +75,7 @@ update_status PanelTopbar::Draw()
 	//Help Menu
 	panel_ui->Draw();
 
-	/*if (ImGui::BeginMenu("Add UI Element"))
-	{
-		if (ImGui::Button("Add Button"))
-		{
-			App->viewport->CreateUIElement("Button", UI_Button, 20, 10, App->viewport->canvas->GetComponentCanvas(), App->viewport->canvas, { 2,2,2 });
-		};
-		ImGui::Button("Add Label");
-		
-		ImGui::EndMenu();
-	}*/
+	
 
 	ImGui::EndMainMenuBar();
     CreateStyle();
