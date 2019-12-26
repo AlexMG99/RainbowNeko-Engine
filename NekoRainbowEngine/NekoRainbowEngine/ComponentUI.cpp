@@ -42,7 +42,7 @@ bool ComponentUI::OnClick()
 {
 	LOG("OnClick");
 
-	my_go->GetComponentMesh()->ChangeColor(vec4(0.5, 0.5, 0.5, 1));
+	
 	return true;
 }
 
@@ -83,6 +83,28 @@ void ComponentUI::UpdateTransform()
 
 bool ComponentUI::Update()
 {
+	UILogic();
+
+	switch (state)
+	{
+	case UI_Idle:
+		OnRelease();
+		break;
+	case UI_Hover:
+		OnHover();
+		break;
+	case UI_Click:
+		OnClick();
+		break;
+	default:
+		break;
+	}
+
+	return true;
+}
+
+void ComponentUI::UILogic()
+{
 	float2 origin = float2(App->editor->panel_play->cursor_pos.x / App->editor->panel_play->window_size.x, App->editor->panel_play->cursor_pos.y / App->editor->panel_play->window_size.y);
 	origin.x = (origin.x - 0.5F) * 2;
 	origin.y = -(origin.y - 0.5F) * 2;
@@ -90,21 +112,33 @@ bool ComponentUI::Update()
 	ImVec2 ratio = ImVec2(App->editor->panel_play->window_size.x / canvas->width, App->editor->panel_play->window_size.y / canvas->height);
 	float2 mouse_pos = float2(-App->editor->panel_play->cursor_pos.x / ratio.x, -App->editor->panel_play->cursor_pos.y / ratio.y);
 
-	LOG("Pos x: %f Pos y: %f", mouse_pos.x, mouse_pos.y);
-
-	if (mouse_pos.x >= pos_x && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height)
+	switch (state)
 	{
-		OnHover();
-
+	case UI_Idle:
+		if (CheckMouseInside(mouse_pos))
+			state = UI_Hover;
+		break;
+	case UI_Hover:
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			OnClick();
-		}
-		else if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			OnRelease();
-		}
-	}
+			state = UI_Click;
+		if (!CheckMouseInside(mouse_pos))
+			state = UI_Idle;
+		break;
+	case UI_Click:
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			state = UI_Clicked;
+		break;
+	case UI_Clicked:
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && !CheckMouseInside(mouse_pos))
+			state = UI_Idle;
+		else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && CheckMouseInside(mouse_pos))
+			state = UI_Hover;
+		break;
 
-	return true;
+	}
+}
+
+bool ComponentUI::CheckMouseInside(float2 mouse_pos)
+{
+	return (mouse_pos.x >= pos_x && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height);
 }

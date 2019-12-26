@@ -18,6 +18,13 @@ enum UI_type {
 
 };
 
+enum UI_state {
+	UI_Idle,
+	UI_Hover,
+	UI_Click,
+	UI_Clicked
+};
+
 class ComponentUI :public Component {
 public:
 	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str);
@@ -27,7 +34,6 @@ public:
 	virtual bool OnHover();
 	virtual bool OnClick();
 	virtual bool OnRelease();
-	virtual bool OnExit() { return true; };
 
 	virtual void DebugDraw();
 	virtual void Draw() {};
@@ -35,12 +41,17 @@ public:
 
 	virtual bool Update();
 
+private:
+	void UILogic();
+	bool CheckMouseInside(float2 mouse_pos);
+
 protected:
 	bool dragable = false;
 	bool clicked = false;
 
 	int pos_x = 0, pos_y = 0, width = 0, height = 0;
 	UI_type type = UI_None;
+	UI_state state = UI_Idle;
 
 	ResourceMesh* mesh = nullptr;
 	ResourceTexture* texture = nullptr;

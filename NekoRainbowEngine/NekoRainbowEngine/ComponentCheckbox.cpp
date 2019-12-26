@@ -13,3 +13,9 @@ ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObj
 	comp_text->AddTexture(texture->CreateTexture("./Assets/checkbox.png"));
 	my_go->GetComponentMesh()->image_id = texture->image_id;
 }
+
+bool ComponentCheckbox::OnClick()
+{
+
+	return true;
+}

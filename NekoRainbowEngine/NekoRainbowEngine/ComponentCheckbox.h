@@ -11,10 +11,10 @@ public:
 	ComponentCheckbox(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path, bool state);
 	~ComponentCheckbox() {};
 
+	bool OnClick() override;
+
 private:
 	bool* state;
-
-	ResourceTexture* checkbox_true = nullptr;
 };
 
 #endif // !_COMPONENT_CHECKBOX_H_

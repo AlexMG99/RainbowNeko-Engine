@@ -15,3 +15,15 @@ ComponentButton::ComponentButton(component_type comp_type, bool act, GameObject 
 	my_go->GetComponentMesh()->image_id = texture->image_id;
 }
 
+bool ComponentButton::OnHover()
+{
+	my_go->GetComponentMesh()->ChangeColor(vec4(0.5, 0.5, 0.5, 1));
+	return true;
+}
+
+bool ComponentButton::OnClick()
+{
+	my_go->GetComponentMesh()->ChangeColor(vec4(0.2, 0.2, 0.2, 1));
+	return true;
+}
+
