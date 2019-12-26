@@ -16,9 +16,29 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 
 * Link to [**Laia Martinez Motis**  ](https://github.com/LaiaMartinezMotis) 
 
+        * Mouse Picking
+	* Panel Game
+	* Scene Guizmos
+	* Engine Icons
+	* Timer
+	* Start, pause and tick 
+
+
 ### Alex Morales Garcia
 
 *  Link to [**Alex Morales Garcia** ](https://github.com/AlexMG99) 
+
+
+        * Quadtree
+	* AABB and OBB
+	* Camera as component
+	* Frustum & Frustum Culling
+	* Resource Manager
+        * Resizing
+        * Own Format
+	* Serialize scene
+	* Library created again if it doesn't exists
+        * Panel Assets
 
 
 
