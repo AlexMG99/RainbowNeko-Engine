@@ -6,15 +6,15 @@ Init True Type Font library
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
+Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 432.00
 GLSL: 4.60 NVIDIA
 
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
-New file created [./Library/Textures/1083504889.dds] of 262272 bytes
-Loaded with path: /Library/Textures/1083504889.dds succesfully!
+New file created [./Library/Textures/1557553722.dds] of 262272 bytes
+Loaded with path: /Library/Textures/1557553722.dds succesfully!
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
