@@ -8,6 +8,7 @@
 #include "ComponentButton.h"
 #include "ComponentLabel.h"
 #include "ComponentImage.h"
+#include "ComponentCheckbox.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -42,7 +43,7 @@ bool GameObject::Update()
 	return true;
 }
 
-Component * GameObject::CreateComponent(component_type comp_type, bool act)
+Component * GameObject::CreateComponent(component_type comp_type, bool act, uint width, uint height)
 {
 	Component* comp = nullptr;
 
@@ -61,7 +62,7 @@ Component * GameObject::CreateComponent(component_type comp_type, bool act)
 		comp = new ComponentCamera(comp_type, act, this);
 		break;
 	case COMPONENT_CANVAS:
-		comp = new ComponentCanvas(comp_type, act, this, 66, 80);
+		comp = new ComponentCanvas(comp_type, act, this, width, height);
 		break;
 	case COMPONENT_NONE:
 		break;
@@ -97,7 +98,7 @@ ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint he
 
 		break;
 	case UI_Checkbox:
-
+		comp = new ComponentCheckbox(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, true);
 		break;
 	case UI_Image:
 		comp = new ComponentImage(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);

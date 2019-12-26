@@ -11,7 +11,6 @@
 
 typedef char GLchar;
 
-
 struct Character {
 	uint     TextureID;  // ID handle of the glyph texture
 	float2 Size;       // Size of glyph

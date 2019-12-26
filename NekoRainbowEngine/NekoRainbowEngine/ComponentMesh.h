@@ -52,6 +52,7 @@ public:
 	bool camera_culling = false;
 
 	//Color Wireframe
+	vec4 fill_color;
 	vec4 wireframe_color;
 	vec4 vertex_color;
 	vec4 outline_color;

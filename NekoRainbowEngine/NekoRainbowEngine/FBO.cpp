@@ -92,6 +92,7 @@ void FBO::PrepareModelView()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glLoadMatrixf(comp_camera->GetViewMatrix());
+
 }
 
 void FBO::PrepareProjView()
@@ -111,6 +112,13 @@ void FBO::PrepareProjView()
 		glLoadMatrixf((float*)&comp_camera->GetOpenGLProjectionMatrix());
 	}
 
+}
+
+void FBO::PrepareOrthoView()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0f, size.x, size.y, 0.0f, 0.0f, 1.0f);
 }
 
 void FBO::PrepareTexture()

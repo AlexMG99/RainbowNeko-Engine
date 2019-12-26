@@ -21,6 +21,7 @@ public:
 
 	void PrepareModelView();
 	void PrepareProjView();
+	void PrepareOrthoView();
 	void PrepareTexture();
 	void PrepareDepth();
 

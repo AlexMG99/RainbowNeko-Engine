@@ -19,7 +19,8 @@ ComponentMesh::ComponentMesh(component_type comp_type, bool act, GameObject * ob
 {
 	wireframe_color = vec4(0, 1, 0, 1);
 	vertex_color = vec4(1, 0, 0, 1);
-	outline_color = vec4(1, 1, 1, 0);
+	outline_color = vec4(0, 1, 1, 1);
+	fill_color = vec4(1, 1, 1, 1);
 	point_size = 1;
 	line_width = 1;
 	outline_width = 3;
@@ -107,7 +108,7 @@ void ComponentMesh::RenderFill()
 	}
 
 	//Render FBX Mesh
-	glColor3f(1, 1, 1);
+	glColor4f(fill_color.x, fill_color.y, fill_color.z, fill_color.w);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->buffers[BUFF_VERTICES]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
