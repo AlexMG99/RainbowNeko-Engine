@@ -12,6 +12,7 @@
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "ComponentUI.h"
+#include "ComponentCheckbox.h"
 #include "Scene.h"
 #include "PanelScene.h"
 #include "PanelPlay.h"
@@ -70,7 +71,9 @@ bool ModuleViewport::Start()
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
 	CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 80,150,-1 });
-	ui_test = CreateUIElement("Image", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
+	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
+	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
+	comp_checkbox->SetState(vsync);
 
 	return ret;
 }

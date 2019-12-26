@@ -98,7 +98,7 @@ ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint he
 
 		break;
 	case UI_Checkbox:
-		comp = new ComponentCheckbox(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, true);
+		comp = new ComponentCheckbox(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
 		break;
 	case UI_Image:
 		comp = new ComponentImage(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);

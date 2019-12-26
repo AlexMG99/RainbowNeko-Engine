@@ -64,7 +64,7 @@ public:
 	GameObject* root_object = nullptr;
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
-	GameObject* ui_test = nullptr;
+	GameObject* checkbox = nullptr;
 	GameObject* canvas = nullptr;
 	LineSegment ray;
 
@@ -87,6 +87,8 @@ public:
 public:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
 	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
+
+	bool vsync = false;
 	
 
 };

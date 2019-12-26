@@ -125,7 +125,7 @@ void ComponentUI::UILogic()
 			state = UI_Idle;
 		break;
 	case UI_Click:
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 			state = UI_Clicked;
 		break;
 	case UI_Clicked:
