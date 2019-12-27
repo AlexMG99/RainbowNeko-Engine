@@ -28,6 +28,9 @@ update_status PanelPlay::Draw()
 	ImGui::Image((ImTextureID)App->viewport->game_fbo->GetTexture(), App->viewport->game_fbo->GetTextureSize(), ImVec2(0, 1), ImVec2(1, 0));
 	window_size = ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
+	if (ImGui::IsWindowHovered())
+		App->viewport->is_over_game = true;
+
 	ImGui::End();
 
 	return UPDATE_CONTINUE;

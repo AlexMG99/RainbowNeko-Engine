@@ -9,6 +9,7 @@ struct aiNode;
 class GameObject;
 class SceneImporter;
 class MeshImporter;
+class ResourceTexture;
 class TextureImporter;
 class vec3;
 
@@ -40,6 +41,8 @@ public:
 	void CreateShape(shape_type type, uint sl, uint st);
 
 	bool ImportFile(const char* path_fbx);
+
+	ResourceTexture* ImportTexture(const char* path_texture);
 
 public:
 	SceneImporter* scene_imp;

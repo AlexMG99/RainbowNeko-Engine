@@ -95,6 +95,20 @@ bool ModuleImporter::ImportFile(const char* path)
 	return ret;
 }
 
+ResourceTexture* ModuleImporter::ImportTexture(const char * path_texture)
+{
+	ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path_texture, resource_type::RESOURCE_TEXTURE).GetNumber());
+	if (texture)
+	{
+		App->resources->ImportAssets(path_texture);
+		LOG("Load Texture succesfully with name: %s", texture->file.c_str());
+	}
+	else
+		LOG("Resource not loaded");
+
+	return texture;
+}
+
 bool ModuleImporter::CleanUp()
 {
 	return true;

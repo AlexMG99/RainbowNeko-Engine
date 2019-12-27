@@ -68,6 +68,9 @@ void ComponentUI::UpdateTransform()
 
 bool ComponentUI::Update()
 {
+	if (!App->viewport->is_over_game)
+		return false;
+
 	UILogic();
 
 	switch (state)

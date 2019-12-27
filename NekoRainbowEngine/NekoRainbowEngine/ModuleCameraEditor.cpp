@@ -120,6 +120,7 @@ update_status ModuleEditorCamera::Update(float dt)
 		Zoom(wheel * zoom_speed * dt);
 
 	App->viewport->is_over_scene = false;
+	App->viewport->is_over_game = false;
 	return UPDATE_CONTINUE;
 }
 

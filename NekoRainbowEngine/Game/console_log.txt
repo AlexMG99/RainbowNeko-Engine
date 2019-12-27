@@ -6,24 +6,24 @@ Init True Type Font library
 Creating 3D Renderer context
 Using Glew 2.1.0
 Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 1070 Ti/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 432.00
+Renderer: GeForce GTX 745/PCIe/SSE2
+OpenGL version supported 4.6.0 NVIDIA 441.12
 GLSL: 4.60 NVIDIA
 
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
 Generated mesh with id vertex: 11 and id index: 12
-New file created [./Library/Textures/3103848902.dds] of 263888 bytes
-Loaded with path: /Library/Textures/3103848902.dds succesfully!
+Loaded with path: ./Assets/background.jpg succesfully!
+Load Texture succesfully with name: ./Assets/background.jpg
 Generated mesh with id vertex: 17 and id index: 18
-New file created [./Library/Textures/2846021793.dds] of 36736 bytes
-Loaded with path: /Library/Textures/2846021793.dds succesfully!
+Loaded with path: ./Assets/button.png succesfully!
+Load Texture succesfully with name: ./Assets/button.png
 Generated mesh with id vertex: 23 and id index: 24
-New file created [./Library/Textures/1017905684.dds] of 45072 bytes
-Loaded with path: /Library/Textures/1017905684.dds succesfully!
-New file created [./Library/Textures/2085398438.dds] of 45072 bytes
-Loaded with path: /Library/Textures/2085398438.dds succesfully!
+Loaded with path: ./Assets/checkbox.png succesfully!
+Load Texture succesfully with name: ./Assets/checkbox.png
+Loaded with path: ./Assets/checkboxOn.png succesfully!
+Load Texture succesfully with name: ./Assets/checkboxOn.png
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
@@ -34,7 +34,3 @@ Loaded with path: ./Icons/PNG.png succesfully!
 Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
-
-Generated mesh with id vertex: 33 and id index: 34
-Loaded with path: /Library/Textures/854636277.dds succesfully!
-Generated mesh with id vertex: 39 and id index: 40

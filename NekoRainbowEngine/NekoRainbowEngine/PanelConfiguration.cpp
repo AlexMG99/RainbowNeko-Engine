@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ModuleViewport.h"
 #include "PanelConfiguration.h"
 #include "ComponentCamera.h"
 #include "SDL/include/SDL_opengl.h"
@@ -74,9 +75,15 @@ update_status PanelConfiguration::Draw()
 void PanelConfiguration::AppSettings()
 {
 	static char organization_name[56];
+	static char scn_name[40];
 
 	if (ImGui::CollapsingHeader("Application", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		if (ImGui::InputText("Scene Name", scn_name, IM_ARRAYSIZE(scn_name)))
+		{
+			App->viewport->scene_name = scn_name;
+			App->viewport->scene_name += ".scene";
+		}
 		if (ImGui::InputText("Project Name", App->window->project_name, IM_ARRAYSIZE(App->window->project_name)))
 			App->window->SetTitle(App->window->project_name);
 		if (ImGui::InputText("Organization", organization_name, IM_ARRAYSIZE(organization_name)))
