@@ -130,9 +130,9 @@ void ComponentUI::UILogic()
 	}
 }
 
-void ComponentUI::Fade()
+bool ComponentUI::Fade()
 {
-	my_go->GetComponentMesh()->Fade(App->GetDT());
+	return my_go->GetComponentMesh()->Fade(App->GetDT());
 }
 
 bool ComponentUI::CheckMouseInside(float2 mouse_pos)

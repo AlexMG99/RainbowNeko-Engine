@@ -21,6 +21,9 @@ bool ComponentButton::UpdateUI(float dt)
 	if (function)
 	{
 		function = !FadeToBlack(dt);
+
+		if (!function)
+			App->viewport->to_load_scene01 = true;
 	}
 
 	return true;

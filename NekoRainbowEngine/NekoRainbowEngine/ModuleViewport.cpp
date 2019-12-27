@@ -65,7 +65,7 @@ bool ModuleViewport::Start()
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
-	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
+	/*App->importer->ImportFile("./Assets/BakerHouse.fbx");*/
 	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
 	CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "Menu", canvas, { 80,150,-1 });
@@ -98,6 +98,16 @@ update_status ModuleViewport::PreUpdate(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
 		LoadScene(scene_name.c_str());
 
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleViewport::Update(float dt)
+{
+	if (to_load_scene01)
+	{
+		LoadScene("Scene01.scene");
+		to_load_scene01 = false;
+	}
 	return UPDATE_CONTINUE;
 }
 

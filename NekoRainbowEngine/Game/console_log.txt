@@ -14,16 +14,16 @@ GLSL: 4.60 NVIDIA
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
 Generated mesh with id vertex: 11 and id index: 12
-New file created [./Library/Textures/4019415024.dds] of 1767488 bytes
-Loaded with path: /Library/Textures/4019415024.dds succesfully!
+New file created [./Library/Textures/306375255.dds] of 1767488 bytes
+Loaded with path: /Library/Textures/306375255.dds succesfully!
 Generated mesh with id vertex: 17 and id index: 18
-New file created [./Library/Textures/1271718119.dds] of 36736 bytes
-Loaded with path: /Library/Textures/1271718119.dds succesfully!
+New file created [./Library/Textures/2588265279.dds] of 36736 bytes
+Loaded with path: /Library/Textures/2588265279.dds succesfully!
 Generated mesh with id vertex: 23 and id index: 24
-New file created [./Library/Textures/1158804354.dds] of 45072 bytes
-Loaded with path: /Library/Textures/1158804354.dds succesfully!
-New file created [./Library/Textures/3001208420.dds] of 45072 bytes
-Loaded with path: /Library/Textures/3001208420.dds succesfully!
+New file created [./Library/Textures/1742414275.dds] of 45072 bytes
+Loaded with path: /Library/Textures/1742414275.dds succesfully!
+New file created [./Library/Textures/825488253.dds] of 45072 bytes
+Loaded with path: /Library/Textures/825488253.dds succesfully!
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
@@ -34,3 +34,7 @@ Loaded with path: ./Icons/PNG.png succesfully!
 Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
+
+Generated mesh with id vertex: 33 and id index: 34
+Loaded with path: /Library/Textures/630115186.dds succesfully!
+Generated mesh with id vertex: 39 and id index: 40

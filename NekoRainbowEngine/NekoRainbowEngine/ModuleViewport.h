@@ -25,6 +25,7 @@ public:
 
 	bool Start();
 	update_status PreUpdate(float dt);
+	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
@@ -83,6 +84,9 @@ public:
 	bool camera_culling = false;
 	bool is_over_guizmo = false;
 	bool is_over_scene = false;
+	bool is_over_game = false;
+
+	bool to_load_scene01 = false;
 
 public:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;

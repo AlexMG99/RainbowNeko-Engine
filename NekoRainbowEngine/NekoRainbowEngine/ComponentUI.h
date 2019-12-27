@@ -44,7 +44,7 @@ public:
 	virtual bool UpdateUI(float dt) { return true; };
 	void UILogic();
 
-	void Fade();
+	bool Fade();
 
 private:
 	bool CheckMouseInside(float2 mouse_pos);
