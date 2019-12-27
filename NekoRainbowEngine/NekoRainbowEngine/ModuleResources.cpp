@@ -55,8 +55,11 @@ Resource* ModuleResources::FindMeta(const char * file)
 		{
 			res = CreateNewResource(resource_type(meta->GetInt("Type")), meta->GetDouble("ID"));
 		}
-		res->file = meta->GetString("File");
-		res->imported_file = meta->GetString("ExportedFile");
+		if (res)
+		{
+			res->file = meta->GetString("File");
+			res->imported_file = meta->GetString("ExportedFile");
+		}
 		if (res->type == RESOURCE_MESH)
 		{
 			ResourceMesh* mesh = (ResourceMesh*)res;
@@ -176,7 +179,6 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 		res->Load();
 
 		SaveMeta(res->file.c_str(), res);
-
 		SaveMeta(res->imported_file.c_str(), res);
 	}
 
