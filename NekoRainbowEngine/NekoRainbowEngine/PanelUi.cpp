@@ -17,27 +17,27 @@ update_status PanelUi::Draw() {
 	BROFILER_CATEGORY("Draw_PanelUi", Profiler::Color::GoldenRod);
 
 
-	if (ImGui::BeginMenu(name))
-	{
-		if (ImGui::MenuItem("Create a Button") && !create_button)
-			create_button = true;
-			
-		if (ImGui::MenuItem("Create a Label") && !create_label);
-		    create_label = true;
-			
-        if (ImGui::MenuItem("Create an Image") && !create_image);
-			create_image = true;
+	//if (ImGui::BeginMenu(name))
+	//{
+	//	if (ImGui::MenuItem("Create a Button") && !create_button)
+	//		create_button = true;
+	//		
+	//	if (ImGui::MenuItem("Create a Label") && !create_label);
+	//	    create_label = true;
+	//		
+ //       if (ImGui::MenuItem("Create an Image") && !create_image);
+	//		create_image = true;
 
-	    if (ImGui::MenuItem("Create a Checkbox") && !create_checkbox);
-			create_checkbox = true;
+	//    if (ImGui::MenuItem("Create a Checkbox") && !create_checkbox);
+	//		create_checkbox = true;
 
 
-		ImGui::EndMenu();
-	}
+	//	ImGui::EndMenu();
+	//}
 
-	if (create_button) {
-		CreateButton();
-	}
+	//if (create_button) {
+	//	CreateButton();
+	//}
 	/*else if (create_label) {
 		CreateLabel();
 	}*/

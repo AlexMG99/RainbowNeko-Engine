@@ -9,6 +9,9 @@ public:
 	ComponentImage(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path);
 	~ComponentImage() {};
 
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
+
 private:
 	std::string img_path;
 };

@@ -65,16 +65,21 @@ bool ModuleViewport::Start()
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
-	/*App->importer->ImportFile("./Assets/BakerHouse.fbx");*/
-	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
+	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+	/*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
 	CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "Menu", canvas, { 80,150,-1 });
 	CreateUIElement("Background_Image", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 	CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
-	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });
-	/*checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
+	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
+
+	background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
+	background->active = false;
+	CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });
+	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 160,135,-1 });
 	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
-	comp_checkbox->SetState(vsync);*/
+	comp_checkbox->SetState(vsync);
+	checkbox->active = false;
 
 	return ret;
 }
@@ -83,6 +88,11 @@ update_status ModuleViewport::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_ModuleViewport", Profiler::Color::SkyBlue);
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		background->active = !background->active;
+		checkbox->active = !checkbox->active;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		App->camera->SetCameraToCenter();

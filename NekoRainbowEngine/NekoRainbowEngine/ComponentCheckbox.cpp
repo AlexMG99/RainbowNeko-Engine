@@ -57,7 +57,7 @@ bool ComponentCheckbox::OnSave(Scene & scene, int i) const
 bool ComponentCheckbox::OnLoad(Scene & scene, int i)
 {
 	bool ret = true;
-	Scene check_scene = scene.AddSectionArray(i);
+	Scene check_scene = scene.GetSectionArray(i);
 
 	type = (component_type)check_scene.GetInt("Type");
 	ui_type = (UI_type)check_scene.GetInt("UI_type");

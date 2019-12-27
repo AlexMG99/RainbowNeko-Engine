@@ -13,15 +13,19 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
+Loaded with path: /Library/Textures/1257243812.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
-Loaded with path: ./Library/Textures/background.dds succesfully!
-Load Texture succesfully with name: ./Library/Textures/background.dds
 Generated mesh with id vertex: 17 and id index: 18
 Loaded with path: ./Library/Textures/window.dds succesfully!
 Load Texture succesfully with name: ./Library/Textures/window.dds
 Generated mesh with id vertex: 23 and id index: 24
-Loaded with path: ./Library/Textures/button.dds succesfully!
-Load Texture succesfully with name: ./Library/Textures/button.dds
+Loaded with path: ./Library/Textures/crosshair.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/crosshair.dds
+Generated mesh with id vertex: 29 and id index: 30
+Loaded with path: ./Library/Textures/checkbox.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/checkbox.dds
+Loaded with path: ./Library/Textures/checkboxon.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/checkboxon.dds
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!
@@ -32,7 +36,3 @@ Loaded with path: ./Icons/PNG.png succesfully!
 Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
-
-Generated mesh with id vertex: 33 and id index: 34
-Loaded with path: /Library/Textures/727000603.dds succesfully!
-Generated mesh with id vertex: 39 and id index: 40

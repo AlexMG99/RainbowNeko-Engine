@@ -118,7 +118,7 @@ void FBO::PrepareOrthoView()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0.0f, size.x, size.y, 0.0f, 0.0f, 1.0f);
+	glOrtho(1, 1, 1, 1, 1, -1);
 }
 
 void FBO::PrepareTexture()
