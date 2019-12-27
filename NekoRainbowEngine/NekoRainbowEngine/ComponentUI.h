@@ -22,7 +22,8 @@ enum UI_state {
 	UI_Idle,
 	UI_Hover,
 	UI_Click,
-	UI_Clicked
+	UI_Clicked,
+	UI_Release
 };
 
 class ComponentUI :public Component {
@@ -31,8 +32,8 @@ public:
 
 	~ComponentUI() {};
 
-	virtual bool OnHover();
-	virtual bool OnClick();
+	virtual bool OnHover() { return true; };
+	virtual bool OnClick() { return true; };
 	virtual bool OnRelease();
 
 	virtual void DebugDraw();
@@ -40,9 +41,12 @@ public:
 	void UpdateTransform();
 
 	virtual bool Update();
+	virtual bool UpdateUI(float dt) { return true; };
+	void UILogic();
+
+	void Fade();
 
 private:
-	void UILogic();
 	bool CheckMouseInside(float2 mouse_pos);
 
 protected:

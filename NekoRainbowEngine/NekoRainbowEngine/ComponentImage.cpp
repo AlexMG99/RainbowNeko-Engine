@@ -12,4 +12,6 @@ ComponentImage::ComponentImage(component_type comp_type, bool act, GameObject * 
 	texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
 	comp_text->AddTexture(texture->CreateTexture(path));
 	my_go->GetComponentMesh()->image_id = texture->image_id;
+
+	my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
 }

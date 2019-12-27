@@ -29,6 +29,7 @@ public:
 
 	void AddMesh(ResourceMesh* mesh);
 	void ChangeColor(vec4 color);
+	bool Fade(float dt);
 
 	//-------- Render--------//
 	void RenderFill();

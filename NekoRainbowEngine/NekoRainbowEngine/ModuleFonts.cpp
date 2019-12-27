@@ -77,7 +77,8 @@ Font * const ModuleFonts::LoadFont(const char * path, int size)
 			texture,
 			float2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 			float2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-			face->glyph->advance.x
+			face->glyph->advance.x,
+			face->glyph->bitmap.buffer
 		};
 		font->Characters.insert(std::pair<GLchar, Character>(c, character));
 	}

@@ -91,7 +91,21 @@ void ComponentMesh::AddMesh(ResourceMesh * mesh)
 
 void ComponentMesh::ChangeColor(vec4 color)
 {
-	fill_color = color;
+	fill_color = vec4(color.x, color.y, color.z, fill_color.w);
+}
+
+bool ComponentMesh::Fade(float dt)
+{
+	if (fill_color.w <= 0.05)
+	{
+		my_go->active = false;
+		return true;
+	}
+	else
+	{
+		fill_color.w -= 0.5 * dt;
+		return false;
+	}
 }
 
 

@@ -31,21 +31,6 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	comp_mesh->AddMesh(mesh->CreateMesh(vertex));
 };
 
-bool ComponentUI::OnHover()
-{
-	LOG("OnHover");
-
-	return true;
-}
-
-bool ComponentUI::OnClick()
-{
-	LOG("OnClick");
-
-	
-	return true;
-}
-
 bool ComponentUI::OnRelease()
 {
 	my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
@@ -88,7 +73,6 @@ bool ComponentUI::Update()
 	switch (state)
 	{
 	case UI_Idle:
-		OnRelease();
 		break;
 	case UI_Hover:
 		OnHover();
@@ -96,9 +80,14 @@ bool ComponentUI::Update()
 	case UI_Click:
 		OnClick();
 		break;
+	case UI_Release:
+		OnRelease();
+		break;
 	default:
 		break;
 	}
+
+	UpdateUI(App->GetDT());
 
 	return true;
 }
@@ -122,7 +111,7 @@ void ComponentUI::UILogic()
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 			state = UI_Click;
 		if (!CheckMouseInside(mouse_pos))
-			state = UI_Idle;
+			state = UI_Release;
 		break;
 	case UI_Click:
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -130,12 +119,20 @@ void ComponentUI::UILogic()
 		break;
 	case UI_Clicked:
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && !CheckMouseInside(mouse_pos))
-			state = UI_Idle;
+			state = UI_Release;
 		else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && CheckMouseInside(mouse_pos))
 			state = UI_Hover;
 		break;
+	case UI_Release:
+		state = UI_Idle;
+		break;
 
 	}
+}
+
+void ComponentUI::Fade()
+{
+	my_go->GetComponentMesh()->Fade(App->GetDT());
 }
 
 bool ComponentUI::CheckMouseInside(float2 mouse_pos)

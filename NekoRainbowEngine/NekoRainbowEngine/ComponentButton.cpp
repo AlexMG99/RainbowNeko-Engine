@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ComponentCanvas.h"
 #include "ModuleResources.h"
 #include "ComponentButton.h"
 #include "GameObject.h"
@@ -15,6 +16,16 @@ ComponentButton::ComponentButton(component_type comp_type, bool act, GameObject 
 	my_go->GetComponentMesh()->image_id = texture->image_id;
 }
 
+bool ComponentButton::UpdateUI(float dt)
+{
+	if (function)
+	{
+		function = !FadeToBlack(dt);
+	}
+
+	return true;
+}
+
 bool ComponentButton::OnHover()
 {
 	my_go->GetComponentMesh()->ChangeColor(vec4(0.5, 0.5, 0.5, 1));
@@ -24,6 +35,20 @@ bool ComponentButton::OnHover()
 bool ComponentButton::OnClick()
 {
 	my_go->GetComponentMesh()->ChangeColor(vec4(0.2, 0.2, 0.2, 1));
+	function = true;
 	return true;
+}
+
+bool ComponentButton::FadeToBlack(float dt)
+{
+	bool ret = false;
+
+	for (auto it_go = canvas->my_go->children.begin(); it_go != canvas->my_go->children.end(); it_go++)
+	{
+		ret = (*it_go)->GetComponentMesh()->Fade(dt);
+	}
+	
+	return ret;
+
 }
 

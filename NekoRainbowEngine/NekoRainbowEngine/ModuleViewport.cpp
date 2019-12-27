@@ -66,11 +66,11 @@ bool ModuleViewport::Start()
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
 	//App->importer->ImportFile("./Assets/Street environment_V01.FBX");
-	//ui_test = CreateUIElement("Image", UI_Image, 20, 10, canvas->GetComponentCanvas(), "./Assets/background.jpg" ,canvas, { 2,2,2 });
 	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
+	CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "Menu", canvas, { 80,150,-1 });
 	CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
-	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 80,150,-1 });
+	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 80,120,-1 });
 	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
 	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
 	comp_checkbox->SetState(vsync);
@@ -96,7 +96,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 		SaveScene();
 
 	if ((App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN))
-		LoadScene();
+		LoadScene(scene_name.c_str());
 
 	return UPDATE_CONTINUE;
 }
@@ -307,17 +307,17 @@ void ModuleViewport::Play_Time()
 void ModuleViewport::Stop_Time()
 {
 	Time::Stop();
-	LoadScene();
+	LoadScene(scene_name.c_str());
 
 	App->editor->ChangeActualWindow(false);
 	camera_culling = false;
 }
 
-bool ModuleViewport::LoadScene()
+bool ModuleViewport::LoadScene(const char* name)
 {
 	ResetScene();
 
-	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + scene_name).c_str());
+	scene = new Scene(std::string(point + LIBRARY_SCENE_FOLDER + name).c_str());
 
 	Scene go_scene = scene->GetArray("GameObjects");
 	int i = 0;

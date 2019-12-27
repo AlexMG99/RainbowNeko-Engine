@@ -35,7 +35,7 @@ public:
 	void BoxIntersection(GameObject* obj, LineSegment* ray, std::vector<RayCast>& scene_obj);
 	GameObject* TriangleTest(LineSegment& ray, GameObject* obj );
 
-	bool LoadScene();
+	bool LoadScene(const char* name);
 	bool LoadGameObject(Scene scn);
 
 	bool SaveScene();

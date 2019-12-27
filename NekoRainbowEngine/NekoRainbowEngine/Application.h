@@ -78,6 +78,7 @@ public:
 	void Log(ConsoleText text);
 	std::list<ConsoleText> GetLogs() const;
 	void ClearLogs();
+	float GetDT();
 
 	std::string UintToString(uint32 num);
 

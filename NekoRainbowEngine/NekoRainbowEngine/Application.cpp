@@ -226,6 +226,11 @@ void Application::ClearLogs()
 	logs.clear();
 }
 
+float Application::GetDT()
+{
+	return dt;
+}
+
 std::string Application::UintToString(uint32 num)
 {
 	char str[50];
