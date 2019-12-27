@@ -47,6 +47,9 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 
 ## Main Core Sub-Systems 
 
+### Resource Manager
+
+### Frustum
 
 ## User Interface Sub-system
 We have implemented a main menu that contains a fullscreen background image. 
