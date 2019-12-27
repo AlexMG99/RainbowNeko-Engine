@@ -19,7 +19,7 @@ public:
 	bool OnLoad(Scene& scene, int i);
 
 private:
-	bool state = false;
+	bool bool_state = false;
 	ResourceTexture* checkbox_true = nullptr;
 };
 

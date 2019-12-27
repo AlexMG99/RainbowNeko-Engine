@@ -11,7 +11,7 @@
 ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str) :Component(comp_type, act, obj)
 {
 	this->canvas = canvas;
-	this->type = type;
+	this->ui_type = type;
 	height = h;
 	width = w;
 
@@ -27,8 +27,16 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	vertex[3] = float3(width, 0, 0);
 	vertex[2] = float3(0, 0, 0);
 
-	mesh = new ResourceMesh();
-	comp_mesh->AddMesh(mesh->CreateMesh(vertex));
+	mesh = App->resources->FindMeshUI(my_go->GetName().c_str());
+
+	if (!mesh)
+	{
+		mesh = new ResourceMesh();
+		comp_mesh->AddMesh(mesh->CreateMesh(vertex, my_go->GetName().c_str()));
+	}
+	else
+		comp_mesh->AddMesh(mesh);
+	
 };
 
 bool ComponentUI::OnRelease()

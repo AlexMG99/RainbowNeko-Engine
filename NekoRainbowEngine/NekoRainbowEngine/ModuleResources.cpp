@@ -60,7 +60,7 @@ Resource* ModuleResources::FindMeta(const char * file)
 		if (res->type == RESOURCE_MESH)
 		{
 			ResourceMesh* mesh = (ResourceMesh*)res;
-			mesh->name=meta->GetString("Name");
+			mesh->name = meta->GetString("Name");
 		}
 
 		if (!res->Load()) 
@@ -73,6 +73,40 @@ Resource* ModuleResources::FindMeta(const char * file)
 	}
 
 	RELEASE(meta);
+
+	return nullptr;
+}
+
+ResourceMesh* ModuleResources::FindMeshUI(const char * name)
+{
+	std::string file_name, extension, path = ".";
+	path += ASSETS_META_FOLDER;
+	App->fs->SplitFilePath(name, nullptr, &file_name, &extension);
+	path += file_name.c_str();
+	path += ".meta";
+
+	Scene* meta = new Scene(path.c_str());
+
+	if (meta->GetVRoot())
+	{
+		ResourceMesh* res = (ResourceMesh*)Get(meta->GetDouble("ID"));
+
+		if (!res)
+		{
+			char id[50];
+			uint32 m_id = meta->GetDouble("ID");
+			sprintf_s(id, 50, "%u", m_id);
+			std::string path = id;
+			path += ".neko";
+			res = App->importer->mesh_imp->Load(path.c_str());
+		}
+			
+
+		res->file = meta->GetString("File");
+		res->imported_file = meta->GetString("ExportedFile");
+
+		return res;
+	}
 
 	return nullptr;
 }
@@ -365,6 +399,16 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 		meta->AddString("Name", mesh->name);
 	}
 		break;
+
+	case RESOURCE_MESH_UI:
+	{
+		output += file;
+
+		ResourceMesh* mesh = (ResourceMesh*)res;
+		meta->AddString("Name", mesh->name);
+
+	}
+	break;
 
 	case RESOURCE_TEXTURE:
 	{
