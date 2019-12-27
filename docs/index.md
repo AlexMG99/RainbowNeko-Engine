@@ -45,7 +45,19 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* Library created again if it doesn't exists
 	* Panel Assets
 
+## Main Core Sub-Systems 
 
 
+## User Interface Sub-system
+We have implemented a main menu that contains a fullscreen background image. 
+As a child of the canvas we have an **Input Box** which request the testers name and a **Start Button** which can be pressed with the mouse or the keyboard.
 
+As soon as the **Start Button** is pressed the fullscreen background and all that it contain fades away and show an 3D scene.
+When the new scene is loaded pressing the button **F1** the teaster can open an options window. In it the teaster will find a **Check Box** which allow to activate or deactivate vsync.
+
+
+## Links
+
+*  Link to [**Code Repository** ](https://github.com/AlexMG99/RainbowNeko-Engine) 
+*  Link to [**Last Release** ](https://github.com/AlexMG99/RainbowNeko-Engine/releases) 
 
