@@ -97,10 +97,11 @@ bool ModuleImporter::ImportFile(const char* path)
 
 ResourceTexture* ModuleImporter::ImportTexture(const char * path_texture)
 {
-	ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path_texture, resource_type::RESOURCE_TEXTURE).GetNumber());
+	ResourceTexture* texture = (ResourceTexture*)App->resources->Get(App->resources->ImportFile(path_texture, resource_type::RESOURCE_TEXTURE_UI).GetNumber());
 	if (texture)
 	{
-		App->resources->ImportAssets(path_texture);
+		/*App->resources->ImportAssets(path_texture);*/
+		App->resources->SaveMeta(path_texture, texture);
 		LOG("Load Texture succesfully with name: %s", texture->file.c_str());
 	}
 	else

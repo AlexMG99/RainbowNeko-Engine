@@ -15,6 +15,9 @@ public:
 
 	void SetState(bool st);
 
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
+
 private:
 	bool state = false;
 	ResourceTexture* checkbox_true = nullptr;

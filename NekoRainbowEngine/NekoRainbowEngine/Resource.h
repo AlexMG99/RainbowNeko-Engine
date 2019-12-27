@@ -9,6 +9,7 @@ typedef unsigned int uint;
 enum resource_type
 {
 	RESOURCE_MESH,
+	RESOURCE_TEXTURE_UI,
 	RESOURCE_TEXTURE,
 	RESOURCE_MODEL,
 	RESOURCE_TOTAL

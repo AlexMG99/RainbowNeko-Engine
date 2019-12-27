@@ -102,6 +102,12 @@ Random ModuleResources::ImportFile(const char* file_assets, resource_type type)
 
 	switch (type)
 	{
+	case resource_type::RESOURCE_TEXTURE_UI:
+		App->importer->texture_imp->ImportTextureUI(file_assets, output_file);
+		res = App->importer->texture_imp->Load(output_file.c_str());
+		res->imported_file = output_file.c_str();
+		return res->ID;
+		break;
 	case resource_type::RESOURCE_TEXTURE:
 		res = App->importer->texture_imp->Load(file_assets);
 		return res->ID;
@@ -241,6 +247,10 @@ Resource* ModuleResources::CreateNewResource(resource_type type, uint32 id)
 	case resource_type::RESOURCE_TEXTURE:
 		res = (Resource*)new ResourceTexture(id);
 		break;
+	case resource_type::RESOURCE_TEXTURE_UI:
+		res = (Resource*)new ResourceTexture(id);
+		res->type = RESOURCE_TEXTURE_UI;
+		break;
 	case resource_type::RESOURCE_MODEL:
 		res = (Resource*)new ResourceModel(id);
 		break;
@@ -364,6 +374,14 @@ void ModuleResources::SaveMeta(const char * file, Resource* res)
 		output += id;
 	}
 		break;
+
+	case RESOURCE_TEXTURE_UI:
+	{
+		std::string extension;
+		App->fs->SplitFilePath(file, nullptr, &file_name, &extension);
+		output += file_name;
+	}
+	break;
 	}
 	
 	output +=".meta";

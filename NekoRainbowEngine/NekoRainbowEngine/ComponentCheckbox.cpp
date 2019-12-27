@@ -5,6 +5,7 @@
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
+#include "Scene.h"
 
 ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
 {
@@ -38,3 +39,18 @@ void ComponentCheckbox::SetState(bool st)
 {
 	state = &st;
 }
+
+bool ComponentCheckbox::OnSave(Scene & scene, int i) const
+{
+	bool ret = true;
+	Scene check_scene = scene.AddSectionArray(i);
+	/*ret = check_scene.add*/
+	return true;
+}
+
+bool ComponentCheckbox::OnLoad(Scene & scene, int i)
+{
+	return true;
+}
+
+

@@ -65,12 +65,12 @@ bool ModuleViewport::Start()
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
-	/*App->importer->ImportFile("./Assets/BakerHouse.fbx");*/
-	uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
+	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+	/*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
 	CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "Menu", canvas, { 80,150,-1 });
 	CreateUIElement("Background", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
-	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 80,120,-1 });
+	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 80,120,-1 });*/
 	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "Puta", canvas, { 20,20,-1 });
 	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
 	comp_checkbox->SetState(vsync);

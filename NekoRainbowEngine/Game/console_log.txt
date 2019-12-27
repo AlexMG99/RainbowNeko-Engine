@@ -13,17 +13,13 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
+Loaded with path: /Library/Textures/2897411555.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
-Loaded with path: ./Assets/background.jpg succesfully!
-Load Texture succesfully with name: ./Assets/background.jpg
 Generated mesh with id vertex: 17 and id index: 18
-Loaded with path: ./Assets/button.png succesfully!
-Load Texture succesfully with name: ./Assets/button.png
-Generated mesh with id vertex: 23 and id index: 24
-Loaded with path: ./Assets/checkbox.png succesfully!
-Load Texture succesfully with name: ./Assets/checkbox.png
-Loaded with path: ./Assets/checkboxOn.png succesfully!
-Load Texture succesfully with name: ./Assets/checkboxOn.png
+Loaded with path: ./Library/Textures/checkbox.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/checkbox.dds
+Loaded with path: ./Library/Textures/checkboxon.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/checkboxon.dds
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!

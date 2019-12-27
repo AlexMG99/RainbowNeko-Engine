@@ -63,11 +63,45 @@ bool TextureImporter::ImportTexture(const char* path, std::string& output_file)
 	return ret;
 }
 
+bool TextureImporter::ImportTextureUI(const char* path, std::string& output_file)
+{
+	bool ret = true;
+
+	std::string file, extension;
+	App->fs->SplitFilePath(path, nullptr, &file, &extension);
+
+	ILuint devil_id = 0;
+	ilGenImages(1, &devil_id);
+	ilBindImage(devil_id);
+
+	if (ilLoadImage(path))
+	{
+		ILuint size;
+		ILubyte *data;
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+		size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+		if (size > 0) {
+			data = new ILubyte[size]; // allocate data buffer
+			if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+			{
+				std::string path = LIBRARY_TEXTURES_FOLDER + file + ".dds";
+				output_file = path;
+				ret = App->fs->Save(output_file.c_str(), data, size);
+				output_file = ".";
+				output_file += path;
+			}
+			RELEASE_ARRAY(data);
+		}
+		ilDeleteImages(1, &devil_id);
+	}
+
+	return ret;
+}
 
 ResourceTexture* TextureImporter::Load(const char * file)
 {
 	bool ret = true;
-	ResourceTexture* texture = (ResourceTexture*)App->resources->CreateNewResource(RESOURCE_TEXTURE);
+	ResourceTexture* texture = (ResourceTexture*)App->resources->CreateNewResource(RESOURCE_TEXTURE_UI);
 	ILuint devil_id = 0;
 
 	ilGenImages(1, &devil_id);
@@ -104,7 +138,11 @@ bool TextureImporter::Load(ResourceTexture* texture)
 	ilBindImage(devil_id);
 	ilutRenderer(ILUT_OPENGL);
 
-	std::string path = ".";
+	std::string path;
+	if (texture->imported_file.at(0) != '.')
+	{
+		path = ".";
+	}
 	path.append(texture->imported_file.c_str());
 
 	if (!ilLoadImage(path.c_str())) {

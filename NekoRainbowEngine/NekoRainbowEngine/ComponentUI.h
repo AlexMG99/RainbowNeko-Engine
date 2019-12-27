@@ -46,6 +46,9 @@ public:
 
 	bool Fade();
 
+	virtual bool OnSave(Scene& scene, int i) const { return true; };
+	virtual bool OnLoad(Scene& scene, int i) { return true; };
+
 private:
 	bool CheckMouseInside(float2 mouse_pos);
 

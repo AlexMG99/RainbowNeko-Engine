@@ -15,6 +15,7 @@ public:
 
 	bool Import(const char* path, std::string&  output_file);
 	bool ImportTexture(const char* path, std::string &output_file);
+	bool ImportTextureUI(const char * path, std::string & output_file);
 	ResourceTexture* Load(const char* file);
 	bool Load(ResourceTexture * texture);
 
