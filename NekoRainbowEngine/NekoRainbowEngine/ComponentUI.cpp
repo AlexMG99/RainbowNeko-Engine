@@ -14,7 +14,6 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	this->ui_type = type;
 	height = h;
 	width = w;
-	dragable = true;
 
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	pos_x = comp_trans->local_position.x;
@@ -58,7 +57,14 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 			comp_mesh->AddMesh(mesh);
 	}
 	
-};
+}
+ComponentUI::~ComponentUI()
+{
+	RELEASE(mesh);
+	RELEASE(texture);
+	RELEASE(canvas);
+}
+;
 
 bool ComponentUI::OnClicked()
 {

@@ -31,7 +31,7 @@ class ComponentUI :public Component {
 public:
 	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str);
 
-	~ComponentUI() {};
+	~ComponentUI();
 
 	virtual bool OnHover() { return true; };
 	virtual bool OnClick() { return true; };
@@ -52,13 +52,13 @@ public:
 	virtual bool OnSave(Scene& scene, int i) const { return true; };
 	virtual bool OnLoad(Scene& scene, int i) { return true; };
 
+public:
+	bool dragable = false;
+
 private:
 	bool CheckMouseInside(float2 mouse_pos);
 
 protected:
-	bool dragable = false;
-	bool clicked = false;
-
 	int pos_x = 0, pos_y = 0, width = 0, height = 0;
 	UI_type ui_type = UI_None;
 	UI_state state = UI_Idle;

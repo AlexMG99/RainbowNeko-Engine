@@ -147,9 +147,9 @@ void ComponentMesh::RenderFill()
 
 	glDrawElements(GL_TRIANGLES, mesh->index_size, GL_UNSIGNED_INT, NULL);
 
+	glDisable(GL_ALPHA_TEST);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_ALPHA_TEST);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 

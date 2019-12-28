@@ -27,6 +27,7 @@ update_status PanelInspector::Draw()
 		ComponentMesh* comp_mesh = object->GetComponentMesh();
 		ComponentTexture* comp_texture = object->GetComponentTexture();
 		ComponentCamera* comp_camera = object->GetComponentCamera();
+		ComponentUI* comp_ui = object->GetComponentUI();
 
 		//Transform
 		ImGui::PushID("Transform");
@@ -129,6 +130,19 @@ update_status PanelInspector::Draw()
 					comp_camera->UpdateFrustum(false);
 					comp_camera->update_proj = true;
 				}
+				ImGui::PopID();
+				ImGui::Separator();
+			}
+		}
+
+		//UI
+		if (comp_ui)
+		{
+			if (ImGui::CollapsingHeader("UI"))
+			{
+				ImGui::PushID("UI");
+
+				ImGui::Checkbox("Dragable", &comp_ui->dragable);
 				ImGui::PopID();
 				ImGui::Separator();
 			}
