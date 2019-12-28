@@ -14,30 +14,19 @@ GLSL: 4.60 NVIDIA
 Setting up the camera
 Failed to load texture with path: ./Library/Models/1090367498.model. Error: (null)
 Generated mesh with id vertex: 5 and id index: 6
-New file created [./Library/Meshes/1725951162.neko] of 124 bytes
 Generated mesh with id vertex: 11 and id index: 12
-New file created [./Library/Meshes/3739895670.neko] of 124 bytes
 Generated mesh with id vertex: 17 and id index: 18
-New file created [./Library/Meshes/607057630.neko] of 124 bytes
 Generated mesh with id vertex: 23 and id index: 24
-New file created [./Library/Meshes/843665134.neko] of 124 bytes
 Generated mesh with id vertex: 29 and id index: 30
-New file created [./Library/Meshes/3665883139.neko] of 124 bytes
+Loaded with path: ./Library/Textures/vsyncc.dds succesfully!
+Load Texture succesfully with name: ./Library/Textures/vsyncc.dds
 Generated mesh with id vertex: 35 and id index: 36
-New file created [./Library/Meshes/3749391204.neko] of 124 bytes
-Generated mesh with id vertex: 41 and id index: 42
-New file created [./Library/Meshes/866453328.neko] of 124 bytes
-Generated mesh with id vertex: 47 and id index: 48
-New file created [./Library/Meshes/874719073.neko] of 124 bytes
-Generated mesh with id vertex: 53 and id index: 54
-New file created [./Library/Meshes/3758509972.neko] of 124 bytes
-Generated mesh with id vertex: 59 and id index: 60
 Loaded with path: ./Library/Textures/window.dds succesfully!
 Load Texture succesfully with name: ./Library/Textures/window.dds
-Generated mesh with id vertex: 65 and id index: 66
+Generated mesh with id vertex: 41 and id index: 42
 Loaded with path: ./Library/Textures/crosshair.dds succesfully!
 Load Texture succesfully with name: ./Library/Textures/crosshair.dds
-Generated mesh with id vertex: 71 and id index: 72
+Generated mesh with id vertex: 47 and id index: 48
 Loaded with path: ./Library/Textures/checkbox.dds succesfully!
 Load Texture succesfully with name: ./Library/Textures/checkbox.dds
 Loaded with path: ./Library/Textures/checkboxon.dds succesfully!
