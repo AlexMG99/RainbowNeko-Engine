@@ -3,9 +3,7 @@
 
 #include "ComponentUI.h"
 
-struct SDL_Surface;
-struct Texture;
-
+class ComponentCharacter;
 class ResourceMesh;
 class Font;
 class ResourceTexture;
@@ -20,10 +18,7 @@ private:
 
 public:
 	std::string text_str;
-
-private:
-	Font* text_font = nullptr;
-	bool update_text = false;
+	std::vector<ComponentCharacter*> label_comp;
 
 };
 

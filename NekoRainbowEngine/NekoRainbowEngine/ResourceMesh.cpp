@@ -44,7 +44,7 @@ void ResourceMesh::GenerateBuffers()
 	LOG("Generated mesh with id vertex: %i and id index: %i", buffers[BUFF_VERTICES], buffers[BUFF_INDEX]);
 }
 
-ResourceMesh * ResourceMesh::CreateMesh(float3 * vertex, const char* name)
+ResourceMesh * ResourceMesh::CreateMesh(float3 * vertex, float2* UV_coord ,const char* name)
 {
 	this->name = name;
 
@@ -61,12 +61,7 @@ ResourceMesh * ResourceMesh::CreateMesh(float3 * vertex, const char* name)
 	index[5] = 3;
 
 	UV_size = vertices_size;
-	UV_coord = new float2[UV_size];
-
-	UV_coord[1] = float2(0, 1);
-	UV_coord[0] = float2(1, 1);
-	UV_coord[2] = float2(1, 0);
-	UV_coord[3] = float2(0, 0);
+	this->UV_coord = UV_coord;
 
 	GenerateBuffers();
 

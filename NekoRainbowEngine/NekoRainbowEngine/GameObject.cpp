@@ -8,6 +8,7 @@
 #include "ComponentButton.h"
 #include "ComponentLabel.h"
 #include "ComponentImage.h"
+#include "CompomentCharacter.h"
 #include "ComponentCheckbox.h"
 #include "Scene.h"
 
@@ -93,6 +94,9 @@ ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint he
 		break;
 	case UI_Label:
 		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		break;
+	case UI_Character:
+		comp = new ComponentCharacter(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
 		break;
 	case UI_InpuText:
 

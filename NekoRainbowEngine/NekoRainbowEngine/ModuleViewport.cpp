@@ -73,6 +73,8 @@ bool ModuleViewport::Start()
 	CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
 	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
 
+	label_text = CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "MENU", canvas, { 80,150,-1 });
+
 	background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
 	background->active = false;
 	CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });

@@ -67,6 +67,7 @@ public:
 	GameObject* selected_object = nullptr;
 	GameObject* background = nullptr;
 	GameObject* checkbox = nullptr;
+	GameObject* label_text = nullptr;
 	GameObject* canvas = nullptr;
 	LineSegment ray;
 

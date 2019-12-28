@@ -16,7 +16,6 @@ struct Character {
 	float2	Size;       // Size of glyph
 	float2	Bearing;    // Offset from baseline to left/top of glyph
 	uint    Advance;    // Offset to advance to next glyph
-	unsigned char*	buffer;
 };
 
 struct Font {

@@ -295,6 +295,9 @@
     <ClCompile Include="ComponentCheckbox.cpp">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClCompile>
+    <ClCompile Include="CompomentCharacter.cpp">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -763,6 +766,9 @@
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="ComponentCheckbox.h">
+      <Filter>Sources\GameObject\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CompomentCharacter.h">
       <Filter>Sources\GameObject\Components\UI</Filter>
     </ClInclude>
   </ItemGroup>

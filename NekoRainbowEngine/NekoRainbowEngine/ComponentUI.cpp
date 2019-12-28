@@ -19,23 +19,43 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	pos_x = comp_trans->local_position.x;
 	pos_y = comp_trans->local_position.y;
 
-	ComponentMesh* comp_mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
-
-	float3* vertex = new float3[4];
-	vertex[0] = float3(0, height, 0);
-	vertex[1] = float3(width, height, 0);
-	vertex[3] = float3(width, 0, 0);
-	vertex[2] = float3(0, 0, 0);
-
-	mesh = App->resources->FindMeshUI(my_go->GetName().c_str());
-
-	if (!mesh)
+	if (type != UI_Label)
 	{
-		mesh = new ResourceMesh();
-		comp_mesh->AddMesh(mesh->CreateMesh(vertex, my_go->GetName().c_str()));
+		ComponentMesh* comp_mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
+
+		float3* vertex = new float3[4];
+		vertex[0] = float3(0, height, 0);
+		vertex[1] = float3(width, height, 0);
+		vertex[3] = float3(width, 0, 0);
+		vertex[2] = float3(0, 0, 0);
+
+		float2* UV_coord = new float2[4];
+
+		if (type != UI_Character)
+		{
+			UV_coord[1] = float2(0, 1);
+			UV_coord[0] = float2(1, 1);
+			UV_coord[2] = float2(1, 0);
+			UV_coord[3] = float2(0, 0);
+		}
+		else
+		{
+			UV_coord[3] = float2(0, 1);
+			UV_coord[2] = float2(1, 1);
+			UV_coord[0] = float2(1, 0);
+			UV_coord[1] = float2(0, 0);
+		}
+
+		mesh = App->resources->FindMeshUI(my_go->GetName().c_str());
+
+		if (!mesh)
+		{
+			mesh = new ResourceMesh();
+			comp_mesh->AddMesh(mesh->CreateMesh(vertex, UV_coord, my_go->GetName().c_str()));
+		}
+		else
+			comp_mesh->AddMesh(mesh);
 	}
-	else
-		comp_mesh->AddMesh(mesh);
 	
 };
 

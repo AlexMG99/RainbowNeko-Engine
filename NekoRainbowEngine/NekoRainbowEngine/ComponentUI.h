@@ -13,6 +13,7 @@ enum UI_type {
 	UI_Image,
 	UI_Checkbox,
 	UI_InpuText,
+	UI_Character,
 	UI_Button,
 	UI_MAX
 
