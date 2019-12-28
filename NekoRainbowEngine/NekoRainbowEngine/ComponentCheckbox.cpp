@@ -19,6 +19,9 @@ ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObj
 
 bool ComponentCheckbox::OnClick()
 {
+	if (dragable)
+		return true;
+
 	if (bool_state)
 	{
 		my_go->GetComponentTexture()->AddTexture(checkbox_true);

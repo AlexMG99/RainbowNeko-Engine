@@ -25,7 +25,7 @@ void ComponentLabel::CreateText()
 	for (int i = 0; i < text_str.length(); i++)
 	{
 		uint pos_aux_x = width_ch * (text_str.length() - i);
-		GameObject* char_aux = App->viewport->CreateGameObject(text_str.substr(i,1), my_go, float3(pos_aux_x, 0, 0));
+		GameObject* char_aux = App->viewport->CreateGameObject(std::string(text_str.substr(i,1) + "_") + text_str, my_go, float3(pos_aux_x, 0, 0));
 		char_aux->CreateComponentUI(UI_Character, width_ch, height, canvas, text_str.substr(i, 1).c_str());
 	}
 

@@ -35,8 +35,10 @@ public:
 
 	virtual bool OnHover() { return true; };
 	virtual bool OnClick() { return true; };
+	virtual bool OnClicked();
 	virtual bool OnRelease();
 
+	virtual void Move();
 	virtual void DebugDraw();
 	virtual void Draw() {};
 	void UpdateTransform();

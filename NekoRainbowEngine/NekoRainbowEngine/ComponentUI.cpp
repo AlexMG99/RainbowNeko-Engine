@@ -14,6 +14,7 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	this->ui_type = type;
 	height = h;
 	width = w;
+	dragable = true;
 
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	pos_x = comp_trans->local_position.x;
@@ -59,11 +60,30 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	
 };
 
+bool ComponentUI::OnClicked()
+{
+	if (dragable)
+	{
+		Move();
+	}
+
+	return true;
+}
+
 bool ComponentUI::OnRelease()
 {
 	if(my_go->GetComponentMesh())
 		my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
 	return true;
+}
+
+void ComponentUI::Move()
+{
+	ComponentTransform* comp_trans = my_go->GetComponentTransform();
+
+	comp_trans->local_position += float3(-App->input->GetMouseXMotion() * App->GetDT() * 10, -App->input->GetMouseYMotion()* App->GetDT() * 10, 0);
+	pos_x = comp_trans->local_position.x;
+	pos_y = comp_trans->local_position.y;
 }
 
 void ComponentUI::DebugDraw()
@@ -111,6 +131,9 @@ bool ComponentUI::Update()
 		break;
 	case UI_Click:
 		OnClick();
+		break;
+	case UI_Clicked:
+		OnClicked();
 		break;
 	case UI_Release:
 		OnRelease();

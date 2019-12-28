@@ -68,6 +68,7 @@ public:
 	GameObject* background = nullptr;
 	GameObject* checkbox = nullptr;
 	GameObject* label_text = nullptr;
+	GameObject* vsync_text = nullptr;
 	GameObject* canvas = nullptr;
 	LineSegment ray;
 
