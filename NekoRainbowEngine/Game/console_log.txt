@@ -13,7 +13,7 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Generated mesh with id vertex: 5 and id index: 6
-Loaded with path: /Library/Textures/754082798.dds succesfully!
+Loaded with path: /Library/Textures/1984611720.dds succesfully!
 Generated mesh with id vertex: 11 and id index: 12
 Generated mesh with id vertex: 17 and id index: 18
 Generated mesh with id vertex: 23 and id index: 24

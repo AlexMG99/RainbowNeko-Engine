@@ -61,7 +61,8 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 
 bool ComponentUI::OnRelease()
 {
-	my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
+	if(my_go->GetComponentMesh())
+		my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
 	return true;
 }
 
