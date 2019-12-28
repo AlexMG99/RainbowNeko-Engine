@@ -7,6 +7,16 @@
 class ResourceMesh;
 class ResourceTexture;
 
+struct UIPanel {
+	float3 vertex[4];
+	float2 uv[4];
+	uint buffer[3];
+
+	uint textureID;
+
+	void GenerateBuffers();
+};
+
 enum UI_type {
 	UI_None = -1,
 	UI_Label,
@@ -40,7 +50,7 @@ public:
 
 	virtual void Move();
 	virtual void DebugDraw();
-	virtual void Draw() {};
+	virtual void Draw();
 	void UpdateTransform();
 
 	virtual bool Update();
@@ -63,8 +73,7 @@ protected:
 	UI_type ui_type = UI_None;
 	UI_state state = UI_Idle;
 
-	ResourceMesh* mesh = nullptr;
-	ResourceTexture* texture = nullptr;
+	UIPanel panel;
 	ComponentCanvas* canvas = nullptr;
 
 };

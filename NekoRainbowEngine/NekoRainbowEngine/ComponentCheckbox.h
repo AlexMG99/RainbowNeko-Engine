@@ -20,7 +20,7 @@ public:
 
 private:
 	bool bool_state = false;
-	ResourceTexture* checkbox_true = nullptr;
+	uint checkbox_true = 0;
 };
 
 #endif // !_COMPONENT_CHECKBOX_H_

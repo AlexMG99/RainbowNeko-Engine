@@ -6,14 +6,12 @@
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
+#include "TextureImporter.h"
 #include "GL/include/glew.h"
 
 ComponentButton::ComponentButton(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
 {
-	ComponentTexture* comp_text = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
-	texture = App->importer->ImportTexture("./Assets/button.png");
-	comp_text->AddTexture(texture); //TODO: Add custom buttton image
-	my_go->GetComponentMesh()->image_id = texture->image_id;
+	panel.textureID = App->importer->texture_imp->GetImageID(path);
 }
 
 bool ComponentButton::UpdateUI(float dt)
@@ -48,7 +46,8 @@ bool ComponentButton::FadeToBlack(float dt)
 
 	for (auto it_go = canvas->my_go->children.begin(); it_go != canvas->my_go->children.end(); it_go++)
 	{
-		ret = (*it_go)->GetComponentMesh()->Fade(dt);
+		if((*it_go)->GetComponentMesh())
+			ret = (*it_go)->GetComponentMesh()->Fade(dt);
 	}
 	
 	return ret;

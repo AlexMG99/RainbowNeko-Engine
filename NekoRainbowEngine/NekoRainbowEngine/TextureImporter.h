@@ -19,6 +19,7 @@ public:
 	ResourceTexture* Load(const char* file);
 	bool Load(ResourceTexture * texture);
 
+	uint GetImageID(const char* path);
 
 };
 

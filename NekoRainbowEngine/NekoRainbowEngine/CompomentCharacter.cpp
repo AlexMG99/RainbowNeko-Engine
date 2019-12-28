@@ -5,14 +5,31 @@
 #include "ComponentMesh.h"
 #include "ResourceTexture.h"
 #include "CompomentCharacter.h"
+#include "Scene.h"
 
 ComponentCharacter::ComponentCharacter(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
 {
-	text_font = App->fonts->default_font;
-	ComponentTexture* comp_text = (ComponentTexture*)my_go->CreateComponent(COMPONENT_TEXTURE);
-	texture = (ResourceTexture*)(App->resources->CreateNewResource(resource_type::RESOURCE_TEXTURE));
-	texture->SetSize(width, height);
-	texture->image_id = text_font->Characters.at(path[0]).TextureID;
-	my_go->GetComponentMesh()->image_id = texture->image_id;
-	comp_text->AddTexture(texture);
+	panel.textureID = text_font->Characters.at(path[0]).TextureID;
+}
+
+bool ComponentCharacter::OnSave(Scene & scene, int i) const
+{
+	bool ret = true;
+	Scene char_scene = scene.AddSectionArray(i);
+
+	ret = char_scene.AddInt("Type", type);
+	ret = char_scene.AddInt("UI_type", ui_type);
+
+	return ret;
+}
+
+bool ComponentCharacter::OnLoad(Scene & scene, int i)
+{
+	bool ret = true;
+	Scene char_scene = scene.GetSectionArray(i);
+
+	type = (component_type)char_scene.GetInt("Type");
+	ui_type = (UI_type)char_scene.GetInt("UI_type");
+
+	return ret;
 }

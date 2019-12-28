@@ -2,6 +2,7 @@
 #include "TextureImporter.h"
 #include "ComponentMesh.h"
 #include "ResourceTexture.h"
+#include "GL/include/glew.h"
 
 //-------------- Devil --------------
 #include "Devil/include/il.h"
@@ -162,4 +163,45 @@ bool TextureImporter::Load(ResourceTexture* texture)
 	ilDeleteImages(1, &devil_id);
 
 	return texture;
+}
+
+uint TextureImporter::GetImageID(const char * path)
+{
+	uint image_id = 0;
+	bool ret = true;
+	ILuint devil_id = 0;
+
+	ilGenImages(1, &devil_id);
+	ilBindImage(devil_id);
+	ilutRenderer(ILUT_OPENGL);
+
+	if (!ilLoadImage(path)) {
+		auto error = ilGetError();
+		LOG("Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
+		ret = false;
+	}
+	else {
+		image_id = ilutGLBindTexImage();
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glBindTexture(GL_TEXTURE_2D, image_id);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+			0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		LOG("Loaded with path: %s succesfully!", path);
+	}
+
+	ilDeleteImages(1, &devil_id);
+
+	return image_id;
+
 }

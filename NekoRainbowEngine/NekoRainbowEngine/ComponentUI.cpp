@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "GameObject.h"
+#include "ComponentCamera.h"
 #include "ComponentMesh.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
@@ -21,47 +22,35 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 
 	if (type != UI_Label)
 	{
-		ComponentMesh* comp_mesh = (ComponentMesh*)my_go->CreateComponent(COMPONENT_MESH);
-
 		float3* vertex = new float3[4];
-		vertex[0] = float3(0, height, 0);
-		vertex[1] = float3(width, height, 0);
-		vertex[3] = float3(width, 0, 0);
-		vertex[2] = float3(0, 0, 0);
+		panel.vertex[0] = float3(comp_trans->position.x, comp_trans->position.y + height, comp_trans->position.z);
+		panel.vertex[1] = float3(comp_trans->position.x + width, comp_trans->position.y + height, comp_trans->position.z);
+		panel.vertex[3] = float3(comp_trans->position.x + width, comp_trans->position.y, comp_trans->position.z);
+		panel.vertex[2] = float3(comp_trans->position.x, comp_trans->position.y, comp_trans->position.z);
 
 		float2* UV_coord = new float2[4];
 
 		if (type != UI_Character)
 		{
-			UV_coord[1] = float2(0, 1);
-			UV_coord[0] = float2(1, 1);
-			UV_coord[2] = float2(1, 0);
-			UV_coord[3] = float2(0, 0);
+			panel.uv[1] = float2(0, 1);
+			panel.uv[0] = float2(1, 1);
+			panel.uv[2] = float2(1, 0);
+			panel.uv[3] = float2(0, 0);
 		}
 		else
 		{
-			UV_coord[3] = float2(0, 1);
-			UV_coord[2] = float2(1, 1);
-			UV_coord[0] = float2(1, 0);
-			UV_coord[1] = float2(0, 0);
+			panel.uv[3] = float2(0, 1);
+			panel.uv[2] = float2(1, 1);
+			panel.uv[0] = float2(1, 0);
+			panel.uv[1] = float2(0, 0);
 		}
 
-		mesh = App->resources->FindMeshUI(my_go->GetName().c_str());
-
-		if (!mesh)
-		{
-			mesh = new ResourceMesh();
-			comp_mesh->AddMesh(mesh->CreateMesh(vertex, UV_coord, my_go->GetName().c_str()));
-		}
-		else
-			comp_mesh->AddMesh(mesh);
+		panel.GenerateBuffers();
 	}
 	
 }
 ComponentUI::~ComponentUI()
 {
-	RELEASE(mesh);
-	RELEASE(texture);
 	RELEASE(canvas);
 }
 ;
@@ -114,6 +103,62 @@ void ComponentUI::DebugDraw()
 	glEnd();
 }
 
+void ComponentUI::Draw()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0, App->editor->panel_play->window_size.x, App->editor->panel_play->window_size.y, 0.0, 1.0, -1.0);
+
+	//Initialize Modelview Matrix
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+
+	glColor4f(1, 1, 1, 1);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, panel.textureID);
+
+	glBindBuffer(GL_ARRAY_BUFFER, panel.buffer[0]);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, panel.buffer[2]);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, panel.buffer[1]);
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_ALPHA_TEST);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	mat4x4 ProjectionMatrix = perspective(App->camera->GetSceneCamera()->frustum.horizontalFov * RADTODEG, (float)App->editor->panel_play->window_size.x / (float)App->editor->panel_play->window_size.y, App->camera->GetSceneCamera()->frustum.nearPlaneDistance, App->camera->GetSceneCamera()->frustum.farPlaneDistance);
+	glLoadMatrixf((float*)&ProjectionMatrix);
+
+	//Reset ModelView
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(App->camera->GetSceneCamera()->GetViewMatrix());
+}
+
 void ComponentUI::UpdateTransform()
 {
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
@@ -149,6 +194,8 @@ bool ComponentUI::Update()
 	}
 
 	UpdateUI(App->GetDT());
+
+	Draw();
 
 	return true;
 }
@@ -199,4 +246,31 @@ bool ComponentUI::Fade()
 bool ComponentUI::CheckMouseInside(float2 mouse_pos)
 {
 	return (mouse_pos.x >= pos_x && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height);
+}
+
+void UIPanel::GenerateBuffers()
+{
+	uint* index = new uint[6];
+	index[0] = 0;
+	index[1] = 1;
+	index[2] = 2;
+	index[3] = 2;
+	index[4] = 1;
+	index[5] = 3;
+
+	//Cube Vertex
+	glGenBuffers(1, &buffer[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * 4, vertex, GL_STATIC_DRAW);
+
+	//Cube Vertex definition
+	glGenBuffers(1, &buffer[1]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*6, index, GL_STATIC_DRAW);
+
+	//UVs definition
+	glGenBuffers(1, &buffer[2]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float2)*4, uv, GL_STATIC_DRAW);
+
 }

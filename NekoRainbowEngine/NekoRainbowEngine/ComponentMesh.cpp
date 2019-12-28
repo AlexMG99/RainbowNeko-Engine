@@ -10,6 +10,7 @@
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
 #include "PanelConsole.h"
+#include "PanelPlay.h"
 #include "Scene.h"
 
 #include "GL/include/glew.h"
@@ -36,6 +37,15 @@ bool ComponentMesh::Update()
 {
 	if (App->viewport->camera_culling && !App->viewport->camera_game->GetComponentCamera()->ContainsAABox(BB_mesh.GetGlobalAABB(my_go)))
 		return false;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	mat4x4 ProjectionMatrix = perspective(App->camera->GetSceneCamera()->frustum.horizontalFov * RADTODEG, (float)App->editor->panel_play->window_size.x / (float)App->editor->panel_play->window_size.y, App->camera->GetSceneCamera()->frustum.nearPlaneDistance, App->camera->GetSceneCamera()->frustum.farPlaneDistance);
+	glLoadMatrixf((float*)&ProjectionMatrix);
+
+	//Reset ModelView
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(App->camera->GetSceneCamera()->GetViewMatrix());
 
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());

@@ -68,22 +68,18 @@ bool ModuleViewport::Start()
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	/*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
 	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
-	CreateUIElement("Title", UI_Label, 100, 30, canvas->GetComponentCanvas(), "Menu", canvas, { 80,150,-1 });
+	CreateUIElement("Title_Menu", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 65,140,-1 });
 	CreateUIElement("Background_Image", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 	CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
 	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
 
-	label_text = CreateUIElement("Title", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 62,140,-1 });
-	label_text->active = false;
-	vsync_text = CreateUIElement("Vsync_Text", UI_Label, 60, 10, canvas->GetComponentCanvas(), "VSYNC", canvas, { 85,115,-1 });
-	vsync_text->active = false;
-	background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
-	background->active = false;
+	background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0 });
+	/*background->active = false;
 	CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });
 	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "A", canvas, { 160,110,-1 });
 	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
 	comp_checkbox->SetState(vsync);
-	checkbox->active = false;
+	checkbox->active = false;*/
 
 	return ret;
 }
@@ -94,10 +90,14 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		background->active = !background->active;
-		checkbox->active = !checkbox->active;
-		label_text->active = !label_text->active;
-		vsync_text->active = !vsync_text->active;
+		if(background)
+			background->active = !background->active;
+		if(checkbox)
+			checkbox->active = !checkbox->active;
+		if(label_text)
+			label_text->active = !label_text->active;
+		if(vsync_text)
+			vsync_text->active = !vsync_text->active;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
@@ -122,7 +122,7 @@ update_status ModuleViewport::Update(float dt)
 {
 	if (to_load_scene01)
 	{
-		LoadScene("Scene01.scene");
+		LoadScene("SceneMain.scene");
 		to_load_scene01 = false;
 	}
 	return UPDATE_CONTINUE;
@@ -378,7 +378,7 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	}
 
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
-
+		
 	new_obj->is_static = scn.GetBool("Static");
 	new_obj->SetType((object_type)scn.GetInt("Type"));
 	new_obj->SetId(scn.GetDouble("ID"));
@@ -419,6 +419,7 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 	Scene s_obj = scn.AddSectionArray(*num);
 
 	ret = s_obj.AddBool("Static", obj->is_static);
+	ret = s_obj.AddBool("UI", (obj->GetComponentUI() ? true : false));
 	ret = s_obj.AddString("Name", obj->GetName());
 	ret = s_obj.AddInt("Type", obj->GetType());
 	ret = s_obj.AddDouble("ID", obj->GetId());
@@ -487,7 +488,7 @@ GameObject* ModuleViewport::CreateGameObject(std::string name, GameObject* paren
 	return object;
 }
 
-GameObject * ModuleViewport::CreateUIElement(char*  name, UI_type type, uint width, uint height, ComponentCanvas* canvas, char* str, GameObject* parent, float3 position, float3 scale, Quat rotation)
+GameObject * ModuleViewport::CreateUIElement(const char*  name, UI_type type, uint width, uint height, ComponentCanvas* canvas, char* str, GameObject* parent, float3 position, float3 scale, Quat rotation)
 {
 	GameObject* object = new GameObject();
 	ComponentTransform* trans = (ComponentTransform*)object->CreateComponent(COMPONENT_TRANSFORM);
