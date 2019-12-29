@@ -2,7 +2,7 @@
 This is a 3D Game Engine created by Laia Martinez Motis and Alex Morales Garcia,  two Students at CITM (UPC) university for the 3D engines subject during 3rd year of Game Design and Game Development degree.
 
  <p align="center">
-<img src= "https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/LogoB.png?raw=true" width="160" height="150">   
+<img src= "https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/LogoB.png?raw=true" width="360" height="350">   
 </p>
 
 Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99/RainbowNeko-Engine).
@@ -49,14 +49,17 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 
 
 
-### Assets menu
+### Assets Panel
 
 Inside the Engine we have included a Panel where you can see all the assets that we have in our library folder:
-
 * Models
 * Meshes
 * Scenes
 * Textures
+
+If you left-click on a floder, it will show the resources inside it. To use one of the shown resorces on the Panel Scene, you must left-click on the resource, then it will appear in the scene without the texture.
+To put the texture on it you must have the texture folder opened, then select the object you want to punt the texture on and then left-click on the texture.  
+
 
 ![assetsmenu](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/assetsmenu.gif?raw=true)
 
