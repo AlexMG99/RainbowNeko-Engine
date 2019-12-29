@@ -107,6 +107,7 @@ When the **STOP Button** is clicked, the scene will go to its original state.
 
 ## Engine Teaser
 
+[![IMAGE ALT TEXT HERE](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/LogoB.png?raw=true)](https://www.youtube.com/watch?v=UVvoXTUFyeU)
 
 ## Links
 
