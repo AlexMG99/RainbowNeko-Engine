@@ -2,7 +2,7 @@
 This is a 3D Game Engine created by Laia Martinez Motis and Alex Morales Garcia,  two Students at CITM (UPC) university for the 3D engines subject during 3rd year of Game Design and Game Development degree.
 
  <p align="center">
-<img src= "https://raw.githubusercontent.com/AlexMG99/RainbowNeko-Engine/master/NekoRainbowEngine/Game/Assets/icon.bmp" width="160" height="150">   
+<img src= "https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/LogoB.png?raw=true" width="160" height="150">   
 </p>
 
 Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99/RainbowNeko-Engine).
@@ -47,7 +47,18 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 
 ## Main Core Sub-Systems 
 
-### Resource Manager
+
+
+### Assets menu
+
+Inside the Engine we have included a Panel where you can see all the assets that we have in our library folder:
+
+* Models
+* Meshes
+* Scenes
+* Textures
+
+![assetsmenu](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/assetsmenu.gif?raw=true)
 
 ### Frustum
 
