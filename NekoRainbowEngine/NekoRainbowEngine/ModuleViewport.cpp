@@ -72,12 +72,26 @@ bool ModuleViewport::Start()
 	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);*/
 
 	//Main Scene
+	ComponentCheckbox* checkbox; 
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
-	checkbox = CreateUIElement("Checkbox", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
-	//checkbox->active = false;
+
+	checkbox_vsync = CreateUIElement("CheckboxVsync", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
+	checkbox_vsync->active = false;
+	checkbox = (ComponentCheckbox*)checkbox_vsync->GetComponentUI();
+	checkbox->SetState(vsync);
+
 	vsync_text = CreateUIElement("VsyncText", UI_Image, 250, 60, canvas->GetComponentCanvas(), "./Assets/vsync.png", canvas, { 320,220,0 });
+	vsync_text->active = false;
+
+	checkbox_draggable = CreateUIElement("CheckboxDraggable", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Draggable", canvas, { 250,300,0 });
+	checkbox_draggable->active = false;
+	checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
+	checkbox->SetState(dragable);
+
+	draggable_text = CreateUIElement("DraggableText", UI_Image, 300, 60, canvas->GetComponentCanvas(), "./Assets/draggable.png", canvas, { 350,310,0 });
+	draggable_text->active = false;
 	background = CreateUIElement("Background", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/MenuImage.png", canvas, { 180,50,0 });
-	//background->active = false; 
+	background->active = false; 
 	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });
 
 	return ret;
@@ -91,8 +105,14 @@ update_status ModuleViewport::PreUpdate(float dt)
 	{
 		if(background)
 			background->active = !background->active;
-		if(checkbox)
-			checkbox->active = !checkbox->active;
+		if(checkbox_vsync)
+			checkbox_vsync->active = !checkbox_vsync->active;
+		if (vsync_text)
+			vsync_text->active = !vsync_text->active;
+		if (checkbox_draggable)
+			checkbox_draggable->active = !checkbox_draggable->active;
+		if (draggable_text)
+			draggable_text->active = !draggable_text->active;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
@@ -392,13 +412,29 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	{
 		canvas = new_obj;
 	}
-	if (new_obj->GetName() == "Checkbox")
+	if (new_obj->GetName() == "CheckboxVsync")
 	{
-		checkbox = new_obj;
+		checkbox_vsync = new_obj;
 	}
 	if (new_obj->GetName() == "Background")
 	{
 		background = new_obj;
+	}
+	if (new_obj->GetName() == "VsyncText")
+	{
+		vsync_text = new_obj;
+		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
+		checkbox->SetState(vsync);
+	}
+	if (new_obj->GetName() == "DraggableText")
+	{
+		draggable_text = new_obj;
+	}
+	if (new_obj->GetName() == "CheckboxDraggable")
+	{
+		checkbox_draggable = new_obj;
+		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
+		checkbox->SetState(dragable);
 	}
 
 	return true;

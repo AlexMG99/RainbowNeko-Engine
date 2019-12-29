@@ -9,13 +9,14 @@
 
 ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
+	checkbox_name = path;
 	panel_in_game.textureID = checkbox_false = panel_in_scene.textureID = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
 	checkbox_true = App->importer->texture_imp->GetImageID("./Assets/checkboxOn.png");
 }
 
 bool ComponentCheckbox::OnClick()
 {
-	if (dragable)
+	if (dragable && checkbox_name != "Draggable")
 		return true;
 
 	if (bool_state)
@@ -29,6 +30,11 @@ bool ComponentCheckbox::OnClick()
 		panel_in_scene.textureID = checkbox_true;
 		panel_in_game.textureID = checkbox_true;
 		bool_state = true;
+	}
+
+	if (checkbox_name == "Draggable")
+	{
+		SetDragable();
 	}
 
 	return true;
@@ -66,5 +72,16 @@ bool ComponentCheckbox::OnLoad(Scene & scene, int i)
 
 	return ret;
 }
+
+void ComponentCheckbox::SetDragable()
+{
+	for (auto it_go = canvas->my_go->children.begin(); it_go != canvas->my_go->children.end(); it_go++)
+	{
+		if ((*it_go)->GetComponentUI())
+			(*it_go)->GetComponentUI()->dragable = bool_state;
+	}
+}
+
+
 
 

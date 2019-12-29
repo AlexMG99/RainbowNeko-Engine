@@ -93,6 +93,8 @@ public:
 	bool is_game_mode = false;
 	bool draw_ui = false;
 
+	bool dragable = false;
+
 	bool to_load_scene01 = false;
 
 public:

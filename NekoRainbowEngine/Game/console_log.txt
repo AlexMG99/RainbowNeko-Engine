@@ -18,6 +18,9 @@ Generated mesh with id vertex: 11 and id index: 12
 Loaded with path: ./Assets/checkbox.png succesfully!
 Loaded with path: ./Assets/checkboxOn.png succesfully!
 Loaded with path: ./Assets/vsync.png succesfully!
+Loaded with path: ./Assets/checkbox.png succesfully!
+Loaded with path: ./Assets/checkboxOn.png succesfully!
+Loaded with path: ./Assets/draggable.png succesfully!
 Loaded with path: ./Assets/MenuImage.png succesfully!
 Loaded with path: ./Assets/crosshair.png succesfully!
 Loading Editor Scene

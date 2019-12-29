@@ -18,7 +18,10 @@ public:
 	bool OnSave(Scene& scene, int i) const;
 	bool OnLoad(Scene& scene, int i);
 
+	void SetDragable();
+
 private:
+	std::string checkbox_name;
 	bool bool_state = false;
 
 	uint checkbox_false = 0;
