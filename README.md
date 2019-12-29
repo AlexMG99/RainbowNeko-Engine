@@ -153,6 +153,9 @@ The panel loads the floders and resources that are inside the Library folder.
 If you left-click on a floder, it will show the resources inside it. To use one of the shown resorces on the Panel Scene, you must left-click on the resource, then it will appear in the scene without the texture.
 To put the texture on it you must have the texture folder opened, then select the object you want to punt the texture on and then left-click on the texture.  
 
+### UI
+The UI is activated when clicked PLAY button. For this Assignment we have done a Demo. The Demo consists of a Main Menu, whith a label for the menu title, and a butoon start which leads the user to a new scene. In this new scene, the BakerHouse.fbx is loaded and appears a Crosshair in the middle of the screen. When pressed F1, a options menu is opened, where the player can activate/deactivate Vysnc and dragable UI. When F1 or the close button is clicked the menu will close. When the STOP button is clicked, the scene will go to his original state.
+
 ## Game Engine Controls
 * **Camera Movement**:
 	* _**While right clicking, and using "WASD" movement and free look around is enabled**_.
