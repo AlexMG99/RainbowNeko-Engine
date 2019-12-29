@@ -9,7 +9,7 @@
 #include "ComponentUI.h"
 #include "PanelPlay.h"
 
-ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str) :Component(comp_type, act, obj)
+ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str, uint x, uint y) :Component(comp_type, act, obj)
 {
 	this->canvas = canvas;
 	this->ui_type = type;
@@ -18,16 +18,24 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	fill_color = { 1,1,1,1 };
 
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
-	pos_x = comp_trans->local_position.x;
-	pos_y = comp_trans->local_position.y;
+	if (x != 0 || y != 0)
+	{
+		pos_x = x;
+		pos_y = y;
+	}
+	else
+	{
+		pos_x = comp_trans->local_position.x;
+		pos_y = comp_trans->local_position.y;
+	}
 
 	if (type != UI_Label)
 	{
 		float3* vertex = new float3[4];
-		panel.vertex[0] = float3(comp_trans->local_position.x, comp_trans->local_position.y + height, comp_trans->local_position.z);
-		panel.vertex[1] = float3(comp_trans->local_position.x + width, comp_trans->local_position.y + height, comp_trans->local_position.z);
-		panel.vertex[3] = float3(comp_trans->local_position.x + width, comp_trans->local_position.y, comp_trans->local_position.z);
-		panel.vertex[2] = float3(comp_trans->local_position.x, comp_trans->local_position.y, comp_trans->local_position.z);
+		panel.vertex[0] = float3(pos_x, pos_y + height, comp_trans->local_position.z);
+		panel.vertex[1] = float3(pos_x + width, pos_y + height, comp_trans->local_position.z);
+		panel.vertex[3] = float3(pos_x + width, pos_y, comp_trans->local_position.z);
+		panel.vertex[2] = float3(pos_x, pos_y, comp_trans->local_position.z);
 
 		float2* UV_coord = new float2[4];
 

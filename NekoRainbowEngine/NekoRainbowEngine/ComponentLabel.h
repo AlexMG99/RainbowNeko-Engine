@@ -10,7 +10,7 @@ class ResourceTexture;
 
 class ComponentLabel :public ComponentUI {
 public:
-	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* text);
+	ComponentLabel(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* text, uint x, uint y);
 	~ComponentLabel();
 
 private:

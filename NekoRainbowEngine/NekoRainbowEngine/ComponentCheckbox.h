@@ -8,7 +8,7 @@ class ResourceTexture;
 class ComponentCheckbox: public ComponentUI
 {
 public:
-	ComponentCheckbox(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path);
+	ComponentCheckbox(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path, uint x, uint y);
 	~ComponentCheckbox() {};
 
 	bool OnClick() override;

@@ -8,7 +8,7 @@
 #include "ComponentLabel.h"
 #include "GL/include/glew.h"
 
-ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* text): ComponentUI(comp_type, act, obj, type, w, h, canvas, text)
+ComponentLabel::ComponentLabel(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* text, uint x, uint y): ComponentUI(comp_type, act, obj, type, w, h, canvas, text, x, y)
 {
 	text_str = text;
 	CreateText();

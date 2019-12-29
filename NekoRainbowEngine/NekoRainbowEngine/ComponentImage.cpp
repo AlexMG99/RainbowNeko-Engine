@@ -8,7 +8,7 @@
 #include "TextureImporter.h"
 #include "Scene.h"
 
-ComponentImage::ComponentImage(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
+ComponentImage::ComponentImage(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
 	img_path = path;
 	panel.textureID = App->importer->texture_imp->GetImageID(path);
@@ -24,9 +24,10 @@ bool ComponentImage::OnSave(Scene & scene, int i) const
 	ret = img_scene.AddInt("UI_type", ui_type);
 	ret = img_scene.AddInt("Width", width);
 	ret = img_scene.AddInt("Height", height);
+	ret = img_scene.AddInt("PosX", pos_x);
+	ret = img_scene.AddInt("PosY", pos_y);
 
 	Scene vertex = scene.AddSectionArray(0);
-	Scene uv = scene.AddSectionArray(1);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -35,11 +36,6 @@ bool ComponentImage::OnSave(Scene & scene, int i) const
 		num += std::to_string(i);
 		strcpy_s(name, num.c_str());
 		ret = vertex.AddFloat3(num.c_str(), panel.vertex[i]);
-
-		num = "UV";
-		num += std::to_string(i);
-		strcpy_s(name, num.c_str());
-		ret = vertex.AddFloat2(num.c_str(), panel.uv[i]);
 	}
 
 	ret = img_scene.AddInt("Texture", panel.textureID);

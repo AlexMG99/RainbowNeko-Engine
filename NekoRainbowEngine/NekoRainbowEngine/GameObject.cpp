@@ -83,29 +83,29 @@ ComponentCamera* GameObject::CreateComponentCamera(float nP, float fP, float FOV
 	return comp;
 }
 
-ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint height, ComponentCanvas* canvas, const char* str, bool active)
+ComponentUI * GameObject::CreateComponentUI(UI_type ui_type, uint width, uint height, ComponentCanvas* canvas, const char* str, uint x, uint y, bool active)
 {
 	ComponentUI* comp = nullptr;
 
 	switch (ui_type)
 	{
 	case UI_Button:
-		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		comp = new ComponentButton(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, x, y);
 		break;
 	case UI_Label:
-		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		comp = new ComponentLabel(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, x, y);
 		break;
 	case UI_Character:
-		comp = new ComponentCharacter(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		comp = new ComponentCharacter(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, x, y);
 		break;
 	case UI_InpuText:
 
 		break;
 	case UI_Checkbox:
-		comp = new ComponentCheckbox(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		comp = new ComponentCheckbox(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, x, y);
 		break;
 	case UI_Image:
-		comp = new ComponentImage(COMPONENT_UI, active, this, ui_type, width, height, canvas, str);
+		comp = new ComponentImage(COMPONENT_UI, active, this, ui_type, width, height, canvas, str, x, y);
 		break;
 	}
 
@@ -137,7 +137,7 @@ bool GameObject::LoadComponents(Scene scene)
 			else
 			{
 				Scene ui_scene = scene.GetSectionArray(i);
-				CreateComponentUI((UI_type)ui_scene.GetInt("UI_type"), ui_scene.GetInt("Width"), ui_scene.GetInt("Height"), App->viewport->canvas->GetComponentCanvas(), ui_scene.GetString("Path").c_str());
+				CreateComponentUI((UI_type)ui_scene.GetInt("UI_type"), ui_scene.GetInt("Width"), ui_scene.GetInt("Height"), App->viewport->canvas->GetComponentCanvas(), ui_scene.GetString("Path").c_str(), ui_scene.GetInt("PosX"), ui_scene.GetInt("PosY"));
 			}
 
 		}

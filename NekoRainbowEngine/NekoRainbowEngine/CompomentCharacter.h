@@ -6,7 +6,7 @@
 class ComponentCharacter:public ComponentUI
 {
 public:
-	ComponentCharacter(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path);
+	ComponentCharacter(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path, uint x, uint y);
 	~ComponentCharacter() {};
 
 	bool OnSave(Scene& scene, int i) const;

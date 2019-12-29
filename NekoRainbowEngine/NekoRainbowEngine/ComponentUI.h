@@ -39,7 +39,7 @@ enum UI_state {
 
 class ComponentUI :public Component {
 public:
-	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str);
+	ComponentUI(component_type comp_type, bool act, GameObject* obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* str, uint x, uint y);
 
 	~ComponentUI();
 

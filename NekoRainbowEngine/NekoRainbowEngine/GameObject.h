@@ -33,7 +33,7 @@ public:
 	//--------------- Components ---------------//
 	Component* CreateComponent(component_type comp_type, bool active = true, uint width = 0, uint height = 0);
 	ComponentCamera * CreateComponentCamera(float nP, float fP, float FOV);
-	ComponentUI* CreateComponentUI(UI_type comp_type, uint width, uint height, ComponentCanvas* canvas, const char* str, bool active = true);
+	ComponentUI* CreateComponentUI(UI_type comp_type, uint width, uint height, ComponentCanvas* canvas, const char* str, uint x = 0, uint y = 0, bool active = true);
 
 	bool SaveComponents(Scene scene);
 	bool LoadComponents(Scene scene);

@@ -42,7 +42,3 @@ Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!

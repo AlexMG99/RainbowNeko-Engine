@@ -7,7 +7,7 @@
 #include "TextureImporter.h"
 #include "Scene.h"
 
-ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path)
+ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
 	panel.textureID = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
 	checkbox_true = App->importer->texture_imp->GetImageID("./Assets/checkboxOn.png");
