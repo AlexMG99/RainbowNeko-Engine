@@ -72,6 +72,7 @@ protected:
 	int pos_x = 0, pos_y = 0, width = 0, height = 0;
 	UI_type ui_type = UI_None;
 	UI_state state = UI_Idle;
+	vec4 fill_color;
 
 	UIPanel panel;
 	ComponentCanvas* canvas = nullptr;

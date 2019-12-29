@@ -65,26 +65,29 @@ bool ModuleViewport::Start()
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
-	App->importer->ImportFile("./Assets/BakerHouse.fbx");
-	/*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
-	uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
-	CreateUIElement("Title_Menu", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 65,140,-1 });
-	CreateUIElement("Background_Image", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
-	CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
-	CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
-	background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0 });
-	/*background->active = false;
-	CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });
+	//CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	CreateUIElement("Button", UI_Button, 200, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, {200,200,0});
 
-	/*label_text = CreateUIElement("Title", UI_Image, 80, 20, canvas->GetComponentCanvas(), "./Assets/Menu.png", canvas, { 62,140,-1 });*/
-	/*label_text = CreateUIElement("Title", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 62,140,-1 });
-	label_text->active = false;
-	vsync_text = CreateUIElement("Vsync_Text", UI_Image, 60, 10, canvas->GetComponentCanvas(), "./Assets/vsyncc.png", canvas, { 95,115,-1 });
-	vsync_text->active = false;
-	checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "A", canvas, { 160,110,-1 });
-	ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
-	comp_checkbox->SetState(vsync);
-	checkbox->active = false;*/
+	//App->importer->ImportFile("./Assets/BakerHouse.fbx");
+	///*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
+	//uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
+	//CreateUIElement("Title_Menu", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 65,140,-1 });
+	//CreateUIElement("Background_Image", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	//CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
+	//CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
+	//background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0 });
+	///*background->active = false;
+	//CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });
+
+	///*label_text = CreateUIElement("Title", UI_Image, 80, 20, canvas->GetComponentCanvas(), "./Assets/Menu.png", canvas, { 62,140,-1 });*/
+	///*label_text = CreateUIElement("Title", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 62,140,-1 });
+	//label_text->active = false;
+	//vsync_text = CreateUIElement("Vsync_Text", UI_Image, 60, 10, canvas->GetComponentCanvas(), "./Assets/vsyncc.png", canvas, { 95,115,-1 });
+	//vsync_text->active = false;
+	//checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "A", canvas, { 160,110,-1 });
+	//ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
+	//comp_checkbox->SetState(vsync);
+	//checkbox->active = false;*/
 
 	return ret;
 }
@@ -334,6 +337,7 @@ void ModuleViewport::Play_Time()
 	SaveScene();
 	App->editor->ChangeActualWindow(true);
 	camera_culling = true;
+	is_game_mode = true;
 }
 
 void ModuleViewport::Stop_Time()
@@ -343,6 +347,7 @@ void ModuleViewport::Stop_Time()
 
 	App->editor->ChangeActualWindow(false);
 	camera_culling = false;
+	is_game_mode = false;
 }
 
 bool ModuleViewport::LoadScene(const char* name)

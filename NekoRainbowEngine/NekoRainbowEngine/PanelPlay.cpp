@@ -18,8 +18,8 @@ update_status PanelPlay::Draw()
 
 	ImGui::Begin(name, &enabled, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
 
-	cursor_pos.x = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x - ImGui::GetWindowWidth();
-	cursor_pos.y = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y - ImGui::GetWindowHeight() - 20;
+	cursor_pos.x = App->input->GetMouseX() - ImGui::GetCursorScreenPos().x;
+	cursor_pos.y = App->input->GetMouseY() - ImGui::GetCursorScreenPos().y;
 	ImGui::SetCursorPos({ (float)(ImGui::GetWindowWidth()*0.35) , ImGui::GetCursorPosY() });
 
 	ImGui::Text("Real Time: %.3f", scene_timer.ReadSec()); ImGui::SameLine();

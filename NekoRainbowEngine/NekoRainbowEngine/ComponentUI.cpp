@@ -15,6 +15,7 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	this->ui_type = type;
 	height = h;
 	width = w;
+	fill_color = { 1,1,1,1 };
 
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	pos_x = comp_trans->local_position.x;
@@ -23,14 +24,14 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 	if (type != UI_Label)
 	{
 		float3* vertex = new float3[4];
-		panel.vertex[0] = float3(comp_trans->position.x, comp_trans->position.y + height, comp_trans->position.z);
-		panel.vertex[1] = float3(comp_trans->position.x + width, comp_trans->position.y + height, comp_trans->position.z);
-		panel.vertex[3] = float3(comp_trans->position.x + width, comp_trans->position.y, comp_trans->position.z);
-		panel.vertex[2] = float3(comp_trans->position.x, comp_trans->position.y, comp_trans->position.z);
+		panel.vertex[0] = float3(comp_trans->local_position.x, comp_trans->local_position.y + height, comp_trans->local_position.z);
+		panel.vertex[1] = float3(comp_trans->local_position.x + width, comp_trans->local_position.y + height, comp_trans->local_position.z);
+		panel.vertex[3] = float3(comp_trans->local_position.x + width, comp_trans->local_position.y, comp_trans->local_position.z);
+		panel.vertex[2] = float3(comp_trans->local_position.x, comp_trans->local_position.y, comp_trans->local_position.z);
 
 		float2* UV_coord = new float2[4];
 
-		if (type != UI_Character)
+		if (type == UI_Character)
 		{
 			panel.uv[1] = float2(0, 1);
 			panel.uv[0] = float2(1, 1);
@@ -39,10 +40,10 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 		}
 		else
 		{
-			panel.uv[3] = float2(0, 1);
-			panel.uv[2] = float2(1, 1);
-			panel.uv[0] = float2(1, 0);
-			panel.uv[1] = float2(0, 0);
+			panel.uv[2] = float2(0, 1);
+			panel.uv[3] = float2(1, 1);
+			panel.uv[1] = float2(1, 0);
+			panel.uv[0] = float2(0, 0);
 		}
 
 		panel.GenerateBuffers();
@@ -86,7 +87,7 @@ void ComponentUI::DebugDraw()
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 
 	glBegin(GL_LINE_LOOP);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glColor4f(fill_color.x, fill_color.y, fill_color.z, fill_color.w);
 
 	float3 pos = comp_trans->position;
 
@@ -105,13 +106,22 @@ void ComponentUI::DebugDraw()
 
 void ComponentUI::Draw()
 {
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0, App->editor->panel_play->window_size.x, App->editor->panel_play->window_size.y, 0.0, 1.0, -1.0);
+	if (App->viewport->is_game_mode)
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0.0, App->editor->panel_play->window_size.x, App->editor->panel_play->window_size.y, 0.0, 1.0, -1.0);
 
-	//Initialize Modelview Matrix
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+		//Initialize Modelview Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+	}
+
+	if (!App->viewport->is_game_mode)
+	{
+		glPushMatrix();
+		glMultMatrixf((float*)&my_go->GetComponentTransform()->GetGlobalTransformMatrix().Transposed());
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -149,14 +159,9 @@ void ComponentUI::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_ALPHA_TEST);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	mat4x4 ProjectionMatrix = perspective(App->camera->GetSceneCamera()->frustum.horizontalFov * RADTODEG, (float)App->editor->panel_play->window_size.x / (float)App->editor->panel_play->window_size.y, App->camera->GetSceneCamera()->frustum.nearPlaneDistance, App->camera->GetSceneCamera()->frustum.farPlaneDistance);
-	glLoadMatrixf((float*)&ProjectionMatrix);
+	if (!App->viewport->is_game_mode)
+		glPopMatrix();
 
-	//Reset ModelView
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetSceneCamera()->GetViewMatrix());
 }
 
 void ComponentUI::UpdateTransform()
@@ -168,6 +173,8 @@ void ComponentUI::UpdateTransform()
 
 bool ComponentUI::Update()
 {
+	Draw();
+
 	if (!App->viewport->is_over_game)
 		return false;
 
@@ -195,8 +202,6 @@ bool ComponentUI::Update()
 
 	UpdateUI(App->GetDT());
 
-	Draw();
-
 	return true;
 }
 
@@ -206,9 +211,9 @@ void ComponentUI::UILogic()
 	origin.x = (origin.x - 0.5F) * 2;
 	origin.y = -(origin.y - 0.5F) * 2;
 
-	ImVec2 ratio = ImVec2(App->editor->panel_play->window_size.x / canvas->width, App->editor->panel_play->window_size.y / canvas->height);
-	float2 mouse_pos = float2(-App->editor->panel_play->cursor_pos.x / ratio.x, -App->editor->panel_play->cursor_pos.y / ratio.y);
+	float2 mouse_pos = float2(App->editor->panel_play->cursor_pos.x, App->editor->panel_play->cursor_pos.y);
 
+	LOG("%f", mouse_pos.x);
 	switch (state)
 	{
 	case UI_Idle:
@@ -245,7 +250,7 @@ bool ComponentUI::Fade()
 
 bool ComponentUI::CheckMouseInside(float2 mouse_pos)
 {
-	return (mouse_pos.x >= pos_x && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height);
+	return (mouse_pos.x >= pos_x  && mouse_pos.x <= pos_x + width && mouse_pos.y >= pos_y && mouse_pos.y <= pos_y + height);
 }
 
 void UIPanel::GenerateBuffers()

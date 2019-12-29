@@ -29,13 +29,14 @@ bool ComponentButton::UpdateUI(float dt)
 
 bool ComponentButton::OnHover()
 {
-	my_go->GetComponentMesh()->ChangeColor(vec4(0.5, 0.5, 0.5, 1));
+	LOG("ONHOVER");
+	fill_color = vec4(0.5, 0.5, 0.5, 1);
 	return true;
 }
 
 bool ComponentButton::OnClick()
 {
-	my_go->GetComponentMesh()->ChangeColor(vec4(0.2, 0.2, 0.2, 1));
+	fill_color = vec4(0.2, 0.2, 0.2, 1);
 	function = true;
 	return true;
 }
