@@ -76,7 +76,7 @@ bool ComponentUI::OnClicked()
 
 bool ComponentUI::OnRelease()
 {
-	fill_color = vec4(1, 1, 1, 1);
+	fill_color = vec4(1, 1, 1, fill_color.w);
 	return true;
 }
 
@@ -253,7 +253,18 @@ void ComponentUI::UILogic()
 
 bool ComponentUI::Fade()
 {
-	return my_go->GetComponentMesh()->Fade(App->GetDT());
+	if (fill_color.w <= 0.05)
+	{
+		my_go->active = false;
+		return true;
+	}
+	else
+	{
+		LOG("%f", fill_color.w);
+		fill_color.w -= 0.5 * App->GetDT();
+		return false;
+	}
+
 }
 
 bool ComponentUI::CheckMouseInside(float2 mouse_pos)

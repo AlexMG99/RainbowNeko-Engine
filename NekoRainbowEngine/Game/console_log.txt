@@ -1,49 +1,121 @@
 
--------------- Application Init --------------
-Init SDL window & surface
-Init SDL input event system
-Init True Type Font library
-Creating 3D Renderer context
-Using Glew 2.1.0
-Vendor: NVIDIA Corporation
-Renderer: GeForce GTX 745/PCIe/SSE2
-OpenGL version supported 4.6.0 NVIDIA 441.12
-GLSL: 4.60 NVIDIA
-
--------------- Application Start --------------
-Setting up the camera
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loading Editor Scene
-Loaded with path: ./Icons/Folder.png succesfully!
-Loaded with path: ./Icons/DDS.png succesfully!
-Loaded with path: ./Icons/Neko.png succesfully!
-Loaded with path: ./Icons/JPG.png succesfully!
-Loaded with path: ./Icons/Model.png succesfully!
-Loaded with path: ./Icons/PNG.png succesfully!
-Loaded with path: ./Icons/Scene.png succesfully!
-Loaded with path: ./Icons/Arrow.png succesfully!
--------------- Application Update --------------
-
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
+0.375000
+0.375000
+0.375000
+0.367000
+0.367000
+0.367000
+0.359000
+0.359000
+0.359000
+0.351000
+0.351000
+0.351000
+0.343000
+0.343000
+0.343000
+0.334500
+0.334500
+0.334500
+0.326000
+0.326000
+0.326000
+0.318000
+0.318000
+0.318000
+0.310000
+0.310000
+0.310000
+0.301500
+0.301500
+0.301500
+0.293000
+0.293000
+0.293000
+0.284500
+0.284500
+0.284500
+0.276000
+0.276000
+0.276000
+0.267500
+0.267500
+0.267500
+0.259000
+0.259000
+0.259000
+0.251000
+0.251000
+0.251000
+0.243000
+0.243000
+0.243000
+0.234500
+0.234500
+0.234500
+0.226000
+0.226000
+0.226000
+0.218000
+0.218000
+0.218000
+0.210000
+0.210000
+0.210000
+0.201500
+0.201500
+0.201500
+0.193000
+0.193000
+0.193000
+0.184500
+0.184500
+0.184500
+0.176000
+0.176000
+0.176000
+0.167500
+0.167500
+0.167500
+0.159000
+0.159000
+0.159000
+0.150500
+0.150500
+0.150500
+0.142000
+0.142000
+0.142000
+0.133500
+0.133500
+0.133500
+0.125000
+0.125000
+0.125000
+0.117000
+0.117000
+0.117000
+0.109000
+0.109000
+0.109000
+0.100500
+0.100500
+0.100500
+0.092000
+0.092000
+0.092000
+0.083500
+0.083500
+0.083500
+0.075000
+0.075000
+0.075000
+0.066500
+0.066500
+0.066500
+0.058000
+0.058000
+0.058000
 Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!

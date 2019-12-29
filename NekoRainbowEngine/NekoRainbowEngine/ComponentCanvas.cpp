@@ -3,12 +3,13 @@
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "PanelPlay.h"
+#include "Scene.h"
 #include "GL/include/glew.h"
 
 
 ComponentCanvas::ComponentCanvas(component_type comp_type, bool act, GameObject * objs, uint w, uint h):Component(comp_type, act, objs)
 {
-	ComponentCamera* parent_cam = my_go->GetParent()->GetComponentCamera();
+	ComponentCamera* parent_cam = App->viewport->camera_game->GetComponentCamera();
 	width = parent_cam->frustum.CornerPoint(3).x - parent_cam->frustum.CornerPoint(7).x;
 	height = parent_cam->frustum.CornerPoint(7).y - parent_cam->frustum.CornerPoint(5).y;
 
@@ -46,6 +47,30 @@ void ComponentCanvas::DebugDraw()
 	glVertex3f(v3.x, v3.y, v3.z);
 
 	glEnd();
+}
+
+bool ComponentCanvas::OnSave(Scene & scene, int i) const
+{
+	bool ret = true;
+	Scene canvas_scene = scene.AddSectionArray(i);
+
+	ret = canvas_scene.AddInt("Type", type);
+	ret = canvas_scene.AddInt("Width", width);
+	ret = canvas_scene.AddInt("Height", height);
+
+	return ret;
+}
+
+bool ComponentCanvas::OnLoad(Scene & scene, int i)
+{
+	bool ret = true;
+	Scene canvas_scene = scene.AddSectionArray(i);
+
+	type = (component_type)canvas_scene.GetInt("Type");
+	width = canvas_scene.GetInt("Width");
+	height = canvas_scene.GetInt("Height");
+
+	return ret;
 }
 
 

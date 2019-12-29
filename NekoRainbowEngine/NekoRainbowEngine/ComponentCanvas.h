@@ -14,6 +14,9 @@ public:
 
 	void DebugDraw();
 
+	bool OnSave(Scene& scene, int i) const;
+	bool OnLoad(Scene& scene, int i);
+
 public:
 	uint width = 0, height = 0;
 };

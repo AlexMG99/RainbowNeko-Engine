@@ -22,8 +22,8 @@ bool ComponentButton::UpdateUI(float dt)
 	{
 		function = !FadeToBlack(dt);
 
-		if (!function)
-			App->viewport->to_load_scene01 = true;
+		/*if (!function)
+			App->viewport->to_load_scene01 = true;*/
 	}
 
 	return true;
@@ -31,13 +31,13 @@ bool ComponentButton::UpdateUI(float dt)
 
 bool ComponentButton::OnHover()
 {
-	fill_color = vec4(0.5, 0.5, 0.5, 1);
+	fill_color = vec4(0.5, 0.5, 0.5, fill_color.w);
 	return true;
 }
 
 bool ComponentButton::OnClick()
 {
-	fill_color = vec4(0.2, 0.2, 0.2, 1);
+	fill_color = vec4(0.2, 0.2, 0.2, fill_color.w);
 	function = true;
 	return true;
 }
@@ -82,8 +82,7 @@ bool ComponentButton::FadeToBlack(float dt)
 
 	for (auto it_go = canvas->my_go->children.begin(); it_go != canvas->my_go->children.end(); it_go++)
 	{
-		if((*it_go)->GetComponentMesh())
-			ret = (*it_go)->GetComponentMesh()->Fade(dt);
+		ret = (*it_go)->GetComponentUI()->Fade();
 	}
 	
 	return ret;
