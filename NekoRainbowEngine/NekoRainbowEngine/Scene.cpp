@@ -68,6 +68,18 @@ bool Scene::AddFloat3(const char * field, float3 value)
 	return true;
 }
 
+bool Scene::AddFloat2(const char * field, float2 value)
+{
+	JSON_Value* va = json_value_init_array();
+	array = json_value_get_array(va);
+	json_object_set_value(root, field, va);
+
+	json_array_append_number(array, (float)value.x);
+	json_array_append_number(array, (float)value.y);
+
+	return true;
+}
+
 bool Scene::AddQuat(const char * field, Quat value)
 {
 	JSON_Value* va = json_value_init_array();
@@ -116,6 +128,18 @@ float3 Scene::GetFloat3(const char * field)
 	value.x = (float)json_array_get_number(aux_array, 0);
 	value.y = (float)json_array_get_number(aux_array, 1);
 	value.z = (float)json_array_get_number(aux_array, 2);
+
+	return value;
+}
+
+float3 Scene::GetFloat2(const char * field)
+{
+	float3 value;
+
+	aux_array = json_object_get_array(root, field);
+
+	value.x = (float)json_array_get_number(aux_array, 0);
+	value.y = (float)json_array_get_number(aux_array, 1);
 
 	return value;
 }

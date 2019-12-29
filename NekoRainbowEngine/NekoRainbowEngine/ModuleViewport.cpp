@@ -401,6 +401,10 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	{
 		camera_game = new_obj;
 	}
+	if (new_obj->GetName() == "Canvas")
+	{
+		canvas = new_obj;
+	}
 
 	return true;
 }

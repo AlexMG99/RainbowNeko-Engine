@@ -131,7 +131,17 @@ bool GameObject::LoadComponents(Scene scene)
 	for (int i = 1; i < COMPONENT_TOTAL; i++)
 	{
 		if (comp_scene.IsArraySection(i))
-			CreateComponent((component_type)(comp_scene.GetSectionArray(i).GetInt("Type")));
+		{
+			if(comp_scene.GetSectionArray(i).GetInt("Type") != COMPONENT_UI)
+				CreateComponent((component_type)(comp_scene.GetSectionArray(i).GetInt("Type")));
+			else
+			{
+				Scene ui_scene = scene.GetSectionArray(i);
+				CreateComponentUI((UI_type)ui_scene.GetInt("UI_type"), ui_scene.GetInt("Width"), ui_scene.GetInt("Height"), App->viewport->canvas->GetComponentCanvas(), ui_scene.GetString("Path").c_str());
+			}
+
+		}
+			
 	}
 	
 	for (int i = 0; i< components.size(); i++)

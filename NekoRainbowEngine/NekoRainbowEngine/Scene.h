@@ -30,6 +30,7 @@ public:
 	bool AddFloat(const char* field, float value);
 	bool AddDouble(const char * field, double value);
 	bool AddFloat3(const char* field, float3 value);
+	bool AddFloat2(const char * field, float2 value);
 	bool AddQuat(const char * field, Quat value);
 	bool AddString(const char * field, std::string value);
 
@@ -38,6 +39,7 @@ public:
 	float GetFloat(const char* field);
 	double GetDouble(const char * field);
 	float3 GetFloat3(const char* field);
+	float3 GetFloat2(const char * field);
 	Quat GetQuat(const char * field);
 	std::string GetString(const char * field);
 
