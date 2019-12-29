@@ -5,6 +5,8 @@ This is a 3D Game Engine created by Laia Martinez Motis and Alex Morales Garcia,
 <img src= "https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/LogoB.png?raw=true" width="360" height="350">   
 </p>
 
+The code is written in C++.
+
 Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99/RainbowNeko-Engine).
 
 ![teampic](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Menu.png?raw=true)
@@ -26,6 +28,7 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* Engine Icons
 	* Timer
 	* Start, pause and tick 
+	* ImGui panels
 
 
 ### Alex Morales Garcia
@@ -44,10 +47,20 @@ Link to  Github Repository: [**NekoRainbow Engine**](https://github.com/AlexMG99
 	* Serialize scene
 	* Library created again if it doesn't exists
 	* Panel Assets
+	* ImGui panels
 
 ## Main Core Sub-Systems 
 
+### GUI (Library ImGui)
+In order to make our Engine easy to understand, we decided to use the ImGui library, which helped us through the Engine creation process. With it we created an easy-to-use UI, divided in different panels, each of them with their own functions.
 
+ * Panel Configurations: Engine configurations.
+ * Panel Hierarchy: Shows all the loaded GameObjects. You can select them by clicking in the name and also select the scene camera.
+ * Panel Game: Shows game scene 
+ * Panel Play: Shows scene through camera 
+ * Panel Inspector: Shows information about that GameObject selected in the panel Hierarchy.
+ * Panel Console: Prints Assimp Logs and Normal Logs
+ * Panel Assets: TLoads the floders and resources that are inside the Library folder.
 
 ### Assets Panel
 
