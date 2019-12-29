@@ -82,15 +82,23 @@ To put the texture on it you must have the texture folder opened, then select th
 ![assetsmenu](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/assetsmenu.gif?raw=true)
 
 ## User Interface Sub-system
-We have implemented a main menu that contains a fullscreen background image. 
-As a child of the canvas we have an **Input Box** which request the testers name and a **Start Button** which can be pressed with the mouse or the keyboard.
+
+For our last assigment we have done a Demo. 
+
+When the **PLAY Button** is clicked, the UI is activated.
+It consists of a Main Menu which includes a **Label** for the menu title, a **Button**  which lead the user to a new scene and an **Image** that contains the background image.
+
+When the user presses the **Start Button** a new scene is loaded. In it, it appears the BakerHouse.fbx and the Crosshair in the middle of the screen.
 
 ![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine.gif?raw=true)
 
-As soon as the **Start Button** is pressed the fullscreen background and all that it contain fades away and show an 3D scene.
-When the new scene is loaded pressing the button **F1** the teaster can open an options window. In it the teaster will find two  **Check Boxes**
-* The first one allows to activate or deactivate vsync 
-* The second one allows to make the panel draggable
+When the user is in the loaded scene he/she can press **F1 Button**, and an optiions menu will show up.
+In it the user will  find two  **Check Boxes**:
+* The first one allows to activate or deactivate vsync.
+* The second one allows to make the panel draggable.
+To close the menu the user has to press the **F1 Button** again.
+
+When the **STOP Button** is clicked, the scene will go to its original state.
 
 ![engine2](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine2.gif?raw=true)
 
