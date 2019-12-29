@@ -63,9 +63,10 @@ bool ModuleViewport::Start()
 	canvas = CreateGameObject("Canvas", camera_game);
 	canvas->CreateComponent(COMPONENT_CANVAS, true, 937,760);
 
-	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
+	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 
-	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,200,0 });
+	label_text = CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
+	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
 	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 	
@@ -142,6 +143,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
 	
+	draw_ui = false;
 	scene_fbo->Bind(App->editor->panel_scene->window_size);
 	if(draw_grid)
 		DrawGrid(2,100);
@@ -149,6 +151,7 @@ update_status ModuleViewport::PostUpdate(float dt)
 	quad_tree.Draw();
 	scene_fbo->Unbind();
 
+	draw_ui = true;
 	game_fbo->Bind(App->editor->panel_play->window_size);
 	root_object->Update();
 	game_fbo->Unbind();

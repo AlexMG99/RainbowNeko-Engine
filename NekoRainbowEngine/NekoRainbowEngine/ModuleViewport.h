@@ -89,6 +89,7 @@ public:
 	bool is_over_scene = false;
 	bool is_over_game = false;
 	bool is_game_mode = false;
+	bool draw_ui = false;
 
 	bool to_load_scene01 = false;
 

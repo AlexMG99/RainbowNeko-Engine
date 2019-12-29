@@ -16,9 +16,12 @@ public:
 private:
 	void CreateText();
 
+	bool OnSave(Scene & scene, int i) const;
+
+	bool OnLoad(Scene & scene, int i);
+
 public:
 	std::string text_str;
-	std::vector<ComponentCharacter*> label_comp;
 
 };
 

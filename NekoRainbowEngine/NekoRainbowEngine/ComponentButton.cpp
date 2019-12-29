@@ -82,7 +82,8 @@ bool ComponentButton::FadeToBlack(float dt)
 
 	for (auto it_go = canvas->my_go->children.begin(); it_go != canvas->my_go->children.end(); it_go++)
 	{
-		ret = (*it_go)->GetComponentUI()->Fade();
+		if((*it_go)->GetComponentUI())
+			ret = (*it_go)->GetComponentUI()->Fade();
 	}
 	
 	return ret;

@@ -13,6 +13,7 @@ public:
 	bool OnLoad(Scene& scene, int i);
 
 private:
+	std::string ch;
 	Font* text_font = nullptr;
 };
 

@@ -57,6 +57,8 @@ public:
 	virtual bool UpdateUI(float dt) { return true; };
 	void UILogic();
 
+	void ChangeColor(vec4 new_color);
+
 	bool Fade();
 
 	virtual bool OnSave(Scene& scene, int i) const { return true; };

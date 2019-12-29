@@ -9,18 +9,16 @@
 
 ComponentCharacter::ComponentCharacter(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas* canvas, const char* path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
+	text_font = App->fonts->default_font;
+	ch = path;
+
 	panel.textureID = text_font->Characters.at(path[0]).TextureID;
 }
 
 bool ComponentCharacter::OnSave(Scene & scene, int i) const
 {
-	bool ret = true;
-	Scene char_scene = scene.AddSectionArray(i);
 
-	ret = char_scene.AddInt("Type", type);
-	ret = char_scene.AddInt("UI_type", ui_type);
-
-	return ret;
+	return true;
 }
 
 bool ComponentCharacter::OnLoad(Scene & scene, int i)

@@ -41,10 +41,10 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 
 		if (type == UI_Character)
 		{
-			panel.uv[1] = float2(0, 1);
-			panel.uv[0] = float2(1, 1);
-			panel.uv[2] = float2(1, 0);
-			panel.uv[3] = float2(0, 0);
+			panel.uv[0] = float2(0, 1);
+			panel.uv[1] = float2(1, 1);
+			panel.uv[3] = float2(1, 0);
+			panel.uv[2] = float2(0, 0);
 		}
 		else
 		{
@@ -115,7 +115,7 @@ void ComponentUI::Draw()
 {
 	DebugDraw();
 
-	if (App->viewport->is_game_mode)
+	if (App->viewport->is_game_mode && App->viewport->draw_ui)
 	{
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -251,8 +251,25 @@ void ComponentUI::UILogic()
 	}
 }
 
+void ComponentUI::ChangeColor(vec4 new_color)
+{
+	for (auto it_go = my_go->children.begin(); it_go != my_go->children.end(); it_go++)
+	{
+		if((*it_go)->GetComponentUI())
+			(*it_go)->GetComponentUI()->ChangeColor(new_color);
+	}
+
+	fill_color = vec4(new_color.x, new_color.y, new_color.z, fill_color.w);
+}
+
 bool ComponentUI::Fade()
 {
+	for (auto it_go = my_go->children.begin(); it_go != my_go->children.end(); it_go++)
+	{
+		if ((*it_go)->GetComponentUI())
+			(*it_go)->GetComponentUI()->Fade();
+	}
+
 	if (fill_color.w <= 0.05)
 	{
 		my_go->active = false;
@@ -260,7 +277,6 @@ bool ComponentUI::Fade()
 	}
 	else
 	{
-		LOG("%f", fill_color.w);
 		fill_color.w -= 0.5 * App->GetDT();
 		return false;
 	}
