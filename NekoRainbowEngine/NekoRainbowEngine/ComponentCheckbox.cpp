@@ -21,11 +21,13 @@ bool ComponentCheckbox::OnClick()
 	if (bool_state)
 	{
 		panel_in_scene.textureID = checkbox_false;
+		panel_in_game.textureID = checkbox_false;
 		bool_state = false;
 	}
 	else
 	{
 		panel_in_scene.textureID = checkbox_true;
+		panel_in_game.textureID = checkbox_true;
 		bool_state = true;
 	}
 

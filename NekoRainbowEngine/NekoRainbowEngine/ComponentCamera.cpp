@@ -210,7 +210,6 @@ bool ComponentCamera::OnSave(Scene & scene, int i) const
 bool ComponentCamera::OnLoad(Scene & scene, int i)
 {
 	Scene camera_scene = scene.GetSectionArray(i);
-	
 	type = (component_type)camera_scene.GetInt("Type");
 	frustum.pos = camera_scene.GetFloat3("Position");
 	frustum.front = camera_scene.GetFloat3("Front");

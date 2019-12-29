@@ -63,10 +63,14 @@ public:
 public:
 	Scene* scene = nullptr;
 	GameObject* root_object = nullptr;
+
+	GameObject* checkbox_vsync = nullptr;
+	GameObject* vsync_text = nullptr;
+	GameObject* checkbox_draggable = nullptr;
+	GameObject* draggable_text = nullptr;
 	GameObject* camera_game = nullptr;
 	GameObject* selected_object = nullptr;
 	GameObject* background = nullptr;
-	GameObject* checkbox = nullptr;
 	GameObject* canvas = nullptr;
 	LineSegment ray;
 

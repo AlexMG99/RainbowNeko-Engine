@@ -66,18 +66,19 @@ bool ModuleViewport::Start()
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 
 	//First Scene
-	CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
+	/*CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
 	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
-	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);*/
 
 	//Main Scene
-	/*App->importer->ImportFile("./Assets/BakerHouse.fbx");
+	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	checkbox = CreateUIElement("Checkbox", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
-	checkbox->active = false;
+	//checkbox->active = false;
+	vsync_text = CreateUIElement("VsyncText", UI_Image, 250, 60, canvas->GetComponentCanvas(), "./Assets/vsync.png", canvas, { 320,220,0 });
 	background = CreateUIElement("Background", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/MenuImage.png", canvas, { 180,50,0 });
-	background->active = false; 
-	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });*/
+	//background->active = false; 
+	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });
 
 	return ret;
 }
@@ -116,7 +117,7 @@ update_status ModuleViewport::Update(float dt)
 {
 	if (to_load_scene01)
 	{
-		LoadScene("SceneMain.scene");
+		LoadScene("MainScene.scene");
 		to_load_scene01 = false;
 	}
 	return UPDATE_CONTINUE;
@@ -356,7 +357,6 @@ bool ModuleViewport::LoadScene(const char* name)
 		}
 		else
 			i = -1;
-		
 	}
 
 	if(!root_object->children.empty())
