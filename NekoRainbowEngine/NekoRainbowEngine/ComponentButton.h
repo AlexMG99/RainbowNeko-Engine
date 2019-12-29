@@ -21,6 +21,7 @@ public:
 private:
 	bool FadeToBlack(float dt);
 
+	std::string img_path;
 	bool function = false;
 };
 

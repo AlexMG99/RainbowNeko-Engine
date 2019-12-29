@@ -26,19 +26,24 @@ Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
 
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!
+Loaded with path: ./Assets/start.png succesfully!
 Loaded with path: ./Assets/Window.png succesfully!
 Loaded with path: ./Assets/background.jpg succesfully!
