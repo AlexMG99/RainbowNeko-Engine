@@ -12,6 +12,7 @@
 #include "PanelConsole.h"
 #include "PanelPlay.h"
 #include "Scene.h"
+#include "FBO.h"
 
 #include "GL/include/glew.h"
 #include <string>
@@ -37,6 +38,25 @@ bool ComponentMesh::Update()
 {
 	if (App->viewport->camera_culling && !App->viewport->camera_game->GetComponentCamera()->ContainsAABox(BB_mesh.GetGlobalAABB(my_go)))
 		return false;
+
+	if (!App->viewport->is_over_scene && App->viewport->is_game_mode)
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glLoadMatrixf((float*)&App->viewport->game_fbo->GetComponentCamera()->GetOpenGLProjectionMatrix());
+		//Initialize Modelview Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(App->viewport->game_fbo->GetComponentCamera()->GetViewMatrix());
+	}
+	else if (App->viewport->is_over_scene && App->viewport->is_game_mode)
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glLoadMatrixf((float*)&App->viewport->scene_fbo->GetComponentCamera()->GetOpenGLProjectionMatrix());
+		//Initialize Modelview Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(App->viewport->scene_fbo->GetComponentCamera()->GetViewMatrix());
+	}
 
 	glPushMatrix();
 	glMultMatrixf((float*)&transform->GetGlobalTransformMatrix().Transposed());

@@ -20,6 +20,8 @@ public:
 
 private:
 	bool bool_state = false;
+
+	uint checkbox_false = 0;
 	uint checkbox_true = 0;
 };
 

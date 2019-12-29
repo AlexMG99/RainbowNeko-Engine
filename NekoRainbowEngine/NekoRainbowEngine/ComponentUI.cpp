@@ -113,7 +113,7 @@ void ComponentUI::DebugDraw()
 
 void ComponentUI::Draw()
 {
-	DebugDraw();
+	//DebugDraw();
 
 	if (App->viewport->is_game_mode && App->viewport->draw_ui)
 	{

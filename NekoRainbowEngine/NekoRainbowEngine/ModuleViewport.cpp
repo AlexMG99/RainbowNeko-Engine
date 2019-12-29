@@ -60,22 +60,26 @@ bool ModuleViewport::Start()
 	game_fbo->Create((uint)App->window->GetWinSize().x, App->window->GetWinSize().y);
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
-	canvas = CreateGameObject("Canvas", camera_game);
+	canvas = CreateGameObject("Canvas");
 	canvas->CreateComponent(COMPONENT_CANVAS, true, 937,760);
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 
-	label_text = CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
+	//First Scene
+	/*label_text = CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
 	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
-	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
-	
+	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);*/
 
-	//App->importer->ImportFile("./Assets/BakerHouse.fbx");
-	///*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
-	//uint height = comp_camera->frustum.CornerPoint(7).y - comp_camera->frustum.CornerPoint(5).y;
-	//CreateUIElement("Title_Menu", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 65,140,-1 });
-	//CreateUIElement("Background_Image", UI_Image, width, height, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+	
+	checkbox = CreateUIElement("Checkbox", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
+	checkbox->active = false;
+	background = CreateUIElement("Background", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/MenuImage.png", canvas, { 180,50,0 });
+	background->active = false; 
+	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });
+	
+	
 	//CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
 	//CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
 	//background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0 });
@@ -105,10 +109,6 @@ update_status ModuleViewport::PreUpdate(float dt)
 			background->active = !background->active;
 		if(checkbox)
 			checkbox->active = !checkbox->active;
-		if(label_text)
-			label_text->active = !label_text->active;
-		if(vsync_text)
-			vsync_text->active = !vsync_text->active;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
@@ -142,7 +142,7 @@ update_status ModuleViewport::Update(float dt)
 update_status ModuleViewport::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Update_ModuleViewport", Profiler::Color::DeepSkyBlue);
-	
+
 	draw_ui = false;
 	scene_fbo->Bind(App->editor->panel_scene->window_size);
 	if(draw_grid)
@@ -393,6 +393,7 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	}
 
 	GameObject* new_obj = CreateGameObject(scn.GetString("Name"));
+	new_obj->active = scn.GetBool("Active");
 		
 	new_obj->is_static = scn.GetBool("Static");
 	new_obj->SetType((object_type)scn.GetInt("Type"));
@@ -407,6 +408,14 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	if (new_obj->GetName() == "Canvas")
 	{
 		canvas = new_obj;
+	}
+	if (new_obj->GetName() == "Checkbox")
+	{
+		checkbox = new_obj;
+	}
+	if (new_obj->GetName() == "Background")
+	{
+		background = new_obj;
 	}
 
 	return true;
@@ -437,6 +446,7 @@ bool ModuleViewport::SaveGameObject(Scene scn, GameObject* obj, int* num)
 
 	Scene s_obj = scn.AddSectionArray(*num);
 
+	ret = s_obj.AddBool("Active", obj->active);
 	ret = s_obj.AddBool("Static", obj->is_static);
 	ret = s_obj.AddBool("UI", (obj->GetComponentUI() ? true : false));
 	ret = s_obj.AddString("Name", obj->GetName());
