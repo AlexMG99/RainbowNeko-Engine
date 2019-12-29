@@ -57,12 +57,12 @@ Link to  Github Web:[**Link to NekoRainbow Web**](https://alexmg99.github.io/Rai
 	 
 
 ### Hierarchy
-The panel Hierarchy shows al the loaded GameObjects. You can select them by clicking in the name.
+The panel Hierarchy shows all the loaded GameObjects. You can select them by clicking in the name.
 Also you can select the scene camera.
 
 
 ### Game
-Show game scene 
+Shows game scene 
 
 * **Check Boxes**: 
 	* _**Activate/Deactivate Grid**_. 
@@ -72,7 +72,7 @@ Show game scene
 	* _**Activate/Deactivate Gizmos**_.
 	
 ### Play
-Show scene through camera 
+Shows scene through camera 
 
 * **Buttons**: 
 	* _**Play/Stop button: Starts/Stops/Resets Game Timer**_.  
