@@ -66,35 +66,18 @@ bool ModuleViewport::Start()
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 
 	//First Scene
-	/*label_text = CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
+	CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
 	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
-	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);*/
+	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 
-	App->importer->ImportFile("./Assets/BakerHouse.fbx");
-	
+	//Main Scene
+	/*App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	checkbox = CreateUIElement("Checkbox", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
 	checkbox->active = false;
 	background = CreateUIElement("Background", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/MenuImage.png", canvas, { 180,50,0 });
 	background->active = false; 
-	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });
-	
-	
-	//CreateUIElement("Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0.5 });
-	//CreateUIElement("PlayButton", UI_Button, 100, 30, canvas->GetComponentCanvas(), "./Assets/button.png", canvas, { 75,100,-1 });*/
-	//background = CreateUIElement("F1_Menu_Image", UI_Image, 150, 170, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 50,20,-0 });
-	///*background->active = false;
-	//CreateUIElement("CrossHair_Image", UI_Image, 2, 2, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 129, 99, 10 -camera_game->GetComponentCamera()->frustum.farPlaneDistance });
-
-	///*label_text = CreateUIElement("Title", UI_Image, 80, 20, canvas->GetComponentCanvas(), "./Assets/Menu.png", canvas, { 62,140,-1 });*/
-	///*label_text = CreateUIElement("Title", UI_Label, 80, 20, canvas->GetComponentCanvas(), "MENU", canvas, { 62,140,-1 });
-	//label_text->active = false;
-	//vsync_text = CreateUIElement("Vsync_Text", UI_Image, 60, 10, canvas->GetComponentCanvas(), "./Assets/vsyncc.png", canvas, { 95,115,-1 });
-	//vsync_text->active = false;
-	//checkbox = CreateUIElement("VSyncCheckbox", UI_Checkbox, 20, 20, canvas->GetComponentCanvas(), "A", canvas, { 160,110,-1 });
-	//ComponentCheckbox* comp_checkbox = (ComponentCheckbox*)checkbox->GetComponentUI();
-	//comp_checkbox->SetState(vsync);
-	//checkbox->active = false;*/
+	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });*/
 
 	return ret;
 }

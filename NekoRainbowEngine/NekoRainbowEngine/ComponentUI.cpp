@@ -31,30 +31,45 @@ ComponentUI::ComponentUI(component_type comp_type, bool act, GameObject* obj, UI
 
 	if (type != UI_Label)
 	{
-		float3* vertex = new float3[4];
-		panel.vertex[0] = float3(pos_x, pos_y + height, comp_trans->local_position.z);
-		panel.vertex[1] = float3(pos_x + width, pos_y + height, comp_trans->local_position.z);
-		panel.vertex[3] = float3(pos_x + width, pos_y, comp_trans->local_position.z);
-		panel.vertex[2] = float3(pos_x, pos_y, comp_trans->local_position.z);
+		panel_in_scene.vertex[0] = float3(comp_trans->position.x, comp_trans->position.y + height, comp_trans->local_position.z);
+		panel_in_scene.vertex[1] = float3(comp_trans->position.x + width, comp_trans->position.y + height, comp_trans->local_position.z);
+		panel_in_scene.vertex[3] = float3(comp_trans->position.x + width, comp_trans->position.y, comp_trans->local_position.z);
+		panel_in_scene.vertex[2] = float3(comp_trans->position.x, comp_trans->position.y, comp_trans->local_position.z);
+
+		panel_in_game.vertex[0] = float3(pos_x, pos_y + height, comp_trans->local_position.z);
+		panel_in_game.vertex[1] = float3(pos_x + width, pos_y + height, comp_trans->local_position.z);
+		panel_in_game.vertex[3] = float3(pos_x + width, pos_y, comp_trans->local_position.z);
+		panel_in_game.vertex[2] = float3(pos_x, pos_y, comp_trans->local_position.z);
 
 		float2* UV_coord = new float2[4];
 
 		if (type == UI_Character)
 		{
-			panel.uv[0] = float2(0, 1);
-			panel.uv[1] = float2(1, 1);
-			panel.uv[3] = float2(1, 0);
-			panel.uv[2] = float2(0, 0);
+			panel_in_scene.uv[3] = float2(0, 1);
+			panel_in_scene.uv[2] = float2(1, 1);
+			panel_in_scene.uv[0] = float2(1, 0);
+			panel_in_scene.uv[1] = float2(0, 0);
+
+			panel_in_game.uv[0] = float2(0, 1);
+			panel_in_game.uv[1] = float2(1, 1);
+			panel_in_game.uv[3] = float2(1, 0);
+			panel_in_game.uv[2] = float2(0, 0);
 		}
 		else
 		{
-			panel.uv[2] = float2(0, 1);
-			panel.uv[3] = float2(1, 1);
-			panel.uv[1] = float2(1, 0);
-			panel.uv[0] = float2(0, 0);
+			panel_in_game.uv[2] = float2(0, 1);
+			panel_in_game.uv[3] = float2(1, 1);
+			panel_in_game.uv[1] = float2(1, 0);
+			panel_in_game.uv[0] = float2(0, 0);
+
+			panel_in_scene.uv[1] = float2(0, 1);
+			panel_in_scene.uv[0] = float2(1, 1);
+			panel_in_scene.uv[2] = float2(1, 0);
+			panel_in_scene.uv[3] = float2(0, 0);
 		}
 
-		panel.GenerateBuffers();
+		panel_in_scene.GenerateBuffers();
+		panel_in_game.GenerateBuffers();
 	}
 	
 }
@@ -114,6 +129,11 @@ void ComponentUI::DebugDraw()
 void ComponentUI::Draw()
 {
 	//DebugDraw();
+	UIPanel* ui_panel = nullptr;
+	if (App->viewport->is_game_mode)
+		ui_panel = &panel_in_game;
+	else
+		ui_panel = &panel_in_scene;
 
 	if (App->viewport->is_game_mode && App->viewport->draw_ui)
 	{
@@ -145,17 +165,17 @@ void ComponentUI::Draw()
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, panel.textureID);
+	glBindTexture(GL_TEXTURE_2D, ui_panel->textureID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, panel.buffer[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, ui_panel->buffer[0]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, panel.buffer[2]);
+	glBindBuffer(GL_ARRAY_BUFFER, ui_panel->buffer[2]);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, panel.buffer[1]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ui_panel->buffer[1]);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 
@@ -177,6 +197,8 @@ void ComponentUI::UpdateTransform()
 {
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
 	comp_trans->local_position = { comp_trans->local_position.x, comp_trans->local_position.y, comp_trans->local_position.z };
+	pos_x = comp_trans->local_position.x;
+	pos_x = comp_trans->local_position.y;
 	comp_trans->GetGlobalTransformMatrix();
 }
 

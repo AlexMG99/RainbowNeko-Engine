@@ -76,7 +76,8 @@ protected:
 	UI_state state = UI_Idle;
 	vec4 fill_color;
 
-	UIPanel panel;
+	UIPanel panel_in_scene;
+	UIPanel panel_in_game;
 	ComponentCanvas* canvas = nullptr;
 
 };

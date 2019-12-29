@@ -11,7 +11,7 @@
 ComponentImage::ComponentImage(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char* path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
 	img_path = path;
-	panel.textureID = App->importer->texture_imp->GetImageID(path);
+	panel_in_game.textureID = panel_in_scene.textureID = App->importer->texture_imp->GetImageID(path);
 }
 
 bool ComponentImage::OnSave(Scene & scene, int i) const
@@ -35,10 +35,10 @@ bool ComponentImage::OnSave(Scene & scene, int i) const
 		std::string num = "Vertex";
 		num += std::to_string(i);
 		strcpy_s(name, num.c_str());
-		ret = vertex.AddFloat3(num.c_str(), panel.vertex[i]);
+		ret = vertex.AddFloat3(num.c_str(), panel_in_scene.vertex[i]);
 	}
 
-	ret = img_scene.AddInt("Texture", panel.textureID);
+	ret = img_scene.AddInt("Texture", panel_in_scene.textureID);
 
 	return ret;
 }

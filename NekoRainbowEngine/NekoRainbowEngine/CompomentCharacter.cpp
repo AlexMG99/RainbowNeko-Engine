@@ -12,7 +12,8 @@ ComponentCharacter::ComponentCharacter(component_type comp_type, bool act, GameO
 	text_font = App->fonts->default_font;
 	ch = path;
 
-	panel.textureID = text_font->Characters.at(path[0]).TextureID;
+	panel_in_game.textureID = panel_in_scene.textureID = text_font->Characters.at(path[0]).TextureID;
+	
 }
 
 bool ComponentCharacter::OnSave(Scene & scene, int i) const

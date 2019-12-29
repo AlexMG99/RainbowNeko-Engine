@@ -9,7 +9,7 @@
 
 ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
-	checkbox_false = panel.textureID = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
+	panel_in_game.textureID = checkbox_false = panel_in_scene.textureID = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
 	checkbox_true = App->importer->texture_imp->GetImageID("./Assets/checkboxOn.png");
 }
 
@@ -20,12 +20,12 @@ bool ComponentCheckbox::OnClick()
 
 	if (bool_state)
 	{
-		panel.textureID = checkbox_false;
+		panel_in_scene.textureID = checkbox_false;
 		bool_state = false;
 	}
 	else
 	{
-		panel.textureID = checkbox_true;
+		panel_in_scene.textureID = checkbox_true;
 		bool_state = true;
 	}
 
