@@ -41,7 +41,14 @@ bool ComponentButton::OnClick()
 	if (!dragable)
 	{
 		fill_color = vec4(0.2, 0.2, 0.2, fill_color.w);
-		function = true;
+		if (my_go->GetName() == "StartButton")
+			function = true;
+		else if (my_go->GetName() == "CloseButton")
+		{
+			App->viewport->DeactivateMenu();
+			state = UI_Idle;
+		}
+			
 	}
 	
 	return true;
@@ -59,19 +66,6 @@ bool ComponentButton::OnSave(Scene & scene, int i) const
 	ret = img_scene.AddInt("Height", height);
 	ret = img_scene.AddInt("PosX", pos_x);
 	ret = img_scene.AddInt("PosY", pos_y);
-
-	Scene vertex = scene.AddSectionArray(0);
-
-	for (int i = 0; i < 4; i++)
-	{
-		char name[30];
-		std::string num = "Vertex";
-		num += std::to_string(i);
-		strcpy_s(name, num.c_str());
-		ret = vertex.AddFloat3(num.c_str(), panel_in_scene.vertex[i]);
-	}
-
-	ret = img_scene.AddInt("Texture", panel_in_scene.textureID);
 
 	return ret;
 }

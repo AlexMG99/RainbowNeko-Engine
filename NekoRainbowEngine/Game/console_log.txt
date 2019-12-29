@@ -26,6 +26,7 @@ Loaded with path: ./Icons/Scene.png succesfully!
 Loaded with path: ./Icons/Arrow.png succesfully!
 -------------- Application Update --------------
 
+Loaded with path: ./Assets/close.png succesfully!
 Loaded with path: ./Assets/checkbox.png succesfully!
 Loaded with path: ./Assets/checkboxOn.png succesfully!
 Loaded with path: ./Assets/vsync.png succesfully!
@@ -34,35 +35,12 @@ Loaded with path: ./Assets/checkboxOn.png succesfully!
 Loaded with path: ./Assets/draggable.png succesfully!
 Loaded with path: ./Assets/MenuImage.png succesfully!
 Loaded with path: ./Assets/crosshair.png succesfully!
-Generated mesh with id vertex: 87 and id index: 88
-Loaded with path: /Library/Textures/1737491090.dds succesfully!
 Generated mesh with id vertex: 93 and id index: 94
+Loaded with path: /Library/Textures/1737491090.dds succesfully!
+Generated mesh with id vertex: 99 and id index: 100
 Draggable set to: 0
 Draggable set to: 1
 Draggable set to: 0
-Draggable set to: 1
-Draggable set to: 0
 Vsync set to: 0
 Vsync set to: 1
 Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Vsync set to: 1
-Vsync set to: 0
-Draggable set to: 1
-Draggable set to: 0
-Loaded with path: ./Assets/start.png succesfully!
-Loaded with path: ./Assets/Window.png succesfully!
-Loaded with path: ./Assets/background.jpg succesfully!

@@ -67,13 +67,16 @@ bool ModuleViewport::Start()
 
 	//First Scene
 	CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
-	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
+	CreateUIElement("StartButton", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
 	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 
 	//Main Scene
 	/*ComponentCheckbox* checkbox; 
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
+
+	close_button = CreateUIElement("CloseButton", UI_Button, 60, 60, canvas->GetComponentCanvas(), "./Assets/close.png", canvas, { 700,130,0 });
+	close_button->active = false;
 
 	checkbox_vsync = CreateUIElement("CheckboxVsync", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
 	checkbox_vsync->active = false;
@@ -103,16 +106,7 @@ update_status ModuleViewport::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		if(background)
-			background->active = !background->active;
-		if(checkbox_vsync)
-			checkbox_vsync->active = !checkbox_vsync->active;
-		if (vsync_text)
-			vsync_text->active = !vsync_text->active;
-		if (checkbox_draggable)
-			checkbox_draggable->active = !checkbox_draggable->active;
-		if (draggable_text)
-			draggable_text->active = !draggable_text->active;
+		DeactivateMenu();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
@@ -435,6 +429,10 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 		checkbox_draggable = new_obj;
 		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
 	}
+	if (new_obj->GetName() == "CloseButton")
+	{
+		close_button = new_obj;
+	}
 
 	return true;
 }
@@ -548,6 +546,22 @@ GameObject * ModuleViewport::CreateUIElement(const char*  name, UI_type type, ui
 	object->CreateComponentUI(type, width, height, canvas, str);
 	object->SetId();
 	return object;
+}
+
+void ModuleViewport::DeactivateMenu()
+{
+	if (background)
+		background->active = !background->active;
+	if (checkbox_vsync)
+		checkbox_vsync->active = !checkbox_vsync->active;
+	if (vsync_text)
+		vsync_text->active = !vsync_text->active;
+	if (checkbox_draggable)
+		checkbox_draggable->active = !checkbox_draggable->active;
+	if (draggable_text)
+		draggable_text->active = !draggable_text->active;
+	if (close_button)
+		close_button->active = !close_button->active;
 }
 
 void ModuleViewport::DeleteGameObject()
