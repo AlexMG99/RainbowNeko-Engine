@@ -61,6 +61,8 @@ In order to make our Engine easy to understand, we decided to use the ImGui libr
  * Panel Inspector: Shows information about that GameObject selected in the panel Hierarchy.
  * Panel Console: Prints Assimp Logs and Normal Logs
  * Panel Assets: Loads the floders and resources that are inside the Library folder.
+ 
+ To give the user more interaction with the Engine, all the panels composition is made using the docking sistem which let the user change the panels organizationa, as he she wishes.
 
 ### Assets Panel
 
