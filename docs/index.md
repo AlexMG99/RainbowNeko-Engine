@@ -60,7 +60,7 @@ In order to make our Engine easy to understand, we decided to use the ImGui libr
  * Panel Play: Shows scene through camera 
  * Panel Inspector: Shows information about that GameObject selected in the panel Hierarchy.
  * Panel Console: Prints Assimp Logs and Normal Logs
- * Panel Assets: TLoads the floders and resources that are inside the Library folder.
+ * Panel Assets: Loads the floders and resources that are inside the Library folder.
 
 ### Assets Panel
 
