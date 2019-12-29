@@ -81,16 +81,16 @@ To put the texture on it you must have the texture folder opened, then select th
 
 ![assetsmenu](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/assetsmenu.gif?raw=true)
 
-### Frustum
-
 ## User Interface Sub-system
 We have implemented a main menu that contains a fullscreen background image. 
 As a child of the canvas we have an **Input Box** which request the testers name and a **Start Button** which can be pressed with the mouse or the keyboard.
 
+![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine.gif?raw=true)
+
 As soon as the **Start Button** is pressed the fullscreen background and all that it contain fades away and show an 3D scene.
 When the new scene is loaded pressing the button **F1** the teaster can open an options window. In it the teaster will find a **Check Box** which allow to activate or deactivate vsync.
+![engine2](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine2.gif?raw=true)
 
-![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine.gif?raw=true)
 ## Links
 
 *  Link to [**Code Repository** ](https://github.com/AlexMG99/RainbowNeko-Engine) 
