@@ -93,9 +93,12 @@ When the user presses the **Start Button** a new scene is loaded. In it, it appe
 ![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine.gif?raw=true)
 
 When the user is in the loaded scene he/she can press **F1 Button**, and an optiions menu will show up.
+
 In it the user will  find two  **Check Boxes**:
+
 * The first one allows to activate or deactivate vsync.
 * The second one allows to make the panel draggable.
+
 To close the menu the user has to press the **F1 Button** again.
 
 When the **STOP Button** is clicked, the scene will go to its original state.
