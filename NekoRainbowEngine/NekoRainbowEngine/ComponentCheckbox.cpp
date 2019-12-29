@@ -10,7 +10,7 @@
 ComponentCheckbox::ComponentCheckbox(component_type comp_type, bool act, GameObject * obj, UI_type type, uint w, uint h, ComponentCanvas * canvas, const char * path, uint x, uint y) :ComponentUI(comp_type, act, obj, type, w, h, canvas, path, x, y)
 {
 	checkbox_name = path;
-	panel_in_game.textureID = checkbox_false = panel_in_scene.textureID = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
+	panel_in_game.textureID = panel_in_scene.textureID = checkbox_false = App->importer->texture_imp->GetImageID("./Assets/checkbox.png");
 	checkbox_true = App->importer->texture_imp->GetImageID("./Assets/checkboxOn.png");
 }
 
@@ -35,6 +35,12 @@ bool ComponentCheckbox::OnClick()
 	if (checkbox_name == "Draggable")
 	{
 		SetDragable();
+		LOG("Draggable set to: %i", bool_state);
+	}
+	else if (checkbox_name == "Vsync")
+	{
+		App->window->SetVsync(bool_state);
+		LOG("Vsync set to: %i", bool_state);
 	}
 
 	return true;
@@ -42,6 +48,15 @@ bool ComponentCheckbox::OnClick()
 
 void ComponentCheckbox::SetState(bool st)
 {
+	if (st)
+	{
+		panel_in_game.textureID = panel_in_scene.textureID = checkbox_true;
+	}
+	else
+	{
+		panel_in_game.textureID = panel_in_scene.textureID = checkbox_false;
+	}
+
 	bool_state = &st;
 }
 
@@ -51,7 +66,7 @@ bool ComponentCheckbox::OnSave(Scene & scene, int i) const
 	Scene check_scene = scene.AddSectionArray(i);
 
 	ret = check_scene.AddInt("Type", type);
-	ret = check_scene.AddString("Path", "0");
+	ret = check_scene.AddString("Path", checkbox_name);
 	ret = check_scene.AddInt("UI_type", ui_type);
 	ret = check_scene.AddInt("Width", width);
 	ret = check_scene.AddInt("Height", height);

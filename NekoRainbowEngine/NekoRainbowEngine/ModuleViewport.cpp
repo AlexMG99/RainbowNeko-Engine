@@ -66,19 +66,19 @@ bool ModuleViewport::Start()
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 
 	//First Scene
-	/*CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
+	CreateUIElement("Text", UI_Label, 150, 60, canvas->GetComponentCanvas(), "MENU", canvas, { 400,135 ,0 });
 	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,230,0 });
 	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
-	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);*/
+	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
 
 	//Main Scene
-	ComponentCheckbox* checkbox; 
+	/*ComponentCheckbox* checkbox; 
 	App->importer->ImportFile("./Assets/BakerHouse.fbx");
 
 	checkbox_vsync = CreateUIElement("CheckboxVsync", UI_Checkbox, 80, 80, canvas->GetComponentCanvas(), "Vsync", canvas, { 250,210,0 });
 	checkbox_vsync->active = false;
 	checkbox = (ComponentCheckbox*)checkbox_vsync->GetComponentUI();
-	checkbox->SetState(vsync);
+	checkbox->SetState(App->window->vsync_on);
 
 	vsync_text = CreateUIElement("VsyncText", UI_Image, 250, 60, canvas->GetComponentCanvas(), "./Assets/vsync.png", canvas, { 320,220,0 });
 	vsync_text->active = false;
@@ -92,7 +92,7 @@ bool ModuleViewport::Start()
 	draggable_text->active = false;
 	background = CreateUIElement("Background", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/MenuImage.png", canvas, { 180,50,0 });
 	background->active = false; 
-	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });
+	CreateUIElement("CrossHair_Image", UI_Image, 60, 60, canvas->GetComponentCanvas(), "./Assets/crosshair.png", canvas, { 450, 320, 0 });*/
 
 	return ret;
 }
@@ -415,6 +415,8 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	if (new_obj->GetName() == "CheckboxVsync")
 	{
 		checkbox_vsync = new_obj;
+		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_vsync->GetComponentUI();
+		checkbox->SetState(App->window->vsync_on);
 	}
 	if (new_obj->GetName() == "Background")
 	{
@@ -423,8 +425,6 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	if (new_obj->GetName() == "VsyncText")
 	{
 		vsync_text = new_obj;
-		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
-		checkbox->SetState(vsync);
 	}
 	if (new_obj->GetName() == "DraggableText")
 	{
@@ -434,7 +434,6 @@ bool ModuleViewport::LoadGameObject(Scene scn)
 	{
 		checkbox_draggable = new_obj;
 		ComponentCheckbox* checkbox = (ComponentCheckbox*)checkbox_draggable->GetComponentUI();
-		checkbox->SetState(dragable);
 	}
 
 	return true;

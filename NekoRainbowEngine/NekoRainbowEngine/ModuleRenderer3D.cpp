@@ -155,3 +155,4 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 	glLoadMatrixf(App->camera->GetSceneCamera()->GetViewMatrix());
 }
+

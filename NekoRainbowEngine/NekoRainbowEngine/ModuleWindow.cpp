@@ -92,8 +92,6 @@ update_status ModuleWindow::Load()
 	JSON_Object* obj = json_object(App->settings_doc);
 	JSON_Object* win_obj = json_object_get_object(json_object_get_object(obj, "Application"), "Window");
 
-	
-
 	return UPDATE_CONTINUE;;
 }
 

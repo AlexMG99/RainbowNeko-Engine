@@ -100,8 +100,5 @@ public:
 public:
 	ImGuizmo::OPERATION guizmo_op      = ImGuizmo::TRANSLATE;
 	ImGuizmo::MODE      guizmo_mode    = ImGuizmo::WORLD;
-
-	bool vsync = false;
 	
-
 };

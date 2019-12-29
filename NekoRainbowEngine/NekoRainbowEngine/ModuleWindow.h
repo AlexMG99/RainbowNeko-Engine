@@ -65,7 +65,7 @@ public:
 	bool border_on = false;
 	bool fullscreendesktop_on = false;
 
-	bool vsync_on; 
+	bool vsync_on = false; 
 
 	float brigthness = 5.0f;
 	int width;
