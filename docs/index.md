@@ -90,7 +90,7 @@ As a child of the canvas we have an **Input Box** which request the testers name
 As soon as the **Start Button** is pressed the fullscreen background and all that it contain fades away and show an 3D scene.
 When the new scene is loaded pressing the button **F1** the teaster can open an options window. In it the teaster will find a **Check Box** which allow to activate or deactivate vsync.
 
-![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/openpanel.gif?raw=true)
+![openpanel](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/Engine.gif?raw=true)
 ## Links
 
 *  Link to [**Code Repository** ](https://github.com/AlexMG99/RainbowNeko-Engine) 
