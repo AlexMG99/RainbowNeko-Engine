@@ -156,6 +156,8 @@ To put the texture on it you must have the texture folder opened, then select th
 ### UI
 The UI is activated when clicked PLAY button. For this Assignment we have done a Demo. The Demo consists of a Main Menu, whith a label for the menu title, and a butoon start which leads the user to a new scene. In this new scene, the BakerHouse.fbx is loaded and appears a Crosshair in the middle of the screen. When pressed F1, a options menu is opened, where the player can activate/deactivate Vysnc and dragable UI. When F1 or the close button is clicked the menu will close. When the STOP button is clicked, the scene will go to his original state.
 
+
+
 ## Game Engine Controls
 * **Camera Movement**:
 	* _**While right clicking, and using "WASD" movement and free look around is enabled**_.
@@ -171,6 +173,8 @@ The UI is activated when clicked PLAY button. For this Assignment we have done a
 	* _**Centers the camera**_.
 * **Right Mouse Click on scene object**:
 	* _**Selects GameObject**_.
+* **F1**:
+	* _**Activates/Deactivates UI**_.
 
 ## Guizmo Controls
 When a GameObject in the scene is selected:
