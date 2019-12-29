@@ -64,6 +64,9 @@ In order to make our Engine easy to understand, we decided to use the ImGui libr
  
  To give the user more interaction with the Engine, all the panels composition is made using the docking sistem which let the user change the panels organizationa, as he she wishes.
 
+![docking](https://github.com/AlexMG99/RainbowNeko-Engine/blob/master/docs/docking.gif?raw=true)
+
+
 ### Assets Panel
 
 Inside the Engine we have included a Panel where you can see all the assets that we have in our library folder:
