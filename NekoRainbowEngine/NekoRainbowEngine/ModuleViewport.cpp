@@ -61,7 +61,7 @@ bool ModuleViewport::Start()
 	game_fbo->SetComponentCamera(camera_game->GetComponentCamera());
 
 	canvas = CreateGameObject("Canvas");
-	canvas->CreateComponent(COMPONENT_CANVAS, true, 937,760);
+	canvas->CreateComponent(COMPONENT_CANVAS, true, 1021, 681);
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Elianto.otf", 120);
 

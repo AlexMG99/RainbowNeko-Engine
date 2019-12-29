@@ -31,14 +31,19 @@ bool ComponentButton::UpdateUI(float dt)
 
 bool ComponentButton::OnHover()
 {
-	fill_color = vec4(0.5, 0.5, 0.5, fill_color.w);
+	if (!dragable)
+		fill_color = vec4(0.5, 0.5, 0.5, fill_color.w);
 	return true;
 }
 
 bool ComponentButton::OnClick()
 {
-	fill_color = vec4(0.2, 0.2, 0.2, fill_color.w);
-	function = true;
+	if (!dragable)
+	{
+		fill_color = vec4(0.2, 0.2, 0.2, fill_color.w);
+		function = true;
+	}
+	
 	return true;
 }
 

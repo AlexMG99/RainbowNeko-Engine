@@ -15,6 +15,7 @@ struct UIPanel {
 	uint textureID;
 
 	void GenerateBuffers();
+	void RegenerateVertexBuffers();
 };
 
 enum UI_type {

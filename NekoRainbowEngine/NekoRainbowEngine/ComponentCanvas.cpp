@@ -9,14 +9,11 @@
 
 ComponentCanvas::ComponentCanvas(component_type comp_type, bool act, GameObject * objs, uint w, uint h):Component(comp_type, act, objs)
 {
-	ComponentCamera* parent_cam = App->viewport->camera_game->GetComponentCamera();
-	width = parent_cam->frustum.CornerPoint(3).x - parent_cam->frustum.CornerPoint(7).x;
-	height = parent_cam->frustum.CornerPoint(7).y - parent_cam->frustum.CornerPoint(5).y;
+	width = w;
+	height = h;
 
 	ComponentTransform* comp_trans = my_go->GetComponentTransform();
-	ComponentTransform* parent_trans = my_go->GetParent()->GetComponentTransform();
-	
-	comp_trans->local_position = float3(parent_cam->frustum.CornerPoint(5).x, parent_cam->frustum.CornerPoint(5).y, parent_cam->frustum.CornerPoint(5).z - 1);
+	comp_trans->local_position = float3(0, 0, 200);
 	comp_trans->GetGlobalTransformMatrix();
 }
 
