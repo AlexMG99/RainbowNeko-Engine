@@ -68,8 +68,7 @@ bool ComponentUI::OnClicked()
 
 bool ComponentUI::OnRelease()
 {
-	if(my_go->GetComponentMesh())
-		my_go->GetComponentMesh()->ChangeColor(vec4(1, 1, 1, 1));
+	fill_color = vec4(1, 1, 1, 1);
 	return true;
 }
 
@@ -106,6 +105,8 @@ void ComponentUI::DebugDraw()
 
 void ComponentUI::Draw()
 {
+	DebugDraw();
+
 	if (App->viewport->is_game_mode)
 	{
 		glMatrixMode(GL_PROJECTION);
@@ -128,7 +129,7 @@ void ComponentUI::Draw()
 	glEnable(GL_ALPHA_TEST);
 	glAlphaFunc(GL_GREATER, 0.0f);
 
-	glColor4f(1, 1, 1, 1);
+	glColor4f(fill_color.x, fill_color.y, fill_color.z, fill_color.w);
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -213,7 +214,6 @@ void ComponentUI::UILogic()
 
 	float2 mouse_pos = float2(App->editor->panel_play->cursor_pos.x, App->editor->panel_play->cursor_pos.y);
 
-	LOG("%f", mouse_pos.x);
 	switch (state)
 	{
 	case UI_Idle:

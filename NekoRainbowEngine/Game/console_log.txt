@@ -13,6 +13,8 @@ GLSL: 4.60 NVIDIA
 -------------- Application Start --------------
 Setting up the camera
 Loaded with path: ./Assets/start.png succesfully!
+Loaded with path: ./Assets/Window.png succesfully!
+Loaded with path: ./Assets/background.jpg succesfully!
 Loading Editor Scene
 Loaded with path: ./Icons/Folder.png succesfully!
 Loaded with path: ./Icons/DDS.png succesfully!

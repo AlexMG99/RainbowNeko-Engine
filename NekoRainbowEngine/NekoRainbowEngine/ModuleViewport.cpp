@@ -65,8 +65,10 @@ bool ModuleViewport::Start()
 
 	App->fonts->default_font = App->fonts->LoadFont("./Fonts/Roboto.ttf", 120);
 
-	//CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
-	CreateUIElement("Button", UI_Button, 200, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, {200,200,0});
+	CreateUIElement("Button", UI_Button, 250, 100, canvas->GetComponentCanvas(), "./Assets/start.png", canvas, { 340,200,0 });
+	CreateUIElement("Menu_Image", UI_Image, 600, 600, canvas->GetComponentCanvas(), "./Assets/Window.png", canvas, { 180,50,0 });
+	CreateUIElement("Background_Image", UI_Image, 1021, 681, canvas->GetComponentCanvas(), "./Assets/background.jpg", canvas);
+	
 
 	//App->importer->ImportFile("./Assets/BakerHouse.fbx");
 	///*uint width = comp_camera->frustum.CornerPoint(3).x - comp_camera->frustum.CornerPoint(7).x;
